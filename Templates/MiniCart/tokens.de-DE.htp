@@ -1,0 +1,8 @@
+﻿Bitte wählen Sie eine Vorlage für das Minicart aus oder erzeugen Sie eine neue. Sie können die folgenden Platzhalter verwenden::<br />
+<ul style="color:black;">
+	<li>[PRODUCTS] = Anzahl Artikel im Warenkorb</li>
+	<li>[TOTAL] = Summe der Artikelpreise im Warenkorb </li>
+	<li>[CURRENCY] = Währung</li>
+	<li>[CARTLINK] = Link zum Warenkorb-Modul</li>
+	<li>[CHECKOUTLINK] = Link zum Checkout</li>
+</ul>

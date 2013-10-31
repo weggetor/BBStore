@@ -1,0 +1,18 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/** Create Tables **/
+ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider]
+ADD TaxPercent DECIMAL(4,1) NOT NULL DEFAULT (0) 
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

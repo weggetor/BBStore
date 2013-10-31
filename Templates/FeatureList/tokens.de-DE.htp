@@ -1,0 +1,6 @@
+﻿Wählen Sie eine Vorlage zur Darstellung der Produktmerkmalliste. Sie können aus folgenden Platzhaltern auswählen:<br />
+<ul style="color:black;">
+	<li>[TITLE] = Merkmal</li>
+	<li>[IMAGE] = Merkmal Bild (orig. Dimension)</li>
+	<li>[IMAGE:width] = Merkmal Bild (Breite in Pixel)</li>
+</ul>

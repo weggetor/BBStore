@@ -1,0 +1,7 @@
+'Remove old versions and old files of BBStore
+DesktopModules\BBStore\Images\cart1.png
+DesktopModules\BBStore\Images\cart2.png
+DesktopModules\BBStore\Images\cart3.png
+DesktopModules\BBStore\Images\cart4.png
+DesktopModules\BBStore\Images\cart5.png
+DesktopModules\BBStore\App_LocalResources\CartNavigationControl.ascx.*

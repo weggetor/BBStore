@@ -1,0 +1,26 @@
+﻿Please select a template or create a new for the product list. You can use the following tokens:<br />
+<ul style="color:black;">
+	<li>[TITLE] = product name</li>
+	<li>[PRODUCTSHORTDESCRIPTION] = Product Short Description</li>
+	<li>[PRODUCTDESCRIPTION] = Product Description</li>
+	<li>[PRICE] = Price</li>
+	<li>[CURRENCY] = Currency</li>
+	<li>[TAX] = Tax</li>
+	<li>[UNIT] = Unit</li>
+	<li>[IMAGE] = Product Image (orig. dimension)</li>
+	<li>[IMAGE:width] = Product Image (width in pixel)</li>
+	<li>[FEATURE:token.property] = Product-Feature with token name (eg. "make"). Valid Properties:
+		<ul style="color:black">
+			<li>FeatureGroup = Group of Feature</li>
+			<li>Feature = Feature Name</li>
+			<li>FeatureList = List-Name (if Feature is List-Feature)</li>
+			<li>FeatureListItem = List-Value (if Feature is List-Feature)</li>
+			<li>nValue = Numeric Value</li>
+			<li>cValue = Character Value</li>
+			<li>tValue = DateTime Value</li>
+			<li>iValue = Integer Value</li>
+			<li>fValue = Float Value</li>
+		</ul>
+	</li>
+	<li>[RESOURCE:key] = Token replace from Resource-File</li>
+</ul>

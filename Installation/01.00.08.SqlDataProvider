@@ -1,0 +1,200 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='dbo.Relation_237' and type='F')
+	EXECUTE sp_rename 'dbo.Relation_237', 'FK_{objectQualifier}PaymentProvider_Lang', 'OBJECT'
+GO
+
+/***** Create BBStore_CartAddress *****/
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartAddress]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_CartAddress] ( 
+         CartID UNIQUEIDENTIFIER NULL,
+         CustomerAddressID INT NULL,
+         SubscriberAddressTypeId INT NULL,
+      )
+   END
+GO
+
+/***** Create BBStore_SubscriberAddressType  *****/
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] ( 
+         SubscriberAddressTypeId INT NOT NULL IDENTITY (1,1),
+         PortalId INT NOT NULL,
+         SubscriberID INT NOT NULL DEFAULT (0) ,
+         Mandatory BIT NOT NULL DEFAULT 0,
+		 KzAddressType NVARCHAR(10) NOT NULL DEFAULT ''
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] ADD CONSTRAINT PK_{objectQualifier}BBStore_SubscriberAddressType PRIMARY KEY NONCLUSTERED  (SubscriberAddressTypeId ASC)
+   END
+GO
+
+/***** Create BBStore_SubscriberAddressTypeLang *****/
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang] ( 
+         SubscriberAddressTypeId INT NOT NULL,
+         AddressType NVARCHAR(50) NOT NULL DEFAULT '' ,
+         Language NCHAR(5) NOT NULL
+      )
+   END
+GO
+
+/***** Create Foreign Keys for BBSTore_CartAddress + BBStore_SubscriberAddressType +  BBStore_SubscriberAddressTypeLang *****/
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Cart_CartAddress' and type='F')
+	ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_CartAddress] 
+      ADD CONSTRAINT FK_{objectQualifier}Cart_CartAddress FOREIGN KEY ( CartID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Cart] ( CartID )  ON DELETE CASCADE
+go
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CustomerAddress_CartAddress' and type='F')
+	ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_CartAddress]
+      ADD CONSTRAINT FK_{objectQualifier}CustomerAddress_CartAddress FOREIGN KEY ( CustomerAddressID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_CustomerAddress] ( CustomerAddressID )
+go
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SubscriberAddressType_CartAddress' and type='F')
+	ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_CartAddress] 
+      ADD CONSTRAINT FK_{objectQualifier}SubscriberAddressType_CartAddress FOREIGN KEY ( SubscriberAddressTypeId ) REFERENCES  {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] ( SubscriberAddressTypeId )
+go
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SubscriberAddressType_Lang' and type='F')
+	ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang]
+      ADD CONSTRAINT FK_{objectQualifier}SubscriberAddressType_Lang FOREIGN KEY ( SubscriberAddressTypeId )  REFERENCES  {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] ( SubscriberAddressTypeId )
+      ON DELETE CASCADE
+go
+
+
+/***** Fill new tables with default values   *****/ 
+INSERT INTO {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] (PortalId,SubscriberId,kzAddressType,Mandatory)
+	SELECT PortalId, 0 As SubscriberId, 'Billing' as kzAddresstype, 0 as Mandatory FROM {databaseOwner}[{objectQualifier}Portals]
+go
+
+INSERT INTO {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang] (SubscriberAddressTypeId,Addresstype,Language)
+	SELECT TOP 1 SubscriberAddressTypeId , 'Billing address' as Addresstype, 'en-US' as Language FROM  {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] ORDER BY SubscriberAddressTypeId DESC
+go
+
+INSERT INTO {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] (PortalId,SubscriberId,kzAddressType,Mandatory)
+	SELECT PortalId, 0 As SubscriberId, 'Shipping' as kzAddresstype, 0 as Mandatory FROM {databaseOwner}[{objectQualifier}Portals]
+go
+INSERT INTO {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang] (SubscriberAddressTypeId,Addresstype,Language)
+	SELECT TOP 1 SubscriberAddressTypeId , 'Shipping address' as Addresstype, 'en-US' as Language FROM  {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] ORDER BY SubscriberAddressTypeId DESC
+go
+
+INSERT INTO {databaseOwner}[{objectQualifier}BBStore_CartAddress] (CartId,CustomerAddressId,SubscriberAddressTypeId)
+	SELECT CartId, BillingAddressId, 
+		(SELECT DISTINCT a.SubscriberAddressTypeId 
+		 FROM {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] a
+		 INNER JOIN {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang] b ON a.SubscriberAddressTypeId = b.SubscriberAddressTypeId
+		 WHERE b.Addresstype = 'Billing') as SubscriberAddressTypeId
+	FROM {databaseOwner}[{objectQualifier}BBStore_Cart]
+	WHERE BillingAddressId IN (SELECT CustomerAddressId FROM {databaseOwner}[{objectQualifier}BBStore_CustomerAddress])
+go
+
+INSERT INTO {databaseOwner}[{objectQualifier}BBStore_CartAddress] (CartId,CustomerAddressId,SubscriberAddressTypeId)
+	SELECT CartId, DeliveryAddressId, 
+		(SELECT DISTINCT a.SubscriberAddressTypeId 
+		 FROM {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] a
+		 INNER JOIN {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang] b ON a.SubscriberAddressTypeId = b.SubscriberAddressTypeId
+		 WHERE b.Addresstype = 'Shipping') as SubscriberAddressTypeId
+	FROM {databaseOwner}[{objectQualifier}BBStore_Cart]
+	WHERE DeliveryAddressId IN (SELECT CustomerAddressId FROM {databaseOwner}[{objectQualifier}BBStore_CustomerAddress])
+go
+
+/***** Alter BBStore_Order  *****/
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order]
+	ALTER COLUMN PaymentProviderID INT NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order]
+	ALTER COLUMN PaymentProviderValues NVARCHAR(MAX) NULL
+go
+
+
+/*****  Alter BBStore_CustomerAddress *****/
+ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_CustomerAddress]
+	DROP COLUMN AddressType
+go
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerAddress]
+ADD  IsDefault BIT NOT NULL DEFAULT (0) 
+go
+
+/*****  Alter BBStore_Cart: drop Cart.BillingAddressid + DeliveryAdressId *****/
+DECLARE @tmp_ConstraintName varchar(MAX);
+ 
+SELECT    @tmp_ConstraintName = c_obj.name
+  FROM    sysobjects As c_obj
+        JOIN syscomments AS com ON c_obj.id = com.id
+        JOIN sysobjects  AS t_obj ON c_obj.parent_obj = t_obj.id  
+        JOIN sysconstraints AS con ON c_obj.id = con.constid
+        JOIN syscolumns AS col ON t_obj.id = col.id
+                                        AND con.colid = col.colid
+ WHERE t_obj.name = '{objectQualifier}BBStore_Cart'
+   AND col.name = 'BillingAddressId';
+ 
+SET @tmp_ConstraintName = 'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart] DROP CONSTRAINT ' + @tmp_ConstraintName;
+EXECUTE( @tmp_ConstraintName )
+
+ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_Cart]
+	DROP COLUMN BillingAddressId
+go
+
+DECLARE @tmp_ConstraintName varchar(MAX);
+SELECT    @tmp_ConstraintName = c_obj.name
+  FROM    sysobjects As c_obj
+        JOIN syscomments AS com ON c_obj.id = com.id
+        JOIN sysobjects  AS t_obj ON c_obj.parent_obj = t_obj.id  
+        JOIN sysconstraints AS con ON c_obj.id = con.constid
+        JOIN syscolumns AS col ON t_obj.id = col.id
+                                        AND con.colid = col.colid
+ WHERE t_obj.name = '{objectQualifier}BBStore_Cart'
+   AND col.name = 'DeliveryAddressId';
+ 
+SET @tmp_ConstraintName = 'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart] DROP CONSTRAINT ' + @tmp_ConstraintName;
+EXECUTE( @tmp_ConstraintName )
+
+
+ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_Cart]
+	DROP COLUMN DeliveryAddressId
+go
+
+/***** Alter  BBStore_ OrderAddress: drop AddressType *****/
+DECLARE @tmp_ConstraintName varchar(MAX);
+SELECT    @tmp_ConstraintName = c_obj.name
+  FROM    sysobjects As c_obj
+        JOIN syscomments AS com ON c_obj.id = com.id
+        JOIN sysobjects  AS t_obj ON c_obj.parent_obj = t_obj.id  
+        JOIN sysconstraints AS con ON c_obj.id = con.constid
+        JOIN syscolumns AS col ON t_obj.id = col.id
+                                        AND con.colid = col.colid
+ WHERE t_obj.name = '{objectQualifier}BBStore_OrderAddress'
+   AND col.name = 'AddressType';
+ 
+SET @tmp_ConstraintName = 'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress] DROP CONSTRAINT ' + @tmp_ConstraintName;
+EXECUTE( @tmp_ConstraintName )
+
+ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_OrderAddress]
+	DROP COLUMN AddressType
+go
+
+/***** Alter BBStore_OrderAddress *****/
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress]
+ADD    SubscriberAddressTypeId INT NULL
+go
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SubscriberAddressType_OrderAddress' and type='F')
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress] WITH NOCHECK
+      ADD CONSTRAINT FK_{objectQualifier}SubscriberAddressType_OrderAddress FOREIGN KEY ( SubscriberAddressTypeId )  REFERENCES {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] ( SubscriberAddressTypeId )
+go
+
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

@@ -1,0 +1,25 @@
+Please select a template or create a new for the product display. You can use the following tokens:<br />
+<ul style="color:black">
+	<li>[TITLE] = product name</li>
+	<li>[ITEMNO] = item no.</li>
+	<li>[PRODUCTSHORTDESCRIPTION] = Product Short Description</li>
+	<li>[PRODUCTDESCRIPTION] = Product Description</li>
+	<li>[PRODUCTOPTIONS] = Attributes</li>
+	<li>[PRICE] = Price</li>
+	<li>[ORIGINALPRICE] = Original proce (without discount)</li>
+	<li>[CURRENCY] = Currency</li>
+	<li>[TAX] = Tax</li>
+	<li>[UNIT] = Unit</li>
+	<li>[IMAGE] = Product Image (orig. dimension)</li>
+	<li>[IMAGE:width] = Product Image (width in pixel)</li>
+	<li>[IMAGELINK] = Link to Product Image (orig. dimension)</li>
+	<li>[IMAGELINK:width] = Link to Product Image (width in pixel)</li>
+	<li>[AMOUNT] = Textbox for entering amount</li>
+	<li>[ADDCARTIMAGE] = Image with Link for &quot;Add to Cart&quot;</li>
+	<li>[ADDCARTLINK] = Link for &quot;Add to Cart&quot;</li>
+	<li>[MANDATORYERROR] = Error Message (if any)</li>
+	<li>[RESOURCE:key] = Token replace from Resource-File</li>
+	<li>[FEATURES] (optional) = Featuregrid with Product Features</li>
+	<!--<li>[YOUTUBE:width] = Embedded youtube video (width in pixel)</li>-->
+	<li>[IMAGESCROLLER:width,count] = Imagescroller with images from the directory of the article image (width in pixels, number of visible images)</li>
+</ul>

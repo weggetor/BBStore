@@ -1,0 +1,221 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupLang]
+ALTER COLUMN  ProductGroupName NVARCHAR(120) NOT NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupLang]
+ADD  ProductGroupShortDescription NVARCHAR(500) NOT NULL DEFAULT '' 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupLang]
+ADD  ProductGroupDescription NVARCHAR(MAX) NOT NULL DEFAULT '' 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderState]
+ADD PortalId INT NOT NULL DEFAULT 0 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ImportRelation]
+ADD StoreGuid uniqueidentifier 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]
+ADD StoreGuid uniqueidentifier 
+go
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ImportStore]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ImportStore] ( 
+         StoreGuid UNIQUEIDENTIFIER NOT NULL,
+         StoreName NVARCHAR(50) NOT NULL DEFAULT '' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ImportStore] ADD CONSTRAINT PK_{objectQualifier}ImportStore PRIMARY KEY NONCLUSTERED  (StoreGuid ASC)
+   END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_ImportStore_ImportRelation' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ImportRelation] WITH NOCHECK
+      ADD CONSTRAINT FK_{objectQualifier}ImportStore_ImportRelation FOREIGN KEY
+          ( StoreGuid )
+          REFERENCES {databaseOwner}[{objectQualifier}BBStore_ImportStore]
+          ( StoreGuid )
+go
+
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_LocalResource]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_LocalResource] ( 
+         LocalResourceId INT NOT NULL IDENTITY (1,1),
+         LocalResourceToken NVARCHAR(40) NOT NULL DEFAULT '',
+         PortalId INT NOT NULL DEFAULT (0) 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_LocalResource] ADD CONSTRAINT PK_{objectQualifier}LocalResource PRIMARY KEY NONCLUSTERED  (LocalResourceId ASC)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_LocalResourceLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_LocalResourceLang] ( 
+         LocalResourceId INT NULL,
+         Language NCHAR(5) NULL DEFAULT 'en-US' ,
+         Textvalue NVARCHAR(MAX) NOT NULL DEFAULT '' 
+      )
+   END
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}LocalResource_Lang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_LocalResourceLang] WITH NOCHECK
+		  ADD CONSTRAINT FK_{objectQualifier}LocalResource_Lang FOREIGN KEY
+			  ( LocalResourceId )
+			  REFERENCES {databaseOwner}[{objectQualifier}BBStore_LocalResource]
+			  ( LocalResourceId )
+go
+
+DECLARE @Id INT
+IF NOT EXISTS (SELECT 1 FROM {databaseOwner}[{objectQualifier}BBStore_OrderStateLang] where [OrderState]='payed')
+	BEGIN
+		
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] ([OrderAction],PortalId) 
+			SELECT '' as OrderAction , PortalId FROM {databaseOwner}[{objectQualifier}Portals]
+		SET @id = SCOPE_IDENTITY()
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (@Id,'en-US','payed')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (@Id ,'de-DE','bezahlt')
+	END
+GO
+
+UPDATE {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] SET [ProviderTag] = 'CREDITCARD', [ProviderControl]='PaymentProviderCC' WHERE PaymentProviderId = 2
+UPDATE {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] SET [ProviderTag] = 'EC', [ProviderControl]='PaymentProviderEC' WHERE PaymentProviderId = 4
+UPDATE {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] SET [ProviderTag] = 'PAYPAL', [ProviderControl]='PaymentProviderPaypal' WHERE PaymentProviderId = 5
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Unit]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_Unit] ( 
+         UnitId INT NOT NULL IDENTITY (1,1),
+         PortalId INT NULL,
+         Decimals INT NOT NULL DEFAULT 0 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Unit] ADD CONSTRAINT PK_{objectQualifier}BBStore_Unit PRIMARY KEY NONCLUSTERED  (UnitId ASC)
+	  SET IDENTITY_INSERT {databaseOwner}[{objectQualifier}BBStore_Unit] ON
+	  INSERT INTO {databaseOwner}[{objectQualifier}BBStore_Unit](UnitId,PortalId,Decimals) VALUES (1,0,0)
+	  SET IDENTITY_INSERT {databaseOwner}[{objectQualifier}BBStore_Unit] OFF
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_UnitLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_UnitLang] ( 
+         UnitId INT NULL,
+         Language NCHAR(5) NOT NULL DEFAULT '' ,
+         Unit NVARCHAR(20) NOT NULL DEFAULT '' ,
+         Symbol NCHAR(10) NOT NULL DEFAULT '' 
+      )
+	  INSERT INTO {databaseOwner}[{objectQualifier}BBStore_UnitLang] (UnitId, Language,Unit,Symbol) VALUES (1,'en-US','Piece','pcs.')
+   END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}UnitLang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_UnitLang] WITH NOCHECK  
+	ADD CONSTRAINT FK_{objectQualifier}UnitLang FOREIGN KEY ( UnitId ) REFERENCES  {databaseOwner}[{objectQualifier}BBStore_Unit] ( UnitId ) ON DELETE CASCADE
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] ADD UnitId INT NULL
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SimpleProduct_Unit' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] WITH NOCHECK 
+	ADD CONSTRAINT FK_{objectQualifier}SimpleProduct_Unit FOREIGN KEY  ( UnitId )  REFERENCES {databaseOwner}[{objectQualifier}BBStore_Unit]  ( UnitId )
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] 
+	ADD  Decimals INT NOT NULL DEFAULT (0) 
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct]
+	ADD Unit NVARCHAR(10) NOT NULL DEFAULT '' 
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct]
+	ADD DEFAULT ((0)) FOR Quantity
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct]
+	ADD  Unit NVARCHAR(10) NOT NULL DEFAULT '' 
+go
+
+
+IF EXISTS( SELECT * FROM sys.triggers  WHERE name = N'T_{objectQualifier}BBStore_InsertPortal' AND type = 'TR' )
+	DROP TRIGGER T_{objectQualifier}BBStore_InsertPortal 
+GO
+
+CREATE TRIGGER T_{objectQualifier}BBStore_InsertPortal ON {databaseOwner}[{objectQualifier}Portals] FOR INSERT
+AS 
+	BEGIN
+		DECLARE @PORTALID INT
+		DECLARE @ID INT
+		SET @PORTALID = (SELECT PortalId FROM Inserted)
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] (PortalId,SubscriberId,Mandatory, KzAddressType,ViewOrder,IsOrderAddress) VALUES (@PORTALID, 0,1,'Billing',1,1) SELECT @ID = SCOPE_IDENTITY()
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang] (SubscriberAddressTypeId,AddressType,[Language]) VALUES (@ID,'Billing address','en-US')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] (PortalId,SubscriberId,Mandatory, KzAddressType,ViewOrder,IsOrderAddress) VALUES (@PORTALID, 0,0,'Shipping',2,0) SELECT @ID = SCOPE_IDENTITY()
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang] (SubscriberAddressTypeId,AddressType,[Language]) VALUES (@ID,'Shipping address','en-US')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_Unit] (PortalId,Decimals) VALUES (@PORTALID,0) SELECT @ID = SCOPE_IDENTITY()
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_UnitLang] (UnitId,[Language],Unit,Symbol) VALUES (@ID,'en-US','Pieces','pcs.')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] (PortalId,OrderAction) VALUES (@PORTALID,'') SELECT @ID = SCOPE_IDENTITY()
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang] (OrderStateId,[Language],OrderState)  VALUES (@ID,'en-US', 'created')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] (PortalId,OrderAction) VALUES (@PORTALID,'') SELECT @ID = SCOPE_IDENTITY()
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang] (OrderStateId,[Language],OrderState)  VALUES (@ID,'en-US', 'confirmed')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] (PortalId,OrderAction) VALUES (@PORTALID,'') SELECT @ID = SCOPE_IDENTITY()
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang] (OrderStateId,[Language],OrderState)  VALUES (@ID,'en-US', 'cancelled')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] (PortalId,OrderAction) VALUES (@PORTALID,'') SELECT @ID = SCOPE_IDENTITY()
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang] (OrderStateId,[Language],OrderState)  VALUES (@ID,'en-US', 'shipped')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] (PortalId,OrderAction) VALUES (@PORTALID,'') SELECT @ID = SCOPE_IDENTITY()
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang] (OrderStateId,[Language],OrderState)  VALUES (@ID,'en-US', 'payed')
+	END
+GO
+
+
+IF EXISTS( SELECT * FROM sys.triggers  WHERE name = N'T_{objectQualifier}BBStore_DeletePortal' AND type = 'TR' )
+	DROP TRIGGER T_{objectQualifier}BBStore_DeletePortal 
+GO
+
+CREATE TRIGGER T_{objectQualifier}BBStore_DeletePortal ON {databaseOwner}[{objectQualifier}Portals] FOR DELETE
+AS 
+	BEGIN
+		DECLARE @PORTALID INT
+		SET @PORTALID = (SELECT PortalId FROM deleted)
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_Cart] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_ContactAddress] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_Customer] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_CustomerAddress] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_Feature] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_FeatureGroup] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_FeatureList] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_Importrelation] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_LocalResource] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_ModuleProduct] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_Order] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_OrderAddress] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_OrderState] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_ProductFilter] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_ProductGroup] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_ProductTemplate] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_StaticFilter] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_SubscriberTaxRates] WHERE PortalId = @PORTALID
+		DELETE FROM {databaseOwner}[{objectQualifier}BBStore_Unit] WHERE PortalId = @PORTALID
+	END
+GO
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

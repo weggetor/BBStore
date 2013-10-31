@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="ControlTitle_settings.Text" xml:space="preserve">
+    <value>BBStore Product List Settings</value>
+  </data>
+	<data name="DeleteProductTemplate.Text" xml:space="preserve">
+    <value>Are you sure to delete this product template? Products which are using this template will return to default display !</value>
+  </data>
+	<data name="lblProductsInRow.Help" xml:space="preserve">
+    <value>Enter the number of products to be shown in one row</value>
+  </data>
+	<data name="lblProductsInRow.Text" xml:space="preserve">
+    <value>Products in Row</value>
+  </data>
+	<data name="lblRowsPerPage.Help" xml:space="preserve">
+    <value>Enter the number of rows per page</value>
+  </data>
+	<data name="lblRowsPerPage.Text" xml:space="preserve">
+    <value>Rows per page</value>
+  </data>
+	<data name="lnkReset.Text" xml:space="preserve">
+    <value>Reset to default</value>
+  </data>
+	<data name="lblProductModulePage.Help" xml:space="preserve">
+    <value>Please select a page which contains a product module with 'dynamic' setting</value>
+  </data>
+	<data name="lblProductModulePage.Text" xml:space="preserve">
+    <value>Product Module Page</value>
+  </data>
+	<data name="lblSetTitle.Help" xml:space="preserve">
+    <value>Check if the selected product group should be set as module title</value>
+  </data>
+	<data name="lblSetTitle.Text" xml:space="preserve">
+    <value>Productgroup as Title</value>
+  </data>
+	<data name="lblProductsPerPage.Text" xml:space="preserve">
+    <value>Products per Page</value>
+  </data>
+	<data name="lblProductsPerPage.Help" xml:space="preserve">
+    <value>Enter a comma separated list of counts (eg. 25,!50,75,100). Minimum is one value. (! is default value)</value>
+  </data>
+	<data name="SelectOption.Text" xml:space="preserve">
+    <value>(Select optional)</value>
+  </data>
+	<data name="lblRootLevel.Help" xml:space="preserve">
+    <value>Select the base product group for display (optional). </value>
+  </data>
+	<data name="lblRootLevel.Text" xml:space="preserve">
+    <value>Root Productgroup</value>
+  </data>
+	<data name="rblSelectionDynamic.Text" xml:space="preserve">
+    <value>Dynamic</value>
+  </data>
+	<data name="rblSelectionStatic.Text" xml:space="preserve">
+    <value>Static</value>
+  </data>
+	<data name="lblSelection.Text" xml:space="preserve">
+    <value>Selection of Data</value>
+  </data>
+	<data name="lblSelection.Help" xml:space="preserve">
+    <value>Select if data should be selected by various interactive options (Productgroup, Search...) or by a fixed Query defined by the administrator (New articles, Sales ...)</value>
+  </data>
+	<data name="lblStaticFilter.Text" xml:space="preserve">
+    <value>WHERE-Clause</value>
+  </data>
+	<data name="lblStaticFilter.Help" xml:space="preserve">
+    <value>Enter the WHERE Part of the SQL Selection</value>
+  </data>
+	<data name="lblTopN.Text" xml:space="preserve">
+    <value>Max. No of Products</value>
+  </data>
+	<data name="lblTopN.Help" xml:space="preserve">
+    <value>Enter the maximum count of products that should be displayed. Zero means indefinitely.</value>
+  </data>
+	<data name="lblShowListHead.Text" xml:space="preserve">
+    <value>Show Sortbox/ PageCount</value>
+  </data>
+	<data name="lblShowListHead.Help" xml:space="preserve">
+    <value>Shows Row with Sortbox and PageCount above list if enabled</value>
+  </data>
+	<data name="lblHeaderText.Text" xml:space="preserve">
+    <value>Header Text</value>
+  </data>
+	<data name="lblHeaderText.Help" xml:space="preserve">
+    <value>Enter a Text to show above the List of products (HTML allowed)</value>
+  </data>
+	<data name="lblFooterText.Text" xml:space="preserve">
+    <value>Footer Text</value>
+  </data>
+	<data name="lblFooterText.Help" xml:space="preserve">
+    <value>Enter a Text to show beneath the List of products (HTML allowed)</value>
+  </data>
+	<data name="lblStaticFilterSelection.Text" xml:space="preserve">
+    <value>Predefined Selection</value>
+  </data>
+	<data name="lblStaticFilterSelection.Help" xml:space="preserve">
+    <value>Select a predefined selection or create a new one</value>
+  </data>
+	<data name="lblStaticFilterToken.Text" xml:space="preserve">
+    <value>Selection Name</value>
+  </data>
+	<data name="lblStaticFilterToken.Help" xml:space="preserve">
+    <value>Enter a name to save as a predefined selection</value>
+  </data>
+	<data name="lblProductListModulePage.Text" xml:space="preserve">
+    <value>Productlist Module Page</value>
+  </data>
+	<data name="lblProductListModulePage.Help" xml:space="preserve">
+    <value>Please select a page which contains a productlist module with dynamic data selection setting. Fill this field only if you have restricted the number of products (eg. 'Products of the week') and have enabled the link "show all". The selection of the links then jumps to the selctedt page</value>
+  </data>
+	<data name="lblShowAllLink.Text" xml:space="preserve">
+    <value>"Show All"-Link</value>
+  </data>
+	<data name="lblShowAllLink.Help" xml:space="preserve">
+    <value>Check if you want to show the "show all"-link</value>
+  </data>
+	<data name="lblAllLinkCssClass.Text" xml:space="preserve">
+    <value>Link CSS Class</value>
+  </data>
+	<data name="lblAllLinkCssClass.Help" xml:space="preserve">
+    <value>Enter the CSS-Class which is used to render the "Show All" Link</value>
+  </data>
+	<data name="lblShowPaging.Text" xml:space="preserve">
+    <value>Show Paging</value>
+  </data>
+	<data name="lblShowPaging.Help" xml:space="preserve">
+    <value>Shows Row with Paging beneath list if enabled</value>
+  </data>
+	<data name="lblRandomSort.Text" xml:space="preserve">
+    <value>Random Sort</value>
+  </data>
+	<data name="lblRandomSort.Help" xml:space="preserve">
+    <value>Check if sorting should be in random order (changing products in a static list, e.g. "New Products")</value>
+  </data>
+	<data name="Edit.Text" xml:space="preserve">
+    <value>(edit)</value>
+  </data>
+	<data name="AllLinkPos.Text" xml:space="preserve">
+    <value>None,TopLeft,TopCenter,TopRight,BottomLeft,BottomCenter,BottomRight</value>
+  </data>
+	<data name="lblTitleBreadcrumb.Text" xml:space="preserve">
+		<value>Breadcrumb Title</value>
+	</data>
+	<data name="lblTitleBreadcrumb.Help" xml:space="preserve">
+		<value>Show title as breadcrumb links (needs 'ProductGroup as title')</value>
+	</data>
+	<data name="lblEmptyList.Text" xml:space="preserve">
+		<value>Empty List</value>
+	</data>
+	<data name="lblEmptyList.Help" xml:space="preserve">
+		<value>Enter a Text to show if no products found (HTML allowed)</value>
+	</data>
+	<data name="lblLanguage.Text" xml:space="preserve">
+		<value>Select Language</value>
+	</data>
+	<data name="hdrGlobal.Text" xml:space="preserve">
+		<value>Global Settings</value>
+	</data>
+	<data name="hdrTemplates.Text" xml:space="preserve">
+		<value>Templates	</value>
+	</data>
+	<data name="hdrLanguage.Text" xml:space="preserve">
+		<value>Static Text</value>
+	</data>
+	<data name="hdrData.Text" xml:space="preserve">
+		<value>Data Selection</value>
+	</data>
+</root>

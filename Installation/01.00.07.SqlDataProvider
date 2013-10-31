@@ -1,0 +1,81 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_Cart]
+ADD Attachment VARBINARY(MAX) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]
+ADD AttachName NVARCHAR(200) NOT NULL DEFAULT '' 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]
+ADD AttachContentType NVARCHAR(255) NOT NULL DEFAULT '' 
+go
+
+ALTER TABLE  {databaseOwner}[{objectQualifier}BBStore_Order]
+ADD Attachment VARBINARY(MAX) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order]
+ADD AttachName NVARCHAR(200) NOT NULL DEFAULT '' 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order]
+ADD AttachContentType NVARCHAR(255) NOT NULL DEFAULT '' 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order]
+ALTER COLUMN  PaymentProviderID INT NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order]
+ALTER COLUMN  PaymentProviderValues NVARCHAR(MAX) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption]
+ALTER COLUMN  OptionName NVARCHAR(100) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption]
+ALTER COLUMN  OptionValue NVARCHAR(MAX) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption]
+ADD OptionImage VARBINARY(MAX) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption]
+ADD OptionDescription NVARCHAR(MAX) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProductOption]
+ALTER COLUMN  OptionName NVARCHAR(100) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProductOption]
+ALTER COLUMN  OptionValue NVARCHAR(MAX) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProductOption]
+ADD OptionImage VARBINARY(MAX) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProductOption]
+ADD OptionDescription NVARCHAR(MAX) NULL
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Customer]
+ADD CustomerName NVARCHAR(100) NOT NULL DEFAULT ''
+go
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

@@ -1,0 +1,19 @@
+'Remove old versions and old files of BBStore
+DesktopModules\BBStore\CartNavigationControl.ascx
+DesktopModules\BBStore\FeatureGridControl.ascx
+DesktopModules\BBStore\ImageScrollerControl.ascx
+DesktopModules\BBStore\ProductOptionSelectControl.ascx
+DesktopModules\BBStore\TabSelectControl.ascx
+DesktopModules\BBStore\TaxControl.ascx
+DesktopModules\BBStore\SelectProduct.ascx
+DesktopModules\BBStore\App_LocalResources\FeatureGridControl.ascx.resx
+DesktopModules\BBStore\App_LocalResources\ProductOptionSelectControl.ascx.resx
+DesktopModules\BBStore\App_LocalResources\TaxControl.ascx.resx
+DesktopModules\BBStore\App_LocalResources\SelectProduct.ascx.resx
+DesktopModules\BBStore\Images\Active.png
+DesktopModules\BBStore\Images\BigLine.png
+DesktopModules\BBStore\Images\Empty.png
+DesktopModules\BBStore\Images\Set.png
+DesktopModules\BBStore\Images\SmallLine.png
+DesktopModules\BBStore\js\CalcTax.js
+DesktopModules\BBStore\module.css

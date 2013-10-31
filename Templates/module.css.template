@@ -1,0 +1,187 @@
+/*
+COLORBORDER : [COLORBORDER];
+COLORHEAD : [COLORHEAD];
+COLORROW : [COLORROW];
+COLORALT : [COLORALT];
+COLORSUM : [COLORSUM];
+*/
+/* Fix for DNN 7 */
+.dnnFormItem label, .dnnFormItem .dnnFormLabel, .dnnFormItem .dnnTooltip { display: block; float: left; font-weight: bold; margin-right: 16px; margin-top: 3px; text-align: right; width: 30%; }
+
+/* General */
+.bbstore-grid, .bbstore-grid td { background-color:White; border-color:[COLORBORDER]; border-style:none; border-width:1px; padding:3px ! important; font-size: 12px; }
+.bbstore-grid-header, .bbstore-grid-header th { background-color:[COLORHEAD]; font-weight:bold; color:White; padding:3px ! important; }
+.bbstore-grid-row, .bbstore-grid-row td { background-color:[COLORROW]; color:Black; vertical-align:top; }
+.bbstore-grid-alternaterow, .bbstore-grid-alternaterow td { background-color:[COLORALT]; vertical-align:top; }
+.bbstore-grid-caption { text-decoration:none; }
+.bbstore-grid-row a { color:Black!important; }
+.bbstore-grid-alternaterow a { color:Black!Important; }
+.bbstore-grid-sumrow, .bbstore-grid-sumrow td { background-color:[COLORSUM]; font-weight:bold;  }
+.bbstore-grid-summary, .bbstore-grid-summary td { background-color:[COLORHEAD]; font-weight:bold; color:White; padding:3px ! important; font-size: 12px; }
+.bbstore-imagescroller ul li {list-style:none;}
+.bbstore-template  { font-family: monospace !important; font-size: small;}
+
+/* Cart Module*/
+.bbstore-cart-payment-header { border: 1px solid [COLORBORDER]; color: white; background-color: [COLORSUM]; font-size: 130%; padding: 5px; margin: 0 5px 0 0;; cursor: pointer;display: block;  }  
+.bbstore-cart-payment-selectedheader { border: 1px solid [COLORBORDER]; color: white; background-color: [COLORHEAD]; font-size: 130%; padding: 5px; margin: 0 5px 0 0 ; cursor: pointer; display: block; } 
+.bbstore-cart-payment-content { background: linear-gradient(#FFFFFF, #EEEEEE ) repeat scroll 0 0 [COLORROW]; border: 1px solid [COLORBORDER]; padding: 10px; }
+
+.bbstore-cart-payment .cards ul { list-style: none outside none; min-height: 50px;height: 50px;}
+.bbstore-cart-payment .cards li {list-style: none; background-image: url("Providers/Payment/images/creditcardlogos.png"); background-position: 0 0; float: left; height: 32px; margin-right: 8px; text-indent: -9999px; transition: all 0.2s ease 0s; width: 51px; }
+.bbstore-cart-payment .cards li:last-child { margin-right: 0;}
+.bbstore-cart-payment .cards .visa { background-position: 0 0; }
+.bbstore-cart-payment .cards .visa_electron { background-position: 459px 0; }
+.bbstore-cart-payment .cards .mastercard { background-position: 408px 0; }
+.bbstore-cart-payment .cards .maestro { background-position: 357px 0; }
+.bbstore-cart-payment .cards .discover { background-position: 306px 0; }
+.bbstore-cart-payment .cards .amex { background-position: 255px 0; }
+.bbstore-cart-payment .cards .diners_club_carte_blanche { background-position: 204px 0; }
+.bbstore-cart-payment .cards .diners_club_international { background-position: 153px 0; }
+.bbstore-cart-payment .cards .jcb { background-position: 102px 0; }
+.bbstore-cart-payment .cards .laser { background-position: 51px 0; }
+.bbstore-cart-payment .cards .visa.off { background-position: 0 32px; }
+.bbstore-cart-payment .cards .visa_electron.off { background-position: 459px 32px; }
+.bbstore-cart-payment .cards .mastercard.off { background-position: 408px 32px; }
+.bbstore-cart-payment .cards .maestro.off { background-position: 357px 32px; }
+.bbstore-cart-payment .cards .discover.off { background-position: 306px 32px; }
+.bbstore-cart-payment .cards .amex.off { background-position: 255px 32px; }
+.bbstore-cart-payment .cards .diners_club_carte_blanche.off { background-position: 204px 32px; }
+.bbstore-cart-payment .cards .diners_club_international.off { background-position: 153px 32px; }
+.bbstore-cart-payment .cards .jcb.off { background-position: 102px 32px; }
+.bbstore-cart-payment .cards .laser.off { background-position: 51px 32px; }
+.bbstore-cart-payment input.valid { background: url('Providers/Payment/images/tick.png') no-repeat scroll 240px center white;}
+
+/* Product Module*/
+.bbstore-product-cartbox { background-color:[COLORALT]; padding: 5px 25px 5px 25px ! important; }
+.bbstore-product-price-mm {color: #000; text-shadow: 0 -2px #FFF, 2px 0 #FFF, 0 2px #FFF, -2px 0 #FFF, -2px -2px #FFF, 2px 2px #FFF, -2px 2px #FFF,2px -2px #FFF,3px 4px 3px #000; font-size:  46px; font-family: Avantgarde, Impact, Verdana, Arial, Sanserif; font-style: italic; }
+
+/* ProductGroup Module */
+.bbstore-productgroup-tree td { padding-left: 5px!important;}
+
+/* Admin module */
+.bbstore-admin .bbTopic { display: table-cell; text-align: center; padding: 30px; }
+.bbstore-admin .bbTopic a { font-size: 150%;}
+.bbstore-admin .bbSection { border-bottom: #000 1px solid; padding-bottom: 20px;}
+.bbstore-admin .bbAction { margin-left: 20px;}
+.bbstore-admin .dnnFormMessage { display: block;}
+.bbstore-admin .dnnFormItem input[type="text"],.bbstore-admin .dnnFormItem textarea {min-width:0;}
+.bbstore-admin .bbFormInput { background-color: #d6d6d6;}
+
+
+/* Admin modules editgrid */
+.bbstore-admin-editgrid {background-color:white; border:1px solid #333333}
+.bbstore-admin-editgrid-row { background-color:white; color:#333333; border-width: 0 1px 0 1px; border-style:solid; border-color:#333333; }
+.bbstore-admin-editgrid-row:hover { background-color:#D6D6D6 }
+.bbstore-admin-editgrid-alternaterow { background-color:#F2F2F2; border-width: 0 1px 0 1px; border-style:solid; border-color:#333333; }
+.bbstore-admin-editgrid-alternaterow:hover { background-color:#D6D6D6; }
+.bbstore-admin-editgrid-selectedrow { font-weight:bold; border-width: 0 1px 0 1px; border-style:solid; border-color:#333333; }
+.bbstore-admin-editgrid-search {background-color:#D6D6D6; 	color:White; font-size:small; border:1px solid #333333;border-bottom-style:none}
+.bbstore-admin-editgrid-search a {	color:#8A8A8A!important; font-weight:bold!important;}
+.bbstore-admin-editgrid-search td { color:#333333!important; font-weight:bold!important;}
+.bbstore-admin-editgrid-header {background-color:#D6D6D6; 	color:White; font-weight:bold; border:1px solid #333333; text-align:left;}
+.bbstore-admin-editgrid-header a {	color:#8A8A8A!important; font-weight:bold!important;}
+.bbstore-admin-editgrid-header td { color:#333333!important; font-weight:bold!important;}
+.bbstore-admin-editgrid-footer {background-color:#D6D6D6; 	color:White; font-weight:bold; border:1px solid #333333}
+.bbstore-admin-editgrid-footer a {	color:#8A8A8A!important; font-weight:bold!important;}
+.bbstore-admin-editgrid-footer td { color:#333333!important; font-weight:bold!important;}
+.bbstore-admin-editgrid-pager {background-color:#D6D6D6; 	color:White; font-size:small; border:1px solid #333333;}
+.bbstore-admin-editgrid-pager a {	color:#8A8A8A!important; }
+.bbstore-admin-editgrid-pager td { color:#333333!important; }
+
+/* Search module */
+.bbstore-search-value { font-size:smaller; color: Red; }
+.bbstore-search-title { font-size:smaller; }
+
+/* Tax Control */
+.bb-taxcontrol-radiobutton label, .bb-taxcontrol-textbox {width:auto;}
+.bb-taxcontrol-radiobutton input {margin-left:5px;}
+
+/* Navigation control */
+.bb-navigationcontrol { font-size: 150%;}
+.bb-navigationcontrol .steptable { border-spacing:0; border-collapse:collapse; width:100%}
+
+.bb-navigationcontrol.standard .steprow {height:70px}
+.bb-navigationcontrol.standard .steprow td { text-align: center;vertical-align: bottom;}
+.bb-navigationcontrol.standard .leftouterstep { width: 0;;padding: 0;}
+.bb-navigationcontrol.standard .rightouterstep { width: 0;padding: 0;}
+.bb-navigationcontrol.standard .leftstep { width: 49%;}
+.bb-navigationcontrol.standard .rightstep { width: 49%;}
+.bb-navigationcontrol.standard .set {background: url('<IMAGEPATH>CartNavigationControl/standard_bigline.png') repeat-x left top; }
+.bb-navigationcontrol.standard .empty {color:#d6d6d6; background: url('<IMAGEPATH>CartNavigationControl/standard_smallline.png') repeat-x left top;}
+.bb-navigationcontrol.standard .leftstep.active {background: url('<IMAGEPATH>CartNavigationControl/standard_bigline.png') repeat-x left top;}
+.bb-navigationcontrol.standard .rightstep.active {background: url('<IMAGEPATH>CartNavigationControl/standard_smallline.png') repeat-x left top;}
+.bb-navigationcontrol.standard .middlestep.empty {background: url('<IMAGEPATH>CartNavigationControl/standard_empty.png') no-repeat center top; min-width:35px}
+.bb-navigationcontrol.standard .middlestep.set {background: url('<IMAGEPATH>CartNavigationControl/standard_set.png') no-repeat center top; min-width:35px}
+.bb-navigationcontrol.standard .middlestep.active {background: url('<IMAGEPATH>CartNavigationControl/standard_active.png') no-repeat center top; min-width:34px}
+.bb-navigationcontrol.standard a.empty { color:#d6d6d6;}
+
+.bb-navigationcontrol.redarrow .steprow {height:50px}
+.bb-navigationcontrol.redarrow .steprow td { text-align: center;padding:0;}
+.bb-navigationcontrol.redarrow .leftstep {background: url('<IMAGEPATH>CartNavigationControl/redbar_stretch.png') repeat-x left top;}
+.bb-navigationcontrol.redarrow .middlestep {background: url('<IMAGEPATH>CartNavigationControl/redbar_stretch.png') repeat-x left top;}
+.bb-navigationcontrol.redarrow .rightstep {background: url('<IMAGEPATH>CartNavigationControl/redbar_stretch.png') repeat-x left top;}
+.bb-navigationcontrol.redarrow .rightouterstep.empty {background: url('<IMAGEPATH>CartNavigationControl/redbar_notactiveend.png') no-repeat left top;width: 17px;}
+.bb-navigationcontrol.redarrow .leftouterstep.set {background: url('<IMAGEPATH>CartNavigationControl/redbar_notactiveend.png') no-repeat left top;width: 17px;}
+.bb-navigationcontrol.redarrow .leftouterstep.active {background: url('<IMAGEPATH>CartNavigationControl/redbar_activestart.png') no-repeat left top;width: 19px;}
+.bb-navigationcontrol.redarrow .leftstep.active { background: url('<IMAGEPATH>CartNavigationControl/redbar_activestretch.png') repeat-x left top ;}
+.bb-navigationcontrol.redarrow .middlestep.active { background: url('<IMAGEPATH>CartNavigationControl/redbar_activestretch.png') repeat-x left top ;}
+.bb-navigationcontrol.redarrow .rightstep.active { background: url('<IMAGEPATH>CartNavigationControl/redbar_activestretch.png') repeat-x left top ;}
+.bb-navigationcontrol.redarrow .rightouterstep.active { background: url('<IMAGEPATH>CartNavigationControl/redbar_activeend.png') no-repeat left top ;width: 20px;}
+.bb-navigationcontrol.redarrow .leftouterstep.first {background: url('<IMAGEPATH>CartNavigationControl/redbar_startbow.png') no-repeat left top;width: 30px;}
+.bb-navigationcontrol.redarrow .rightouterstep.last {background: url('<IMAGEPATH>CartNavigationControl/redbar_endbow.png') no-repeat left top;width: 31px;}
+.bb-navigationcontrol.redarrow a.active { color: #FFFFFF;}
+.bb-navigationcontrol.redarrow .empty { color:#d6d6d6;}
+
+.bb-navigationcontrol.blocks .steptable { padding: 5px;border-collapse: separate; }
+.bb-navigationcontrol.blocks .steprow { height: 50px;padding: 1px;}
+.bb-navigationcontrol.blocks .steprow td { text-align: center;}
+.bb-navigationcontrol.blocks { display: block;}
+.bb-navigationcontrol.blocks .set {background: [COLORSUM];}
+.bb-navigationcontrol.blocks .active {background: [COLORHEAD];}
+.bb-navigationcontrol.blocks .empty {background: white}
+.bb-navigationcontrol.blocks a { color: #FFFFFF;}
+.bb-navigationcontrol.blocks a.active { font-weight: bold;}
+.bb-navigationcontrol.blocks a.empty { color:[COLORHEAD];}
+
+
+.bb-navigationcontrol.golf .steprow { height: 50px;}
+.bb-navigationcontrol.golf .steprow td { text-align: center;vertical-align: bottom;}
+.bb-navigationcontrol.golf .leftouterstep { width: 0;;padding: 0;}
+.bb-navigationcontrol.golf .rightouterstep { width: 0;padding: 0;}
+.bb-navigationcontrol.golf .leftstep { width: 49%;}
+.bb-navigationcontrol.golf .rightstep { width: 49%;}
+.bb-navigationcontrol.golf .set {background: url('<IMAGEPATH>CartNavigationControl/golf_fullstretch.png') repeat-x left top; }
+.bb-navigationcontrol.golf .empty {background: url('<IMAGEPATH>CartNavigationControl/golf_emptystretch.png') repeat-x left top;}
+.bb-navigationcontrol.golf .leftstep.active {background: url('<IMAGEPATH>CartNavigationControl/golf_fullstretch.png') repeat-x left top;}
+.bb-navigationcontrol.golf .rightstep.active {background: url('<IMAGEPATH>CartNavigationControl/golf_emptystretch.png') repeat-x left top;}
+.bb-navigationcontrol.golf .middlestep.empty {background: url('<IMAGEPATH>CartNavigationControl/golf_empty.png') no-repeat center top; min-width:50px}
+.bb-navigationcontrol.golf .middlestep.set {background: url('<IMAGEPATH>CartNavigationControl/golf_set.png') no-repeat center top; min-width:50px}
+.bb-navigationcontrol.golf .middlestep.active {background: url('<IMAGEPATH>CartNavigationControl/golf_active.png') no-repeat center top; min-width:50px}
+.bb-navigationcontrol.golf .set a {background: none }
+.bb-navigationcontrol.golf .empty span {background: none }
+
+
+.colorpicker { width:356px; height:176px; overflow:hidden; position:absolute; background:url('<IMAGEPATH>ColorPickerControl/colorpicker_background.png'); font-family:Arial, Helvetica, sans-serif; display:none; bottom:0; left:0; }
+.colorpicker_color { width:150px; height:150px; left:14px; top:13px; position:absolute; background:#f00; overflow:hidden; cursor:crosshair; }
+.colorpicker_color div { position:absolute; top:0; left:0; width:150px; height:150px; background:url('<IMAGEPATH>ColorPickerControl/colorpicker_overlay.png'); }
+.colorpicker_color div div { position:absolute; top:0; left:0; width:11px; height:11px; overflow:hidden; background:url('<IMAGEPATH>ColorPickerControl/colorpicker_select.gif'); margin:-5px 0 0 -5px; }
+.colorpicker_hue { position:absolute; top:13px; left:171px; width:35px; height:150px; cursor:n-resize; }
+.colorpicker_hue div { position:absolute; width:35px; height:9px; overflow:hidden; background:url('<IMAGEPATH>ColorPickerControl/colorpicker_indic.gif') left top; margin:-4px 0 0 0; left:0px; }
+.colorpicker_new_color { position:absolute; width:60px; height:30px; left:213px; top:13px; background:#f00; }
+.colorpicker_current_color { position:absolute; width:60px; height:30px; left:283px; top:13px; background:#f00; }
+.colorpicker input { background-color:transparent; border:1px solid transparent; position:absolute; font-size:10px; font-family:Arial, Helvetica, sans-serif; color:#898989; top:4px; right:11px; text-align:right; margin:0; padding:0; height:11px; }
+.colorpicker_hex { position:absolute; width:72px; height:22px; background:url('<IMAGEPATH>ColorPickerControl/colorpicker_hex.png') top; left:212px; top:142px; }
+.colorpicker_hex input { right:6px; }
+.colorpicker_field { height:22px; width:62px; background-position:top; position:absolute; }
+.colorpicker_field span { position:absolute; width:12px; height:22px; overflow:hidden; top:0; right:0; cursor:n-resize; }
+.colorpicker_rgb_r { background-image:url('<IMAGEPATH>ColorPickerControl/colorpicker_rgb_r.png'); top:52px; left:212px; }
+.colorpicker_rgb_g { background-image:url('<IMAGEPATH>ColorPickerControl/colorpicker_rgb_g.png'); top:82px; left:212px; }
+.colorpicker_rgb_b { background-image:url('<IMAGEPATH>ColorPickerControl/colorpicker_rgb_b.png'); top:112px; left:212px; }
+.colorpicker_hsb_h { background-image:url('<IMAGEPATH>ColorPickerControl/colorpicker_hsb_h.png'); top:52px; left:282px; }
+.colorpicker_hsb_s { background-image:url('<IMAGEPATH>ColorPickerControl/colorpicker_hsb_s.png'); top:82px; left:282px; }
+.colorpicker_hsb_b { background-image:url('<IMAGEPATH>ColorPickerControl/colorpicker_hsb_b.png'); top:112px; left:282px; }
+.colorpicker_submit { position:absolute; width:22px; height:22px; background:url('<IMAGEPATH>ColorPickerControl/colorpicker_submit.png') top; left:322px; top:142px; overflow:hidden; }
+.colorpicker_focus { background-position:center; }
+.colorpicker_hex.colorpicker_focus { background-position:bottom; }
+.colorpicker_submit.colorpicker_focus { background-position:bottom; }
+.colorpicker_slider { background-position:bottom; }

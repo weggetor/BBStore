@@ -1,0 +1,429 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/** Drop Tables **/
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Cart_CartAddress' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAddress]  DROP CONSTRAINT [FK_{objectQualifier}Cart_CartAddress]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Cart_CartProducts' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct]  DROP CONSTRAINT [FK_{objectQualifier}Cart_CartProducts]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Cart_CartAdditionalCost' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost]  DROP CONSTRAINT [FK_{objectQualifier}Cart_CartAdditionalCost]
+go
+
+DROP TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CartProduct_CartProductOption' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption]  DROP CONSTRAINT [FK_{objectQualifier}CartProduct_CartProductOption]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartProductOption]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CustomerAddress_OrderAddress' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress]  DROP CONSTRAINT [FK_{objectQualifier}CustomerAddress_OrderAddress]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CustomerAddress_CartAddress' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAddress]  DROP CONSTRAINT [FK_{objectQualifier}CustomerAddress_CartAddress]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CustomerAddress]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerAddress]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Order_OrderHistory' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderHistory]  DROP CONSTRAINT [FK_{objectQualifier}Order_OrderHistory]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Order_OrderProduct' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct]  DROP CONSTRAINT [FK_{objectQualifier}Order_OrderProduct]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Order_OrderAdditionalCost' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost]  DROP CONSTRAINT [FK_{objectQualifier}Order_OrderAdditionalCost]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Order_OrderAddress' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress]  DROP CONSTRAINT [FK_{objectQualifier}Order_OrderAddress]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Order]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_Order]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}OrderProduct_OrderProductOption' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProductOption]  DROP CONSTRAINT [FK_{objectQualifier}OrderProduct_OrderProductOption]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderProductOption]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProductOption]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Orderstate_Lang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]  DROP CONSTRAINT [FK_{objectQualifier}Orderstate_Lang]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}OrderState_OrderHistory' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderHistory]  DROP CONSTRAINT [FK_{objectQualifier}OrderState_OrderHistory]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Orderstate_Order' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order]  DROP CONSTRAINT [FK_{objectQualifier}Orderstate_Order]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderState]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_OrderState]
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}PaymentProvider_SubscriberPaymentProvider' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider]  DROP CONSTRAINT [FK_{objectQualifier}PaymentProvider_SubscriberPaymentProvider]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}PaymentProvider_CustomerPaymentProvider' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider]  DROP CONSTRAINT [FK_{objectQualifier}PaymentProvider_CustomerPaymentProvider]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}PaymentProvider_Lang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang]  DROP CONSTRAINT [FK_{objectQualifier}PaymentProvider_Lang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_PaymentProvider]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_PaymentProvider]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderStateLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Customer_CustomerAddress' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerAddress]  DROP CONSTRAINT [FK_{objectQualifier}Customer_CustomerAddress]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Customer_CustomerPaymentProvider' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider]  DROP CONSTRAINT [FK_{objectQualifier}Customer_CustomerPaymentProvider]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Customer_Order' and type='F')	
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order]  DROP CONSTRAINT [FK_{objectQualifier}Customer_Order]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Customer_Cart' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]  DROP CONSTRAINT [FK_{objectQualifier}Customer_Cart]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Customer]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_Customer]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CustomerPaymentProvider_Cart' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]  DROP CONSTRAINT [FK_{objectQualifier}CustomerPaymentProvider_Cart]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SubscriberTaxRates]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberTaxRates]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderAddress]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderHistory]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_OrderHistory]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductTemplate_ModuleProduct' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ModuleProduct]  DROP CONSTRAINT [FK_{objectQualifier}ProductTemplate_ModuleProduct]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductTemplate]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductTemplate]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SimpleProduct_Lang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProductLang]  DROP CONSTRAINT [FK_{objectQualifier}SimpleProduct_Lang]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SimpleProduct_ModuleProduct' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ModuleProduct]  DROP CONSTRAINT [FK_{objectQualifier}SimpleProduct_ModuleProduct]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Product_ProductInGroup' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductInGroup]  DROP CONSTRAINT [FK_{objectQualifier}Product_ProductInGroup]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Product_FeatureValue' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureValue]  DROP CONSTRAINT [FK_{objectQualifier}Product_FeatureValue]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SimpleProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProduct]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SimpleProductLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProductLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ModuleProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ModuleProduct]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_Parent' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroup]  DROP CONSTRAINT [FK_{objectQualifier}ProductGroup_Parent]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_ProductInGroup' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductInGroup]  DROP CONSTRAINT [FK_{objectQualifier}ProductGroup_ProductInGroup]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_ProductGroupFeature' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupFeature]  DROP CONSTRAINT [FK_{objectQualifier}ProductGroup_ProductGroupFeature]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_ProductGroupListItem' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupListItem]  DROP CONSTRAINT [FK_{objectQualifier}ProductGroup_ProductGroupListItem]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_Lang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupLang]  DROP CONSTRAINT [FK_{objectQualifier}ProductGroup_Lang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductGroup]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroup]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductGroupLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductInGroup]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductInGroup]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductFilter]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductFilter]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureGroup_Feature' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Feature]  DROP CONSTRAINT [FK_{objectQualifier}FeatureGroup_Feature]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureGroupLang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureGroupLang]  DROP CONSTRAINT [FK_{objectQualifier}FeatureGroupLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureGroup]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureGroup]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Feature_FeatureValue' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureValue]  DROP CONSTRAINT [FK_{objectQualifier}Feature_FeatureValue]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureLang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureLang]  DROP CONSTRAINT [FK_{objectQualifier}FeatureLang]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Feature_ProductGroupFeature' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupFeature]  DROP CONSTRAINT [FK_{objectQualifier}Feature_ProductGroupFeature]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Feature]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_Feature]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureList_Feature' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Feature]  DROP CONSTRAINT [FK_{objectQualifier}FeatureList_Feature]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureList_FeatureListItem' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListItem]  DROP CONSTRAINT [FK_{objectQualifier}FeatureList_FeatureListItem]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureListLang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListLang]  DROP CONSTRAINT [FK_{objectQualifier}FeatureListLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureList]') and OBJECTPROPERTY(id, N'IsTable') = 1)	
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureList]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureListItem_FeatureValue' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureValue]  DROP CONSTRAINT [FK_{objectQualifier}FeatureListItem_FeatureValue]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureListItemLang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListItemLang]  DROP CONSTRAINT [FK_{objectQualifier}FeatureListItemLang]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureListItem_ProductGroupListItem' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupListItem]  DROP CONSTRAINT [FK_{objectQualifier}FeatureListItem_ProductGroupListItem]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureListItem]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListItem]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureValue]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureValue]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureListLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureListItemLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListItemLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureGroupLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureGroupLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductGroupFeature]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupFeature]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductGroupListItem]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupListItem]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ImportRelation]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ImportRelation]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_StaticFilter]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_StaticFilter]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ContactAddress_ContactReason' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ContactReason]  DROP CONSTRAINT [FK_{objectQualifier}ContactAddress_ContactReason]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ContactAddress]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ContactAddress]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ContactProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ContactProduct]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ContactReason]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ContactReason]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SubscriberAddressType_Lang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang]  DROP CONSTRAINT [FK_{objectQualifier}SubscriberAddressType_Lang]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SubscriberAddressType_OrderAddress' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress]  DROP CONSTRAINT [FK_{objectQualifier}SubscriberAddressType_OrderAddress]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SubscriberAddressType_CartAddress' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAddress]  DROP CONSTRAINT [FK_{objectQualifier}SubscriberAddressType_CartAddress]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressTypeLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartAddress]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_CartAddress]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ImportStore_ImportRelation' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ImportRelation]  DROP CONSTRAINT [FK_{objectQualifier}ImportStore_ImportRelation]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ImportStore]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ImportStore]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}LocalResource_Lang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_LocalResourceLang]  DROP CONSTRAINT [FK_{objectQualifier}LocalResource_Lang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_LocalResource]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_LocalResource]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_LocalResourceLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_LocalResourceLang]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SimpleProduct_Unit' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProduct]  DROP CONSTRAINT [FK_{objectQualifier}SimpleProduct_Unit]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}UnitLang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_UnitLang]  DROP CONSTRAINT [FK_{objectQualifier}UnitLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Unit]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_Unit]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_UnitLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_UnitLang]
+go
+
+IF EXISTS( SELECT * FROM sys.triggers  WHERE name = N'T_{objectQualifier}BBStore_InsertPortal' AND type = 'TR' )
+	DROP TRIGGER T_{objectQualifier}BBStore_InsertPortal 
+GO
+
+IF EXISTS( SELECT * FROM sys.triggers  WHERE name = N'T_{objectQualifier}BBStore_DeletePortal' AND type = 'TR' )
+	DROP TRIGGER T_{objectQualifier}BBStore_DeletePortal 
+GO
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

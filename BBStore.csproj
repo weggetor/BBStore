@@ -1,0 +1,956 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5F98908E-437B-40F5-9F3C-5318673F35F7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bitboxx.DNNModules.BBStore</RootNamespace>
+    <AssemblyName>Bitboxx.DNNModules.BBStore</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <PackageAsSingleFile>false</PackageAsSingleFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bitboxx.Web.GeneratedImage">
+      <HintPath>..\..\bin\Bitboxx.Web.GeneratedImage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke, Version=6.1.0.1171, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\DotNetNuke.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke.Instrumentation">
+      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\DotNetNuke.Instrumentation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke.Web, Version=6.1.0.1171, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\DotNetNuke.Web.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SharpZipLib, Version=0.81.0.1407, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\SharpZipLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telerik.Web.UI, Version=2012.2.724.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\Telerik.Web.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\BBLicense\LicenseHandler\LicenseClient\LicenseClient.cs">
+      <Link>LicenseHandler\LicenseClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\BBLicense\LicenseHandler\LicenseClient\LicenseDataInfo.cs">
+      <Link>LicenseHandler\LicenseDataInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\BBLicense\LicenseHandler\LicenseClient\LicenseHelper.cs">
+      <Link>LicenseHandler\LicenseHelper.cs</Link>
+    </Compile>
+    <Compile Include="BBStoreService.svc.cs">
+      <DependentUpon>BBStoreService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CartNavigationControl.ascx.cs">
+      <DependentUpon>CartNavigationControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CartNavigationControl.ascx.designer.cs">
+      <DependentUpon>CartNavigationControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\BBStoreHelper.cs" />
+    <Compile Include="Components\BBStoreImportController.cs" />
+    <Compile Include="Components\BBStoreSitemapProvider.cs" />
+    <Compile Include="Components\DataProvider.cs" />
+    <Compile Include="Components\BBStoreController.cs" />
+    <Compile Include="Components\IEBrowser.cs" />
+    <Compile Include="Components\SqlDataProvider.cs" />
+    <Compile Include="Controls\ColorPickerControl.ascx.cs">
+      <DependentUpon>ColorPickerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorPickerControl.ascx.designer.cs">
+      <DependentUpon>ColorPickerControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ILanguageEditorInfo.cs" />
+    <Compile Include="Controls\LanguageEditorAttribute.cs" />
+    <Compile Include="Controls\LanguageEditorControl.ascx.cs">
+      <DependentUpon>LanguageEditorControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\LanguageEditorControl.ascx.designer.cs">
+      <DependentUpon>LanguageEditorControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LanguageEditorEditItemTemplate.cs" />
+    <Compile Include="Controls\SelectFolderControl.ascx.cs">
+      <DependentUpon>SelectFolderControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SelectFolderControl.ascx.designer.cs">
+      <DependentUpon>SelectFolderControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TemplateControl.ascx.cs">
+      <DependentUpon>TemplateControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TemplateControl.ascx.designer.cs">
+      <DependentUpon>TemplateControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Infoclasses\ModuleKindEnum.cs" />
+    <Compile Include="SettingsMiniCart.ascx.cs">
+      <DependentUpon>SettingsMiniCart.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SettingsMiniCart.ascx.designer.cs">
+      <DependentUpon>SettingsMiniCart.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMiniCart.ascx.cs">
+      <DependentUpon>ViewMiniCart.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMiniCart.ascx.designer.cs">
+      <DependentUpon>ViewMiniCart.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="EditUnit.ascx.cs">
+      <DependentUpon>EditUnit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditUnit.ascx.designer.cs">
+      <DependentUpon>EditUnit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdminUnitList.ascx.cs">
+      <DependentUpon>ViewAdminUnitList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdminUnitList.ascx.designer.cs">
+      <DependentUpon>ViewAdminUnitList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Infoclasses\UnitInfo.cs" />
+    <Compile Include="Infoclasses\UnitLangInfo.cs" />
+    <Compile Include="Installation\Attributes.cs" />
+    <Compile Include="Providers\Payment\PaymentProviderCC.ascx.cs">
+      <DependentUpon>PaymentProviderCC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderCC.ascx.designer.cs">
+      <DependentUpon>PaymentProviderCC.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderPaypal.ascx.cs">
+      <DependentUpon>PaymentProviderPaypal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderPaypal.ascx.designer.cs">
+      <DependentUpon>PaymentProviderPaypal.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Providers\Payment\PaypalApi.cs" />
+    <Compile Include="ViewCartPayment.ascx.cs">
+      <DependentUpon>ViewCartPayment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewCartPayment.ascx.designer.cs">
+      <DependentUpon>ViewCartPayment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdminPayment.ascx.cs">
+      <DependentUpon>ViewAdminPayment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdminPayment.ascx.designer.cs">
+      <DependentUpon>ViewAdminPayment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdminShipping.ascx.cs">
+      <DependentUpon>ViewAdminShipping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdminShipping.ascx.designer.cs">
+      <DependentUpon>ViewAdminShipping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="EditFeatureListItem.ascx.cs">
+      <DependentUpon>EditFeatureListItem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditFeatureListItem.ascx.designer.cs">
+      <DependentUpon>EditFeatureListItem.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="EditFeatureList.ascx.cs">
+      <DependentUpon>EditFeatureList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditFeatureList.ascx.designer.cs">
+      <DependentUpon>EditFeatureList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Infoclasses\BBStoreInfo.cs" />
+    <Compile Include="Infoclasses\CartAddressInfo.cs" />
+    <Compile Include="Infoclasses\LocalResourceLangInfo.cs" />
+    <Compile Include="Infoclasses\LocalResourceInfo.cs" />
+    <Compile Include="Infoclasses\ProductGroupListItemInfo.cs" />
+    <Compile Include="Infoclasses\ProductInGroupInfo.cs" />
+    <Compile Include="Infoclasses\SubscriberAddressTypeLangInfo.cs" />
+    <Compile Include="Infoclasses\PaymentProviderLangInfo.cs" />
+    <Compile Include="Infoclasses\OrderStateLangInfo.cs" />
+    <Compile Include="Infoclasses\SubscriberAddressTypeInfo.cs" />
+    <Compile Include="Infoclasses\NavigationInfo.cs" />
+    <Compile Include="Infoclasses\OrderListInfo.cs" />
+    <Compile Include="Infoclasses\ProductGroupFeatureInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewAdminMaintenance.ascx.cs">
+      <DependentUpon>ViewAdminMaintenance.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdminMaintenance.ascx.designer.cs">
+      <DependentUpon>ViewAdminMaintenance.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdminOrderList.ascx.cs">
+      <DependentUpon>ViewAdminOrderList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdminOrderList.ascx.designer.cs">
+      <DependentUpon>ViewAdminOrderList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdminProductList.ascx.cs">
+      <DependentUpon>ViewAdminProductList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdminProductList.ascx.designer.cs">
+      <DependentUpon>ViewAdminProductList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsAdmin.ascx.cs">
+      <DependentUpon>SettingsAdmin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SettingsAdmin.ascx.designer.cs">
+      <DependentUpon>SettingsAdmin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin.ascx.cs">
+      <DependentUpon>ViewAdmin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin.ascx.designer.cs">
+      <DependentUpon>ViewAdmin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsFeatureList.ascx.cs">
+      <DependentUpon>SettingsFeatureList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SettingsFeatureList.ascx.designer.cs">
+      <DependentUpon>SettingsFeatureList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCartAddressEdit.ascx.cs">
+      <DependentUpon>ViewCartAddressEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewCartAddressEdit.ascx.designer.cs">
+      <DependentUpon>ViewCartAddressEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCartCustomer.ascx.cs">
+      <DependentUpon>ViewCartCustomer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewCartCustomer.ascx.designer.cs">
+      <DependentUpon>ViewCartCustomer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCartLogin.ascx.cs">
+      <DependentUpon>ViewCartLogin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewCartLogin.ascx.designer.cs">
+      <DependentUpon>ViewCartLogin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCartSelectAddresses.ascx.cs">
+      <DependentUpon>ViewCartSelectAddresses.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewCartSelectAddresses.ascx.designer.cs">
+      <DependentUpon>ViewCartSelectAddresses.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFeatureList.ascx.cs">
+      <DependentUpon>ViewFeatureList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFeatureList.ascx.designer.cs">
+      <DependentUpon>ViewFeatureList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Infoclasses\ContactReasonInfo.cs" />
+    <Compile Include="SettingsContact.ascx.cs">
+      <DependentUpon>SettingsContact.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SettingsContact.ascx.designer.cs">
+      <DependentUpon>SettingsContact.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageScrollerControl.ascx.cs">
+      <DependentUpon>ImageScrollerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ImageScrollerControl.ascx.designer.cs">
+      <DependentUpon>ImageScrollerControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Infoclasses\ContactAddressInfo.cs" />
+    <Compile Include="Infoclasses\FeatureGroupInfo.cs" />
+    <Compile Include="Infoclasses\FeatureGroupLangInfo.cs" />
+    <Compile Include="Infoclasses\FeatureInfo.cs" />
+    <Compile Include="Infoclasses\FeatureLangInfo.cs" />
+    <Compile Include="Infoclasses\FeatureListInfo.cs" />
+    <Compile Include="Infoclasses\FeatureListItemLangInfo.cs" />
+    <Compile Include="Infoclasses\FeatureListLangInfo.cs" />
+    <Compile Include="Infoclasses\StaticFilterInfo.cs" />
+    <Compile Include="SettingsSearch.ascx.cs">
+      <DependentUpon>SettingsSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SettingsSearch.ascx.designer.cs">
+      <DependentUpon>SettingsSearch.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="IBBStoreService.cs" />
+    <Compile Include="Infoclasses\BBStoreSecurityToken.cs" />
+    <Compile Include="SecurityTokenInspector.cs" />
+    <Compile Include="SecurityTokenValidator.cs" />
+    <Compile Include="ViewContact.ascx.cs">
+      <DependentUpon>ViewContact.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewContact.ascx.designer.cs">
+      <DependentUpon>ViewContact.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSearch.ascx.cs">
+      <DependentUpon>ViewSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSearch.ascx.designer.cs">
+      <DependentUpon>ViewSearch.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="EditProductGroup.ascx.cs">
+      <DependentUpon>EditProductGroup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProductGroup.ascx.designer.cs">
+      <DependentUpon>EditProductGroup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FeatureGridControl.ascx.cs">
+      <DependentUpon>FeatureGridControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\FeatureGridControl.ascx.designer.cs">
+      <DependentUpon>FeatureGridControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Infoclasses\FeatureValueInfo.cs" />
+    <Compile Include="Infoclasses\FeatureGridFeatureInfo.cs" />
+    <Compile Include="Infoclasses\FeatureGridValueInfo.cs" />
+    <Compile Include="Infoclasses\FeatureListItemInfo.cs" />
+    <Compile Include="MiniCartSkinObject.ascx.cs">
+      <DependentUpon>MiniCartSkinObject.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiniCartSkinObject.ascx.designer.cs">
+      <DependentUpon>MiniCartSkinObject.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsProduct.ascx.cs">
+      <DependentUpon>SettingsProduct.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SettingsProduct.ascx.designer.cs">
+      <DependentUpon>SettingsProduct.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ProductGroupBreadCrumbSkinObject.ascx.cs">
+      <DependentUpon>ProductGroupBreadCrumbSkinObject.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProductGroupBreadCrumbSkinObject.ascx.designer.cs">
+      <DependentUpon>ProductGroupBreadCrumbSkinObject.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsProductGroup.ascx.cs">
+      <DependentUpon>SettingsProductGroup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SettingsProductGroup.ascx.designer.cs">
+      <DependentUpon>SettingsProductGroup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProductGroup.ascx.cs">
+      <DependentUpon>ViewProductGroup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProductGroup.ascx.designer.cs">
+      <DependentUpon>ViewProductGroup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsList.ascx.cs">
+      <DependentUpon>SettingsList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SettingsList.ascx.designer.cs">
+      <DependentUpon>SettingsList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewList.ascx.cs">
+      <DependentUpon>ViewList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewList.ascx.designer.cs">
+      <DependentUpon>ViewList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="EditProduct.ascx.cs">
+      <DependentUpon>EditProduct.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProduct.ascx.designer.cs">
+      <DependentUpon>EditProduct.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Infoclasses\ProductFilterInfo.cs" />
+    <Compile Include="Infoclasses\ProductGroupLangInfo.cs" />
+    <Compile Include="Infoclasses\ModuleProductInfo.cs" />
+    <Compile Include="Infoclasses\OrderStateInfo.cs" />
+    <Compile Include="Infoclasses\OrderHistoryInfo.cs" />
+    <Compile Include="Infoclasses\CustomerAddressInfo.cs" />
+    <Compile Include="Infoclasses\OrderProductOptionInfo.cs" />
+    <Compile Include="Infoclasses\OrderProductInfo.cs" />
+    <Compile Include="Infoclasses\OrderAdditionalCostInfo.cs" />
+    <Compile Include="Infoclasses\OrderInfo.cs" />
+    <Compile Include="Infoclasses\CustomerPaymentProviderInfo.cs" />
+    <Compile Include="Infoclasses\OrderAddressInfo.cs" />
+    <Compile Include="Infoclasses\CustomerInfo.cs" />
+    <Compile Include="Infoclasses\OptionListInfo.cs" />
+    <Compile Include="Infoclasses\PaymentProviderInfo.cs" />
+    <Compile Include="Infoclasses\ProductGroupInfo.cs" />
+    <Compile Include="Infoclasses\ProductTemplateInfo.cs" />
+    <Compile Include="Infoclasses\SimpleProductInfo.cs" />
+    <Compile Include="Infoclasses\SimpleProductLangInfo.cs" />
+    <Compile Include="Infoclasses\SubscriberPaymentProviderInfo.cs" />
+    <Compile Include="Controls\ProductOptionSelectControl.ascx.cs">
+      <DependentUpon>ProductOptionSelectControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ProductOptionSelectControl.ascx.designer.cs">
+      <DependentUpon>ProductOptionSelectControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderEC.ascx.cs">
+      <DependentUpon>PaymentProviderEC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderEC.ascx.designer.cs">
+      <DependentUpon>PaymentProviderEC.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderInvoice.ascx.cs">
+      <DependentUpon>PaymentProviderInvoice.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderInvoice.ascx.designer.cs">
+      <DependentUpon>PaymentProviderInvoice.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderPrepaid.ascx.cs">
+      <DependentUpon>PaymentProviderPrepaid.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderPrepaid.ascx.designer.cs">
+      <DependentUpon>PaymentProviderPrepaid.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderCOD.ascx.cs">
+      <DependentUpon>PaymentProviderCOD.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Providers\Payment\PaymentProviderCOD.ascx.designer.cs">
+      <DependentUpon>PaymentProviderCOD.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TabSelectControl.ascx.cs">
+      <DependentUpon>TabSelectControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TabSelectControl.ascx.designer.cs">
+      <DependentUpon>TabSelectControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TaxControl.ascx.cs">
+      <DependentUpon>TaxControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TaxControl.ascx.designer.cs">
+      <DependentUpon>TaxControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="VfpInterop.cs" />
+    <Compile Include="ViewProduct.ascx.cs">
+      <DependentUpon>ViewProduct.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProduct.ascx.designer.cs">
+      <DependentUpon>ViewProduct.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Infoclasses\AddressTypeEnum.cs" />
+    <Compile Include="Infoclasses\CartAdditionalCostInfo.cs" />
+    <Compile Include="Infoclasses\CartInfo.cs" />
+    <Compile Include="Infoclasses\CartProductInfo.cs" />
+    <Compile Include="Infoclasses\CartProductOptionInfo.cs" />
+    <Compile Include="Infoclasses\CartRowInfo.cs" />
+    <Compile Include="Infoclasses\CartSumInfo.cs" />
+    <Compile Include="Infoclasses\TaxInfo.cs" />
+    <Compile Include="SettingsCart.ascx.cs">
+      <DependentUpon>SettingsCart.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SettingsCart.ascx.designer.cs">
+      <DependentUpon>SettingsCart.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCart.ascx.cs">
+      <DependentUpon>ViewCart.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewCart.ascx.designer.cs">
+      <DependentUpon>ViewCart.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\ViewProduct.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\EditProduct.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\EditProduct.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsCart.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewCart.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewProduct.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Controls\App_LocalResources\TaxControl.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Controls\App_LocalResources\TaxControl.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsList.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsList.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewList.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewList.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsProductGroup.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsProductGroup.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsProduct.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsProduct.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\EditProductGroup.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewProductGroup.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewProductGroup.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\EditProductGroup.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewSearch.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewSearch.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewContact.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewContact.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsContact.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsContact.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsFeatureList.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsFeatureList.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewAdminProductList.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\FeatureGridControl.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\FeatureGridControl.ascx.de-DE.resx" />
+    <Content Include="App_LocalResources\ViewFeatureList.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewFeatureList.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewCartSelectAddresses.ascx.de-DE.resx" />
+    <Content Include="App_LocalResources\ViewCartCustomer.ascx.de-DE.resx" />
+    <Content Include="App_LocalResources\ViewCartLogin.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\ProductOptionSelectControl.ascx.de-DE.resx" />
+    <Content Include="Controls\App_LocalResources\ProductOptionSelectControl.ascx.resx" />
+    <Content Include="App_LocalResources\EditFeatureList.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\EditFeatureListItem.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewAdminMaintenance.ascx.resx" />
+    <Content Include="App_LocalResources\ViewAdminShipping.ascx.resx" />
+    <Content Include="App_LocalResources\EditUnit.ascx.resx" />
+    <Content Include="App_LocalResources\ViewCartAddressEdit.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewCartAddressEdit.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsMiniCart.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\SettingsMiniCart.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="App_LocalResources\SettingsCart.ascx.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="BBStoreService.svc" />
+    <Content Include="Controls\CartNavigationControl.ascx" />
+    <Content Include="Controls\ColorPickerControl.ascx" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_active.png" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_empty.png" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_emptystretch.png" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_fullstretch.png" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_set.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_activeend.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_activestart.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_activestretch.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_endbow.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_notactiveend.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_startbow.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_stretch.png" />
+    <Content Include="Controls\Images\SelectFolderControl\plus.png" />
+    <Content Include="Controls\LanguageEditorControl.ascx" />
+    <Content Include="Controls\Images\ColorPickerControl\blank.gif" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_overlay.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_select.gif" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_background.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hex.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hsb_b.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hsb_h.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hsb_s.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_indic.gif" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_rgb_b.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_rgb_g.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_rgb_r.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_submit.png" />
+    <Content Include="Controls\Images\ColorPickerControl\select.png" />
+    <Content Include="Controls\Images\ColorPickerControl\slider.png" />
+    <Content Include="Controls\SelectFolderControl.ascx" />
+    <Content Include="Controls\TemplateControl.ascx" />
+    <Content Include="SettingsMiniCart.ascx" />
+    <Content Include="Templates\FeatureList\Default.htm" />
+    <Content Include="Templates\FeatureList\Default.jpg" />
+    <Content Include="Templates\MiniCart\Default.htm" />
+    <Content Include="Templates\MiniCart\Default.jpg" />
+    <Content Include="Templates\ProductGroup\Default.htm" />
+    <Content Include="Templates\ProductGroup\Default.jpg" />
+    <Content Include="Templates\ProductList\Default.htm" />
+    <Content Include="Templates\ProductList\Default.jpg" />
+    <Content Include="Templates\SimpleProduct\Default.htm" />
+    <Content Include="Templates\SimpleProduct\Default.jpg" />
+    <Content Include="ViewMiniCart.ascx" />
+    <Content Include="EditUnit.ascx" />
+    <Content Include="Images\admin_featurelist_small.png" />
+    <Content Include="Images\admin_maintenance_small.png" />
+    <Content Include="Images\admin_order.png" />
+    <Content Include="Images\admin_order_small.png" />
+    <Content Include="Images\admin_payment_small.png" />
+    <Content Include="Images\admin_productgroup_small.png" />
+    <Content Include="Images\admin_product_small.png" />
+    <Content Include="Images\admin_report_small.png" />
+    <Content Include="Images\admin_settings_small.png" />
+    <Content Include="Images\admin_shipping_small.png" />
+    <Content Include="Images\Admin_Units.png" />
+    <Content Include="Images\admin_units_small.png" />
+    <Content Include="Templates\Order\Default.htm" />
+    <Content Include="Templates\Request\Default.htm" />
+    <Content Include="ViewAdminUnitList.ascx" />
+    <Content Include="Installation\BBStore.png" />
+    <Content Include="Installation\Cleanup\CleanUp.01.00.08.txt" />
+    <Content Include="Installation\Cleanup\CleanUp.01.00.10.txt" />
+    <Content Include="Installation\Config\Config.txt" />
+    <Content Include="Installation\License.txt" />
+    <Content Include="Installation\ReleaseNotes\Release.01.00.10.txt" />
+    <Content Include="Controls\js\jquery.colorpicker.js" />
+    <Content Include="Providers\Payment\Images\creditcard.png" />
+    <Content Include="Providers\Payment\Images\creditcardlogos.png" />
+    <Content Include="Providers\Payment\Images\invoice.png" />
+    <Content Include="Providers\Payment\Images\paypal.png" />
+    <Content Include="Providers\Payment\Images\tick.png" />
+    <Content Include="Providers\Payment\js\jquery.creditCardValidator.js" />
+    <Content Include="Providers\Payment\PaymentProviderCC.ascx" />
+    <Content Include="Providers\Payment\Images\COD.png" />
+    <Content Include="Providers\Payment\Images\prepaid.png" />
+    <Content Include="Providers\Payment\PaymentProviderPaypal.ascx" />
+    <Content Include="ViewCartPayment.ascx" />
+    <Content Include="Providers\Payment\Images\debit.png" />
+    <Content Include="Providers\Payment\js\iban.js" />
+    <Content Include="Providers\Payment\js\ibanold.js" />
+    <Content Include="Images\Admin_Payment.png" />
+    <Content Include="ViewAdminPayment.ascx" />
+    <Content Include="Images\Admin_Shipping.png" />
+    <Content Include="module.css" />
+    <Content Include="ViewAdminShipping.ascx" />
+    <Content Include="EditFeatureListItem.ascx" />
+    <Content Include="EditFeatureList.ascx" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_active.png" />
+    <Content Include="Images\admin_featurelist.png" />
+    <Content Include="Images\admin_maintenance.png" />
+    <Content Include="Images\admin_productgroup.png" />
+    <Content Include="Images\admin_product.png" />
+    <Content Include="Images\Admin_Settings.png" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_bigline.png" />
+    <Content Include="Images\Checked.png" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_empty.png" />
+    <Content Include="Images\firstgrey.png" />
+    <Content Include="Images\lastgrey.png" />
+    <Content Include="Images\nextgrey.png" />
+    <Content Include="Images\prevgrey.png" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_set.png" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_smallline.png" />
+    <Content Include="Images\Unchecked.png" />
+    <Content Include="ViewAdminMaintenance.ascx" />
+    <Content Include="ViewAdminOrderList.ascx" />
+    <Content Include="ViewAdminProductList.ascx" />
+    <Content Include="SettingsAdmin.ascx" />
+    <Content Include="ViewAdmin.ascx" />
+    <Content Include="SettingsFeatureList.ascx" />
+    <Content Include="ViewCartAddressEdit.ascx" />
+    <Content Include="ViewCartCustomer.ascx" />
+    <Content Include="ViewCartLogin.ascx" />
+    <Content Include="ViewCartSelectAddresses.ascx" />
+    <Content Include="ViewFeatureList.ascx" />
+    <Content Include="SettingsContact.ascx" />
+    <Content Include="Controls\ImageScrollerControl.ascx" />
+    <Content Include="Images\imageplaceholder.png" />
+    <Content Include="SettingsSearch.ascx" />
+    <Content Include="ViewContact.ascx" />
+    <Content Include="ViewSearch.ascx" />
+    <Content Include="EditProductGroup.ascx" />
+    <Content Include="Controls\FeatureGridControl.ascx" />
+    <Content Include="MiniCartSkinObject.ascx" />
+    <Content Include="SettingsProduct.ascx" />
+    <Content Include="ProductGroupBreadCrumbSkinObject.ascx" />
+    <Content Include="SettingsProductGroup.ascx" />
+    <Content Include="ViewProductGroup.ascx" />
+    <Content Include="SettingsList.ascx" />
+    <Content Include="ViewList.ascx" />
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderEC.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderEC.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderInvoice.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderInvoice.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderPrepaid.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderPrepaid.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCOD.ascx.de-DE.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCOD.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\ViewAdmin.ascx.resx" />
+    <Content Include="App_LocalResources\ViewAdmin.ascx.de-DE.resx" />
+    <Content Include="App_LocalResources\ViewAdminProductList.ascx.de-DE.resx" />
+    <Content Include="App_LocalResources\ViewAdminOrderList.ascx.de-DE.resx" />
+    <Content Include="App_LocalResources\ViewAdminOrderList.ascx.resx" />
+    <Content Include="App_LocalResources\ViewCartSelectAddresses.ascx.resx" />
+    <Content Include="App_LocalResources\ViewCartCustomer.ascx.resx" />
+    <Content Include="App_LocalResources\ViewAdminShipping.ascx.de-DE.resx" />
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.de-DE.resx" />
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCC.resx" />
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderPaypal.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\SelectFolderControl.ascx.resx" />
+    <Content Include="App_LocalResources\ViewAdminUnitList.ascx.de-DE.resx" />
+    <Content Include="App_LocalResources\ViewAdminUnitList.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\TemplateControl.ascx.de-DE.resx" />
+    <Content Include="Controls\App_LocalResources\TemplateControl.ascx.resx" />
+    <None Include="App_LocalResources\ViewCart.ascx.resx">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Installation\01.00.00.SqlDataProvider" />
+    <None Include="Installation\01.00.01.SqlDataProvider" />
+    <None Include="Installation\01.00.03.SqlDataProvider" />
+    <None Include="Installation\01.00.04.SqlDataProvider" />
+    <None Include="Installation\01.00.07.SqlDataProvider" />
+    <None Include="Installation\01.00.08.SqlDataProvider" />
+    <None Include="Installation\01.00.09.SqlDataProvider" />
+    <None Include="Installation\01.00.10.SqlDataProvider" />
+    <Content Include="Installation\Project.targets" />
+    <None Include="Installation\Uninstall.SqlDataProvider" />
+    <Content Include="Templates\ProductList\tokens.de-DE.htp" />
+    <Content Include="Templates\ProductList\tokens.htp" />
+    <Content Include="Templates\ProductList\tokens.es-ES.htp" />
+    <Content Include="Templates\ProductGroup\tokens.de-DE.htp" />
+    <Content Include="Templates\ProductGroup\tokens.es-ES.htp" />
+    <Content Include="Templates\ProductGroup\tokens.htp" />
+    <Content Include="Templates\SimpleProduct\tokens.de-DE.htp" />
+    <Content Include="Templates\SimpleProduct\tokens.es-ES.htp" />
+    <Content Include="Templates\SimpleProduct\tokens.htp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Documentation\bitboxxcolorscheme.bmp" />
+    <Content Include="Documentation\defaultcolorscheme.bmp" />
+    <Content Include="Documentation\Logo2.gif" />
+    <Content Include="EditProduct.ascx" />
+    <Content Include="Controls\js\CalcTax.js" />
+    <Content Include="Controls\ProductOptionSelectControl.ascx" />
+    <Content Include="Providers\Payment\PaymentProviderEC.ascx" />
+    <Content Include="Providers\Payment\PaymentProviderInvoice.ascx" />
+    <Content Include="Providers\Payment\PaymentProviderPrepaid.ascx" />
+    <Content Include="Providers\Payment\PaymentProviderCOD.ascx" />
+    <Content Include="Controls\TabSelectControl.ascx" />
+    <Content Include="Controls\TaxControl.ascx" />
+    <Content Include="ViewProduct.ascx" />
+    <Content Include="Documentation\Documentation.css" />
+    <Content Include="Documentation\Documentation.html" />
+    <Content Include="Documentation\logo.gif" />
+    <Content Include="Templates\FeatureList\tokens.de-DE.htp" />
+    <Content Include="Templates\FeatureList\tokens.es-ES.htp" />
+    <Content Include="Templates\FeatureList\tokens.htp" />
+    <Content Include="Templates\MiniCart\tokens.de-DE.htp" />
+    <Content Include="Templates\MiniCart\tokens.es-ES.htp" />
+    <Content Include="Templates\MiniCart\tokens.htp" />
+    <None Include="Templates\module.css.template" />
+    <Content Include="SettingsCart.ascx" />
+    <Content Include="ViewCart.ascx" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(MSBuildProjectDirectory)\Installation\Project.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62596</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

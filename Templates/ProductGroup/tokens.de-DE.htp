@@ -1,0 +1,9 @@
+﻿Wählen Sie eine Vorlage zur Darstellung der Produktgruppen oder erzeugen Sie eine Neue. Sie können aus folgenden Platzhaltern auswählen:<br />
+<ul style="color:black;">
+ <li>[PRODUCTGROUPNAME] = Produktgruppenname</li>
+	<li>[IMAGE] = Produktgruppenbild (orig. Größe)</li>
+	<li>[IMAGE:width] = Produktgruppenbild (Breite in pixel)</li>
+	<li>[ICON] = Produktgruppen-Icon</li>
+	<li>[PRODUCTCOUNT] = Anzahl Produkte in Gruppe</li>
+	<li>[RESOURCE:key] = Platzhalter ersetzen aus Resourcefile</li>
+</ul>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="ModuleHelp.Text" xml:space="preserve">
+    <value>&lt;P&gt;Ein BBStore Modul</value>
+  </data>
+	<data name="ControlTitle_edit.Text" xml:space="preserve">
+    <value>BBStore Simple Product bearbeiten</value>
+  </data>
+	<data name="DefaultName.Text" xml:space="preserve">
+    <value>Ein neues Simple Product</value>
+  </data>
+	<data name="lblAttributes.Text" xml:space="preserve">
+    <value>Attribute</value>
+  </data>
+	<data name="lblProductDescription.Text" xml:space="preserve">
+    <value>Produktbeschreibung</value>
+  </data>
+	<data name="lblImage.Text" xml:space="preserve">
+    <value>Bild</value>
+  </data>
+	<data name="lblItemNo.Text" xml:space="preserve">
+    <value>Artikelnummer</value>
+  </data>
+	<data name="lblName.Text" xml:space="preserve">
+    <value>Produktbezeichnung</value>
+  </data>
+	<data name="lblTaxPercent.Text" xml:space="preserve">
+    <value>MwSt. %</value>
+  </data>
+	<data name="lblTemplate.Help" xml:space="preserve">
+    <value>Definieren Sie die Vorlage für alle Produkt-Module</value>
+  </data>
+	<data name="lblTemplate.Text" xml:space="preserve">
+    <value>Produkt Vorlage</value>
+  </data>
+	<data name="lblUnitCost.Text" xml:space="preserve">
+    <value>Einzelpreis </value>
+  </data>
+	<data name="lnkReset.Text" xml:space="preserve">
+    <value>auf Standard setzen</value>
+  </data>
+	<data name="shGlobal.Text" xml:space="preserve">
+    <value>Globale Produkt-Einstellungen (alle Produkt-Module)</value>
+  </data>
+	<data name="shProduct.Text" xml:space="preserve">
+    <value>Produkt-Einstellungen (dieses Modul)</value>
+  </data>
+	<data name="ValidatorUnitCost.Error" xml:space="preserve">
+    <value>Bitte geben Sie einen gültigen Preis ein</value>
+  </data>
+	<data name="ValidatorTaxPercent.Error" xml:space="preserve">
+    <value>Bitte geben Sie einen gültigen Prozentwert ein</value>
+  </data>
+	<data name="lblLanguage.Help" xml:space="preserve">
+    <value>Wählen Sie die zu bearbeitende Sprache</value>
+  </data>
+	<data name="lblLanguage.Text" xml:space="preserve">
+    <value>Sprache wählen</value>
+  </data>
+	<data name="lblAttributes.Help" xml:space="preserve">
+    <value>&lt;p&gt;Schreiben Sie jedes Attribut in eine eigene Zeile, z.B.: &lt;strong&gt;Farbe&lt;/strong&gt; in die erste Zeile und &lt;strong&gt;Grösse&lt;/strong&gt; in die Zweite&lt;br /&gt;
+&lt;br /&gt;
+Wenn Sie ein &lt;strong&gt;!&lt;/strong&gt; vor das Attribut schreiben ist dieses ein Muss-Kriterium, d.h. zur Übernahme des Artikels in den Warenkorb muss dieses ausgefüllt werden.&lt;br /&gt;
+&lt;br /&gt;
+Wenn Sie eine bestimmte Grösse des Eingabefeldes vorgeben wollen, so fügen Sie die Dimension in geschweiften Klammern an das Attribut an (z.B. &lt;em&gt;Farbe&amp;#123;120&amp;#125;:grün,blau,gelb&lt;/em&gt; erzeugt eine DropDownListe mit der Breite von 120 Pixel, oder &lt;em&gt;Bemerkung&amp;#123;120,80&amp;#125;&lt;/em&gt; eine mehrzeilige Textbox mit Breite 120 und Höhe 80 Pixel)&lt;br /&gt;
+&lt;br /&gt;
+Wenn das Attribut mehrere spezielle Werte haben kann, schreiben sie diese hinter den Attributnamen und einem : als komma-separierte Liste (z.B: &lt;i&gt;Farbe:grün,blau,gelb&lt;/i&gt;)&lt;br /&gt;
+&lt;br /&gt;
+Soll eines der Attributwerte als Voreinstellung angezeigt werden, so setzen Sie bitte ein &lt;strong&gt;&amp;amp;&lt;/strong&gt; vor dem Attributwert&amp;nbsp; (zB. &lt;em&gt;Farbe:grün,&amp;amp;blau,gelb&lt;/em&gt;)&lt;br /&gt;
+&lt;br /&gt;
+Hat das Attribut keine speziellen Werte, so bleibt der Name des Attributes alleine in der Zeile und führt beim Artikel zu einer Texteingabebox, die der Kunde individuell ausfüllen kann. Wird dagegen ein &lt;strong&gt;^&lt;/strong&gt; vor dem Attributnamen eingefügt, so dient dieser Name nur als fett angezeigtes Gliederungselement und erhält keine Eingabemöglichkeit &lt;br /&gt;
+&lt;br /&gt;
+Wenn ein Attributwert zu einem anderen Preis führt, schreiben sie die Abweichung in eckige Klammern direkt hinter den Attributwert (&lt;i&gt;Farbe:Grün[+1.2345],Blau,gelb[-1.0002]&lt;/i&gt;) (Preise ohne extra Auszeichnung sind immer netto). Bitte verwenden Sie als Dezimaltrenner immer einen "."! Sie können alternativ auch einen Faktor angeben: Blau[*1.7]&lt;br /&gt;.&lt;br/&gt;
+&lt;br/&gt;
+Fügen Sie dem Änderungswert ein "#" hinzu, so wird diese Preisänderung in der Auswahlbox zusätzlich angezeigt( zB:Farbe:Grün[#+1.25] führt zu der Anzeige "Grün (+ 1.25 EUR)"&lt;br/&gt;
+&lt;br /&gt;
+Sie können die Preisdifferenz durch einen zusätzlichen Buchstaben auch noch genauer qualifizieren. Verwenden Sie &amp;quot;&lt;strong&gt;N&lt;/strong&gt;&amp;quot; für netto (Standard), &amp;quot;&lt;strong&gt;B&lt;/strong&gt;&amp;quot; für Brutto und &amp;quot;&lt;strong&gt;%&lt;/strong&gt;&amp;quot; für eine prozentuale Abweichung (z.B.: &lt;i&gt;Farbe:Grün[-1.50B],Blau[10%],Gelb[+1.2345N]&lt;/i&gt;). Wenn Sie einen Faktor gewählt haben wird der zusätzliche Buchstabe ignoriert!&lt;br /&gt;
+&lt;br /&gt;
+Rabatte können definiert werden über ein &amp;quot;&lt;strong&gt;@&lt;/strong&gt;&amp;quot;-Zeichen, gefolgt von Namen, einem &amp;quot;&lt;strong&gt;:&lt;/strong&gt;&amp;quot; und dann (wiederum als kommaseparierte Liste) die jeweilige Anzahl mit Ihrer Preisabweichung (analog zu den Attributen)&amp;nbsp; (z.B.: &lt;i&gt;@Rabatt:5[-10%],10[-20%]&lt;/i&gt;&amp;nbsp; würde bedeuten das ein Mengenrabatt von 10% ab 5 bestellten Artikeln vergeben wird sowie 20% ab dem 10.ten )&lt;/p&gt;
+</value>
+  </data>
+	<data name="lblProductDescription.Help" xml:space="preserve">
+    <value>Geben Sie hier mit Hilfe des HTML-Editors eine ansprechende Artikelbeschreibung mit beliebig vielen Bildern ihres Artikels ein</value>
+  </data>
+	<data name="lblImage.Help" xml:space="preserve">
+    <value>Wählen Sie ein Produktbild, laden Sie dieses optional hoch</value>
+  </data>
+	<data name="lblItemNo.Help" xml:space="preserve">
+    <value>Die Artikelnummer ihres Produktes (alphanumerisch)</value>
+  </data>
+	<data name="lblName.Help" xml:space="preserve">
+    <value>Geben Sie hier den Namen Ihres Produktes ein</value>
+  </data>
+	<data name="lblTaxPercent.Help" xml:space="preserve">
+    <value>Geben Sie hier den Steuersatz (max. 1 Nachkommastelle) ein</value>
+  </data>
+	<data name="lblUnitCost.Help" xml:space="preserve">
+    <value>Geben Sie hier den Einzelpreis Ihres Artikels ein. Je nach Brutto oder Netto-Feld wird der jeweils andere Wert unter Berücksichtigung des eingegebenen Steuersatzes beim Verlassen des Feldes automatisch ermittelt</value>
+  </data>
+	<data name="Dynamic.Message" xml:space="preserve">
+    <value>Dynamische Module können nicht editiert werden. Bitte wählen Sie zunächst ein Produkt aus</value>
+  </data>
+	<data name="lblProductGroup.Text" xml:space="preserve">
+    <value>Wählen Sie alle Produktgruppen die dieses Produkt beinhalten</value>
+  </data>
+	<data name="treeProductGroups.Text" xml:space="preserve">
+    <value>Artikelgruppen</value>
+  </data>
+	<data name="lblShortDescription.Help" xml:space="preserve">
+    <value>Geben Sie die Kurzbeschreibung an (max. 500 Zeichen)</value>
+  </data>
+	<data name="lblShortDescription.Text" xml:space="preserve">
+    <value>Kurzbeschreibung</value>
+  </data>
+	<data name="lblFeatureGrid.Text" xml:space="preserve">
+    <value>Geben Sie hier die Produkteigenschaften an</value>
+  </data>
+	<data name="lblDisabled.Text" xml:space="preserve">
+    <value>Artikel verbergen</value>
+  </data>
+	<data name="lblDisabled.Help" xml:space="preserve">
+    <value>Ankreuzen, wenn Sie diesen Artikel verbergen wollen (zB. wenn er grade nicht auf Lager ist)</value>
+  </data>
+	<data name="lblOriginalUnitCost.Text" xml:space="preserve">
+    <value>Unreduzierter Preis</value>
+  </data>
+	<data name="lblOriginalUnitCost.Help" xml:space="preserve">
+    <value>Wenn dieser Artikel einen Sonderangebotspreis haben soll, den normalen Preis hier eintragen und den Angebotspreis in "Einzelpreis", andernfalls den normalen Preis in "Einzelpreis" und diesen Preis auf 0.00 setzen.</value>
+  </data>
+	<data name="lblHideCost.Text" xml:space="preserve">
+    <value>Preis verbergen</value>
+  </data>
+	<data name="lblHideCost.Help" xml:space="preserve">
+    <value>Ankreuzen um den Artikelpreis zu verbergen (Zufügen zum Warenkorb ist dann nicht möglich)</value>
+  </data>
+	<data name="lblNoCart.Help" xml:space="preserve">
+    <value>Ankreuzen, wenn dieser Artikel nicht in den Warenkorb gelegt werden kann. Er kann dann nur dem Kontaktanfrageformular zugefügt werden.</value>
+  </data>
+	<data name="lblNoCart.Text" xml:space="preserve">
+    <value>Katalogprodukt</value>
+  </data>
+	<data name="cmdRefreshFeatures.Text" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+	<data name="lblSupplier.Text" xml:space="preserve">
+		<value>Lieferant</value>
+	</data>
+	<data name="lblSupplier.Help" xml:space="preserve">
+		<value>Geben Sie den Lieferanten des Artikels an</value>
+	</data>
+	<data name="SelectSupplier.Text" xml:space="preserve">
+		<value>(Lieferant wählen)</value>
+	</data>
+	<data name="lblUnit.Text" xml:space="preserve">
+		<value>Einheit</value>
+	</data>
+	<data name="lblUnit.Help" xml:space="preserve">
+		<value>Wählen Sie die passende Einheit für Ihr Produkt aus</value>
+	</data>
+	<data name="SelectUnit.Text" xml:space="preserve">
+		<value>(Einheit wählen)</value>
+	</data>
+	<data name="pnlProduct.Text" xml:space="preserve">
+		<value>Produkt</value>
+	</data>
+	<data name="pnlProductGroup.Text" xml:space="preserve">
+		<value>Artikelgruppen</value>
+	</data>
+	<data name="pnlProductGroupFeatures.Text" xml:space="preserve">
+		<value>Merkmale</value>
+	</data>
+	<data name="pnlLanguage.Text" xml:space="preserve">
+		<value>Texte</value>
+	</data>
+	<data name="cmdRefresh.Text" xml:space="preserve">
+		<value>Bilder aktualisieren</value>
+	</data>
+</root>

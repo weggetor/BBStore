@@ -1,0 +1,31 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]
+ADD CartName NVARCHAR(100) NOT NULL DEFAULT '' 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order]
+ADD OrderName NVARCHAR(100) NOT NULL DEFAULT '' 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType]
+ADD ViewOrder INT NOT NULL DEFAULT (0) 
+go
+
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType]
+ADD IsOrderAddress BIT NOT NULL DEFAULT (0) 
+go
+
+UPDATE {databaseOwner}[{objectQualifier}BBStore_SubscriberAddressType] SET IsOrderAddress = 1 WHERE kzAddresstype = 'Billing'
+GO
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

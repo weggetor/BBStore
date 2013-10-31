@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="ControlTitle_settings.Text" xml:space="preserve">
+    <value>BBStore Featurelist Einstellungen</value>
+  </data>
+	<data name="DeleteFeatureListTemplate.Text" xml:space="preserve">
+    <value>Wollen Sie diese Vorlage wirklich löschen? Merkmallisten, die diese Vorlage verwenden, werden anschließend mit dem Standard-Design angezeigt!</value>
+  </data>
+	<data name="lblFeaturesInRow.Help" xml:space="preserve">
+    <value>Geben Sie an, wie viele Merkmale in einer Zeile dargestellt werden sollen</value>
+  </data>
+	<data name="lblFeaturesInRow.Text" xml:space="preserve">
+    <value>Merkmale pro Zeile</value>
+  </data>
+	<data name="lnkReset.Text" xml:space="preserve">
+    <value>auf Standard setzen</value>
+  </data>
+	<data name="SelectOption.Text" xml:space="preserve">
+    <value>(Optional auswählen)</value>
+  </data>
+	<data name="lblHeaderText.Text" xml:space="preserve">
+    <value>Kopf-Text</value>
+  </data>
+	<data name="lblHeaderText.Help" xml:space="preserve">
+    <value>Geben Sie hier einen Text ein, der über der Merkmallliste angezeigt wird (HTML erlaubt)</value>
+  </data>
+	<data name="lblFooterText.Text" xml:space="preserve">
+    <value>Fuss-Text</value>
+  </data>
+	<data name="lblFooterText.Help" xml:space="preserve">
+    <value>Geben Sie hier einen Text ein, der unter der Merkmallliste angezeigt wird (HTML erlaubt)</value>
+  </data>
+	<data name="lblProductListModulePage.Text" xml:space="preserve">
+    <value>Produktlisten-Modul Seite</value>
+  </data>
+	<data name="lblProductListModulePage.Help" xml:space="preserve">
+    <value>Bitte wählen Sie eine Seite die ein Produktlisten Modul enthält, das auf dynamische Datenselektion eingestellt istsetting</value>
+  </data>
+	<data name="lblFeatureList.Text" xml:space="preserve">
+    <value>Merkmal Liste</value>
+  </data>
+	<data name="lblFeatureList.Help" xml:space="preserve">
+    <value>Wählen Sie die Merkmalliste, die zur Filterung angezeigt werden soll</value>
+  </data>
+	<data name="Edit.Text" xml:space="preserve">
+    <value>(bearbeiten)</value>
+  </data>
+	<data name="lblViewMode.Text" xml:space="preserve">
+		<value>Anzeige als</value>
+	</data>
+	<data name="lblViewMode.Help" xml:space="preserve">
+		<value>Wählen Sie die Art der Anzeige: in tabellarischer Form oder als tabellarisches Raster</value>
+	</data>
+	<data name="rblViewModeTable.Text" xml:space="preserve">
+		<value>Tabelle</value>
+	</data>
+	<data name="rblViewModeScroller.Text" xml:space="preserve">
+		<value>Laufband</value>
+	</data>
+	<data name="lblOnlyWithImage.Text" xml:space="preserve">
+		<value>Nur Einträge mit Bild</value>
+	</data>
+	<data name="lblOnlyWithImage.Help" xml:space="preserve">
+		<value>Wenn angehakt werden nur Produktmerkmale mit Bild angezeigt</value>
+	</data>
+	<data name="lblRotatorHeight.Text" xml:space="preserve">
+		<value>Höhe der Laufbandes</value>
+	</data>
+	<data name="lblRotatorHeight.Help" xml:space="preserve">
+		<value>Geben Sie die Höhe des Laufbandes (in Pixeln) an</value>
+	</data>
+	<data name="hdrGlobal.Text" xml:space="preserve">
+		<value>Allgemeine Einstellungen</value>
+	</data>
+	<data name="hdrLanguage.Text" xml:space="preserve">
+		<value>Statische Texte</value>
+	</data>
+</root>

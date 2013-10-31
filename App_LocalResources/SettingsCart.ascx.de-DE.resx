@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="ControlTitle_settings.Text" xml:space="preserve">
+    <value>BBStore Warenkorb Einstellungen</value>
+  </data>
+	<data name="lblImage.Text" xml:space="preserve">
+    <value>Bild</value>
+  </data>
+	<data name="lblItemNo.Text" xml:space="preserve">
+    <value>Artikelnr.</value>
+  </data>
+	<data name="lblNetTotal.Text" xml:space="preserve">
+    <value>Netto- summe</value>
+  </data>
+	<data name="lblProduct.Text" xml:space="preserve">
+    <value>Produkt</value>
+  </data>
+	<data name="lblQuantity.Text" xml:space="preserve">
+    <value>Menge</value>
+  </data>
+	<data name="lblShow.Help" xml:space="preserve">
+    <value>Ankreuzen, wenn Spalte im Warenkorb sichtbar sein soll</value>
+  </data>
+	<data name="lblShow.Text" xml:space="preserve">
+    <value>Anzeigen</value>
+  </data>
+	<data name="lblShowSummary.Help" xml:space="preserve">
+    <value>Ankreuzen, wenn die Zusammenfassung unter dem Warenkorb angezeigt werden soll</value>
+  </data>
+	<data name="lblShowSummary.Text" xml:space="preserve">
+    <value>Zusammenfassung anzeigen</value>
+  </data>
+	<data name="lblSubTotal.Text" xml:space="preserve">
+    <value>Betrag</value>
+  </data>
+	<data name="lblTaxPercent.Text" xml:space="preserve">
+    <value>MwSt. %</value>
+  </data>
+	<data name="lblTaxTotal.Text" xml:space="preserve">
+    <value>MwSt. Betrag</value>
+  </data>
+	<data name="lblUnitCost.Text" xml:space="preserve">
+    <value>Einzel- preis</value>
+  </data>
+	<data name="lblWidth.Help" xml:space="preserve">
+    <value>Spaltenbreite in Pixeln angeben</value>
+  </data>
+	<data name="lblWidth.Text" xml:space="preserve">
+    <value>Breite</value>
+  </data>
+	<data name="hdrLayout.Text" xml:space="preserve">
+    <value>Layout Einstellungen</value>
+  </data>
+	<data name="SelectRole.Text" xml:space="preserve">
+    <value>(Gruppe auswählen)</value>
+  </data>
+	<data name="lblShoppingTarget.Text" xml:space="preserve">
+    <value>Ziel "Einkauf fortsetzen"</value>
+  </data>
+	<data name="lblShoppingTarget.Help" xml:space="preserve">
+    <value>Wählen Sie das Ziel für den "Einkauf fortsetzen"-Button</value>
+  </data>
+	<data name="rblhoppingTargetShopHome.Text" xml:space="preserve">
+    <value>Shop Startseite</value>
+  </data>
+	<data name="rblhoppingTargetProduct.Text" xml:space="preserve">
+    <value>Letzter Artikel</value>
+  </data>
+	<data name="lblEnableCartUpload.Text" xml:space="preserve">
+    <value>Warenkorb wiederherstellen erlauben</value>
+  </data>
+	<data name="lblEnableCartUpload.Help" xml:space="preserve">
+    <value>Ankreuzen wenn die Funktionalität zum Laden des Warenkorbs angezeigt werden soll</value>
+  </data>
+	<data name="lblEnableCartDownload.Text" xml:space="preserve">
+    <value>Warenkorb speichern erlauben</value>
+  </data>
+	<data name="lblEnableCartDownload.Help" xml:space="preserve">
+    <value>Ankreuzen wenn die Funktionalität zum Speichern des Warenkorbs angezeigt werden soll</value>
+  </data>
+	<data name="lblMultipleCustomers.Text" xml:space="preserve">
+    <value>Mehrere Kunden pro Benutzer</value>
+  </data>
+	<data name="lblMultipleCustomers.Help" xml:space="preserve">
+    <value>Ankreuzen wenn der eingeloggte Benutzer mehrere Kunden verwalten soll (im Normalfall leer lassen)</value>
+  </data>
+	<data name="lblCapAddressPart.Text" xml:space="preserve">
+    <value>Adress-Teil</value>
+  </data>
+	<data name="lblCapMandatory.Text" xml:space="preserve">
+    <value>Erforderlich</value>
+  </data>
+	<data name="lblCell.Text" xml:space="preserve">
+    <value>Mobil</value>
+  </data>
+	<data name="lblCity.Text" xml:space="preserve">
+    <value>Ort</value>
+  </data>
+	<data name="lblCompany.Text" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+	<data name="lblCountry.Text" xml:space="preserve">
+    <value>Land</value>
+  </data>
+	<data name="lblFax.Text" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+	<data name="lblFirstname.Text" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+	<data name="lblLastname.Text" xml:space="preserve">
+    <value>Nachname</value>
+  </data>
+	<data name="lblMiddlename.Text" xml:space="preserve">
+    <value>Mittelname</value>
+  </data>
+	<data name="lblPhone.Text" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+	<data name="lblPostalCode.Text" xml:space="preserve">
+    <value>PLZ</value>
+  </data>
+	<data name="lblPrefix.Text" xml:space="preserve">
+    <value>Anrede</value>
+  </data>
+	<data name="lblRegion.Text" xml:space="preserve">
+    <value>Bundesland</value>
+  </data>
+	<data name="lblStreet.Text" xml:space="preserve">
+    <value>Strasse</value>
+  </data>
+	<data name="lblSuburb.Text" xml:space="preserve">
+    <value>Ortsteil</value>
+  </data>
+	<data name="lblSuffix.Text" xml:space="preserve">
+    <value>Zusatz</value>
+  </data>
+	<data name="lblAddressFields.Help" xml:space="preserve">
+    <value>Bitte wählen Sie für welche Adressfelder eine Eingabe erforderlich ist</value>
+  </data>
+	<data name="lblAddressFields.Text" xml:space="preserve">
+    <value>Adressfelder</value>
+  </data>
+	<data name="hdrAddress.Text" xml:space="preserve">
+    <value>Adress Einstellungen</value>
+  </data>
+	<data name="valAddressTemplate.Error" xml:space="preserve">
+    <value>Sie haben ein oder mehrere Adressfelder als notwendig markiert, die nicht in der Adressvorlage vorhanden sind!</value>
+  </data>
+	<data name="lblAddressTemplate.Text" xml:space="preserve">
+    <value>Adressvorlage</value>
+  </data>
+	<data name="lblUnit.Text" xml:space="preserve">
+    <value>HNr.</value>
+  </data>
+	<data name="lblEmail.Text" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+	<data name="hdrLanguage.Text" xml:space="preserve">
+    <value>Statische Texte</value>
+  </data>
+	<data name="lblLanguage.Text" xml:space="preserve">
+    <value>Sprache wählen</value>
+  </data>
+	<data name="lblLanguage.Help" xml:space="preserve">
+    <value>Wählen Sie die Sprache, die Sie bearbeiten wollen</value>
+  </data>
+	<data name="lblEmptyCart.Text" xml:space="preserve">
+    <value>Text leerer Warenkorb</value>
+  </data>
+	<data name="lblEmptyCart.Help" xml:space="preserve">
+    <value>Bitte geben Sie hier den Text ein , der angezeigt werden soll, wenn der Warenkorb leer ist</value>
+  </data>
+	<data name="lblCartNavigationStyle.Text" xml:space="preserve">
+    <value>Warenkorbnavigations-Stil</value>
+  </data>
+	<data name="lblCartNavigationStyle.Help" xml:space="preserve">
+    <value>Wählen Sie den Stil der Warenkorbnavigation</value>
+  </data>
+	<data name="lblConfirmCart.Text" xml:space="preserve">
+		<value>Bestellbestätigungs-Nachricht</value>
+	</data>
+	<data name="lblConfirmCart.Help" xml:space="preserve">
+		<value>Erfassen Sie hier den Text der erscheinen soll wenn der Kunde eine Bestellung abgeschickt hat. Verwenden Sie bei Bedarf den Platzhalter [ORDERNO] um die generierte Bestellnummer anzuzeigen</value>
+	</data>
+	<data name="lblUnits.Text" xml:space="preserve">
+		<value>Einheit</value>
+	</data>
+	<data name="lblAddressTemplate.Help" xml:space="preserve">
+		<value>Entwerfen Sie das Layout in dem Adressen angezeigt und erfasst werden sollen. Verwenden Sie hierbei die Token-Replace Syntax &lt;b&gt;[TOKEN:Width (in pixel)]&lt;/b&gt;
+Wählen Sie aus folgenden Tokens:
+&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Token&lt;/th&gt;&lt;th&gt;Bedeutung&lt;/th&gt;
+&lt;tr&gt;&lt;td&gt;COMPANY&lt;/td&gt;&lt;td&gt;Firma&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;PREFIX&lt;/td&gt;&lt;td&gt;Anrede&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;FIRSTNAME&lt;/td&gt;&lt;td&gt;Vorname&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;MIDDLENAME&lt;/td&gt;&lt;td&gt;Mittelname&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;LASTNAME&lt;/td&gt;&lt;td&gt;Nachnahme&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SUFFIX&lt;/td&gt;&lt;td&gt;Suffix&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;STREET&lt;/td&gt;&lt;td&gt;Strasse&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;UNIT&lt;/td&gt;&lt;td&gt;Hausnummer&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;REGION&lt;/td&gt;&lt;td&gt;Region&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;POSTALCODE&lt;/td&gt;&lt;td&gt;PLZ&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;CITY&lt;/td&gt;&lt;td&gt;Ort&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SUBURB&lt;/td&gt;&lt;td&gt;Ortsteil&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;COUNTRY&lt;/td&gt;&lt;td&gt;Land&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;PHONE&lt;/td&gt;&lt;td&gt;Telefon&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;CELL&lt;/td&gt;&lt;td&gt;Mobil&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;FAX&lt;/td&gt;&lt;td&gt;Fax&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;EMAIL&lt;/td&gt;&lt;td&gt;E-Mail&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</value>
+	</data>
+	<data name="hdrTemplates.Text" xml:space="preserve">
+		<value>Vorlagen</value>
+	</data>
+	<data name="lblTemplate.Text" xml:space="preserve">
+		<value>E-Mail Vorlage</value>
+	</data>
+	<data name="lblTemplate.Help" xml:space="preserve">
+		<value>Wählen Sie die E-Mail Vorlage für die Bestellung E-Mail aus bzw. erzeugen / bearbeiten Sie diese</value>
+	</data>
+</root>

@@ -1,0 +1,8 @@
+﻿Por favor, seleccione una plantilla para el minicarro o crear una nueva. Puede utilizar los siguientes comodines: :< br />
+<ul style="color:black;">
+	<li>[PRODUCTS] = Número de elementos en el carrito de compras</li>
+	<li>[TOTAL] = Cantidad los precios de artículos en el carrito de compras</li>
+	<li>[CURRENCY] = Moneda</li>
+	<li>[CARTLINK] = Enlace al módulo de compras carrito</li>
+	<li>[CHECKOUTLINK] = Enlace a la caja</li>
+</ul>

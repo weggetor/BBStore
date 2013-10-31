@@ -1,0 +1,8 @@
+﻿Please select a template or create a new for one the minicart. You can use the following tokens:<br />
+<ul style="color:black;">
+	<li>[PRODUCTS] = Product Count in cart</li>
+	<li>[TOTAL] = Amount to pay in cart </li>
+	<li>[CURRENCY] = Currency of cart</li>
+	<li>[CARTLINK] = Url of Main Cart module page</li>
+	<li>[CHECKOUTLINK] = Url of Checkout page</li>
+</ul>

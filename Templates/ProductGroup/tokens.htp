@@ -1,0 +1,9 @@
+﻿Please select a template or create a new for the product groups. You can use the following tokens:<br />
+<ul style="color:black;">
+	<li>[PRODUCTGROUPNAME] = Product Group Name</li>
+	<li>[IMAGE] = Product Group Image (orig. Width)</li>
+	<li>[IMAGE:width] = Product Group Image (Width in pixel)</li>
+	<li>[ICON] = Product Group Icon</li>
+	<li>[PRODUCTCOUNT] = Product Count</li>
+	<li>[RESOURCE:key] = Token replace from Resourcefile</li>
+</ul>

@@ -1,0 +1,26 @@
+﻿Wählen Sie eine Vorlage zur Darstellung der Produktliste. Sie können aus folgenden Platzhaltern auswählen:<br />
+<ul style="color:black;">
+	<li>[TITLE] = Produktname</li>
+	<li>[PRODUCTSHORTDESCRIPTION] = Produkt Kurzbeschreibung</li>
+	<li>[PRODUCTDESCRIPTION] = Produkt Langbeschreibung</li>
+	<li>[PRICE] = Preis</li>
+	<li>[CURRENCY] = Währung</li>
+	<li>[TAX] = Umsatzsteuer</li>
+	<li>[UNIT] = Einheit</li>
+	<li>[IMAGE] = Produktbild (orig. Größe)</li>
+	<li>[IMAGE:width] = Produktbild (Breite in pixel)</li>
+	<li>[FEATURE:token.property] = Produkt-Merkmal mit Token-Name (z.B:. "BAUJAHR"). Gültige Properties:
+			<ul style="color:black">
+				<li>FeatureGroup = Gruppenname des Merkmals</li>
+				<li>Feature = Merkmal Name</li>
+				<li>FeatureList = Listen-Name (wenn Merkmal ein Listenmerkmal)</li>
+				<li>FeatureListItem = Listen-Wert (wenn Merkmal ein Listenmerkmal)</li>
+				<li>nValue = Numerischer Wert</li>
+				<li>cValue = Zeichenwert</li>
+				<li>tValue = DateTime Wert</li>
+				<li>iValue = Integer Wert</li>
+				<li>fValue = Float Wert</li>
+			</ul>
+	</li>
+	<li>[RESOURCE:key] = Platzhalter ersetzen aus Resourcefile</li>
+</ul>

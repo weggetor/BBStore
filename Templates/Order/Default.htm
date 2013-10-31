@@ -1,0 +1,102 @@
+<html>
+<head>
+<style type="text/css">
+.Normal, .Normal td
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.SubHead
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+</style>
+</head>
+<body>
+<table style="width:100%;" align="center" border="0" cellspacing="0" cellpadding="10">
+  <tr valign="top">
+    <td width="50%" align="left" class="Normal">[BBSTORE-VENDORNAME]<br />
+    [BBSTORE-VENDORSTREET1]<br />
+    [BBSTORE-VENDORSTREET2]<br />
+    [BBSTORE-VENDORZIP] [BBSTORE-VENDORCITY]</td>
+    <td width="50%" align="right">[BBSTORE-VENDORIMAGE]</td>
+  </tr>
+  <tr>
+      <td colspan="2" class="Normal">
+      [BBSTORE-HEADERMESSAGE]
+      </td>
+  </tr>
+  <tr bgcolor="white">
+    <td colspan="2">
+      <h3 class="SubHead">[BBSTORE-ORDERTEXT]</h3>
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;" border="0" cellspacing="0" cellpadding="2" >
+  <tr bgcolor="#CCCCCC">
+    <td colspan="2" class="SubHead"><b>[BBSTORE-INFOTEXT]</b></td>
+  </tr>
+  <tr class="Normal">
+    <td>Bestellnummer:</td>
+    <td>[BBSTORE-ORDERNO]</td>
+  </tr>
+  <tr class="Normal">
+    <td>Bestelldatum:</td>
+    <td>[BBSTORE-ORDERDATE]</td>
+  </tr>
+  <tr class="Normal">
+    <td>Bestellstatus:</td>
+    <td>[BBSTORE-ORDERSTATE]</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr bgcolor="#CCCCCC">
+    <td colspan="2"><b class="SubHead">[BBSTORE-ADDRESSINFOTEXT]</b></td>
+  </tr>
+	<tr valign="top">
+		<td colspan="2">[BBSTORE-ADDRESSTEXT]</td>
+	</tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr bgcolor="#CCCCCC" class="SubHead">
+    <td colspan="2"><b>[BBSTORE-PRODUCTSTEXT]</b></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <table style="width:100%" cellspacing="0" cellpadding="2" border="0">
+        [BBSTORE-ORDERITEMS]
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr bgcolor="#CCCCCC">
+    <td colspan="2"><b class="SubHead">[BBSTORE-COMMENTSTEXT]</b></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="Normal">
+        [BBSTORE-COMMENT]
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr bgcolor="#CCCCCC">
+    <td><b class="SubHead">[BBSTORE-PAYMENTTEXT]</b></td>
+    <td><b class="SubHead">[BBSTORE-SHIPPINGTEXT]</b></td>
+  </tr>
+  <tr>
+    <td class="Normal" style="vertical-align:top">[BBSTORE-PAYMENT]</td>
+    <td class="Normal" style="vertical-align:top">[BBSTORE-SHIPPING]</td>
+  </tr>
+</table>
+<br />
+<p class="Normal" style="color:Red">
+[BBSTORE-FOOTERMESSAGE]
+</p>
+</body>
+</html>

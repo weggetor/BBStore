@@ -1,0 +1,25 @@
+Wählen Sie eine Vorlage zur Darstellung des Produktes. Sie können aus folgenden Platzhaltern auswählen:<br />
+<ul style="color:black">
+	<li>[TITLE] = Produktname</li>
+	<li>[ITEMNO] = Artikelnummer</li>
+	<li>[PRODUCTSHORTDESCRIPTION] = Produkt Kurzbeschreibung</li>
+	<li>[PRODUCTDESCRIPTION] = Produkt Langbeschreibung</li>
+	<li>[PRODUCTOPTIONS] = Attribute</li>
+	<li>[PRICE] = Preis</li>
+	<li>[ORIGINALPRICE] = Preis ohne Rabatt / Discount</li>
+	<li>[CURRENCY] = Währung</li>
+	<li>[TAX] = Umsatzsteuer</li>
+	<li>[UNIT] = Einheit</li>
+	<li>[IMAGE] = Produktbild (orig. Größe)</li>
+	<li>[IMAGE:Breite] = Produktbild  (Breite in pixel)</li>
+	<li>[IMAGELINK] = Link zum Produktbild (orig. Größe)</li>
+	<li>[IMAGELINK:Breite] = Link zum Produktbild  (Breite in pixel)</li>
+	<li>[AMOUNT] = Textbox für die Eingabe der Anzahl</li>
+	<li>[ADDCARTIMAGE] = Bild mit Link zu &quot;Zum Warenkorb zufügen&quot;</li>
+	<li>[ADDCARTLINK] = Link zu &quot;Zum Warenkorb zufügen&quot;</li>
+	<li>[MANDATORYERROR] = Fehlermeldung (wenn vorhanden)</li>
+	<li>[RESOURCE:key] = Platzhalter ersetzen aus Resourcefile</li>
+	<li>[FEATURES] (optional) = Featuregrid mit Produkteigenschaften</li>
+	<!--<li>[YOUTUBE:Breite] = Eingebettetes Youtube Video (Breite in Pixel)</li>-->
+	<li>[IMAGESCROLLER:Breite,Anzahl] = Imagescroller mit Bildern aus dem Verzeichnis des Artikelbildes (Breite in Pixeln, Anzahl sichtbare Bilder)</li>
+</ul>

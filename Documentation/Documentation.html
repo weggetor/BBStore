@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>DotNetNuke</title>
+    <link rel="stylesheet" type="text/css" href="Documentation.css">
+    <style type="text/css">
+        .auto-style1 {
+            color: #009933;
+        }
+    </style>
+</head>
+<body bottommargin="5" leftmargin="5" topmargin="5" rightmargin="5" marginwidth="0" marginheight="0">
+    <img src="Logo2.gif" border="0">
+    <h1>Bitboxx BBStore Module</h1>
+    <p>Einstellung für grosse Uploads (Import / Export)</p>
+    <pre>&lt;!-- allow large file uploads --&gt; 
+&lt;httpRuntime useFullyQualifiedRedirectUrl=&quot;true&quot; maxRequestLength=&quot;102400&quot; <span class="auto-style1">executionTimeout=&quot;3600&quot;</span> requestLengthDiskThreshold=&quot;8192&quot; requestValidationMode=&quot;2.0&quot; /&gt; </pre>
+    <p>Webservice Einstellung gegen Timeout:</p>
+    <pre>&lt;binding name="myBindingForBigArrays" maxReceivedMessageSize="2147483647" <span class="auto-style1">receiveTimeout="00:10:00" sendTimeout="00:10:00"</span>&gt;</pre>
+    <pre>&nbsp;</pre>
+</body>
+</html>

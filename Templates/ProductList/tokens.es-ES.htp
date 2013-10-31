@@ -1,0 +1,25 @@
+﻿Por favor, seleccione una plantilla o crear una nueva para la lista de productos. Puede utilizar los siguientes símbolos:<br>
+<ul style="color:black;">
+	<li>[TITLE] = Nombre del producto</li>
+	<li>[PRODUCTSHORTDESCRIPTION] = Descripción corta del producto</li>
+	<li>[PRODUCTDESCRIPTION] = Descripción de producto</li>
+	<li>[PRICE] = Precio</li>
+	<li>[CURRENCY] = Moneda</li>
+	<li>[TAX] = Tributaria</li>
+	<li>[UNIT] = Unidad</li>
+	<li>[IMAGE] = Imagen del producto (dimensión original)</li>
+	<li>[IMAGE: ancho] = Imagen del producto (ancho en píxeles)</li>
+	<li>[FEATURE: token.property] = Característica del producto con el símbolo (token) nombre (por ejemplo). ("hacer"). Propiedades válidas:<ul style="color:black">
+			<li>FeatureGroup = Grupo de función</li>
+			<li>Feature = Nombre de la función</li>
+			<li>FeatureList = Nombre de la lista (si la función es característica de lista)</li>
+			<li>FeatureListItem = Valor de la lista (si la función es característica de lista)</li>
+			<li>nValue = Valor numérico</li>
+			<li>cValue = Valor de carácter </li>
+			<li>tValue = Valor DateTime</li>
+			<li>iValue = Valor entero</li>
+			<li>fValue = Valor flotante</li>
+		</ul>
+	</li>
+	<li>[RESOURCE: clave] = reemplazar símbolo (token) del archivo de recursos</li>
+</ul>

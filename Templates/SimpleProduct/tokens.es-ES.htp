@@ -1,0 +1,25 @@
+Por favor, seleccione una plantilla o crear una nueva para la presentación de producto. Puede utilizar los siguientes símbolos:<br />
+<ul style="color:black">
+	<li>[TITLE] = Nombre del producto</li>
+	<li>[ITEMNO] = Elemento no.</li>
+	<li>[PRODUCTSHORTDESCRIPTION] = Descripción corta del producto</li>
+	<li>[PRODUCTDESCRIPTION] = Descripción de producto</li>
+	<li>[PRODUCTOPTIONS] = Atributos</li>
+	<li>[PRICE] = Precio</li>
+	<li>[ORIGINALPRICE] = Precio original</li>
+	<li>[CURRENCY] = Moneda</li>
+	<li>[TAX] = Impuestos</li>
+	<li>[UNIT] = Unidad</li>
+	<li>[IMAGE] = Imagen del producto (dimensión original)</li>
+	<li>[IMAGE:ancho] = Imagen del producto (ancho en píxeles)</li>
+	<li>[IMAGELINK] = Enlace a la imagen del producto (dimensión original)</li>
+	<li>[IMAGELINK:ancho] = Enlace a la imagen del producto (ancho en píxeles)</li>
+	<li>[AMOUNT] = Cuadro de texto para introducir la cantidad</li>
+	<li>[ADDCARTIMAGE] = Imagen con vínculo "Añadir a la cesta"</li>
+	<li>[ADDCARTLINK] = Vínculo "Añadir al carro"</li>
+	<li>[MANDATORYERROR] = Mensaje de error (si corresponde)</li>
+	<li>[RESOURCE:clave] = Reemplazar símbolo (token) del archivo de recursos</li>
+	<li>[FEATURES] (opcional) = Características del producto</li>
+	<!--<li>[YOUTUBE:ancho] = Video en youtube (ancho en píxeles) </li>-->
+	<li>[IMAGESCROLLER:width,count] = Imagescroller con imágenes en el directorio de la imagen de artículo (ancho en píxeles, número de imágenes visibles)</li>
+</ul>

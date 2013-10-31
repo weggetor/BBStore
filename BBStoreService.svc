@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Bitboxx.DNNModules.BBStore.BBStoreService" CodeBehind="BBStoreService.svc.cs" %>

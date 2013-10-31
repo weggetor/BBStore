@@ -1,0 +1,6 @@
+﻿Please select a template or create a new for the Featurelistitems. You can use the following tokens:<br />
+<ul style="color:black;">
+	<li>[TITLE] = Featurelist item name</li>
+	<li>[IMAGE] = Product Image (orig. dimension)</li>
+	<li>[IMAGE:width] = Product Image (width in pixel)</li>
+</ul>

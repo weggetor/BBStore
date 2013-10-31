@@ -1,0 +1,843 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/** Create Tables **/
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Cart]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_Cart] ( 
+         CartID UNIQUEIDENTIFIER NOT NULL,
+         PortalID INT NOT NULL,
+         SubscriberID INT NOT NULL DEFAULT (0) ,
+         CustomerID INT NULL,
+         DeliveryAddressID INT NOT NULL DEFAULT (0) ,
+         BillingAddressID INT NOT NULL DEFAULT (0) ,
+         CustomerPaymentProviderID INT NULL,
+         Comment NVARCHAR(500) NULL,
+         Currency NVARCHAR(5) NOT NULL DEFAULT N'EUR' ,
+         Total DECIMAL(12,4) NOT NULL DEFAULT (0.0000) 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart] ADD CONSTRAINT PK_{objectQualifier}BBStore_Cart PRIMARY KEY NONCLUSTERED  (CartID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] ( 
+         CartProductID INT NOT NULL IDENTITY (1,1),
+         CartID UNIQUEIDENTIFIER NOT NULL,
+         ProductID INT NULL,
+         Image NVARCHAR(300) NULL,
+         ItemNo NVARCHAR(20) NULL,
+         Quantity INT NOT NULL DEFAULT (1) ,
+         Name NVARCHAR(60) NOT NULL DEFAULT N'' ,
+         Description VARCHAR(MAX) NULL,
+         UnitCost DECIMAL(12,4) NOT NULL DEFAULT (0.000) ,
+         TaxPercent DECIMAL(4,1) NOT NULL DEFAULT (0.0) ,
+         ProductUrl NVARCHAR(300) NOT NULL DEFAULT N'' ,
+         ProductDiscount NVARCHAR(100) NOT NULL DEFAULT N'' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] ADD CONSTRAINT PK_{objectQualifier}BBStore_CartProduct PRIMARY KEY NONCLUSTERED  (CartProductID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartProductOption]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption] ( 
+         CartProductOptionID INT NOT NULL IDENTITY (1,1),
+         CartProductID INT NOT NULL,
+         OptionID INT NULL,
+         OptionName NVARCHAR(40) NULL,
+         OptionValue NVARCHAR(100) NULL,
+         Pricealteration DECIMAL(12,4) NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption] ADD CONSTRAINT PK_{objectQualifier}BBStore_CartProductOption PRIMARY KEY NONCLUSTERED  (CartProductOptionID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CustomerAddress]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerAddress] ( 
+         CustomerAddressID INT NOT NULL IDENTITY (1,1),
+         PortalID INT NOT NULL,
+         CustomerID INT NOT NULL,
+         AddressType INT NOT NULL,
+         Company NVARCHAR(50) NULL,
+         Prefix NVARCHAR(20) NULL,
+         Firstname NVARCHAR(50) NULL,
+         Middlename NVARCHAR(50) NULL,
+         Lastname NVARCHAR(50) NULL,
+         Suffix NVARCHAR(50) NULL,
+         Unit NVARCHAR(50) NULL,
+         Street NVARCHAR(100) NULL,
+         Region NVARCHAR(50) NULL,
+         Postalcode NCHAR(10) NULL,
+         City NVARCHAR(100) NULL,
+         Suburb NVARCHAR(100) NULL,
+         Country NVARCHAR(100) NULL,
+         Countrycode NCHAR(3) NULL,
+         Telephone NVARCHAR(20) NULL,
+         Cell NVARCHAR(20) NULL,
+         Fax NVARCHAR(20) NULL,
+         Email NVARCHAR(120) NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerAddress] ADD CONSTRAINT PK_{objectQualifier}BBStore_CustomerAddress PRIMARY KEY NONCLUSTERED  (CustomerAddressID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Order]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_Order] ( 
+         OrderID INT NOT NULL IDENTITY (1,1),
+         PortalID INT NOT NULL,
+         SubscriberID INT NOT NULL DEFAULT (0) ,
+         OrderNo NVARCHAR(20) NOT NULL DEFAULT N'' ,
+         OrderTime SMALLDATETIME NOT NULL DEFAULT getdate() ,
+         OrderStateID INT NOT NULL DEFAULT (0) ,
+         CustomerID INT NOT NULL,
+         Comment NVARCHAR(500) NULL,
+         Currency NVARCHAR(5) NOT NULL DEFAULT N'EUR' ,
+         Total DECIMAL(12,4) NOT NULL DEFAULT (0.0000) ,
+         PaymentProviderID INT NOT NULL,
+         PaymentProviderValues NVARCHAR(MAX) NOT NULL DEFAULT N'' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order] ADD CONSTRAINT PK_{objectQualifier}BBStore_Order PRIMARY KEY NONCLUSTERED  (OrderID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct] ( 
+         OrderProductID INT NOT NULL IDENTITY (1,1),
+         OrderID INT NOT NULL,
+         ProductID INT NULL,
+         Image NVARCHAR(300) NULL,
+         ItemNo NVARCHAR(20) NULL,
+         Quantity INT NOT NULL,
+         Name NVARCHAR(60) NULL,
+         Description VARCHAR(MAX) NULL,
+         UnitCost DECIMAL(12,4) NULL,
+         TaxPercent DECIMAL(4,1) NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct] ADD CONSTRAINT PK_{objectQualifier}BBStore_OrderProduct PRIMARY KEY NONCLUSTERED  (OrderProductID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderProductOption]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProductOption] ( 
+         OrderProductOptionID INT NOT NULL IDENTITY (1,1),
+         OrderProductID INT NOT NULL,
+         OptionID INT NULL,
+         OptionName NVARCHAR(40) NULL,
+         OptionValue NVARCHAR(100) NULL,
+         Pricealteration DECIMAL(12,4) NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProductOption] ADD CONSTRAINT PK_{objectQualifier}BBStore_OrderProductOption PRIMARY KEY NONCLUSTERED  (OrderProductOptionID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderState]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_OrderState] ( 
+         OrderStateID INT NOT NULL IDENTITY (1,1),
+         OrderAction VARCHAR(MAX) NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderState] ADD CONSTRAINT PK_{objectQualifier}BBStore_OrderState PRIMARY KEY NONCLUSTERED  (OrderStateID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_PaymentProvider]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ( 
+         PaymentProviderID INT NOT NULL IDENTITY (1,1),
+         ProviderLogo NVARCHAR(60) NOT NULL DEFAULT N'' ,
+         ProviderTag CHAR(10) NOT NULL DEFAULT '' ,
+         ProviderControl CHAR(30) NOT NULL DEFAULT '' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ADD CONSTRAINT PK_{objectQualifier}BBStore_PaymentProvider PRIMARY KEY NONCLUSTERED  (PaymentProviderID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderStateLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_OrderStateLang] ( 
+         OrderStateID INT NOT NULL,
+         Language NCHAR(5) NOT NULL DEFAULT N'' ,
+         OrderState NVARCHAR(20) NOT NULL DEFAULT N'' 
+      )
+   CREATE NONCLUSTERED INDEX IX_{objectQualifier}Language ON [{objectQualifier}BBStore_OrderStateLang] (OrderStateID ASC,Language ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider] ( 
+         SubscriberPaymentProviderID INT NOT NULL IDENTITY (1,1),
+         PortalID INT NOT NULL,
+         SubscriberID INT NULL,
+         PaymentProviderID INT NOT NULL,
+         ViewOrder INT NULL,
+         PaymentProviderProperties NVARCHAR(MAX) NOT NULL DEFAULT N'' ,
+         Cost DECIMAL(12,4) NULL,
+         IsEnabled BIT NOT NULL DEFAULT (0) ,
+         Role NVARCHAR(40) NOT NULL DEFAULT N'' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider] ADD CONSTRAINT PK_{objectQualifier}BBStore_SubscriberPaymentProvider PRIMARY KEY NONCLUSTERED  (SubscriberPaymentProviderID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Customer]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_Customer] ( 
+         CustomerID INT NOT NULL IDENTITY (1,1),
+         PortalId INT NOT NULL,
+         UserID INT NOT NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Customer] ADD CONSTRAINT PK_{objectQualifier}BBStore_Customer0 PRIMARY KEY NONCLUSTERED  (CustomerID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider] ( 
+         CustomerPaymentProviderID INT NOT NULL IDENTITY (1,1),
+         CustomerID INT NOT NULL DEFAULT (0) ,
+         PaymentProviderID INT NOT NULL,
+         PaymentProviderValues NVARCHAR(MAX) NOT NULL DEFAULT N'' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider] ADD CONSTRAINT PK_{objectQualifier}BBStore_CustomerPaymentProvider PRIMARY KEY NONCLUSTERED  (CustomerPaymentProviderID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SubscriberTaxRates]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberTaxRates] ( 
+         SubscriberTaxRatesID INT NOT NULL IDENTITY (1,1),
+         PortalID INT NOT NULL,
+         SubscriberID INT NULL,
+         TaxPercent DECIMAL(4,1) NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberTaxRates] ADD CONSTRAINT PK_{objectQualifier}BBStore_SubscriberTaxRates PRIMARY KEY NONCLUSTERED  (SubscriberTaxRatesID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderAddress]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress] ( 
+         OrderAddressID INT NOT NULL IDENTITY (1,1),
+         PortalID INT NOT NULL,
+         OrderID INT NULL,
+         AddressType INT NOT NULL DEFAULT (0) ,
+         CustomerAddressID INT NOT NULL DEFAULT (0) ,
+         Company NVARCHAR(50) NULL,
+         Prefix NVARCHAR(20) NULL,
+         Firstname NVARCHAR(50) NULL,
+         Middlename NVARCHAR(50) NULL,
+         Lastname NVARCHAR(50) NULL,
+         Suffix NVARCHAR(50) NULL,
+         Unit NVARCHAR(50) NULL,
+         Street NVARCHAR(100) NULL,
+         Region NVARCHAR(50) NULL,
+         Postalcode NCHAR(10) NULL,
+         City NVARCHAR(100) NULL,
+         Suburb NVARCHAR(100) NULL,
+         Country NVARCHAR(100) NULL,
+         Countrycode NCHAR(3) NULL,
+         Telephone NVARCHAR(20) NULL,
+         Cell NVARCHAR(20) NULL,
+         Fax NVARCHAR(20) NULL,
+         Email NVARCHAR(120) NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress] ADD CONSTRAINT PK_{objectQualifier}BBStore_OrderAddress PRIMARY KEY NONCLUSTERED  (OrderAddressID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderHistory]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_OrderHistory] ( 
+         OrderHistoryID INT NOT NULL IDENTITY (1,1),
+         OrderStateID INT NOT NULL,
+         OrderID INT NOT NULL,
+         CreatedOnDate SMALLDATETIME NOT NULL DEFAULT getdate() ,
+         HistoryText NVARCHAR(40) NOT NULL DEFAULT N'' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderHistory] ADD CONSTRAINT PK_{objectQualifier}BBStore_OrderHistory PRIMARY KEY NONCLUSTERED  (OrderHistoryID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost] ( 
+         CartAdditionalCostID INT NOT NULL IDENTITY (1,1),
+         CartID UNIQUEIDENTIFIER NULL,
+         Quantity INT NOT NULL DEFAULT (1) ,
+         Name NVARCHAR(60) NOT NULL DEFAULT N'' ,
+         Description VARCHAR(MAX) NULL,
+         UnitCost DECIMAL(12,4) NOT NULL DEFAULT (0.000) ,
+         TaxPercent DECIMAL(4,1) NOT NULL DEFAULT (0.0) ,
+         Area NVARCHAR(20) NOT NULL DEFAULT N'' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost] ADD CONSTRAINT PK_{objectQualifier}BBStore_CartAdditionalCost PRIMARY KEY NONCLUSTERED  (CartAdditionalCostID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost] ( 
+         OrderAdditionalCostID INT NOT NULL IDENTITY (1,1),
+         OrderID INT NULL,
+         Quantity INT NOT NULL DEFAULT (1) ,
+         Name NVARCHAR(60) NOT NULL DEFAULT N'' ,
+         Description VARCHAR(MAX) NULL,
+         UnitCost DECIMAL(12,4) NOT NULL DEFAULT (0.000) ,
+         TaxPercent DECIMAL(4,1) NOT NULL DEFAULT (0.0) ,
+         Area NVARCHAR(20) NOT NULL DEFAULT N'' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost] ADD CONSTRAINT PK_{objectQualifier}BBStore_OrderAdditionalCost PRIMARY KEY NONCLUSTERED  (OrderAdditionalCostID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductTemplate]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ProductTemplate] ( 
+         ProductTemplateId INT NOT NULL IDENTITY (1,1),
+         PortalId INT NOT NULL,
+         SubscriberId INT NOT NULL DEFAULT (-1) ,
+         TemplateName NVARCHAR(40) NOT NULL DEFAULT '' ,
+         Template NVARCHAR(MAX) NOT NULL DEFAULT '' ,
+         TemplateSource NVARCHAR(20) NOT NULL DEFAULT '' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductTemplate] ADD CONSTRAINT PK_{objectQualifier}BBStore_ProductTemplate PRIMARY KEY NONCLUSTERED  (ProductTemplateId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SimpleProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] ( 
+         SimpleProductId INT NOT NULL IDENTITY (1,1),
+         SubscriberId INT NOT NULL DEFAULT (-1) ,
+         PortalId INT NULL,
+         Image NVARCHAR(120) NOT NULL DEFAULT '' ,
+         ItemNo NVARCHAR(20) NOT NULL DEFAULT '' ,
+         UnitCost DECIMAL(12,4) NOT NULL DEFAULT (0.0000) ,
+         OriginalUnitCost DECIMAL(12,4) NOT NULL DEFAULT (0.0000) ,
+         HideCost BIT NOT NULL DEFAULT (0) ,
+         TaxPercent DECIMAL(4,1) NOT NULL DEFAULT (0.0) ,
+         CreatedOnDate DATETIME NULL DEFAULT getdate() ,
+         CreatedByUserId INT NULL,
+         LastModifiedOnDate DATETIME NULL,
+         LastModifiedByUserId INT NULL,
+         Disabled BIT NOT NULL DEFAULT (0) ,
+         NoCart BIT NOT NULL DEFAULT (0) 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] ADD CONSTRAINT PK_{objectQualifier}BBStore_SimpleProduct PRIMARY KEY NONCLUSTERED  (SimpleProductId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+	  CREATE NONCLUSTERED INDEX IX_{objectQualifier}PortalId ON {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] (PortalId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+	  CREATE CLUSTERED INDEX IX_{objectQualifier}Disabled ON {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] (Disabled ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SimpleProductLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProductLang] ( 
+         SimpleProductId INT NOT NULL,
+         Language NCHAR(5) NOT NULL DEFAULT '' ,
+         Name NVARCHAR(60) NOT NULL DEFAULT '' ,
+         ShortDescription NVARCHAR(500) NOT NULL DEFAULT '' ,
+         ProductDescription NVARCHAR(MAX) NOT NULL DEFAULT '' ,
+         Attributes NVARCHAR(MAX) NOT NULL DEFAULT '' 
+      )
+      CREATE NONCLUSTERED INDEX IX_{objectQualifier}Language ON {databaseOwner}[{objectQualifier}BBStore_SimpleProductLang] (SimpleProductId ASC,Language ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ModuleProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ModuleProduct] ( 
+         PortalId INT NOT NULL DEFAULT (0) ,
+         ModuleId INT NOT NULL DEFAULT (0) ,
+         ProductId INT NULL,
+         ProductTemplateId INT NULL,
+         Template NVARCHAR(MAX) NULL,
+         IsTaxIncluded INT NOT NULL DEFAULT (-1) 
+      )
+      CREATE NONCLUSTERED INDEX IX_{objectQualifier}ModuleProduct ON {databaseOwner}[{objectQualifier}BBStore_ModuleProduct] (PortalId ASC,ModuleId ASC,ProductId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ( 
+         PaymentProviderID INT NOT NULL,
+         Language NCHAR(5) NOT NULL DEFAULT N'' ,
+         ProviderName NVARCHAR(40) NOT NULL DEFAULT N'' 
+      )
+      CREATE NONCLUSTERED INDEX IX_{objectQualifier}Language ON {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] (PaymentProviderID ASC,Language ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductGroup]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroup] ( 
+         ProductGroupId INT NOT NULL IDENTITY (1,1),
+         ParentId INT NULL,
+         SubscriberId INT NOT NULL DEFAULT (-1) ,
+         PortalId INT NOT NULL DEFAULT (0) ,
+         Image NVARCHAR(120) NOT NULL DEFAULT '' ,
+         Icon NVARCHAR(120) NOT NULL DEFAULT '' ,
+         ProductListTabId INT NULL,
+         Disabled BIT NOT NULL DEFAULT (0) ,
+         ViewOrder INT NOT NULL DEFAULT (0) 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroup] ADD CONSTRAINT PK_{objectQualifier}BBStore_ProductGroup PRIMARY KEY NONCLUSTERED  (ProductGroupId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+	  CREATE CLUSTERED INDEX IX_{objectQualifier}Parent ON {databaseOwner}[{objectQualifier}BBStore_ProductGroup] (ParentId ASC,PortalId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductGroupLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupLang] ( 
+         ProductGroupId INT NOT NULL,
+         Language NCHAR(5) NOT NULL DEFAULT '' ,
+         ProductGroupName NVARCHAR(40) NOT NULL DEFAULT '' 
+      )
+      CREATE NONCLUSTERED INDEX IX_{objectQualifier}Language ON {databaseOwner}[{objectQualifier}BBStore_ProductGroupLang] (ProductGroupId ASC,Language ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductInGroup]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ProductInGroup] ( 
+         SimpleProductId INT NULL,
+         ProductGroupId INT NULL
+      )
+	  CREATE NONCLUSTERED INDEX IX_{objectQualifier}Product ON {databaseOwner}[{objectQualifier}BBStore_ProductInGroup] (SimpleProductId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+      CREATE NONCLUSTERED INDEX IX_{objectQualifier}Group ON {databaseOwner}[{objectQualifier}BBStore_ProductInGroup] (ProductGroupId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductFilter]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ProductFilter] ( 
+         FilterSessionId UNIQUEIDENTIFIER NOT NULL,
+         PortalId INT NOT NULL DEFAULT (-1) ,
+         FilterSource NVARCHAR(20) NOT NULL DEFAULT '' ,
+         FilterValue NVARCHAR(100) NOT NULL DEFAULT '' ,
+         FilterCondition NVARCHAR(MAX) NOT NULL DEFAULT '' 
+      )
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureGroup]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureGroup] ( 
+         FeatureGroupId INT NOT NULL IDENTITY (1,1),
+         PortalID INT NULL
+      )
+
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureGroup] ADD CONSTRAINT PK_{objectQualifier}BBStore_FeatureGroup PRIMARY KEY NONCLUSTERED  (FeatureGroupId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+      CREATE NONCLUSTERED INDEX IX_{objectQualifier}PortalId ON {databaseOwner}[{objectQualifier}BBStore_FeatureGroup] (PortalID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Feature]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_Feature] ( 
+         FeatureId INT NOT NULL IDENTITY (1,1),
+         PortalID INT NULL DEFAULT (-1) ,
+         FeatureGroupId INT NULL,
+         FeatureListId INT NULL,
+         Datatype CHAR(1) NOT NULL,
+         Multiselect BIT NULL,
+         Control VARCHAR(20) NOT NULL,
+         Dimension INT NULL,
+         Required BIT NOT NULL,
+         MinValue NVARCHAR(30) NULL,
+         MaxValue NVARCHAR(30) NULL,
+         RegEx NVARCHAR(500) NULL,
+         RoleID INT NULL DEFAULT (-1) ,
+         ShowInSearch BIT NULL,
+         SearchGroups NVARCHAR(200) NULL,
+         FeatureToken NVARCHAR(40) NULL,
+         ViewOrder INT NOT NULL DEFAULT (0) 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Feature] ADD CONSTRAINT PK_{objectQualifier}BBStore_Feature PRIMARY KEY NONCLUSTERED  (FeatureId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+	  CREATE NONCLUSTERED INDEX IX_{objectQualifier}PortalId ON {databaseOwner}[{objectQualifier}BBStore_Feature] (PortalID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureList]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureList] ( 
+         FeatureListId INT NOT NULL IDENTITY (1,1),
+         PortalID INT NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureList] ADD CONSTRAINT PK_{objectQualifier}BBStore_FeatureList PRIMARY KEY NONCLUSTERED  (FeatureListId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+	  CREATE NONCLUSTERED INDEX IX_{objectQualifier}PortalId ON {databaseOwner}[{objectQualifier}BBStore_FeatureList] (PortalID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureListItem]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListItem] ( 
+         FeatureListItemId INT NOT NULL IDENTITY (1,1),
+         FeatureListId INT NULL,
+         Image NVARCHAR(120) NOT NULL DEFAULT '' ,
+         ViewOrder INT NOT NULL DEFAULT (0) 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListItem] ADD CONSTRAINT PK_{objectQualifier}BBStore_FeatureListItem PRIMARY KEY NONCLUSTERED  (FeatureListItemId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureValue]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureValue] ( 
+         FeatureValueId INT NOT NULL IDENTITY (1,1),
+         FeatureId INT NOT NULL,
+         ProductId INT NULL,
+         FeatureListItemId INT NULL,
+         cValue NVARCHAR(500) NULL,
+         tValue SMALLDATETIME NULL,
+         nValue NUMERIC(21,10) NULL,
+         iValue INT NULL,
+         fValue FLOAT NULL,
+         bValue BIT NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureValue] ADD CONSTRAINT PK_{objectQualifier}BBStore_FeatureValue PRIMARY KEY NONCLUSTERED  (FeatureValueId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+	  CREATE NONCLUSTERED INDEX {objectQualifier}IX_ProductId ON {databaseOwner}[{objectQualifier}BBStore_FeatureValue] (ProductId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureListLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListLang] ( 
+         FeatureListId INT NULL,
+         Language NCHAR(5) NOT NULL DEFAULT '' ,
+         FeatureList NVARCHAR(40) NOT NULL
+      )
+      CREATE NONCLUSTERED INDEX {objectQualifier}IX_Language ON {databaseOwner}[{objectQualifier}BBStore_FeatureListLang] (Language ASC,FeatureListId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureListItemLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListItemLang] ( 
+         FeatureListItemId INT NULL,
+         Language NCHAR(5) NOT NULL DEFAULT '' ,
+         FeatureListItem NVARCHAR(60) NOT NULL
+      )
+      CREATE NONCLUSTERED INDEX {objectQualifier}IX_Language ON {databaseOwner}[{objectQualifier}BBStore_FeatureListItemLang] (Language ASC,FeatureListItemId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureLang] ( 
+         FeatureId INT NULL,
+         Language NCHAR(5) NOT NULL DEFAULT '' ,
+         Feature NVARCHAR(40) NOT NULL DEFAULT '' ,
+         Unit NVARCHAR(20) NOT NULL DEFAULT '' 
+      )
+      CREATE NONCLUSTERED INDEX {objectQualifier}IX_Language ON {databaseOwner}[{objectQualifier}BBStore_FeatureLang] (Language ASC,FeatureId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_FeatureGroupLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureGroupLang] ( 
+         FeatureGroupId INT NULL,
+         Language NCHAR(5) NOT NULL DEFAULT '' ,
+         FeatureGroup NVARCHAR(40) NOT NULL
+      )
+      CREATE NONCLUSTERED INDEX {objectQualifier}IX_Language ON {databaseOwner}[{objectQualifier}BBStore_FeatureGroupLang] (Language ASC,FeatureGroupId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductGroupFeature]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupFeature] ( 
+         ProductGroupId INT NULL,
+         FeatureId INT NULL
+      )
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductGroupListItem]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupListItem] ( 
+         ProductGroupId INT NULL,
+         FeatureListItemId INT NULL
+      )
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ImportRelation]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ImportRelation] ( 
+         PortalID INT NOT NULL,
+         Tablename NVARCHAR(20) NOT NULL,
+         ForeignId INT NOT NULL,
+         OwnId INT NOT NULL
+      )
+      CREATE NONCLUSTERED INDEX {objectQualifier}IX_PortalId ON {databaseOwner}[{objectQualifier}BBStore_ImportRelation] (PortalID ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_StaticFilter]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_StaticFilter] ( 
+         StaticFilterId INT NOT NULL IDENTITY (1,1),
+         PortalId INT NOT NULL DEFAULT (0) ,
+         Token NVARCHAR(100) NOT NULL DEFAULT '' ,
+         FilterCondition NVARCHAR(MAX) NOT NULL DEFAULT '' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_StaticFilter] ADD CONSTRAINT PK_{objectQualifier}BBStore_StaticFilter PRIMARY KEY NONCLUSTERED  (StaticFilterId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ContactAddress]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ContactAddress] ( 
+         ContactAddressId INT NOT NULL IDENTITY (1,1),
+         PortalID INT NOT NULL DEFAULT (0) ,
+         Company NVARCHAR(50) NULL,
+         Prefix NVARCHAR(20) NULL,
+         Firstname NVARCHAR(50) NULL,
+         Lastname NVARCHAR(50) NULL,
+         Unit NVARCHAR(50) NULL,
+         Street NVARCHAR(100) NULL,
+         Region NVARCHAR(50) NULL,
+         Postalcode NCHAR(10) NULL,
+         City NVARCHAR(100) NULL,
+         Country NVARCHAR(100) NULL,
+         Telephone NVARCHAR(20) NULL,
+         Fax NVARCHAR(20) NULL,
+         Email NVARCHAR(120) NULL,
+         Cell NVARCHAR(20) NULL,
+         CreatedOnDate DATETIME NOT NULL DEFAULT '' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ContactAddress] ADD CONSTRAINT PK_{objectQualifier}BBStore_ContactAddress PRIMARY KEY NONCLUSTERED  (ContactAddressId ASC) WITH ( IGNORE_DUP_KEY = OFF)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ContactProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ContactProduct] ( 
+         ContactAddressId INT NOT NULL DEFAULT (0) ,
+         CartId UNIQUEIDENTIFIER NULL,
+         ProductId INT NOT NULL DEFAULT (0) 
+      )
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ContactReason]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ContactReason] ( 
+         ContactAddressId INT NULL,
+         Reason NVARCHAR(MAX) NOT NULL DEFAULT '' ,
+         Token NVARCHAR(20) NOT NULL DEFAULT '' 
+      )
+   END
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Customer_Cart' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Customer_Cart FOREIGN KEY ( CustomerID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Customer] ( CustomerID ) ON DELETE SET NULL
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CustomerPaymentProvider_Cart' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}CustomerPaymentProvider_Cart FOREIGN KEY ( CustomerPaymentProviderID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider] ( CustomerPaymentProviderID ) ON DELETE SET NULL
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Cart_CartProducts' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Cart_CartProducts FOREIGN KEY ( CartID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Cart] ( CartID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CartProduct_CartProductOption' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}CartProduct_CartProductOption FOREIGN KEY ( CartProductID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_CartProduct] ( CartProductID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Customer_CustomerAddress' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerAddress] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Customer_CustomerAddress FOREIGN KEY ( CustomerID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Customer] ( CustomerID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Orderstate_Order' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Orderstate_Order FOREIGN KEY ( OrderStateID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_OrderState] ( OrderStateID )
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Customer_Order' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Customer_Order FOREIGN KEY ( CustomerID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Customer] ( CustomerID )
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Order_OrderProduct' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Order_OrderProduct FOREIGN KEY ( OrderID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Order] ( OrderID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}OrderProduct_OrderProductOption' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProductOption] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}OrderProduct_OrderProductOption FOREIGN KEY ( OrderProductID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_OrderProduct] ( OrderProductID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Orderstate_Lang' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderStateLang] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Orderstate_Lang FOREIGN KEY ( OrderStateID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_OrderState] ( OrderStateID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}PaymentProvider_SubscriberPaymentProvider' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}PaymentProvider_SubscriberPaymentProvider FOREIGN KEY ( PaymentProviderID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ( PaymentProviderID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Customer_CustomerPaymentProvider' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Customer_CustomerPaymentProvider FOREIGN KEY ( CustomerID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Customer] ( CustomerID ) ON DELETE SET DEFAULT
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}PaymentProvider_CustomerPaymentProvider' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}PaymentProvider_CustomerPaymentProvider FOREIGN KEY ( PaymentProviderID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ( PaymentProviderID )
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Order_OrderAddress' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Order_OrderAddress FOREIGN KEY ( OrderID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Order] ( OrderID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CustomerAddress_OrderAddress' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}CustomerAddress_OrderAddress FOREIGN KEY ( CustomerAddressID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_CustomerAddress] ( CustomerAddressID ) ON DELETE SET DEFAULT
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Order_OrderHistory' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderHistory] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Order_OrderHistory FOREIGN KEY ( OrderID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Order] ( OrderID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}OrderState_OrderHistory' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderHistory] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}OrderState_OrderHistory FOREIGN KEY ( OrderStateID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_OrderState] ( OrderStateID )
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Cart_CartAdditionalCost' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Cart_CartAdditionalCost FOREIGN KEY ( CartID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Cart] ( CartID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Order_OrderAdditionalCost' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Order_OrderAdditionalCost FOREIGN KEY ( OrderID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Order] ( OrderID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SimpleProduct_Lang' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProductLang] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}SimpleProduct_Lang FOREIGN KEY ( SimpleProductId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] ( SimpleProductId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}SimpleProduct_ModuleProduct' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ModuleProduct] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}SimpleProduct_ModuleProduct FOREIGN KEY ( ProductId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] ( SimpleProductId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductTemplate_ModuleProduct' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ModuleProduct] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ProductTemplate_ModuleProduct FOREIGN KEY ( ProductTemplateId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ProductTemplate] ( ProductTemplateId ) ON DELETE SET NULL
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Module_ModuleProduct' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ModuleProduct] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Module_ModuleProduct FOREIGN KEY ( ModuleId ) REFERENCES {databaseOwner}[{objectQualifier}Modules] ( ModuleId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}PaymentProvider_Lang' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}PaymentProvider_Lang FOREIGN KEY ( PaymentProviderID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ( PaymentProviderID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_Parent' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroup] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ProductGroup_Parent FOREIGN KEY ( ParentId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ProductGroup] ( ProductGroupId )
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_Lang' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupLang] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ProductGroup_Lang FOREIGN KEY ( ProductGroupId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ProductGroup] ( ProductGroupId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Product_ProductInGroup' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductInGroup] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Product_ProductInGroup FOREIGN KEY ( SimpleProductId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] ( SimpleProductId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_ProductInGroup' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductInGroup] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ProductGroup_ProductInGroup FOREIGN KEY ( ProductGroupId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ProductGroup] ( ProductGroupId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureGroup_Feature' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Feature] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}FeatureGroup_Feature FOREIGN KEY ( FeatureGroupId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_FeatureGroup] ( FeatureGroupId ) ON DELETE SET NULL
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureList_Feature' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Feature] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}FeatureList_Feature FOREIGN KEY ( FeatureListId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_FeatureList] ( FeatureListId ) ON DELETE SET NULL
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Portal_Feature' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Feature] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Portal_Feature FOREIGN KEY ( PortalID ) REFERENCES {databaseOwner}[{objectQualifier}Portals] ( PortalID ) ON DELETE SET DEFAULT
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureList_FeatureListItem' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListItem] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}FeatureList_FeatureListItem FOREIGN KEY ( FeatureListId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_FeatureList] ( FeatureListId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Feature_FeatureValue' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureValue] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Feature_FeatureValue FOREIGN KEY ( FeatureId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Feature] ( FeatureId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureListItem_FeatureValue' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureValue] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}FeatureListItem_FeatureValue FOREIGN KEY ( FeatureListItemId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_FeatureListItem] ( FeatureListItemId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Product_FeatureValue' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureValue] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Product_FeatureValue FOREIGN KEY ( ProductId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] ( SimpleProductId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureListLang' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListLang] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}FeatureListLang FOREIGN KEY ( FeatureListId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_FeatureList] ( FeatureListId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureListItemLang' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureListItemLang] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}FeatureListItemLang FOREIGN KEY ( FeatureListItemId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_FeatureListItem] ( FeatureListItemId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureLang' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureLang] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}FeatureLang FOREIGN KEY ( FeatureId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Feature] ( FeatureId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureGroupLang' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_FeatureGroupLang] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}FeatureGroupLang FOREIGN KEY ( FeatureGroupId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_FeatureGroup] ( FeatureGroupId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_ProductGroupFeature' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupFeature] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ProductGroup_ProductGroupFeature FOREIGN KEY ( ProductGroupId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ProductGroup] ( ProductGroupId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Feature_ProductGroupFeature' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupFeature] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Feature_ProductGroupFeature FOREIGN KEY ( FeatureId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Feature] ( FeatureId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ProductGroup_ProductGroupListItem' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupListItem] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ProductGroup_ProductGroupListItem FOREIGN KEY ( ProductGroupId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ProductGroup] ( ProductGroupId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}FeatureListItem_ProductGroupListItem' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductGroupListItem] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}FeatureListItem_ProductGroupListItem FOREIGN KEY ( FeatureListItemId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_FeatureListItem] ( FeatureListItemId ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Portal_ImportRelation' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ImportRelation] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Portal_ImportRelation FOREIGN KEY ( PortalID ) REFERENCES {databaseOwner}[{objectQualifier}Portals] ( PortalID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ContactAddress_ContactReason' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ContactReason] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ContactAddress_ContactReason FOREIGN KEY ( ContactAddressId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ContactAddress] ( ContactAddressId ) ON DELETE CASCADE
+GO
+
+
+
+/************************************************************/
+/*****              Prefill Values                      *****/
+/************************************************************/
+
+IF NOT EXISTS(SELECT 1 FROM {databaseOwner}[{objectQualifier}BBStore_PaymentProvider])
+	BEGIN
+		SET IDENTITY_INSERT {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ON
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ([PaymentProviderID],[ProviderLogo],[ProviderTag],[ProviderControl])VALUES(1,'','PREPAID','PaymentProviderPrepaid')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ([PaymentProviderID],[ProviderLogo],[ProviderTag],[ProviderControl])VALUES(2,'','CREDITCARD','PaymentProviderCC')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ([PaymentProviderID],[ProviderLogo],[ProviderTag],[ProviderControl])VALUES(3,'','COD','PaymentProviderCOD')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ([PaymentProviderID],[ProviderLogo],[ProviderTag],[ProviderControl])VALUES(4,'','EC','PaymentProviderEC')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ([PaymentProviderID],[ProviderLogo],[ProviderTag],[ProviderControl])VALUES(5,'','PAYPAL','PaymentProviderPaypal')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] ([PaymentProviderID],[ProviderLogo],[ProviderTag],[ProviderControl])VALUES(6,'','INVOICE','PaymentProviderInvoice')
+		SET IDENTITY_INSERT {databaseOwner}[{objectQualifier}BBStore_PaymentProvider] OFF
+
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(1,'en-Us','Prepaid Payment')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(2,'en-US','Creditcard')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(3,'en-US','Cash On Delivery')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(4,'en-US','Debit')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(5,'en-US','Paypal')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(6,'en-US','Invoice')
+
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(1,'de-DE','Vorkasse')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(2,'de-DE','Kreditkarte')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(3,'de-DE','Nachnahme')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(4,'de-DE','Überweisung')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(5,'de-DE','Paypal')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_PaymentProviderLang] ([PaymentProviderID],[Language],[ProviderName])VALUES(6,'de-DE','Rechnung')
+	END
+GO
+
+IF NOT EXISTS(SELECT 1 FROM {databaseOwner}[{objectQualifier}BBStore_OrderState])
+	BEGIN
+		SET IDENTITY_INSERT {databaseOwner}[{objectQualifier}BBStore_OrderState] ON
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] ([OrderStateId],[OrderAction]) VALUES (1,'')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] ([OrderStateId],[OrderAction]) VALUES (2,'')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] ([OrderStateId],[OrderAction]) VALUES (3,'')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] ([OrderStateId],[OrderAction]) VALUES (4,'')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderState] ([OrderStateId],[OrderAction]) VALUES (5,'')
+		SET IDENTITY_INSERT {databaseOwner}[{objectQualifier}BBStore_OrderState] OFF
+
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (1,'en-US','created')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (2,'en-US','confirmed')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (3,'en-US','cancelled')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (4,'en-US','shipped')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (5,'en-US','payed')
+
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (1,'de-DE','anstehend')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (2,'de-DE','bestätigt')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (3,'de-DE','storniert')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (4,'de-DE','versendet')
+		INSERT INTO {databaseOwner}[{objectQualifier}BBStore_OrderStateLang]([OrderStateId],[Language],[OrderState]) VALUES (5,'de-DE','bezahlt')
+	END
+GO
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

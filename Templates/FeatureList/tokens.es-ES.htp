@@ -1,0 +1,6 @@
+﻿Por favor, seleccione una plantilla o crear una nueva para la lista de características del producto. Puede utilizar los siguientes símbolos:<br>
+<ul style="color:black;">
+	<li>[TITLE] = nombre de elemento de lista de función</li>
+	<li>[IMAGE] = imagen del producto (dimensión original)</li>
+	<li>[IMAGE: ancho] = imagen del producto (ancho en píxeles)</li>
+</ul>
