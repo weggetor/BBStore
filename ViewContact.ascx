@@ -1,73 +1,71 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewContact.ascx.cs" Inherits="Bitboxx.DNNModules.BBStore.ViewContact" %>
-<asp:Panel ID="pnlContactView" runat="server" CssClass="dnnForm bbstore-contact dnnClear">
+<%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
+<asp:Panel ID="pnlContactView" runat="server" CssClass="dnnForm bbstore-contact bbstore-admin dnnClear">
     <asp:Panel ID="pnlContactData" runat="server">
 	    <h3><asp:Label ID="lblContactData" runat="server" ResourceKey="lblContactData.Text" /></h3>
 	    <hr />
 	    <fieldset>
 		    <div id="trCompany" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactCompany" runat="server" CssClass="dnnTooltip" />
-		        <asp:TextBox ID="txtContactCompany" runat="server" Columns="50" style="min-width: 0"/>
-				<asp:RequiredFieldValidator ID="valContactCompany" runat="server"  ControlToValidate="txtContactCompany"/>
+		        <dnn:Label ID="lblContactCompany" runat="server" />
+		        <asp:TextBox ID="txtContactCompany" runat="server" Columns="50" />
+				<asp:RequiredFieldValidator ID="valContactCompany" runat="server"  ControlToValidate="txtContactCompany" CssClass="dnnFormMessage dnnFormError"  />
 		    </div>
 		    <div id="trPrefix" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactPrefix" runat="server"  CssClass="dnnTooltip"/>
-		        <asp:TextBox ID="txtContactPrefix" runat="server" Columns="20" style="min-width: 0"/>
-				<asp:RequiredFieldValidator ID="valContactPrefix" runat="server"  ControlToValidate="txtContactPrefix"/>
+		        <dnn:Label ID="lblContactPrefix" runat="server" />
+		        <asp:TextBox ID="txtContactPrefix" runat="server" Columns="20" />
+				<asp:RequiredFieldValidator ID="valContactPrefix" runat="server"  ControlToValidate="txtContactPrefix" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trFirstname" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactFirstname" runat="server" CssClass="dnnTooltip"/>
-		        <asp:TextBox ID="txtContactFirstname" runat="server" Columns="50" style="min-width: 0"/>
-				<asp:RequiredFieldValidator ID="valContactFirstname" runat="server"  ControlToValidate="txtContactFirstname"/>
+		        <dnn:Label ID="lblContactFirstname" runat="server"/>
+		        <asp:TextBox ID="txtContactFirstname" runat="server" Columns="50" />
+				<asp:RequiredFieldValidator ID="valContactFirstname" runat="server"  ControlToValidate="txtContactFirstname" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trLastname" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactLastname" runat="server" CssClass="dnnTooltip"/>
-		        <asp:TextBox ID="txtContactLastname" runat="server" Columns="50" style="min-width: 0"/>
-				<asp:RequiredFieldValidator ID="valContactLastname" runat="server" ControlToValidate="txtContactLastname"/>
+		        <dnn:Label ID="lblContactLastname" runat="server"/>
+		        <asp:TextBox ID="txtContactLastname" runat="server" Columns="50" />
+				<asp:RequiredFieldValidator ID="valContactLastname" runat="server" ControlToValidate="txtContactLastname" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trStreet" runat="server" class="dnnFormItem">
-			    <div class="dnnTooltip">
-                    <asp:Label ID="lblContactStreet" runat="server"></asp:Label>
-			        <asp:Label ID="lblContactUnit" runat="server"></asp:Label>
-                </div>
-		        <asp:TextBox ID="txtContactStreet" runat="server" Columns="44" style="min-width: 0"/>
-		        <asp:TextBox ID="txtContactUnit" runat="server" Columns="5" style="min-width: 0"/>
-			    <asp:RequiredFieldValidator ID="valContactStreet" runat="server" ControlToValidate="txtContactStreet"/>
+		        <dnn:Label ID="lblContactStreet" runat="server"/>
+		        <asp:TextBox ID="txtContactStreet" runat="server" Columns="44" />
+		        <asp:TextBox ID="txtContactUnit" runat="server" Columns="5" />
+			    <asp:RequiredFieldValidator ID="valContactStreet" runat="server" ControlToValidate="txtContactStreet" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trRegion" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactRegion" runat="server"  CssClass="dnnTooltip"/>
-			    <asp:TextBox ID="txtContactRegion" runat="server" Columns="50"></asp:TextBox>
-				<asp:RequiredFieldValidator ID="valContactRegion" runat="server" ControlToValidate="txtContactRegion"/>
+		        <dnn:Label ID="lblContactRegion" runat="server"/>
+		        <asp:TextBox ID="txtContactRegion" runat="server" Columns="50" />
+				<asp:RequiredFieldValidator ID="valContactRegion" runat="server" ControlToValidate="txtContactRegion" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trCity" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactPostalcode" runat="server" CssClass="dnnTooltip"/>
-		        <asp:TextBox ID="txtContactPostalcode" runat="server" Columns="10" style="min-width: 0"/>
-		        <asp:TextBox ID="txtContactCity" runat="server" Columns="40" style="min-width: 0"/>
-				<asp:RequiredFieldValidator ID="valContactCity" runat="server" ControlToValidate="txtContactCity"/>
+		        <dnn:Label ID="lblContactPostalcode" runat="server"/>
+		        <asp:TextBox ID="txtContactPostalcode" runat="server" Columns="10" />
+		        <asp:TextBox ID="txtContactCity" runat="server" Columns="40" />
+				<asp:RequiredFieldValidator ID="valContactCity" runat="server" ControlToValidate="txtContactCity" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trCountry" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactCountry" runat="server"  CssClass="dnnTooltip"/>
-		        <asp:DropDownList ID="ddlCountry" runat="server" Width="300px" style="min-width: 0" />
-				<asp:RequiredFieldValidator ID="valContactCountry" runat="server" ControlToValidate="ddlCountry"/>
+		        <dnn:Label ID="lblContactCountry" runat="server"/>
+		        <asp:DropDownList ID="ddlCountry" runat="server" Width="300px" />
+				<asp:RequiredFieldValidator ID="valContactCountry" runat="server" ControlToValidate="ddlCountry" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trPhone" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactTelephone" runat="server" CssClass="dnnTooltip"/>
-		        <asp:TextBox ID="txtContactTelephone" runat="server" Columns="30" style="min-width: 0"/>
-				<asp:RequiredFieldValidator ID="valContactTelephone" runat="server" ControlToValidate="txtContactTelephone"/>
+		        <dnn:Label ID="lblContactTelephone" runat="server" />
+		        <asp:TextBox ID="txtContactTelephone" runat="server" Columns="30" />
+				<asp:RequiredFieldValidator ID="valContactTelephone" runat="server" ControlToValidate="txtContactTelephone" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trCell" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactCell" runat="server" CssClass="dnnTooltip"/>
-		        <asp:TextBox ID="txtContactCell" runat="server" Columns="30" style="min-width: 0"/>
-			    <asp:RequiredFieldValidator ID="valContactCell" runat="server" ControlToValidate="txtContactCell"/>
+		        <dnn:Label ID="lblContactCell" runat="server" />
+		        <asp:TextBox ID="txtContactCell" runat="server" Columns="30" />
+			    <asp:RequiredFieldValidator ID="valContactCell" runat="server" ControlToValidate="txtContactCell" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trFax" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactFax" runat="server"  CssClass="dnnTooltip"/>
-		        <asp:TextBox ID="txtContactFax" runat="server" Columns="30" style="min-width: 0"/>
-			    <asp:RequiredFieldValidator ID="valContactFax" runat="server" ControlToValidate="txtContactFax"/>
+		        <dnn:Label ID="lblContactFax" runat="server"  />
+		        <asp:TextBox ID="txtContactFax" runat="server" Columns="30" />
+			    <asp:RequiredFieldValidator ID="valContactFax" runat="server" ControlToValidate="txtContactFax" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 		    <div id="trEmail" runat="server" class="dnnFormItem">
-		        <asp:Label ID="lblContactEmail" runat="server" CssClass="dnnTooltip"/>
-		        <asp:TextBox ID="txtContactEmail" runat="server" Columns="50" style="min-width: 0"/>
-			    <asp:RequiredFieldValidator ID="valContactEmail" runat="server" ControlToValidate="txtContactEmail"/>
+		        <dnn:Label ID="lblContactEmail" runat="server" />
+		        <asp:TextBox ID="txtContactEmail" runat="server" Columns="50" />
+			    <asp:RequiredFieldValidator ID="valContactEmail" runat="server" ControlToValidate="txtContactEmail" CssClass="dnnFormMessage dnnFormError"/>
 		    </div>
 	    </fieldset>
     </asp:Panel>

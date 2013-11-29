@@ -171,6 +171,10 @@
       <DependentUpon>TemplateControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Infoclasses\ModuleKindEnum.cs" />
+    <Compile Include="Infoclasses\ProductShippingModelInfo.cs" />
+    <Compile Include="Infoclasses\ShippingCostInfo.cs" />
+    <Compile Include="Infoclasses\ShippingModelInfo.cs" />
+    <Compile Include="Infoclasses\ShippingZoneDisplayInfo.cs" />
     <Compile Include="SettingsMiniCart.ascx.cs">
       <DependentUpon>SettingsMiniCart.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -726,6 +730,7 @@
     <Content Include="Controls\Images\ColorPickerControl\slider.png" />
     <Content Include="Controls\SelectFolderControl.ascx" />
     <Content Include="Controls\TemplateControl.ascx" />
+    <Content Include="Installation\ReleaseNotes\Release.01.00.11.txt" />
     <Content Include="SettingsMiniCart.ascx" />
     <Content Include="Templates\FeatureList\Default.htm" />
     <Content Include="Templates\FeatureList\Default.jpg" />
@@ -874,6 +879,7 @@
     <None Include="Installation\01.00.07.SqlDataProvider" />
     <None Include="Installation\01.00.08.SqlDataProvider" />
     <None Include="Installation\01.00.09.SqlDataProvider" />
+    <Content Include="Installation\01.00.11.SqlDataProvider" />
     <None Include="Installation\01.00.10.SqlDataProvider" />
     <Content Include="Installation\Project.targets" />
     <None Include="Installation\Uninstall.SqlDataProvider" />

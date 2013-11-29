@@ -114,10 +114,25 @@ namespace Bitboxx.DNNModules.BBStore
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            if (_orientation.ToLower() == "vertical")
-                ltrLineBreak.Text = "<br />";
-            else
-                ltrLineBreak.Text = "";
+            switch (_orientation.ToLower())
+            {
+                case "horizontal":
+                    ltrLineBreak.Text = "";
+                    ltrLineBreak2.Text = "";
+                    break;
+                case "vertical":
+                    ltrLineBreak.Text = "<br />";
+                    ltrLineBreak2.Text = "<br />";
+                    break;
+                case "horizontalvertical":
+                    ltrLineBreak.Text = "";
+                    ltrLineBreak2.Text = "<br />";
+                    break;
+                case "verticalhorizontal":
+                    ltrLineBreak.Text = "<br />";
+                    ltrLineBreak2.Text = "";
+                    break;
+            }
 
             if (_shortCaps)
             {

@@ -118,10 +118,10 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="lblCost.Text" xml:space="preserve">
-    <value>plus &lt;strong&gt;{0:n2}&lt;/strong&gt; extra fee for using debit payment</value>
+    <value>plus &lt;strong&gt;{0}&lt;/strong&gt; extra fee for using debit payment</value>
   </data>
 	<data name="lblDiscount.Text" xml:space="preserve">
-    <value>minus &lt;strong&gt;{0:n2}&lt;/strong&gt; discount for using debit payment</value>
+    <value>minus &lt;strong&gt;{0}&lt;/strong&gt; discount for using debit payment</value>
   </data>
 	<data name="lblDescription.Text" xml:space="preserve">
 		<value>&lt;p&gt;&lt;br/&gt;&lt;br/&gt;{0}&lt;/p&gt;</value>
@@ -140,5 +140,14 @@
 	</data>
 	<data name="lblPPSandbox.Text" xml:space="preserve">
 		<value>Sandbox</value>
+	</data>
+	<data name="lblPercentage.Text" xml:space="preserve">
+		<value>{0:f1} Percent of order total</value>
+	</data>
+	<data name="lblConcat.Text" xml:space="preserve">
+		<value>and</value>
+	</data>
+	<data name="lblFixed.Text" xml:space="preserve">
+		<value>{0:f2} Package</value>
 	</data>
 </root>

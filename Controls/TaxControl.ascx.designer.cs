@@ -49,6 +49,15 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.RadioButton rdbNetto;
         
         /// <summary>
+        /// ltrLineBreak2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltrLineBreak2;
+        
+        /// <summary>
         /// rdbBrutto control.
         /// </summary>
         /// <remarks>

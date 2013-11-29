@@ -42,6 +42,10 @@
            <dnn:Label id="lblSetTitle" runat="server" controlname="chkSetTitle" suffix=":"/>
            <asp:CheckBox  ID="chkSetTitle" runat="server" />
        </div>
+       <div class="dnnFormItem">
+           <dnn:Label id="lblShowBreadcrumb" runat="server" controlname="chkShowBreadcrumb" suffix=":"/>
+           <asp:CheckBox  ID="chkShowBreadcrumb" runat="server" />
+       </div>
     </fieldset>
 </div>
 <asp:MultiView ID="MultiView1" runat="server">
@@ -50,6 +54,14 @@
    			<div class="dnnFormItem">
    			    <dnn:Label id="lblShowUpNavigation" runat="server" controlname="chkShowUpNavigation" suffix=":"/>
 				<asp:CheckBox ID="chkShowUpNavigation" runat="server"/>
+			</div>
+            <div class="dnnFormItem">
+   			    <dnn:Label id="lblShowThisNode" runat="server" controlname="chkShowThisNode" suffix=":"/>
+				<asp:CheckBox ID="chkShowThisNode" runat="server"/>
+			</div>
+            <div class="dnnFormItem">
+   			    <dnn:Label id="lblShowSubNodes" runat="server" controlname="chkShowSubNodes" suffix=":"/>
+				<asp:CheckBox ID="chkShowSubNodes" runat="server"/>
 			</div>
             <div class="dnnFormItem">
                 <dnn:Label ID="lblAllGroupsImage" runat="server" ControlName="AllGroupsImageSelector" Suffix=":"/>

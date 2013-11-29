@@ -26,6 +26,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Web.Management;
+using System.Web.Services.Description;
 using System.Xml;
 using System.Xml.Serialization;
 using DotNetNuke.Common;
@@ -149,6 +150,7 @@ namespace Bitboxx.DNNModules.BBStore
                       " SimpleProduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
                       " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
                       " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,SimpleProduct.Disabled,SimpleProduct.NoCart," +
+                      " SimpleProduct.Weight,"+
                       " Lang.ShortDescription,Lang.ProductDescription, Lang.Attributes, Lang.Name,";
             if (Sort.ToLower() == "random")
                 selCmd += " CAST(1001 * RAND(CHECKSUM(NEWID())) AS INTEGER) AS 'SortNo'";
@@ -190,6 +192,7 @@ namespace Bitboxx.DNNModules.BBStore
                             " SimpleProduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
                             " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
                             " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,SimpleProduct.Disabled,SimpleProduct.NoCart," +
+                            " SimpleProduct.Weight," +
                             " '' as ShortDescription, '' as ProductDescription, '' as Attributes, '' as Name," +
                             " 0 AS 'SortNo'" +
                             " FROM " + Prefix + "SimpleProduct SimpleProduct" +
@@ -213,6 +216,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " Simpleproduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
                 " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
                 " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,SimpleProduct.Disabled,SimpleProduct.NoCart," +
+                " SimpleProduct.Weight," +
                 " Lang.ShortDescription,Lang.ProductDescription, Lang.Attributes, Lang.Name," +
                 " 0 AS 'SortNo'" +
                 " FROM " + Prefix + "SimpleProduct SimpleProduct" +
@@ -240,6 +244,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " Simpleproduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
                 " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
                 " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,Simpleproduct.Disabled,SimpleProduct.NoCart," +
+                " SimpleProduct.Weight," +
                 " Lang.ShortDescription,Lang.ProductDescription, Lang.Attributes, Lang.Name," +
                 " CAST(1001 * RAND(CHECKSUM(NEWID())) AS INTEGER) AS 'SortNo'" +
                 " FROM " + Prefix + "SimpleProduct SimpleProduct" +
@@ -255,10 +260,10 @@ namespace Bitboxx.DNNModules.BBStore
         {
             string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("SimpleProduct") +
                 " (SubscriberId,SupplierId,PortalId,Image,ItemNo,UnitCost,OriginalUnitCost,HideCost,TaxPercent,UnitId,CreatedOnDate," +
-                  "CreatedByUserId,LastModifiedOnDate,LastModifiedByUserId,Disabled,NoCart)" +
+                  "CreatedByUserId,LastModifiedOnDate,LastModifiedByUserId,Disabled,NoCart,Weight)" +
                 " VALUES " +
                 " (@SubscriberId,@SupplierId,@PortalId,@Image,@ItemNo,@UnitCost,@OriginalUnitCost,@HideCost,@TaxPercent,@UnitId,@CreatedOnDate,"+
-                  "@CreatedByUserId,@LastModifiedOnDate,@LastModifiedByUserId,@Disabled,@NoCart)"+
+                  "@CreatedByUserId,@LastModifiedOnDate,@LastModifiedByUserId,@Disabled,@NoCart,@Weight)"+
                 " SELECT CAST(scope_identity() AS INTEGER);";
 
             SqlParameter[] SqlParams = new SqlParameter[] {
@@ -278,7 +283,9 @@ namespace Bitboxx.DNNModules.BBStore
                 new SqlParameter("LastModifiedOnDate",SimpleProduct.LastModifiedOnDate),
                 new SqlParameter("LastModifiedByUserId",SimpleProduct.LastModifiedByUserId),
                 new SqlParameter("Disabled",SimpleProduct.Disabled),
-                new SqlParameter("NoCart",SimpleProduct.NoCart)};
+                new SqlParameter("NoCart",SimpleProduct.NoCart),
+                new SqlParameter("Weight",SimpleProduct.Weight),
+            };
 
             return (int)SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
         }
@@ -300,7 +307,8 @@ namespace Bitboxx.DNNModules.BBStore
                 " LastModifiedOnDate = @LastModifiedOnDate," +
                 " LastModifiedByUserId = @LastModifiedByUserId," +
                 " Disabled = @Disabled," +
-                " NoCart = @NoCart" + 
+                " NoCart = @NoCart," + 
+                " Weight = @Weight" + 
                 " WHERE SimpleProductId = @SimpleProductId";
 
             SqlParameter[] SqlParams = new SqlParameter[] {
@@ -320,7 +328,9 @@ namespace Bitboxx.DNNModules.BBStore
                 new SqlParameter("LastModifiedOnDate",SimpleProduct.LastModifiedOnDate),
                 new SqlParameter("LastModifiedByUserId",SimpleProduct.LastModifiedByUserId),
                 new SqlParameter("Disabled",SimpleProduct.Disabled),
-                new SqlParameter("NoCart",SimpleProduct.NoCart)};
+                new SqlParameter("NoCart",SimpleProduct.NoCart),
+                new SqlParameter("Weight",SimpleProduct.Weight),
+            };
 
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
         }
@@ -904,6 +914,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " GROUP BY TaxPercent";
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
+
         public override void UpdateCartCustomerId(Guid cartId, int customerId)
         {
             string sqlCmd = "SELECT CustomerId FROM " + GetFullyQualifiedName("Cart") + " WHERE CartId = @CartId";
@@ -1386,6 +1397,7 @@ namespace Bitboxx.DNNModules.BBStore
             string selCmd = "SELECT CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
                  " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent, CartProduct.Unit, CartProduct.Decimals,"+
                  " CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount," +
+                 " CartProduct.Weight,CartProduct.ShippingModelId," +
                  " CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0) AS UnitCost," +
                  " CartProduct.Quantity * ROUND((CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)) * (100 + CartProduct.TaxPercent) / 100,2) AS SubTotal," +
                  " ROUND(CartProduct.Quantity * (CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)),2) As NetTotal," +
@@ -1396,7 +1408,7 @@ namespace Bitboxx.DNNModules.BBStore
                  " WHERE CartProduct.CartProductId = " + CartProductId.ToString() +
                  " GROUP BY CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
                  " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent,CartProduct.Unit, CartProduct.Decimals,"+
-                 " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount";
+                 " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount,CartProduct.Weight,CartProduct.ShippingModelId";
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
         public override IDataReader GetCartProductByProductId(Guid CartId, int ProductId)
@@ -1404,6 +1416,7 @@ namespace Bitboxx.DNNModules.BBStore
             string selCmd = "SELECT CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
                  " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent, CartProduct.Unit, CartProduct.Decimals,"+
                  " CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount," +
+                 " CartProduct.Weight,CartProduct.ShippingModelId," +
                  " CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0) AS UnitCost," +
                  " CartProduct.Quantity * ROUND((CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)) * (100 + CartProduct.TaxPercent) / 100,2) AS SubTotal," +
                  " ROUND(CartProduct.Quantity * (CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)),2) As NetTotal," +
@@ -1415,7 +1428,7 @@ namespace Bitboxx.DNNModules.BBStore
                  " AND CartProduct.ProductId = " + ProductId.ToString() +
                  " GROUP BY CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
                  " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent,CartProduct.Unit, CartProduct.Decimals,"+
-                 " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount";
+                 " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount,CartProduct.Weight,CartProduct.ShippingModelId";
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
         public override IDataReader GetCartProductByProductIdAndSelectedOptions(Guid CartId, int ProductId, System.Collections.Generic.List<OptionListInfo> SelectedOptions)
@@ -1459,6 +1472,7 @@ namespace Bitboxx.DNNModules.BBStore
             string selCmd = "SELECT CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
                  " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent, CartProduct.Unit, CartProduct.Decimals,"+
                  " CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount," +
+                 " CartProduct.Weight,CartProduct.ShippingModelId," +
                  " CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0) AS UnitCost," +
                  " CartProduct.Quantity * ROUND((CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)) * (100 + CartProduct.TaxPercent) / 100,2) AS SubTotal," +
                  " ROUND(CartProduct.Quantity * (CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)),2) As NetTotal," +
@@ -1471,7 +1485,7 @@ namespace Bitboxx.DNNModules.BBStore
                  optionCriteria +
                  " GROUP BY CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
                  " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent,CartProduct.Unit, CartProduct.Decimals,"+
-                 " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount";
+                 " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount,CartProduct.Weight,CartProduct.ShippingModelId";
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
         public override IDataReader GetCartProducts(Guid CartId)
@@ -1479,6 +1493,7 @@ namespace Bitboxx.DNNModules.BBStore
             string selCmd = "SELECT CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
                 " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent, CartProduct.Unit, CartProduct.Decimals,"+
                 " CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount," +
+                " CartProduct.Weight,CartProduct.ShippingModelId," +
                 " CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0) AS UnitCost," +
                 " CartProduct.Quantity * ROUND((CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)) * (100 + CartProduct.TaxPercent) / 100,2) AS SubTotal," +
                 " ROUND(CartProduct.Quantity * (CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)),2) As NetTotal," +
@@ -1489,15 +1504,15 @@ namespace Bitboxx.DNNModules.BBStore
                 " WHERE CartProduct.CartID = '" + CartId.ToString() + "'" +
                 " GROUP BY CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
                 " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent,CartProduct.Unit, CartProduct.Decimals,"+
-                " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount" +
+                " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount,CartProduct.Weight,CartProduct.ShippingModelId" +
                 " ORDER BY CartProduct.CartProductId";
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
         public override int NewCartProduct(Guid CartId, CartProductInfo CartProduct)
         {
             string insCmd = "set nocount on INSERT INTO " + Prefix + "CartProduct " +
-                            "(CartID,ProductId,Image,ItemNo,Quantity,Name,Description,ProductUrl,UnitCost,TaxPercent,Unit,Decimals,ProductDiscount) VALUES " +
-                            "(@CartID,@ProductId,@Image,@ItemNo,@Quantity,@Name,@Description,@ProductUrl,@UnitCost,@TaxPercent,@Unit,@Decimals,@ProductDiscount)" +
+                            "(CartID,ProductId,Image,ItemNo,Quantity,Name,Description,ProductUrl,UnitCost,TaxPercent,Unit,Decimals,ProductDiscount,Weight,ShippingModelId) VALUES " +
+                            "(@CartID,@ProductId,@Image,@ItemNo,@Quantity,@Name,@Description,@ProductUrl,@UnitCost,@TaxPercent,@Unit,@Decimals,@ProductDiscount,@Weight,@ShippingModelId)" +
                             " SELECT CAST(scope_identity() AS INTEGER);";
 
             SqlParameter[] param = new SqlParameter[] 
@@ -1514,7 +1529,9 @@ namespace Bitboxx.DNNModules.BBStore
                 new SqlParameter("TaxPercent",CartProduct.TaxPercent),
                 new SqlParameter("Unit",CartProduct.Unit), 
                 new SqlParameter("Decimals", CartProduct.Decimals), 
-                new SqlParameter("ProductDiscount",CartProduct.ProductDiscount)
+                new SqlParameter("ProductDiscount",CartProduct.ProductDiscount),
+                new SqlParameter("Weight",CartProduct.Weight),
+                new SqlParameter("ShippingModelId",GetNull(CartProduct.ShippingModelId))
             };
 
             return (int)SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, param);
@@ -1522,19 +1539,21 @@ namespace Bitboxx.DNNModules.BBStore
         public override void UpdateCartProduct(CartProductInfo CartProduct)
         {
             string updCmd = "UPDATE " + Prefix + "CartProduct SET " +
-                            "ProductId = @ProductId," +
-                            "Image = @Image," +
-                            "ItemNo = @ItemNo," +
-                            "Quantity = @Quantity," +
-                            "Name = @Name," +
-                            "Description = @Description," +
-                            "ProductUrl = @ProductUrl," +
-                            "UnitCost = @UnitCost," +
-                            "TaxPercent = @TaxPercent, " +
-                            "Unit = @Unit," +
-                            "Decimals = @Decimals," + 
-                            "ProductDiscount = @ProductDiscount " +
-                            "WHERE CartProductId = @CartProductId";
+                            " ProductId = @ProductId," +
+                            " Image = @Image," +
+                            " ItemNo = @ItemNo," +
+                            " Quantity = @Quantity," +
+                            " Name = @Name," +
+                            " Description = @Description," +
+                            " ProductUrl = @ProductUrl," +
+                            " UnitCost = @UnitCost," +
+                            " TaxPercent = @TaxPercent, " +
+                            " Unit = @Unit," +
+                            " Decimals = @Decimals," + 
+                            " ProductDiscount = @ProductDiscount, " +
+                            " Weight = @Weight, "+
+                            " ShippingModelId = @ShippingModelId " +
+                            " WHERE CartProductId = @CartProductId";
 
             SqlParameter[] param = new SqlParameter[] 
             {
@@ -1550,7 +1569,9 @@ namespace Bitboxx.DNNModules.BBStore
                 new SqlParameter("TaxPercent",CartProduct.TaxPercent),
                 new SqlParameter("Unit",CartProduct.Unit), 
                 new SqlParameter("Decimals", CartProduct.Decimals), 
-                new SqlParameter("ProductDiscount",CartProduct.ProductDiscount)
+                new SqlParameter("ProductDiscount",CartProduct.ProductDiscount),
+                new SqlParameter("Weight",CartProduct.Weight),
+                new SqlParameter("ShippingModelId",GetNull(CartProduct.ShippingModelId))
             };
 
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, param);
@@ -1782,15 +1803,25 @@ namespace Bitboxx.DNNModules.BBStore
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
 
+        public override IDataReader GetSubscriberPaymentProviderByCPP(int customerPaymentProviderId)
+        {
+            string selCmd = "SELECT spp.*" +
+                            " FROM " + Prefix + "SubscriberPaymentProvider spp" +
+                            " INNER JOIN " + GetFullyQualifiedName("CustomerPaymentProvider") + " cpp ON cpp.PaymentProviderId = spp.PaymentProviderId" +
+                            " WHERE CustomerPaymentProviderId = @CustomerPaymentproviderId";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("CustomerPaymentProviderId",customerPaymentProviderId));
+        }
+
         public override int NewSubscriberPaymentProvider(SubscriberPaymentProviderInfo SubscriberPaymentProvider)
         {
             string insCmd = "set nocount on INSERT INTO " + Prefix + "SubscriberPaymentProvider" +
-                " (PortalId,SubscriberId,PaymentProviderId,ViewOrder,Cost,TaxPercent,Role,IsEnabled,PaymentProviderProperties) VALUES (" +
+                " (PortalId,SubscriberId,PaymentProviderId,ViewOrder,Cost,CostPercent,TaxPercent,Role,IsEnabled,PaymentProviderProperties) VALUES (" +
                 SubscriberPaymentProvider.PortalId.ToString() + "," +
                 SubscriberPaymentProvider.SubscriberId.ToString() + "," +
                 SubscriberPaymentProvider.PaymentProviderId.ToString() + "," +
                 SubscriberPaymentProvider.ViewOrder.ToString() + "," +
                 SubscriberPaymentProvider.Cost.ToString(cult) + "," +
+                SubscriberPaymentProvider.CostPercent.ToString(cult) + "," +
                 SubscriberPaymentProvider.TaxPercent.ToString(cult) + "," +
                 "N'" + SubscriberPaymentProvider.Role.ToString() + "'," +
                 (SubscriberPaymentProvider.IsEnabled ? "1" : "0") + "," +
@@ -1806,6 +1837,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " PaymentProviderId = " + SubscriberPaymentProvider.PaymentProviderId.ToString() + "," +
                 " ViewOrder = " + SubscriberPaymentProvider.ViewOrder.ToString() + "," +
                 " Cost = " + SubscriberPaymentProvider.Cost.ToString(cult) + "," +
+                " CostPercent = " + SubscriberPaymentProvider.CostPercent.ToString(cult) + "," +
                 " TaxPercent = " + SubscriberPaymentProvider.TaxPercent.ToString(cult) + "," +
                 " Role = N'" + SubscriberPaymentProvider.Role.ToString() + "'," +
                 " IsEnabled = " + (SubscriberPaymentProvider.IsEnabled ? "1" : "0") + "," +
@@ -2493,9 +2525,9 @@ namespace Bitboxx.DNNModules.BBStore
 
         public override string GetProductGroupPath(int PortalId, int ProductGroupId)
         {
-            return GetProductGroupPath(PortalId, ProductGroupId, "en-US", true, "/", "");
+            return GetProductGroupPath(PortalId, ProductGroupId, "en-US", true, "/", "", "");
         }
-        public override string GetProductGroupPath(int PortalId, int ProductGroupId, string Language, bool ReturnId, string Delimiter, string linkTemplate)
+        public override string GetProductGroupPath(int PortalId, int ProductGroupId, string Language, bool returnId, string Delimiter, string linkTemplate, string rootText)
         {
             string retVal = "";
             string selCmd;
@@ -2508,7 +2540,7 @@ namespace Bitboxx.DNNModules.BBStore
                 return retVal;
             else
             {
-                if (ReturnId)
+                if (returnId)
                     retVal = "_" + ProductGroupId.ToString();
                 else
                 {
@@ -2521,7 +2553,7 @@ namespace Bitboxx.DNNModules.BBStore
                 }
             }
 
-            if (ReturnId)
+            if (returnId)
                 selCmd = "SELECT ProductGroup.ParentId,'' as ProductGroupName" +
                     " FROM " + Prefix + "ProductGroup ProductGroup" +
                     " WHERE ProductGroup.PortalId = " + PortalId.ToString() +
@@ -2539,7 +2571,7 @@ namespace Bitboxx.DNNModules.BBStore
                 int ParentId = (blisn["ParentId"] != DBNull.Value ? (int)blisn["ParentId"] : -1);
                 if (ParentId > -1)
                 {
-                    if (ReturnId)
+                    if (returnId)
                         retVal = "_" + ParentId.ToString() + Delimiter + retVal;
                     else
                         retVal = String.Format(linkTemplate,blisn["ProductGroupName"],blisn["ParentId"]) + Delimiter + retVal;
@@ -2552,7 +2584,7 @@ namespace Bitboxx.DNNModules.BBStore
                         ParentId = (blisn["ParentId"] != DBNull.Value ? (int)blisn["ParentId"] : -1);
                         if (ParentId > -1)
                         {
-                            if (ReturnId)
+                            if (returnId)
                                 retVal = "_" + ParentId.ToString() + Delimiter + retVal;
                             else
 								retVal = String.Format(linkTemplate, blisn["ProductGroupName"], blisn["ParentId"]) + Delimiter + retVal;
@@ -2562,6 +2594,8 @@ namespace Bitboxx.DNNModules.BBStore
                         ParentId = -1;
                 }
             }
+            if (!returnId && !String.IsNullOrEmpty(rootText))
+                retVal = String.Format(linkTemplate, rootText, -1) + Delimiter + retVal;
             return retVal;
         }
         public override int NewProductGroup(ProductGroupInfo ProductGroup)
@@ -4807,6 +4841,248 @@ namespace Bitboxx.DNNModules.BBStore
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
         }
 
+        // ShippingModel
+        public override IDataReader GetShippingModel(int shippingModelId)
+        {
+            string sqlCmd = "SELECT * FROM " + GetFullyQualifiedName("ShippingModel") +
+                            " WHERE ShippingModelId = @ShippingModelId";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("ShippingModelId", shippingModelId), 
+                                       };
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
+        public override IDataReader GetShippingModels(int portalId)
+        {
+            string sqlCmd = "SELECT * FROM " + GetFullyQualifiedName("ShippingModel") +
+                            " WHERE PortalId = @PortalId";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("PortalId", portalId), 
+                                       };
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
+        public override int NewShippingModel(ShippingModelInfo shippingModel)
+        {
+            string sqlCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("ShippingModel") +
+                            " (PortalId,Tax,Enabled,Name) VALUES (@PortalId,@Tax,@Enabled,@Name) SELECT CAST(scope_identity() AS INTEGER);";
+            SqlParameter[] sqlParams = new SqlParameter[]
+            {
+                new SqlParameter("PortalId", shippingModel.PortalId),
+                new SqlParameter("Tax", shippingModel.Tax),
+                new SqlParameter("Enabled", shippingModel.Enabled),
+                new SqlParameter("Name", shippingModel.Name),
+            };
+
+            return (int) SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+
+        }
+
+        public override void UpdateShippingModel(ShippingModelInfo shippingModel)
+        {
+            string sqlCmd = " UPDATE " + GetFullyQualifiedName("ShippingModel") + " SET" +
+                            " PortalId = @PortalId," +
+                            " Tax = @Tax," +
+                            " Enabled = @Enabled," +
+                            " Name = @Name" +
+                            " WHERE ShippingModelId = @ShippingModelId";
+            SqlParameter[] sqlParams = new SqlParameter[]
+            {
+                new SqlParameter("ShippingModelId", shippingModel.ShippingModelID),
+                new SqlParameter("PortalId", shippingModel.PortalId),
+                new SqlParameter("Tax", shippingModel.Tax),
+                new SqlParameter("Enabled", shippingModel.Enabled),
+                new SqlParameter("Name", shippingModel.Name),
+            };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+
+        }
+
+        public override void DeleteShippingModel(int shippingModelId)
+        {
+            string sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ShippingModel") +
+                            " WHERE ShippingModelId = @ShippingModelId";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("ShippingModelId", shippingModelId), 
+                                       };
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+        
+        // ProductShippingModel
+        public override IDataReader GetProductShippingModelsByProduct(int productId)
+        {
+            string sqlCmd = "SELECT * FROM " + GetFullyQualifiedName("ProductShippingModel") +
+                            " WHERE SimpleProductId = @ProductId";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("ProductId", productId), 
+                                       };
+
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
+        public override void DeleteProductShippingModelByProduct(int productId)
+        {
+            string sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ProductShippingModel") +
+                            " WHERE SimpleProductId = @ProductId";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("ProductId", productId), 
+                                       };
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
+        public override void InsertProductShippingModel(ProductShippingModelInfo productShippingModel)
+        {
+            string sqlCmd = "INSERT INTO " + GetFullyQualifiedName("ProductShippingModel") +
+                            " (ShippingModelId,SimpleProductId) VALUES (@ShippingModelId,@ProductId)";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("ProductId", productShippingModel.SimpleProductId), 
+                                           new SqlParameter("ShippingModelId", productShippingModel.ShippingModelId), 
+                                       };
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
+        // ShippingCost methods
+        public override IDataReader GetShippingCosts(int PortalId)
+        {
+            string selCmd = "SELECT *" +
+                " FROM " + GetFullyQualifiedName("ShippingCost") +
+                " WHERE PortalId = @PortalId" +
+                " ORDER BY ShippingCostId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
+        }
+        public override IDataReader GetShippingCostsByModelId(int shippingModelId)
+        {
+            string selCmd = "SELECT *" +
+                            " FROM " + GetFullyQualifiedName("ShippingCost") +
+                            " WHERE shippingModelId = @ShippingModelId";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("ShippingModelId", shippingModelId));
+        }
+        public override IDataReader GetShippingCostById(int ShippingCostId)
+        {
+            string selCmd = "SELECT *" +
+                " FROM " + GetFullyQualifiedName("ShippingCost") +
+                " WHERE ShippingCostId = @ShippingCostId" +
+                " ORDER BY ShippingCostId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("ShippingCostId", ShippingCostId));
+        }
+        public override int NewShippingCost(ShippingCostInfo shippingCost)
+        {
+            string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("ShippingCost") +
+                " (ShippingModelID,ShippingZoneID,ShippingPrice,PerPart,MinWeight,MaxWeight,MinPrice,MaxPrice)" +
+                " VALUES " +
+                " (@ShippingModelID,@ShippingZoneID,@ShippingPrice,@PerPart,@MinWeight,@MaxWeight,@MinPrice,@MaxPrice) SELECT CAST(scope_identity() AS INTEGER);";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("ShippingCostID", shippingCost.ShippingCostID),
+                                           new SqlParameter("ShippingModelID", shippingCost.ShippingModelID),
+                                           new SqlParameter("ShippingZoneID", shippingCost.ShippingZoneID),
+                                           new SqlParameter("ShippingPrice", shippingCost.ShippingPrice),
+                                           new SqlParameter("PerPart", shippingCost.PerPart),
+                                           new SqlParameter("MinWeight", shippingCost.MinWeight),
+                                           new SqlParameter("MaxWeight", shippingCost.MaxWeight),
+                                           new SqlParameter("MinPrice", shippingCost.MinPrice),
+                                           new SqlParameter("MaxPrice", shippingCost.MaxPrice)
+                                       };
+
+            return (int)SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
+        }
+        public override void UpdateShippingCost(ShippingCostInfo shippingCost)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("ShippingCost") + " SET " +
+                " ShippingModelID = @ShippingModelID," +
+                " ShippingZoneID = @ShippingZoneID," +
+                " ShippingPrice = @ShippingPrice," +
+                " PerPart = @PerPart," +
+                " MinWeight = @MinWeight," +
+                " MaxWeight = @MaxWeight," +
+                " MinPrice = @MinPrice," +
+                " MaxPrice = @MaxPrice" +
+                " WHERE ShippingCostID = @ShippingCostID";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("ShippingCostID", shippingCost.ShippingCostID),
+                                           new SqlParameter("ShippingModelID", shippingCost.ShippingModelID),
+                                           new SqlParameter("ShippingZoneID", shippingCost.ShippingZoneID),
+                                           new SqlParameter("ShippingPrice", shippingCost.ShippingPrice),
+                                           new SqlParameter("PerPart", shippingCost.PerPart),
+                                           new SqlParameter("MinWeight", shippingCost.MinWeight),
+                                           new SqlParameter("MaxWeight", shippingCost.MaxWeight),
+                                           new SqlParameter("MinPrice", shippingCost.MinPrice),
+                                           new SqlParameter("MaxPrice", shippingCost.MaxPrice)
+                                       };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
+        public override void DeleteShippingCost(int ShippingCostId)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("ShippingCost") +
+                " WHERE ShippingCostId = @ShippingCostId";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("ShippingCostId", ShippingCostId));
+        }
+
+        // ShippingZone methods
+        public override int GetShippingZoneIdByAddress(int modelId, string countryCodeISO2, int postalCode)
+        {
+            int shippingZoneId = -1;
+            string sqlCmd = "SELECT ShippingZoneId" +
+                            " FROM " + GetFullyQualifiedName("ShippingZone") + 
+                            " WHERE ShippingModelId = @ShippingModelId" +
+                            " AND ShippingZoneId IN " +
+                            "   (SELECT ShippingZoneId FROM " + GetFullyQualifiedName("ShippingArea") + " WHERE {0})";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                           {
+                                               new SqlParameter("CountryCodeISO2",countryCodeISO2), 
+                                               new SqlParameter("PostalCode", postalCode), 
+                                               new SqlParameter("ShippingModelId", modelId), 
+                                           };
+
+            string where = "";
+            object result = null;
+            if (postalCode > -1)
+            {
+                where = "CountryCodeISO2 = @CountryCodeISO2 AND PostalCodeMin < @PostalCode AND PostalCodeMax > @PostalCode";
+                result = SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, String.Format(sqlCmd, where), sqlParams);
+                if (result != null && result != DBNull.Value)
+                {
+                    return (int) result;
+                }
+            }
+            where = "CountryCodeISO2 = @CountryCodeISO2";
+            result = SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, String.Format(sqlCmd, where), sqlParams);
+            if (result != null && result != DBNull.Value)
+            {
+                return (int)result;
+            }
+            return -1;
+        }
+
+        public override IDataReader GetShippingZoneById(int shippingZoneId, string language)
+        {
+            string sqlCmd = "SELECT sz.*, lang.Name, lang.OrderText,lang.Description" +
+                            " FROM " + GetFullyQualifiedName("ShippingZone") + " sz " +
+                            " INNER JOIN " + GetFullyQualifiedName("ShippingZoneLang") + " lang ON sz.ShippingZoneId = lang.ShippingZoneId" +
+                            " WHERE sz.ShippingZoneId = @ShippingZoneId " +
+                            " AND lang.Language = @Language";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                           {
+                                               new SqlParameter("ShippingZoneId",shippingZoneId), 
+                                               new SqlParameter("Language", language), 
+                                           };
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
 
         // Helper methods
         public override void ReseedTables()

@@ -118,15 +118,24 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="lblCost.Text" xml:space="preserve">
-    <value>Für die Zahlung auf Rechnung berechnen wir eine Gebühr von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Zahlung auf Rechnung berechnen wir eine Gebühr von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblDiscount.Text" xml:space="preserve">
-    <value>Für die Zahlung auf Rechnung gewähren wir einen Rabatt von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Zahlung auf Rechnung gewähren wir einen Rabatt von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblFree.Text" xml:space="preserve">
 		<value>Diese Zahlungsart ist für Sie &lt;b&gt;komplett kostenlos&lt;/b&gt;. </value>
 	</data>
 	<data name="lblDescription.Text" xml:space="preserve">
 		<value>&lt;p&gt;Die Zahlung auf Rechnung ist die bequemste und für Sie sicherste Art der Bezahlung. Nachdem Sie die Ware in den Händen halten und sie überprüft haben bezahlen Sie die Ware ganz einfach per Überweisung.&lt;br/&gt;&lt;/br&gt;{0}&lt;/p&gt;</value>
+	</data>
+	<data name="lblPercentage.Text" xml:space="preserve">
+		<value>{0:f1} Prozent des Gesamtbetrags</value>
+	</data>
+	<data name="lblFixed.Text" xml:space="preserve">
+		<value>{0:f2} Pauschale</value>
+	</data>
+	<data name="lblConcat.Text" xml:space="preserve">
+		<value>zzgl.</value>
 	</data>
 </root>

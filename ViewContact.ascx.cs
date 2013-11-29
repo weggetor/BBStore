@@ -23,12 +23,25 @@ using DotNetNuke.UI.Skins.Controls;
 
 namespace Bitboxx.DNNModules.BBStore
 {
-    [DNNtc.PackageProperties("BBStore Contact", 7, "BBStore Contact", "BBStore Contact", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net")]
+    [DNNtc.PackageProperties("BBStore Contact", 7, "BBStore Contact", "BBStore Contact", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
     [DNNtc.ModuleProperties("BBStore Contact", "BBStore Contact", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Contact", DNNtc.ControlType.View, "", true, false)]
 	public partial class ViewContact : PortalModuleBase, IActionable
-	{
-		#region Fields
+    {
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactCompany;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactPrefix ;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactFirstname;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactLastname ;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactStreet ;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactRegion ;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactPostalcode ;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactCountry ;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactTelephone ;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactCell ;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactFax ;
+        protected DotNetNuke.UI.UserControls.LabelControl lblContactEmail;
+        
+        #region Fields
 		private const string Currency = "EUR";
 		private bool _hasChanged = false;
 		BBStoreController _controller;
@@ -128,7 +141,7 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			try
 			{
-                if (!IsConfigured)
+			    if (!IsConfigured)
 			    {
 			        string message = Localization.GetString("Configure.Message", this.LocalResourceFile);
 			        DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, message, ModuleMessage.ModuleMessageType.YellowWarning);
@@ -154,8 +167,8 @@ namespace Bitboxx.DNNModules.BBStore
 
 			            // Prefill data if logged in user
 			            ContactAddressInfo contactAddress = null;
-                        if (Request.Cookies["ContactAddress"] != null)
-                            contactAddress = (ContactAddressInfo) VfpInterop.DeserializeFromBase64String(Request.Cookies["ContactAddress"].Value);
+			            if (Request.Cookies["ContactAddress"] != null)
+			                contactAddress = (ContactAddressInfo) VfpInterop.DeserializeFromBase64String(Request.Cookies["ContactAddress"].Value);
 
 			            if (contactAddress == null)
 			            {
@@ -183,108 +196,169 @@ namespace Bitboxx.DNNModules.BBStore
 			            }
 			            else
 			            {
-                            txtContactCompany.Text = contactAddress.Company;
-                            txtContactPrefix.Text = contactAddress.Prefix;
-                            txtContactFirstname.Text = contactAddress.Firstname;
-                            txtContactLastname.Text = contactAddress.Lastname;
-                            txtContactUnit.Text = contactAddress.Unit;
-                            txtContactStreet.Text = contactAddress.Street;
-                            txtContactRegion.Text = contactAddress.Region;
-                            txtContactPostalcode.Text = contactAddress.PostalCode;
-                            txtContactCity.Text = contactAddress.City;
-                            if (ddlCountry.Items.FindByText(contactAddress.Country) != null)
-                                ddlCountry.Items.FindByText(contactAddress.Country).Selected = true;
-                            txtContactTelephone.Text = contactAddress.Telephone;
-                            txtContactFax.Text = contactAddress.Fax;
-                            txtContactEmail.Text = contactAddress.Email;
-                            txtContactCell.Text = contactAddress.Cell;
+			                txtContactCompany.Text = contactAddress.Company;
+			                txtContactPrefix.Text = contactAddress.Prefix;
+			                txtContactFirstname.Text = contactAddress.Firstname;
+			                txtContactLastname.Text = contactAddress.Lastname;
+			                txtContactUnit.Text = contactAddress.Unit;
+			                txtContactStreet.Text = contactAddress.Street;
+			                txtContactRegion.Text = contactAddress.Region;
+			                txtContactPostalcode.Text = contactAddress.PostalCode;
+			                txtContactCity.Text = contactAddress.City;
+			                if (ddlCountry.Items.FindByText(contactAddress.Country) != null)
+			                    ddlCountry.Items.FindByText(contactAddress.Country).Selected = true;
+			                txtContactTelephone.Text = contactAddress.Telephone;
+			                txtContactFax.Text = contactAddress.Fax;
+			                txtContactEmail.Text = contactAddress.Email;
+			                txtContactCell.Text = contactAddress.Cell;
 			            }
 			        }
-			        string required = Localization.GetString("Required.Validator", this.LocalResourceFile);
+			        string requiredText = Localization.GetString("Required.Validator", this.LocalResourceFile);
+			        bool required;
 
 			        trCompany.Visible = Convert.ToBoolean(Settings["ShowCompany"]);
-			        txtContactCompany.TextChanged += txt_TextChanged;
-			        valContactCompany.Visible = Convert.ToBoolean(Settings["MandCompany"]);
-			        valContactCompany.Text = required;
 			        lblContactCompany.Text = Localization.GetString("lblContactCompany.Text", this.LocalResourceFile) +
 			                                 (Convert.ToBoolean(Settings["MandCompany"]) ? " *" : "");
+			        txtContactCompany.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandCompany"]);
+			        valContactCompany.Visible = required;
+			        if (required)
+			        {
+			            valContactCompany.Text = requiredText;
+			            txtContactCompany.CssClass = "dnnFormRequired";
+			        }
 
 			        trPrefix.Visible = Convert.ToBoolean(Settings["ShowPrefix"]);
-			        txtContactPrefix.TextChanged += txt_TextChanged;
-			        valContactPrefix.Visible = Convert.ToBoolean(Settings["MandPrefix"]);
-			        valContactPrefix.Text = required;
 			        lblContactPrefix.Text = Localization.GetString("lblContactPrefix.Text", this.LocalResourceFile) +
 			                                (Convert.ToBoolean(Settings["MandPrefix"]) ? " *" : "");
+			        txtContactPrefix.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandPrefix"]);
+			        valContactPrefix.Visible = required;
+			        if (required)
+			        {
+			            valContactPrefix.Text = requiredText;
+			            txtContactPrefix.CssClass = "dnnFormRequired";
+			        }
 
 			        trFirstname.Visible = Convert.ToBoolean(Settings["ShowFirstname"]);
-			        txtContactFirstname.TextChanged += txt_TextChanged;
-			        valContactFirstname.Visible = Convert.ToBoolean(Settings["MandFirstname"]);
-			        valContactFirstname.Text = required;
 			        lblContactFirstname.Text = Localization.GetString("lblContactFirstname.Text", this.LocalResourceFile) +
 			                                   (Convert.ToBoolean(Settings["MandFirstname"]) ? " *" : "");
+			        txtContactFirstname.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandFirstname"]);
+			        valContactFirstname.Visible = required;
+			        if (required)
+			        {
+			            valContactFirstname.Text = requiredText;
+			            txtContactFirstname.CssClass = "dnnFormRequired";
+			        }
 
 			        trLastname.Visible = Convert.ToBoolean(Settings["ShowLastname"]);
-			        txtContactLastname.TextChanged += txt_TextChanged;
-			        valContactLastname.Visible = Convert.ToBoolean(Settings["MandLastname"]);
-			        valContactLastname.Text = required;
 			        lblContactLastname.Text = Localization.GetString("lblContactLastname.Text", this.LocalResourceFile) +
 			                                  (Convert.ToBoolean(Settings["MandLastname"]) ? " *" : "");
+			        txtContactLastname.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandLastname"]);
+			        valContactLastname.Visible = required;
+			        if (required)
+			        {
+			            valContactLastname.Text = requiredText;
+			            txtContactLastname.CssClass = "dnnFormRequired";
+			        }
 
 			        trStreet.Visible = Convert.ToBoolean(Settings["ShowStreet"]);
-			        txtContactStreet.TextChanged += txt_TextChanged;
-			        valContactStreet.Visible = Convert.ToBoolean(Settings["MandStreet"]);
-			        valContactStreet.Text = required;
 			        lblContactStreet.Text = Localization.GetString("lblContactStreet.Text", this.LocalResourceFile) +
 			                                (Convert.ToBoolean(Settings["MandStreet"]) ? " *" : "");
+			        txtContactStreet.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandStreet"]);
+			        valContactStreet.Visible = required;
+			        if (required)
+			        {
+			            valContactStreet.Text = requiredText;
+			            txtContactStreet.CssClass = "dnnFormRequired";
+			        }
 
 			        trRegion.Visible = Convert.ToBoolean(Settings["ShowRegion"]);
-			        txtContactRegion.TextChanged += txt_TextChanged;
-			        valContactRegion.Visible = Convert.ToBoolean(Settings["MandRegion"]);
-			        valContactRegion.Text = required;
 			        lblContactRegion.Text = Localization.GetString("lblContactRegion.Text", this.LocalResourceFile) +
 			                                (Convert.ToBoolean(Settings["MandRegion"]) ? " *" : "");
+			        txtContactRegion.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandRegion"]);
+			        valContactRegion.Visible = required;
+			        if (required)
+			        {
+			            valContactRegion.Text = requiredText;
+			            txtContactRegion.CssClass = "dnnFormRequired";
+			        }
 
 			        trCity.Visible = Convert.ToBoolean(Settings["ShowCity"]);
-			        txtContactCity.TextChanged += txt_TextChanged;
-			        valContactCity.Visible = Convert.ToBoolean(Settings["MandCity"]);
-			        valContactCity.Text = required;
 			        lblContactPostalcode.Text = Localization.GetString("lblContactPostalcode.Text", this.LocalResourceFile) +
 			                                    (Convert.ToBoolean(Settings["MandCity"]) ? " *" : "");
+			        txtContactCity.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandCity"]);
+			        valContactCity.Visible = required;
+			        if (required)
+			        {
+			            valContactCity.Text = requiredText;
+			            txtContactCity.CssClass = "dnnFormRequired";
+			        }
 
 			        trCountry.Visible = Convert.ToBoolean(Settings["ShowCountry"]);
-			        ddlCountry.TextChanged += txt_TextChanged;
-			        valContactCountry.Visible = Convert.ToBoolean(Settings["MandCountry"]);
-			        valContactCountry.Text = required;
 			        lblContactCountry.Text = Localization.GetString("lblContactCountry.Text", this.LocalResourceFile) +
 			                                 (Convert.ToBoolean(Settings["MandCountry"]) ? " *" : "");
+			        ddlCountry.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandCountry"]);
+			        valContactCountry.Visible = required;
+			        if (required)
+			        {
+			            valContactCountry.Text = requiredText;
+			            ddlCountry.CssClass = "dnnFormRequired";
+			        }
 
 			        trPhone.Visible = Convert.ToBoolean(Settings["ShowPhone"]);
-			        txtContactTelephone.TextChanged += txt_TextChanged;
-			        valContactTelephone.Visible = Convert.ToBoolean(Settings["MandPhone"]);
-			        valContactTelephone.Text = required;
 			        lblContactTelephone.Text = Localization.GetString("lblContactTelephone.Text", this.LocalResourceFile) +
 			                                   (Convert.ToBoolean(Settings["MandPhone"]) ? " *" : "");
+			        txtContactTelephone.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandPhone"]);
+			        valContactTelephone.Visible = required;
+			        if (required)
+			        {
+			            valContactTelephone.Text = requiredText;
+			            txtContactTelephone.CssClass = "dnnFormRequired";
+			        }
 
 			        trCell.Visible = Convert.ToBoolean(Settings["ShowCell"]);
-			        txtContactCell.TextChanged += txt_TextChanged;
-			        valContactCell.Visible = Convert.ToBoolean(Settings["MandCell"]);
-			        valContactCell.Text = required;
 			        lblContactCell.Text = Localization.GetString("lblContactCell.Text", this.LocalResourceFile) +
 			                              (Convert.ToBoolean(Settings["MandCell"]) ? " *" : "");
+			        txtContactCell.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandCell"]);
+			        valContactCell.Visible = required;
+			        if (required)
+			        {
+			            valContactCell.Text = requiredText;
+			            txtContactCell.CssClass = "dnnFormRequired";
+			        }
 
 			        trFax.Visible = Convert.ToBoolean(Settings["ShowFax"]);
-			        txtContactFax.TextChanged += txt_TextChanged;
-			        valContactFax.Visible = Convert.ToBoolean(Settings["MandFax"]);
-			        valContactFax.Text = required;
 			        lblContactFax.Text = Localization.GetString("lblContactFax.Text", this.LocalResourceFile) +
 			                             (Convert.ToBoolean(Settings["MandFax"]) ? " *" : "");
+			        txtContactFax.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandFax"]);
+			        valContactFax.Visible = required;
+			        if (required)
+			        {
+			            valContactFax.Text = requiredText;
+			            txtContactFax.CssClass = "dnnFormRequired";
+			        }
 
 			        trEmail.Visible = Convert.ToBoolean(Settings["ShowEmail"]);
-			        txtContactEmail.TextChanged += txt_TextChanged;
-			        valContactEmail.Visible = Convert.ToBoolean(Settings["MandEmail"]);
-			        valContactEmail.Text = required;
 			        lblContactEmail.Text = Localization.GetString("lblContactEmail.Text", this.LocalResourceFile) +
 			                               (Convert.ToBoolean(Settings["MandEmail"]) ? " *" : "");
+			        txtContactEmail.TextChanged += txt_TextChanged;
+			        required = Convert.ToBoolean(Settings["MandEmail"]);
+			        valContactEmail.Visible = required;
+			        if (required)
+			        {
+			            valContactEmail.Text = requiredText;
+			            txtContactEmail.CssClass = "dnnFormRequired";
+			        }
 
 
 			        Products = Controller.GetContactProductsByCartId(PortalId, CartId, CurrentLanguage);

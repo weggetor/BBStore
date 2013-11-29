@@ -34,6 +34,7 @@
             <bb:TaxControl ID="txtShippingFreeInt" runat="server" Orientation="Horizontal" ShortCaps="false" />
         </div>
     </fieldset>
+
     <ul class="dnnActions dnnClear">
         <li><asp:LinkButton runat="server" ID="cmdUpdate" OnClick="cmdUpdate_Click" ResourceKey="cmdUpdate.Text" CssClass="dnnPrimaryAction"/></li>
         <li><asp:LinkButton runat="server" ID="cmdCancel" OnClick="cmdCancel_Click" ResourceKey="cmdCancel.Text" CssClass="dnnSecondaryAction"/></li>

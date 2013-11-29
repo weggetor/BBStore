@@ -18,11 +18,27 @@ IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Cart_CartPr
 	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct]  DROP CONSTRAINT [FK_{objectQualifier}Cart_CartProducts]
 go
 
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingModel_CartProduct' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] WITH NOCHECK DROP CONSTRAINT FK_{objectQualifier}ShippingModel_CartProduct
+GO
+
 IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Cart_CartAdditionalCost' and type='F')
 	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost]  DROP CONSTRAINT [FK_{objectQualifier}Cart_CartAdditionalCost]
 go
 
-DROP TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingZoneLang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingZoneLang] DROP CONSTRAINT FK_{objectQualifier}ShippingZoneLang
+GO
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}ShippingModelLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}ShippingModelLang]
+go
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}ShippingZoneLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}ShippingZoneLang]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Cart]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]
 go
 
 IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CartProduct_CartProductOption' and type='F')
@@ -32,6 +48,7 @@ go
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
 	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct]
 go
+
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartProductOption]') and OBJECTPROPERTY(id, N'IsTable') = 1)
 	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_CartProductOption]
@@ -423,6 +440,50 @@ GO
 IF EXISTS( SELECT * FROM sys.triggers  WHERE name = N'T_{objectQualifier}BBStore_DeletePortal' AND type = 'TR' )
 	DROP TRIGGER T_{objectQualifier}BBStore_DeletePortal 
 GO
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingZone_ShippingArea' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingArea] DROP CONSTRAINT FK_{objectQualifier}ShippingZone_ShippingArea
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingZone_ShippingCost' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingCost] DROP CONSTRAINT FK_{objectQualifier}ShippingZone_ShippingCost
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingZone]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingZone]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingModel_ShippingCost' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingCost] DROP CONSTRAINT FK_{objectQualifier}ShippingModel_ShippingCost
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingModel_ShippingZone' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingZone] DROP CONSTRAINT FK_{objectQualifier}ShippingModel_ShippingZone
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingModel]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingModel]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingArea]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingArea]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingCost]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingCost]
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Product_ProductShippingModel' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductShippingModel] DROP CONSTRAINT FK_{objectQualifier}Product_ProductShippingModel
+go
+
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingModel_ProductShippingModel' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductShippingModel] DROP CONSTRAINT FK_{objectQualifier}ShippingModel_ProductShippingModel
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductShippingModel]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductShippingModel]
+go
 
 /************************************************************/
 /*****              SqlDataProvider                     *****/

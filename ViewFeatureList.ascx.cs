@@ -49,7 +49,7 @@ namespace Bitboxx.DNNModules.BBStore
     /// <history> 
     /// </history> 
     /// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore FeatureList", 8, "BBStore FeatureList", "BBStore FeatureList", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net")]
+    [DNNtc.PackageProperties("BBStore FeatureList", 8, "BBStore FeatureList", "BBStore FeatureList", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
     [DNNtc.ModuleProperties("BBStore FeatureList", "BBStore FeatureList", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore FeatureList", DNNtc.ControlType.View, "", true, false)]
     partial class ViewFeatureList : PortalModuleBase, IActionable

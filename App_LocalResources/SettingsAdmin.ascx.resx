@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="ControlTitle_settings.Text" xml:space="preserve">
+    <value>BBStore Admin Settings</value>
+  </data>
+	<data name="lblGross.Text" xml:space="preserve">
+    <value>Gross</value>
+  </data>
+	<data name="lblNet.Text" xml:space="preserve">
+    <value>Net</value>
+  </data>
+	<data name="lblShowNetpriceInCart.Help" xml:space="preserve">
+    <value>Show net or gross price for products and subtotals in BBStore</value>
+  </data>
+	<data name="lblShowNetpriceInCart.Text" xml:space="preserve">
+    <value>Price</value>
+  </data>
+	<data name="shGlobal.Text" xml:space="preserve">
+    <value>Global Settings</value>
+  </data>
+	<data name="shColors.Text" xml:space="preserve">
+    <value>Color Settings</value>
+  </data>
+	<data name="lblColorAlt.Text" xml:space="preserve">
+    <value>Alternating Row BackColor</value>
+  </data>
+	<data name="lblColorBorder.Text" xml:space="preserve">
+    <value>Border Color</value>
+  </data>
+	<data name="lblColorHead.Text" xml:space="preserve">
+    <value>Head Row Backcolor</value>
+  </data>
+	<data name="lblColorRow.Text" xml:space="preserve">
+    <value>Normal Row BackColor</value>
+  </data>
+	<data name="lblColorSum.Text" xml:space="preserve">
+    <value>Sum Row BackColor</value>
+  </data>
+	<data name="cmdSaveCss.Text" xml:space="preserve">
+    <value>Save Style Sheet</value>
+  </data>
+	<data name="cmdRestoreCss.Text" xml:space="preserve">
+    <value>Restore Default Style Sheet</value>
+  </data>
+	<data name="lblTermsPage.Help" xml:space="preserve">
+    <value>Select the page in your portal which contains your terms of use</value>
+  </data>
+	<data name="lblTermsPage.Text" xml:space="preserve">
+    <value>Link to Terms page</value>
+  </data>
+	<data name="lblStoreAdmin.Help" xml:space="preserve">
+    <value>Enter shop admin email address to send the order to </value>
+  </data>
+	<data name="lblStoreAdmin.Text" xml:space="preserve">
+    <value>Store admin email</value>
+  </data>
+	<data name="lblStoreEmail.Help" xml:space="preserve">
+    <value>Enter the store sender email address (e.g. "bbstore@bitboxx.de")</value>
+  </data>
+	<data name="lblStoreEmail.Text" xml:space="preserve">
+    <value>Store email </value>
+  </data>
+	<data name="lblStoreName.Help" xml:space="preserve">
+    <value>Enter the store sender email name (e.g. "Bitboxx Store")</value>
+  </data>
+	<data name="lblStoreName.Text" xml:space="preserve">
+    <value>Store email name</value>
+  </data>
+	<data name="lblStoreReplyTo.Help" xml:space="preserve">
+    <value>Enter email address to send mail to when client answers to an order mail</value>
+  </data>
+	<data name="lblStoreReplyTo.Text" xml:space="preserve">
+    <value>Store ReplyTo email</value>
+  </data>
+	<data name="shMail.Text" xml:space="preserve">
+    <value>Mail Settings</value>
+  </data>
+	<data name="lblStoreSubject.Help" xml:space="preserve">
+    <value>Enter the subject for the order mail. Type [ORDERNO] where you want to place the order number (e.g. "BBStore order No. [ORDERNO] ")</value>
+  </data>
+	<data name="lblStoreSubject.Text" xml:space="preserve">
+    <value>Ordermail subject</value>
+  </data>
+	<data name="lblVendorCity.Help" xml:space="preserve">
+    <value>Enter the city of the store address</value>
+  </data>
+	<data name="lblVendorCity.Text" xml:space="preserve">
+    <value>City</value>
+  </data>
+	<data name="lblVendorName.Help" xml:space="preserve">
+    <value>Enter name of the store or vendor</value>
+  </data>
+	<data name="lblVendorName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+	<data name="lblVendorStreet1.Help" xml:space="preserve">
+    <value>Enter street of the store address</value>
+  </data>
+	<data name="lblVendorStreet1.Text" xml:space="preserve">
+    <value>Street 1</value>
+  </data>
+	<data name="lblVendorStreet2.Help" xml:space="preserve">
+    <value>Enter street of the store address (continued)</value>
+  </data>
+	<data name="lblVendorStreet2.Text" xml:space="preserve">
+    <value>Street 2</value>
+  </data>
+	<data name="lblVendorZip.Help" xml:space="preserve">
+    <value>Enter the zip code of the store address</value>
+  </data>
+	<data name="lblVendorZip.Text" xml:space="preserve">
+    <value>Zip</value>
+  </data>
+	<data name="shVendor.Text" xml:space="preserve">
+    <value>Vendor Settings</value>
+  </data>
+	<data name="lblOrderMask.Help" xml:space="preserve">
+    <value>&lt;p&gt;Enter here the character string which builds the order number.&lt;/p&gt;
+&lt;p&gt;The following strings are allowed:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;%D% : Day of today&lt;/li&gt;
+&lt;li&gt;%M% : Month of today&lt;/li&gt;
+&lt;li&gt;%Y2% : Year of today (2 digits)&lt;/li&gt;
+&lt;li&gt;%Y4% : Year of today (4 digits)&lt;/li&gt;
+&lt;li&gt;%Nx% : Order serially numbered with x= 1..9 digits
+&lt;/ul&gt;
+&lt;p&gt;You can use every other character in the mask, e.g.: "D %Y4% - %N5%" ergibt "D 2010 - 00001" for the first order&lt;/p&gt;</value>
+  </data>
+	<data name="lblOrderMask.Text" xml:space="preserve">
+    <value>Ordernumber Mask</value>
+  </data>
+	<data name="lblStartPage.Help" xml:space="preserve">
+    <value>Select the shop startpage.</value>
+  </data>
+	<data name="lblStartPage.Text" xml:space="preserve">
+    <value>Shop Startpage</value>
+  </data>
+	<data name="lblColorAlt.Help" xml:space="preserve">
+    <value>Please select or enter the cart alternating row backColor</value>
+  </data>
+	<data name="lblColorBorder.Help" xml:space="preserve">
+    <value>Please select or enter the cart border color</value>
+  </data>
+	<data name="lblColorHead.Help" xml:space="preserve">
+    <value>Please select or enter the cart header backcolor</value>
+  </data>
+	<data name="lblColorInfo.Text" xml:space="preserve">
+    <value>Please note that the changes will appear only after saving the style sheet and an update of the browser by pressing Shift-F5</value>
+  </data>
+	<data name="lblColorRow.Help" xml:space="preserve">
+    <value>Please select or enter the cart normal row backColor</value>
+  </data>
+	<data name="lblColorSum.Help" xml:space="preserve">
+    <value>Please select or enter the cart sum row backColor</value>
+  </data>
+	<data name="lblVendorCountry.Help" xml:space="preserve">
+    <value>Enter the country where your store is settled (default country for user registration)</value>
+  </data>
+	<data name="lblVendorCountry.Text" xml:space="preserve">
+    <value>Country</value>
+  </data>
+	<data name="lblProductGroupImageDir.Text" xml:space="preserve">
+		<value>Product Group Images</value>
+	</data>
+	<data name="lblProductGroupImageDir.Help" xml:space="preserve">
+		<value>Please select the folder where productgroup images should be stored</value>
+	</data>
+	<data name="lblProductImageDir.Text" xml:space="preserve">
+		<value>Product Image</value>
+	</data>
+	<data name="lblProductImageDir.Help" xml:space="preserve">
+		<value>Please select the folder where product images should be stored</value>
+	</data>
+	<data name="lblProductGroupIconDir.Text" xml:space="preserve">
+		<value>Product Group Icons</value>
+	</data>
+	<data name="lblProductGroupIconDir.Help" xml:space="preserve">
+		<value>Please select the folder where productgroup icons should be stored</value>
+	</data>
+	<data name="shFolder.Text" xml:space="preserve">
+		<value>Image Folders</value>
+	</data>
+	<data name="lblItemsPerPage.Help" xml:space="preserve">
+		<value>Enter a comma separated list of counts (eg. 25,!50,75,100). Minimum is one value. (! is default value)</value>
+	</data>
+	<data name="lblItemsPerPage.Text" xml:space="preserve">
+		<value>Items per page</value>
+	</data>
+	<data name="shAdmin.Text" xml:space="preserve">
+		<value>Backend Settings</value>
+	</data>
+	<data name="SelectRole.Text" xml:space="preserve">
+		<value>(Select Role)</value>
+	</data>
+	<data name="lblSupplierRole.Text" xml:space="preserve">
+		<value>Supplier Userrole</value>
+	</data>
+	<data name="lblSupplierRole.Help" xml:space="preserve">
+		<value>Please select the User Role which contains the suppliers. If you don't select a role, the supplier field is NOT availiable in the product</value>
+	</data>
+	<data name="lblTermsMandatory.Help" xml:space="preserve">
+		<value>Check if the confirmation of the general terms and conditions is required to complete the order</value>
+	</data>
+	<data name="lblTermsMandatory.Text" xml:space="preserve">
+		<value>Confirm terms</value>
+	</data>
+	<data name="shLicense.Text" xml:space="preserve">
+		<value>License Data</value>
+	</data>
+	<data name="lblInitialKey.Text" xml:space="preserve">
+		<value>License Key</value>
+	</data>
+	<data name="lblInitialKey.Help" xml:space="preserve">
+		<value>Enter here the Key you received from the module seller</value>
+	</data>
+	<data name="lblLicense.Text" xml:space="preserve">
+		<value>License Data</value>
+	</data>
+	<data name="lblLicense.Help" xml:space="preserve">
+		<value>View your license data</value>
+	</data>
+	<data name="cmdRefreshLicense.Text" xml:space="preserve">
+		<value>Refresh License</value>
+	</data>
+	<data name="lblTag.Header" xml:space="preserve">
+		<value>Domain/IP</value>
+	</data>
+	<data name="lblVersion.Header" xml:space="preserve">
+		<value>Version</value>
+	</data>
+	<data name="lblModules.Header" xml:space="preserve">
+		<value>Modules</value>
+	</data>
+	<data name="lblValid.Header" xml:space="preserve">
+		<value>License end</value>
+	</data>
+	<data name="lblLastCheck.Header" xml:space="preserve">
+		<value>Last check</value>
+	</data>
+</root>

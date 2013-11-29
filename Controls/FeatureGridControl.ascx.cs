@@ -673,11 +673,11 @@ namespace Bitboxx.DNNModules.BBStore
 		}
 		private void RenderSearchMode()
 		{
-			List<FeatureGridFeatureInfo> myFeatures = Controller.GetFeatureGridFeaturesByProductGroup(PortalId, ProductGroupId,
+			List<FeatureGridFeatureInfo> featureGridFeatures = Controller.GetFeatureGridFeaturesByProductGroup(PortalId, ProductGroupId,
 			                                                                                          CurrentLanguage, -1, -1,
 			                                                                                          true);
 			List<ProductFilterInfo> fl = Controller.GetProductFilter(PortalId, FilterSessionId, "Feature");
-			var Features = from f in fl
+			var selectedFeatures = from f in fl
 			               select new
 			                      	{
 			                      		FeatureId = Convert.ToInt32(f.FilterValue.Substring(0, f.FilterValue.IndexOf('|'))),
@@ -685,7 +685,7 @@ namespace Bitboxx.DNNModules.BBStore
 			                      	};
 
 			// Wir bauen die Ausgabe
-			if (myFeatures.Count > 0)
+			if (featureGridFeatures.Count > 0)
 			{
 				Table myTable = new Table();
 				myTable.CellPadding = 0;
@@ -694,10 +694,9 @@ namespace Bitboxx.DNNModules.BBStore
 				TableRow myRow, myCaptionRow;
 				TableCell tblCell;
 				int loop = 0;
-				string LastFeatureGroup = "";
-				string LastFeature = "";
+			    string lastFeature = "";
 
-				foreach (var loValue in myFeatures)
+				foreach (var loValue in featureGridFeatures)
 				{
 					loop++;
 					int valCount = 1;
@@ -706,7 +705,7 @@ namespace Bitboxx.DNNModules.BBStore
 					// Feature
 					TableCell tblCaptionCell = new TableCell();
 
-					if (LastFeature != loValue.Feature)
+					if (lastFeature != loValue.Feature)
 					{
 						Label lblFeature = new Label();
 						lblFeature.ID = "lblFeature" + loop.ToString();
@@ -729,12 +728,12 @@ namespace Bitboxx.DNNModules.BBStore
 					switch (loValue.Datatype)
 					{
 						case "L":
-							List<FeatureListItemInfo> myList =
+							List<FeatureListItemInfo> featureListItems =
 								Controller.GetFeatureListItemsByListAndProductGroup(Convert.ToInt32(loValue.FeatureListId), ProductGroupId,
 								                                                    CurrentLanguage);
-							valCount = myList.Count();
+							valCount = featureListItems.Count();
 
-							var featureL = (from f in Features where f.FeatureId == loValue.FeatureId select f);
+							var featureL = (from f in selectedFeatures where f.FeatureId == loValue.FeatureId select f);
 							string[] selListItemIds;
 							string selText = "";
 
@@ -744,7 +743,7 @@ namespace Bitboxx.DNNModules.BBStore
 								foreach (string selId in selListItemIds)
 								{
 									int id = Convert.ToInt32(selId);
-									var query = from li in myList where li.FeatureListItemId == id select li;
+									var query = from li in featureListItems where li.FeatureListItemId == id select li;
 									if (query.Any())
 										selText += query.First().FeatureListItem + ", ";
 								}
@@ -758,37 +757,71 @@ namespace Bitboxx.DNNModules.BBStore
 									int i = 0;
 									CheckBox chk;
 
-									foreach (var myListitem in myList)
-									{
-										i++;
-										chk = new CheckBox();
-										chk.Text = myListitem.FeatureListItem;
-										chk.ID = "ctrlL" + loValue.FeatureId.ToString() + "_" +
-										         loValue.FeatureListId.ToString() + "_" +
-										         myListitem.FeatureListItemId.ToString();
-										if (featureL.Count() > 0)
-										{
-											selListItemIds = featureL.First().Values.Split('|');
-											foreach (string selId in selListItemIds)
-											{
-												if (Convert.ToInt32(selId) == myListitem.FeatureListItemId)
-												{
-													chk.Checked = true;
-													break;
-												}
-											}
-										}
-										chk.CheckedChanged += new EventHandler(cmdSearchFeature_Click);
-										chk.AutoPostBack = true;
-										tblCell.Controls.Add(chk);
-										if (i % loValue.Dimension == 0)
-											tblCell.Controls.Add(new LiteralControl("<br/>"));
-									}
-									myRow.Cells.Add(tblCell);
+							        if (featureL.Count() == 0 || loValue.Multiselect)
+							        {
+							            foreach (var myListitem in featureListItems)
+							            {
+							                i++;
+							                chk = new CheckBox();
+							                chk.Text = myListitem.FeatureListItem;
+							                chk.CssClass = "bbstore-search-select";
+							                chk.ID = "ctrlL" + loValue.FeatureId.ToString() + "_" +
+							                         loValue.FeatureListId.ToString() + "_" +
+							                         myListitem.FeatureListItemId.ToString();
+							                if (featureL.Count() > 0)
+							                {
+							                    selListItemIds = featureL.First().Values.Split('|');
+							                    foreach (string selId in selListItemIds)
+							                    {
+							                        if (Convert.ToInt32(selId) == myListitem.FeatureListItemId)
+							                        {
+							                            chk.Checked = true;
+							                            break;
+							                        }
+							                    }
+							                }
+							                chk.CheckedChanged += new EventHandler(cmdSearchFeature_Click);
+							                chk.AutoPostBack = true;
+							                tblCell.Controls.Add(chk);
+							                if (i%loValue.Dimension == 0)
+							                    tblCell.Controls.Add(new LiteralControl("<br/>"));
+							            }
+							        }
+							        else
+							        {
+							            chk = new CheckBox();
+							            foreach (var myListitem in featureListItems)
+							            {
+							                i++;
+
+							                if (featureL.Count() > 0)
+							                {
+							                    selListItemIds = featureL.First().Values.Split('|');
+							                    foreach (string selId in selListItemIds)
+							                    {
+							                        if (Convert.ToInt32(selId) == myListitem.FeatureListItemId)
+							                        {
+
+							                            chk.Text = myListitem.FeatureListItem;
+							                            chk.CssClass = "bbstore-search-value";
+							                            chk.ID = "ctrlL" + loValue.FeatureId.ToString() + "_" +
+							                                     loValue.FeatureListId.ToString() + "_" +
+							                                     myListitem.FeatureListItemId.ToString();
+							                            chk.Checked = true;
+                                                        chk.CheckedChanged += new EventHandler(cmdSearchFeature_Click);
+							                            chk.AutoPostBack = true;
+							                            tblCell.Controls.Add(chk);
+							                            break;
+							                        }
+							                    }
+							                }
+							            }
+							        }
+							        myRow.Cells.Add(tblCell);
 
 									tblCell = new TableCell();
 									tblCell.Width = new Unit(16);
-									if (featureL.Count() > 0)
+									if (featureL.Count() > 1)
 									{
 										ImageButton cmdDLChk = new ImageButton();
 										cmdDLChk.ID = "cmdDL" + loValue.FeatureId.ToString();
@@ -803,7 +836,8 @@ namespace Bitboxx.DNNModules.BBStore
 									{
 										DropDownList cbo = new DropDownList();
 										cbo.ID = "ctrlL" + loValue.FeatureId.ToString();
-										cbo.DataSource = myList;
+										cbo.DataSource = featureListItems;
+									    cbo.CssClass = "bbstore-search-select";
 										cbo.DataTextField = "FeatureListItem";
 										cbo.DataValueField = "FeatureListItemId";
 										cbo.Items.Add(new ListItem {Text = Localization.GetString("Select.Text", this.LocalResourceFile), Value = "0"});
@@ -844,7 +878,8 @@ namespace Bitboxx.DNNModules.BBStore
 									{
 										ListBox lst = new ListBox();
 										lst.ID = "ctrlL" + loValue.FeatureId.ToString();
-										lst.DataSource = myList;
+										lst.DataSource = featureListItems;
+                                        lst.CssClass = "bbstore-search-select";
 										lst.DataTextField = "FeatureListItem";
 										lst.DataValueField = "FeatureListItemId";
 										//lst.Items.Add(new ListItem { Text = Localization.GetString("Select.Text",this.LocalResourceFile), Value = "0" });
@@ -867,7 +902,7 @@ namespace Bitboxx.DNNModules.BBStore
 									else
 									{
 										Label lblLLst = new Label();
-										lblLLst.Attributes.Add("class", "bbstore-searchValue");
+										lblLLst.Attributes.Add("class", "bbstore-search-value");
 										lblLLst.ID = lblLLst + loValue.FeatureId.ToString();
 										lblLLst.Text = selText;
 										tblCell.Controls.Add(lblLLst);
@@ -888,9 +923,10 @@ namespace Bitboxx.DNNModules.BBStore
 									{
 										RadioButtonList rbl = new RadioButtonList();
 										rbl.ID = "ctrlL" + loValue.FeatureId.ToString();
+                                        rbl.CssClass = "bbstore-search-select";
 										rbl.DataTextField = "FeatureListItem";
 										rbl.DataValueField = "FeatureListItemId";
-										rbl.DataSource = myList;
+										rbl.DataSource = featureListItems;
 										rbl.DataBind();
 										rbl.SelectedIndexChanged += new EventHandler(cmdSearchFeature_Click);
 										rbl.AutoPostBack = true;
@@ -905,7 +941,7 @@ namespace Bitboxx.DNNModules.BBStore
 									else
 									{
 										Label lblLRdb = new Label();
-										lblLRdb.Attributes.Add("class", "bbstore-searchValue");
+										lblLRdb.Attributes.Add("class", "bbstore-search-value");
 										lblLRdb.ID = lblLRdb + loValue.FeatureId.ToString();
 										lblLRdb.Text = selText;
 										tblCell.Controls.Add(lblLRdb);
@@ -924,10 +960,11 @@ namespace Bitboxx.DNNModules.BBStore
 							}
 							break;
 						case "I":
-							var featureI = (from f in Features where f.FeatureId == loValue.FeatureId select f);
+							var featureI = (from f in selectedFeatures where f.FeatureId == loValue.FeatureId select f);
 							if (featureI.Count() == 0)
 							{
 								TextBox txtI = new TextBox();
+                                txtI.CssClass = "bbstore-search-select";
 								txtI.ID = "ctrlI" + loValue.FeatureId.ToString();
 								if (loValue.Dimension > 0)
 									txtI.Columns = (int) loValue.Dimension;
@@ -946,7 +983,7 @@ namespace Bitboxx.DNNModules.BBStore
 							else
 							{
 								Label lblI = new Label();
-								lblI.Attributes.Add("class", "bbstore-searchValue");
+								lblI.Attributes.Add("class", "bbstore-search-value");
 								lblI.ID = lblI + loValue.FeatureId.ToString();
 								lblI.Text = featureI.First().Values;
 								tblCell.Controls.Add(lblI);
@@ -963,10 +1000,11 @@ namespace Bitboxx.DNNModules.BBStore
 							}
 							break;
 						case "N":
-							var featureN = (from f in Features where f.FeatureId == loValue.FeatureId select f);
+							var featureN = (from f in selectedFeatures where f.FeatureId == loValue.FeatureId select f);
 							if (featureN.Count() == 0)
 							{
 								TextBox txtN = new TextBox();
+                                txtN.CssClass = "bbstore-search-select";
 								txtN.ID = "ctrlN" + loValue.FeatureId.ToString();
 								if (loValue.Dimension > 0)
 									txtN.Columns = (int) loValue.Dimension;
@@ -986,7 +1024,7 @@ namespace Bitboxx.DNNModules.BBStore
 							else
 							{
 								Label lblN = new Label();
-								lblN.Attributes.Add("class", "bbstore-searchValue");
+								lblN.Attributes.Add("class", "bbstore-search-value");
 								lblN.ID = lblN + loValue.FeatureId.ToString();
 								lblN.Text = featureN.First().Values;
 								tblCell.Controls.Add(lblN);
@@ -1004,10 +1042,11 @@ namespace Bitboxx.DNNModules.BBStore
 
 							break;
 						case "F":
-							var featureF = (from f in Features where f.FeatureId == loValue.FeatureId select f);
+							var featureF = (from f in selectedFeatures where f.FeatureId == loValue.FeatureId select f);
 							if (featureF.Count() == 0)
 							{
 								TextBox txtF = new TextBox();
+                                txtF.CssClass = "bbstore-search-select";
 								txtF.ID = "ctrlF" + loValue.FeatureId.ToString();
 								if (loValue.Dimension > 0)
 									txtF.Columns = (int) loValue.Dimension;
@@ -1027,7 +1066,7 @@ namespace Bitboxx.DNNModules.BBStore
 							else
 							{
 								Label lblF = new Label();
-								lblF.Attributes.Add("class", "bbstore-searchValue");
+								lblF.Attributes.Add("class", "bbstore-search-value");
 								lblF.ID = lblF + loValue.FeatureId.ToString();
 								lblF.Text = featureF.First().Values;
 								tblCell.Controls.Add(lblF);
@@ -1045,10 +1084,11 @@ namespace Bitboxx.DNNModules.BBStore
 
 							break;
 						case "C":
-							var featureC = (from f in Features where f.FeatureId == loValue.FeatureId select f);
+							var featureC = (from f in selectedFeatures where f.FeatureId == loValue.FeatureId select f);
 							if (featureC.Count() == 0)
 							{
 								TextBox txtC = new TextBox();
+                                txtC.CssClass = "bbstore-search-select";
 								txtC.ID = "ctrlC" + loValue.FeatureId.ToString();
 								if (loValue.Dimension > 0)
 									txtC.Columns = (int) loValue.Dimension;
@@ -1068,7 +1108,7 @@ namespace Bitboxx.DNNModules.BBStore
 							else
 							{
 								Label lblC = new Label();
-								lblC.Attributes.Add("class", "bbstore-searchValue");
+								lblC.Attributes.Add("class", "bbstore-search-value");
 								lblC.ID = lblC + loValue.FeatureId.ToString();
 								lblC.Text = featureC.First().Values;
 								tblCell.Controls.Add(lblC);
@@ -1085,10 +1125,11 @@ namespace Bitboxx.DNNModules.BBStore
 							}
 							break;
 						case "T":
-							var featureT = (from f in Features where f.FeatureId == loValue.FeatureId select f);
+							var featureT = (from f in selectedFeatures where f.FeatureId == loValue.FeatureId select f);
 							if (featureT.Count() == 0)
 							{
 								TextBox txtT = new TextBox();
+                                txtT.CssClass = "bbstore-search-select";
 								txtT.ID = "ctrlT" + loValue.FeatureId.ToString();
 								if (loValue.Dimension > 0)
 									txtT.Columns = (int) loValue.Dimension;
@@ -1113,7 +1154,7 @@ namespace Bitboxx.DNNModules.BBStore
 							else
 							{
 								Label lblT = new Label();
-								lblT.Attributes.Add("class", "bbstore-searchValue");
+								lblT.Attributes.Add("class", "bbstore-search-value");
 								lblT.ID = lblT + loValue.FeatureId.ToString();
 								lblT.Text = featureT.First().Values;
 								tblCell.Controls.Add(lblT);
@@ -1142,8 +1183,7 @@ namespace Bitboxx.DNNModules.BBStore
 						myTable.Rows.Add(myCaptionRow);
 						myTable.Rows.Add(myRow);
 					}
-					LastFeatureGroup = loValue.FeatureGroup;
-					LastFeature = loValue.Feature;
+				    lastFeature = loValue.Feature;
 				}
 				PlaceHolder1.Controls.Add(myTable);
 			}

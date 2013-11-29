@@ -8,18 +8,16 @@
 	</PropertyGroup>
 	<!--####################################################################### -->
 	<!--
-     When building your project in Debug Mode, nothing extra is being done.
-     When building in Release Mode, the following steps are       
-     undertaken:                                                                                                                         
+     When building your project in Debug Mode:
+	  1. DLL's from the project output bin folder are copied to the bin folder of the site
+
+	  When building in Release Mode, the following steps are done:                                                                                                                         
                                                                                                                                          
       1. Before Build, Get the versionnumber                                                                                             
-                                                                                                                                         
       2. After build, Create SOURCES.DNN File                                                                                            
       3. After build create the SOURCES package                                                                                          
-                                                                                                                                         
       4. After build, Create INSTALL.DNN File                                                                                            
       5. After build create the INSTALL                                                                                                  
-                                                                                                                                         
       6. Copy the local Bin folder to the website                                                                                        
     -->
 	<!--####################################################################### -->
@@ -36,17 +34,23 @@
 	<!--You may change these properties when needed-->
 	<PropertyGroup>
 		<!--Fill in the folder where the output will be build to-->
+    <!--http://msdn.microsoft.com/en-us/library/vstudio/ms164309.aspx -->
 		<BinDir>$(MSBuildProjectDirectory)\bin</BinDir>
 		<!--Module properties.-->
-		<FolderName>BBStore</FolderName>
-    <!--IconFile should be placed in the Installation folder of the project. A .png file of 32x32 pixels is recommended -->
-    <IconFile>bbstore.png</IconFile>
-    <azureCompatible>false</azureCompatible>
+		<ZipFileNamePrefix>BBStore</ZipFileNamePrefix>
+		<DesktopFolderName>BBStore</DesktopFolderName>
+		<IconFile>bbstore.png</IconFile>
 		<AlsoBuildSourcesZip>true</AlsoBuildSourcesZip>
 	</PropertyGroup>
 	<!--Add EXTRA dll's these will be added to the Package. The output of the project is automatically added-->
 	<ItemGroup>
-		<!--EXAMPLE:  <AssemblyFileToInclude Include="$(BinDir)\AjaxControlToolkit.dll" />-->
+		<!--EXAMPLE:
+		<AssemblyFileToInclude Include="$(BinDir)\AjaxControlToolkit.dll" />
+		-->
+	</ItemGroup>
+	<!--Add projects that should be ignored. A unit test project is a common example.-->
+	<ItemGroup>
+    <!--<ProjectsToExclude Include="$(MSBuildProjectDirectory)\MyProject.Tests\**" />-->
 	</ItemGroup>
 	<!--####################################################################### -->
 	<!--END Settings. !Do not change anything below this line!  -->
@@ -54,7 +58,7 @@
 	<!--Do not change these settings -->
 	<PropertyGroup>
 		<InstallDir>$(MSBuildProjectDirectory)\Installation</InstallDir>
-		<dnnFile>$(InstallDir)\$(FolderName).dnn5</dnnFile>
+		<dnnFile>$(InstallDir)\$(ZipFileNamePrefix).dnn</dnnFile>
 	</PropertyGroup>
 	<!--For start Versioning: Do not modify EVER!!! -->
 	<PropertyGroup>
@@ -155,7 +159,7 @@
       <Output TaskParameter="Include" ItemName="ReleaseFiles" />
     </CreateItem>
     <!--Write the dnn file-->
-    <CreateDnnFile Target="$(dnnFile)" CodeFiles="@(CodeFiles)" ScriptFiles="@(ScriptFiles)" AssemblyFiles="@(AssemblyFiles)" CleanupFiles="@(CleanUpFiles)" ConfigFiles="@(ConfigFiles)" ReleaseFiles="@(ReleaseFiles)" ScriptPath="Installation" AssemblyPath="bin" ModulePath="$(FolderName)" Version="$(FileMajor).$(FileMinor).$(FileBuild)"/>
+    <CreateDnnFile Target="$(dnnFile)" CodeFiles="@(CodeFiles)" ScriptFiles="@(ScriptFiles)" AssemblyFiles="@(AssemblyFiles)" CleanupFiles="@(CleanUpFiles)" ConfigFiles="@(ConfigFiles)" ReleaseFiles="@(ReleaseFiles)" ScriptPath="Installation" AssemblyPath="bin" Version="$(FileMajor).$(FileMinor).$(FileBuild)" ModulePath="$(DesktopFolderName)"/>
   </Target>
   <!--Replace the @tab@ string with a tab-->
 	<Target Name="RePlaceTabs">
@@ -270,7 +274,8 @@
 						$(MSBuildProjectDirectory)\*ReSharper*\**;
             $(MSBuildProjectDirectory)\Installation\*.png;
             $(MSBuildProjectDirectory)\tmpCompressScript\**;
-			$(MSBuildProjectDirectory)\tmpCompressCSS\**"
+			$(MSBuildProjectDirectory)\tmpCompressCSS\**;
+			@(ProjectsToExclude)"
           Include="$(MSBuildProjectDirectory)\**\*.ascx;
 						$(MSBuildProjectDirectory)\**\*.aspx;
 						$(MSBuildProjectDirectory)\**\*.css;
@@ -332,7 +337,7 @@
 			<Output TaskParameter="Include" ItemName="ZipInstallFiles" />
 		</CreateItem>
 		<Zip Files="@(ZipInstallFiles)" WorkingDirectory="$(InstallDir)\tmp"
-         ZipFileName="$(InstallDir)\$(FolderName)_$(FileMajor).$(FileMinor).$(FileBuild)_Install.zip" />
+         ZipFileName="$(InstallDir)\$(ZipFileNamePrefix)_$(FileMajor).$(FileMinor).$(FileBuild)_Install.zip" />
 		<!-- Cleanup -->
 		<RemoveDir ContinueOnError="true" Directories="$(InstallDir)\tmp" />
 		<Delete Files="$(InstallDir)\Resources.zip">
@@ -373,8 +378,6 @@
 		<CreateItem Include="$(dnnFile)" >
 			<Output TaskParameter="Include" ItemName="srcModulednnFile"/>
 		</CreateItem>
-		<!--replace Modulename-->
-		<FileUpdate Files="@(srcModulednnFile)" Regex="Resources.zip" ReplacementText="Sources.zip" />
 		<!-- Get files -->
 		<CreateItem
           Exclude="**\.svn\**;
@@ -397,7 +400,7 @@
 		<CreateItem Include="$(MSBuildProjectDirectory)\$(IconFile);">
 			<Output TaskParameter="Include" ItemName="srcsources" />
 		</CreateItem>
-		<CreateItem Include="$(InstallDir)\Sources.zip;
+		<CreateItem Include="$(InstallDir)\Resources.zip;
 					$(dnnFile); 
           $(InstallDir)\License.txt;
           $(InstallDir)\ReleaseNotes\Release.$(FileMajor).$(FileMinor).$(FileBuild).txt;" >
@@ -421,7 +424,7 @@
 		<!-- Create Sources.zip -->
 		<Zip Files="@(srcsources)"
          WorkingDirectory="$(MSBuildProjectDirectory)"
-         ZipFileName="$(InstallDir)\Sources.zip" />
+         ZipFileName="$(InstallDir)\Resources.zip" />
 		<!-- Copy installation files to tmp and creates installation zip -->
 		<Copy ContinueOnError="true" SourceFiles="@(srcinstall)" DestinationFolder="$(InstallDir)\tmpsrc">
 		</Copy>
@@ -438,16 +441,14 @@
 		<Copy ContinueOnError="true" SourceFiles="@(srcLicense)" DestinationFolder="$(InstallDir)\tmpsrc">
 		</Copy>
 		<CreateItem
-      Exclude="$(InstallDir)\**\Resources.zip;" 
       Include="$(InstallDir)\tmpsrc\**\*.*">
 			<Output TaskParameter="Include" ItemName="srcZipInstallFiles" />
 		</CreateItem>
 		<Zip Files="@(srcZipInstallFiles)" WorkingDirectory="$(InstallDir)\tmpsrc"
-         ZipFileName="$(InstallDir)\$(FolderName)_$(FileMajor).$(FileMinor).$(FileBuild)_Source.zip" />
+         ZipFileName="$(InstallDir)\$(ZipFileNamePrefix)_$(FileMajor).$(FileMinor).$(FileBuild)_Source.zip" />
 		<!-- Cleanup -->
-		<FileUpdate Files="@(srcModulednnFile)" Regex="Sources.zip" ReplacementText="Resources.zip" />
 		<RemoveDir ContinueOnError="true" Directories="$(InstallDir)\tmpsrc" />
-		<Delete Files="$(InstallDir)\Sources.zip">
+		<Delete Files="$(InstallDir)\Resources.zip">
 		</Delete>
 		<Delete Files="$(MSBuildProjectDirectory)\$(IconFile)">
 		</Delete>

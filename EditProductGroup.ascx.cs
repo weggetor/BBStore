@@ -179,8 +179,12 @@ namespace Bitboxx.DNNModules.BBStore
 			urlTarget.Url = "-1";
 			
 			pnlProductGroupDetails.Visible = true;
+            pnlProductGroupEditDetails.Visible = true;
+
 			cmdAdd.Visible = false;
 			cmdDelete.Visible = false;
+		    lblFeatureLists.Visible = false;
+		    ctlFeatureLists.Visible = false;
 			cmdUpdate.Visible = true;
 			cmdCancel.Visible = true;
 			lblPGDetails.Text = Localization.GetString("NewGroup.Text", this.LocalResourceFile);
@@ -188,7 +192,6 @@ namespace Bitboxx.DNNModules.BBStore
             List<ILanguageEditorInfo> dbLangs = new List<ILanguageEditorInfo>();
             dbLangs.Add(new ProductGroupLangInfo() { Language = CurrentLanguage });
             lngProductGroups.Langs = dbLangs;
-            
 		}
 		protected void cmdUpdate_Click(object sender, EventArgs e)
 		{

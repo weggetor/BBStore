@@ -408,4 +408,7 @@
 	<data name="Unit.Header" xml:space="preserve">
     <value>Einh.</value>
   </data>
+	<data name="NoShipping.Text" xml:space="preserve">
+		<value>Verzeihung aber nach {0} verschicken wir nicht !</value>
+	</data>
 </root>

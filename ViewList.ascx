@@ -6,7 +6,7 @@
 	    <asp:LinkButton ID="lnkShowAllTop" runat="server" onclick="lnkShowAll_Click" visible="false"/>
     </div>
     <asp:Panel ID="pnlListHead" runat="server">
-	    <table border="0" cellpadding="5" cellspacing="0" class="bbstore-grid-alternaterow" style="width:100%">
+	    <table border="0" cellpadding="5" cellspacing="0" class="bbstore-grid-headerrow" style="width:100%">
 		    <tr>
 			    <td style="text-align:left">
 			        <asp:Label ID="lblSort" runat="server" ResourceKey="lblSort.Text" />
@@ -42,7 +42,7 @@
         </ItemTemplate>
     </asp:ListView>
     <asp:Panel ID="pnlListFooter" runat="server">
-	    <div class="bbstore-grid-alternaterow" style="margin-top:2px; padding:5px 2px 0px 5px">
+	    <div class="bbstore-grid-headerrow" style="margin-top:2px; padding:5px 2px 0px 5px">
 		    <asp:DataPager ID="Pager" runat="server" PageSize="6" 
 			    PagedControlID="lstProducts" onprerender="Pager_PreRender" EnableViewState="False" >                       
 			    <Fields>

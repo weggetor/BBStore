@@ -118,10 +118,10 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="lblCost.Text" xml:space="preserve">
-    <value>plus &lt;strong&gt;{0:n2}&lt;/strong&gt; extra fee for using invoice</value>
+    <value>plus &lt;strong&gt;{0}&lt;/strong&gt; extra fee for using invoice</value>
   </data>
 	<data name="lblDiscount.Text" xml:space="preserve">
-    <value>minus &lt;strong&gt;{0:n2}&lt;/strong&gt; discount for using invoice</value>
+    <value>minus &lt;strong&gt;{0}&lt;/strong&gt; discount for using invoice</value>
   </data>
 	<data name="lblFree.Text" xml:space="preserve">
 		<value>This payment procedure is for you &lt;b&gt;totally free&lt;/b&gt;.</value>
@@ -129,4 +129,13 @@
 	<data name="lblDescription.Text" xml:space="preserve">
 		<value>&lt;p&gt;The payment with invoice is the most convenient and safest method of payment for you. You pay for the goods easily via wire transfer after holding them in your hands.&lt;br/&gt;&lt;br/&gt;{0}&lt;/p&gt;</value>
 	</data>
+	<data name="lblPercentage.Text" xml:space="preserve">
+		<value>{0:f1} Percent of order total</value>
+	</data>
+	<data name="lblConcat.Text" xml:space="preserve">
+		<value>and</value>
+	</data>
+	<data name="lblFixed.Text" xml:space="preserve">
+		<value>{0:f2} Package</value>
+	</data>	
 </root>

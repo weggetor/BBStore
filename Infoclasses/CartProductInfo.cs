@@ -26,6 +26,8 @@ namespace Bitboxx.DNNModules.BBStore
             TaxTotal = 0.00M;
             SubTotal = 0.00M;
             ProductDiscount = "";
+            Weight = 0.000m;
+            ShippingModelId = -1;
 			CartProductOptions = new List<CartProductOptionInfo>();
         }
 
@@ -46,6 +48,8 @@ namespace Bitboxx.DNNModules.BBStore
         public decimal TaxTotal { get; set; }
         public decimal SubTotal { get; set; }
         public string ProductDiscount { get; set; }
+        public decimal Weight { get; set; }
+        public int ShippingModelId { get; set; }
 		public List<CartProductOptionInfo> CartProductOptions { get; set; }
     }
 }

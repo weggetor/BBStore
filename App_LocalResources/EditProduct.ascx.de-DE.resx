@@ -292,4 +292,16 @@ Rabatte können definiert werden über ein &amp;quot;&lt;strong&gt;@&lt;/strong&
 	<data name="cmdRefresh.Text" xml:space="preserve">
 		<value>Bilder aktualisieren</value>
 	</data>
+	<data name="lblWeight.Help" xml:space="preserve">
+		<value>Geben Sie hier das Gewicht des Artikels ein</value>
+	</data>
+	<data name="lblWeight.Text" xml:space="preserve">
+		<value>Gewicht</value>
+	</data>
+	<data name="lblShippingModel.Text" xml:space="preserve">
+		<value>Versandmodell</value>
+	</data>
+	<data name="lblShippingModel.Help" xml:space="preserve">
+		<value>Wählen Sie hier das Versandmodell für diesen Artikel aus</value>
+	</data>
 </root>

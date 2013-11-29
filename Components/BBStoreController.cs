@@ -556,6 +556,12 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return (SubscriberPaymentProviderInfo)CBO.FillObject(DataProvider.Instance().GetSubscriberPaymentProvider(PortalId,SubscriberId,PaymentProviderId), typeof(SubscriberPaymentProviderInfo));
         }
+
+        public SubscriberPaymentProviderInfo GetSubscriberPaymentProviderByCPP(int customerPaymentProviderId)
+        {
+            return (SubscriberPaymentProviderInfo)CBO.FillObject(DataProvider.Instance().GetSubscriberPaymentProviderByCPP(customerPaymentProviderId), typeof(SubscriberPaymentProviderInfo));
+        }
+
         public int NewSubscriberPaymentProvider(SubscriberPaymentProviderInfo SubscriberPaymentProvider)
         {
             return DataProvider.Instance().NewSubscriberPaymentProvider(SubscriberPaymentProvider);
@@ -735,9 +741,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return (ProductGroupInfo)CBO.FillObject(DataProvider.Instance().GetProductGroup(PortalId, ProductGroupId), typeof(ProductGroupInfo));
         }
-        public string GetProductGroupPath(int portalId, int productGroupId, string language, bool returnId, string delimiter, string linkTemplate)
+        public string GetProductGroupPath(int portalId, int productGroupId, string language, bool returnId, string delimiter, string linkTemplate, string rootText)
         {
-            return DataProvider.Instance().GetProductGroupPath(portalId, productGroupId, language, returnId, delimiter, linkTemplate);
+            return DataProvider.Instance().GetProductGroupPath(portalId, productGroupId, language, returnId, delimiter, linkTemplate, rootText);
         }
         public string GetProductGroupPath(int PortalId, int ProductGroupId)
         {
@@ -1430,7 +1436,80 @@ namespace Bitboxx.DNNModules.BBStore
             DataProvider.Instance().DeleteUnitLangs(unitId);
         }
 
+        // ShippingModel
+        public ShippingModelInfo GetShippingModel(int portalId)
+        {
+            return (ShippingModelInfo)CBO.FillObject(DataProvider.Instance().GetShippingModel(portalId),typeof(ShippingModelInfo));
+        }
+        public List<ShippingModelInfo> GetShippingModels(int portalId)
+        {
+            return CBO.FillCollection<ShippingModelInfo>(DataProvider.Instance().GetShippingModels(portalId));
+        }
+        public int NewShippingModel(ShippingModelInfo shippingModel)
+        {
+            return DataProvider.Instance().NewShippingModel(shippingModel);
+        }
+        public void UpdateShippingModel(ShippingModelInfo shippingModel)
+        {
+            DataProvider.Instance().UpdateShippingModel(shippingModel);
+        }
+        public void DeleteShippingModel(int shippingModelId)
+        {
+            DataProvider.Instance().DeleteShippingModel(shippingModelId);
+        }
+       
+        // ProductShippingModel
+        public List<ProductShippingModelInfo> GetProductShippingModelsByProduct(int productId)
+        {
+            return CBO.FillCollection<ProductShippingModelInfo>(DataProvider.Instance().GetProductShippingModelsByProduct(productId));
+        }
+
+        public void DeleteProductShippingModelByProduct(int productId)
+        {
+            DataProvider.Instance().DeleteProductShippingModelByProduct(productId);
+        }
+
+        public void InsertProductShippingModel(ProductShippingModelInfo productShippingModel)
+        {
+            DataProvider.Instance().InsertProductShippingModel(productShippingModel);
+        }
         #endregion
+
+        // ShippingCost methods
+        public List<ShippingCostInfo> GetShippingCosts(int PortalId)
+        {
+            return CBO.FillCollection<ShippingCostInfo>(DataProvider.Instance().GetShippingCosts(PortalId));
+        }
+        public List<ShippingCostInfo> GetShippingCostsByModelId(int shippingModelId)
+        {
+            return CBO.FillCollection<ShippingCostInfo>(DataProvider.Instance().GetShippingCostsByModelId(shippingModelId));
+        }
+        public ShippingCostInfo GetShippingCostById(int ShippingCostId)
+        {
+            return (ShippingCostInfo)CBO.FillObject(DataProvider.Instance().GetShippingCostById(ShippingCostId), typeof(ShippingCostInfo));
+        }
+        public int NewShippingCost(ShippingCostInfo ShippingCost)
+        {
+            return DataProvider.Instance().NewShippingCost(ShippingCost);
+        }
+        public void UpdateShippingCost(ShippingCostInfo ShippingCost)
+        {
+            DataProvider.Instance().UpdateShippingCost(ShippingCost);
+        }
+        public void DeleteShippingCost(int ShippingCostId)
+        {
+            DataProvider.Instance().DeleteShippingCost(ShippingCostId);
+        }
+
+        // ShippingZone methods
+        public int GetShippingZoneIdByAddress(int modelId, string countryCodeISO2, int postalCode)
+        {
+            return DataProvider.Instance().GetShippingZoneIdByAddress(modelId, countryCodeISO2, postalCode);
+        }
+        public ShippingZoneDisplayInfo GetShippingZoneById(int shippingZoneId, string language)
+        {
+            return (ShippingZoneDisplayInfo)CBO.FillObject(DataProvider.Instance().GetShippingZoneById(shippingZoneId, language), typeof(ShippingZoneDisplayInfo));
+        }
 
         #region SearchFilters
 

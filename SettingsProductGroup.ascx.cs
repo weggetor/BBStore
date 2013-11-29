@@ -47,6 +47,7 @@ namespace Bitboxx.DNNModules.BBStore
     [DNNtc.ModuleControlProperties("Settings", "BBStore Product Group Settings", DNNtc.ControlType.Edit, "", true, false)]
     partial class SettingsProductGroup : ModuleSettingsBase
     {
+        protected global::DotNetNuke.UI.UserControls.UrlControl AllGroupsImageSelector;
 
         private BBStoreController Controller;
 		protected string CurrentLanguage
@@ -108,6 +109,8 @@ namespace Bitboxx.DNNModules.BBStore
 						chkShowProductCount.Checked = Convert.ToBoolean(ModuleSettings["ShowProductCount"]);
                     if (ModuleSettings["SetTitle"] != null)
                         chkSetTitle.Checked = Convert.ToBoolean(ModuleSettings["SetTitle"]);
+                    if (ModuleSettings["ShowBreadcrumb"] != null)
+                        chkShowBreadcrumb.Checked = Convert.ToBoolean(ModuleSettings["ShowBreadcrumb"]);
                     if (ModuleSettings["ShowExpandCollapse"] != null)
                         chkShowExpandCollapse.Checked = Convert.ToBoolean(ModuleSettings["ShowExpandCollapse"]);
 					if (ModuleSettings["WrapNode"] != null)
@@ -136,7 +139,15 @@ namespace Bitboxx.DNNModules.BBStore
 					else
 						chkShowUpNavigation.Checked = false;
 
+                    if (ModuleSettings["ShowThisNode"] != null)
+                        chkShowThisNode.Checked = Convert.ToBoolean(ModuleSettings["ShowThisNode"]);
+                    else
+                        chkShowThisNode.Checked = false;
 
+                    if (ModuleSettings["ShowSubNodes"] != null)
+                        chkShowSubNodes.Checked = Convert.ToBoolean(ModuleSettings["ShowSubNodes"]);
+                    else
+                        chkShowSubNodes.Checked = true;
                 }
             }
             catch (Exception exc)
@@ -157,6 +168,7 @@ namespace Bitboxx.DNNModules.BBStore
                 objModules.UpdateModuleSetting(ModuleId, "IncludeChilds", chkIncludeChilds.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "ShowProductCount", chkShowProductCount.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "SetTitle", chkSetTitle.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "ShowBreadcrumb", chkShowBreadcrumb.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "ShowExpandCollapse", chkShowExpandCollapse.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "WrapNode", chkWrapNode.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "ViewMode", rblViewMode.SelectedValue);
@@ -166,6 +178,8 @@ namespace Bitboxx.DNNModules.BBStore
 				objModules.UpdateModuleSetting(ModuleId, "ShowLevels", txtShowLevels.Text.Trim());
 				objModules.UpdateModuleSetting(ModuleId, "AllGroupsImage", BBStoreHelper.GetRelativeFilePath(AllGroupsImageSelector.Url));
 				objModules.UpdateModuleSetting(ModuleId, "ShowUpNavigation", chkShowUpNavigation.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "ShowThisNode", chkShowThisNode.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "ShowSubNodes", chkShowSubNodes.Checked.ToString());
             }
 
             catch (Exception exc)

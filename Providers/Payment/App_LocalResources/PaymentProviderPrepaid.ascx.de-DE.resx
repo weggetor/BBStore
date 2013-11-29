@@ -130,10 +130,10 @@
     <value>BLZ</value>
   </data>
 	<data name="lblCost.Text" xml:space="preserve">
-    <value>Für die Verwendung von Vorkasse berechnen wir eine Gebühr von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Verwendung der Zahlungsart Überweisung berechnen wir eine Gebühr von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblDiscount.Text" xml:space="preserve">
-    <value>Für die Verwendung von Vorkasse gewähren wir einen Rabatt von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Verwendung der Zahlungsart Überweisung gewähren wir einen Rabatt von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblIban.Text" xml:space="preserve">
     <value>IBAN</value>
@@ -149,5 +149,14 @@
 	</data>
 	<data name="lblFree.Text" xml:space="preserve">
 		<value>Diese Zahlungsart ist für Sie &lt;b&gt;komplett kostenlos&lt;/b&gt;. </value>
+	</data>
+	<data name="lblPercentage.Text" xml:space="preserve">
+		<value>{0:f1} Prozent des Gesamtbetrags</value>
+	</data>
+	<data name="lblFixed.Text" xml:space="preserve">
+		<value>{0:f2} Pauschale</value>
+	</data>
+	<data name="lblConcat.Text" xml:space="preserve">
+		<value>zzgl.</value>
 	</data>
 </root>

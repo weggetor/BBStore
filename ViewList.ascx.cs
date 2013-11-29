@@ -50,7 +50,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Product List",4, "BBStore Product List", "BBStore Product List", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net")]
+    [DNNtc.PackageProperties("BBStore Product List",4, "BBStore Product List", "BBStore Product List", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
     [DNNtc.ModuleProperties("BBStore Product List", "BBStore Product List", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Product List", DNNtc.ControlType.View, "", false, false)]
 	partial class ViewList : PortalModuleBase, IActionable
@@ -410,6 +410,7 @@ namespace Bitboxx.DNNModules.BBStore
 					bool breadcrumb = (Settings["TitleBreadcrumb"] != null ? Convert.ToBoolean((string)Settings["TitleBreadcrumb"]) : false);
 					
 					string productGroupPath = "";
+				    string rootText = Localization.GetString("MainProductGroup.Text", this.LocalResourceFile);
 					List<ProductFilterInfo> fi = Controller.GetProductFilter(PortalId, FilterSessionId, "ProductGroup");
 					if (fi.Count > 0)
 					{
@@ -419,29 +420,21 @@ namespace Bitboxx.DNNModules.BBStore
 						{
 							string link = Globals.NavigateURL(TabId, "", "productgroup={1}");
 							string linkTemplate = "<a href=\"" + link + "\">{0}</a>";
-							productGroupPath = Controller.GetProductGroupPath(PortalId, productGroupId, CurrentLanguage, false, " > ",
-							                                                  linkTemplate);
+							productGroupPath = Controller.GetProductGroupPath(PortalId, productGroupId, CurrentLanguage, false, " > ", linkTemplate, rootText);
 						}
 						else if (productGroupId > -1)
 						{
 							ProductGroupInfo pg = Controller.GetProductGroup(PortalId, CurrentLanguage, productGroupId);
 							productGroupPath = pg.ProductGroupName;
 						}
-						else
-						{
-						    productGroupPath = Localization.GetString("MainProductGroup.Text", this.LocalResourceFile);
-						}
 					}
 
-					string titleLabelName = DotNetNukeContext.Current.Application.Version.Major < 6 ? "lblTitle" : "titleLabel";
-					Control ctl = Globals.FindControlRecursiveDown(this.ContainerControl, titleLabelName);
-					if (ctl != null)
-					{
-						if (productGroupPath != string.Empty)
-							((Label)ctl).Text = productGroupPath;
-						else
-							((Label)ctl).Text = Localization.GetString("MainProductGroup.Text", this.LocalResourceFile);
-					}
+                    string titleLabelName = DotNetNukeContext.Current.Application.Version.Major < 6 ? "lblTitle" : "titleLabel";
+                    Control ctl = Globals.FindControlRecursiveDown(this.ContainerControl, titleLabelName);
+                    if (ctl != null)
+                    {
+                        ((Label)ctl).Text = productGroupPath != string.Empty ? productGroupPath : rootText;
+                    }
 				}
 
                 // Header and Footer area
@@ -594,6 +587,14 @@ namespace Bitboxx.DNNModules.BBStore
 					Template = Template.Replace("[PRODUCTDESCRIPTION]", "<asp:Literal ID=\"ltrProductDescription\" Mode=\"PassThrough\" runat=\"server\" />");
 					Template = Template.Replace("[PRICE]", "<asp:Label ID=\"lblPrice\" runat=\"server\" />");
 					Template = Template.Replace("[ORIGINALPRICE]", "<asp:Label ID=\"lblOriginalPrice\" runat=\"server\" />");
+				    
+                    int linkCnt = 0;
+				    while (Template.Contains("[LINK]"))
+				    {
+				        linkCnt ++;
+                        Template = Template.ReplaceFirst("[LINK]", "<asp:Literal ID=\"ltrLink" + linkCnt.ToString() + "\" runat=\"server\" />");
+				    }
+                    
 					if (Template.IndexOf("[IMAGE") > -1)
 					{
 						if (Template.IndexOf("[IMAGE:") > -1)
@@ -656,6 +657,18 @@ namespace Bitboxx.DNNModules.BBStore
 					lblOriginalPrice = FindControlRecursive(ctrl, "lblOriginalPrice") as Label;
 					lblTax = FindControlRecursive(ctrl, "lblTax") as Label;
                     lblUnit = FindControlRecursive(ctrl, "lblUnit") as Label;
+
+
+				    for (int i = 0; i < linkCnt; i++)
+				    {
+                        Literal ltrLink = FindControlRecursive(ctrl, "ltrLink"+i.ToString()) as Literal;
+                        if (ltrLink != null)
+                        {
+                            int productModuleTabId = Convert.ToInt32(Settings["ProductModulePage"] ?? TabId.ToString());
+                            ltrLink.Text = Globals.NavigateURL(productModuleTabId, "", "productid=" + SimpleProduct.SimpleProductId.ToString());
+                        }
+				    }
+                    
  
 					PlaceHolder phimgProduct = FindControlRecursive(ctrl, "phimgProduct") as PlaceHolder;
 					if (phimgProduct != null && SimpleProduct.Image != null)

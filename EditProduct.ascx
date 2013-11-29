@@ -30,17 +30,17 @@
             </div>
         </div>
         <div class="dnnFormItem">
-            <dnn:Label ID="lblItemNo" runat="server" ControlName="txtItemNo" Suffix=":"></dnn:Label>
+            <dnn:Label ID="lblItemNo" runat="server" ControlName="txtItemNo" Suffix=":"/>
             <asp:TextBox ID="txtItemNo" runat="server" Columns="20" MaxLength="20" />
         </div>
-	    <div class="dnnFormItem" id="pnlSupplier" runat="server" Visible="False">
-            <dnn:Label ID="lblSupplier" runat="server" ControlName="cboSupplier" Suffix=":" />
-    		<asp:DropDownList ID="cboSupplier" runat="server" />
-		</div>
         <div class="dnnFormItem">
             <dnn:Label ID="lblUnit" runat="server" ControlName="ddlUnit" Suffix=":" />
 			<asp:DropDownList ID="ddlUnit" runat="server" />
 		</div>
+        <div class="dnnFormItem">
+            <dnn:Label ID="lblWeight" runat="server" ControlName="txtWeight" Suffix=":"/>
+            <asp:TextBox ID="txtWeight" runat="server" Columns="18" MaxLength="13" />
+        </div>
         <div class="dnnFormItem">
             <dnn:Label ID="lblTaxPercent" runat="server" ControlName="txtTaxPercent" Suffix=":" />
             <asp:TextBox ID="txtTaxPercent" runat="server" Columns="5" />
@@ -63,7 +63,14 @@
             <dnn:Label ID="lblNoCart" runat="server" controlname="chkNoCart" suffix=":"/>
 			<asp:CheckBox ID="chkNoCart" runat="server" />
 		</div>
-        
+        <div class="dnnFormItem" id="pnlSupplier" runat="server" Visible="False">
+            <dnn:Label ID="lblSupplier" runat="server" ControlName="cboSupplier" Suffix=":" />
+    		<asp:DropDownList ID="cboSupplier" runat="server" />
+		</div>
+        <div class="dnnFormItem">
+            <dnn:Label ID="lblShippingModel" runat="server" ControlName="cboShippingModel" Suffix=":" />
+    		<asp:DropDownList ID="cboShippingModel" runat="server" />
+		</div>
     </div>
     <div id="pnlLanguage">
         <bb:LanguageEditor ID="lngSimpleProducts" runat="server" InternalType="Bitboxx.DNNModules.BBStore.SimpleProductLangInfo" />

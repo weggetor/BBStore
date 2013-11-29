@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Resources;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bitboxx.DNNModules.BBStore.Providers.Payment;
 using DotNetNuke.Common;
@@ -282,16 +283,20 @@ namespace Bitboxx.DNNModules.BBStore
                     if (Sub != null)
                         txtTaxPercent.Text = String.Format("{0:f1}", Sub.TaxPercent);
                     else
-                        txtTaxPercent.Text = String.Format("{0:f2}", 0.00m);
+                        txtTaxPercent.Text = String.Format("{0:f1}", 0.00m);
 
                     // The Price cell
                     tblCell = new TableCell();
                     tblCell.Attributes.Add("class", itemStyle);
 
+                    Label lbl = new Label();
+                    lbl.Text = LocalizeString("lblCost.Text")+ ": ";
+                    tblCell.Controls.Add(lbl);
+
                     TaxControl txtPrice = LoadControl("Controls/TaxControl.ascx") as TaxControl;
                     txtPrice.ID = "txtPrice" + pp.PaymentProviderId.ToString();
                     txtPrice.EnableViewState = true;
-                    txtPrice.Orientation = "vertical";
+                    txtPrice.Orientation = "verticalhorizontal";
                     txtPrice.Mode = "gross";
                     txtPrice.PercentControl = txtTaxPercent;
                     if (Sub != null)
@@ -299,6 +304,23 @@ namespace Bitboxx.DNNModules.BBStore
                     else
                         txtPrice.Value = 0.00m;
                     tblCell.Controls.Add(txtPrice);
+
+                    tblCell.Controls.Add(new HtmlGenericControl("hr"));
+
+                    lbl = new Label();
+                    lbl.Text = LocalizeString("lblCostPercent.Text") + ": ";
+                    tblCell.Controls.Add(lbl);
+
+                    TextBox txtCostPercent = new TextBox();
+                    txtCostPercent.ID = "txtCostPercent" + pp.PaymentProviderId.ToString();
+                    txtCostPercent.EnableViewState = true;
+                    txtCostPercent.Columns = 6;
+                    if (Sub != null)
+                        txtCostPercent.Text = String.Format("{0:f1}", Sub.CostPercent);
+                    else
+                        txtCostPercent.Text = String.Format("{0:f1}", 0.0m);
+
+                    tblCell.Controls.Add(txtCostPercent);
                     myRow.Controls.Add(tblCell);
 
                     // The Tax cell
@@ -345,35 +367,38 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 foreach (PaymentProviderInfo pp in lst)
                 {
-                    Boolean IsChecked = false;
-                    string PaymentProviderProperties = "";
-                    decimal Cost = 0.00m;
+                    Boolean isChecked = false;
+                    string paymentProviderProperties = "";
+                    decimal cost = 0.00m;
+                    decimal costPercent = 0.0m;
                     decimal taxPercent = 0.00m;
-                    int ViewOrder = 0;
-                    string Role = "";
+                    int viewOrder = 0;
+                    string role = "";
 
                     //Is this Provider in the List for the Subscriber (Portal) ?
                     SubscriberPaymentProviderInfo Sub = lstSub.Find(sub => sub.PaymentProviderId == pp.PaymentProviderId);
 
                     CheckBox chk = Globals.FindControlRecursiveDown(phPayment, "chkEnabled" + pp.PaymentProviderId.ToString()) as CheckBox;
                     if (chk != null)
-                        IsChecked = chk.Checked;
+                        isChecked = chk.Checked;
 
                     TextBox txt = Globals.FindControlRecursiveDown(phPayment, "txtVieworder" + pp.PaymentProviderId.ToString()) as TextBox;
                     if (txt != null)
-                        Int32.TryParse(txt.Text, out ViewOrder);
+                        Int32.TryParse(txt.Text, out viewOrder);
 
                     PaymentProviderBase ppb = Globals.FindControlRecursiveDown(phPayment, "pp" + pp.PaymentProviderId.ToString()) as PaymentProviderBase;
                     if (ppb != null)
                     {
-                        PaymentProviderProperties = ppb.Properties;
-                        // Cost = ppb.Cost;
+                        paymentProviderProperties = ppb.Properties;
                     }
                     TaxControl tax = Globals.FindControlRecursiveDown(phPayment, "txtPrice" + pp.PaymentProviderId.ToString()) as TaxControl;
                     if (tax != null)
-                        Cost = tax.Value;
-                        //decimal.TryParse(txt.Text, out Cost);
+                        cost = tax.Value;
 
+                    txt = Globals.FindControlRecursiveDown(phPayment, "txtCostPercent" + pp.PaymentProviderId.ToString()) as TextBox;
+                    if (txt != null)
+                        decimal.TryParse(txt.Text, out costPercent);
+                    
                     txt = Globals.FindControlRecursiveDown(phPayment, "txtTaxPercent" + pp.PaymentProviderId.ToString()) as TextBox;
                     if (txt != null)
                         decimal.TryParse(txt.Text, out taxPercent);
@@ -381,7 +406,7 @@ namespace Bitboxx.DNNModules.BBStore
                     DropDownList ddl = Globals.FindControlRecursiveDown(phPayment, "ddlUserRole" + pp.PaymentProviderId.ToString()) as DropDownList;
                     if (ddl != null && ddl.SelectedIndex > 0)
                     {
-                        Role = ddl.SelectedValue;
+                        role = ddl.SelectedValue;
                     }
 
                     if (Sub == null)
@@ -389,12 +414,13 @@ namespace Bitboxx.DNNModules.BBStore
                         Sub = new SubscriberPaymentProviderInfo();
                         Sub.PaymentProviderId = pp.PaymentProviderId;
                         Sub.PortalId = PortalId;
-                        Sub.Cost = Cost;
+                        Sub.Cost = cost;
+                        Sub.CostPercent = costPercent;
                         Sub.SubscriberId = 0;
-                        Sub.ViewOrder = ViewOrder;
-                        Sub.IsEnabled = IsChecked;
-                        Sub.Role = Role;
-                        Sub.PaymentProviderProperties = PaymentProviderProperties;
+                        Sub.ViewOrder = viewOrder;
+                        Sub.IsEnabled = isChecked;
+                        Sub.Role = role;
+                        Sub.PaymentProviderProperties = paymentProviderProperties;
                         Sub.TaxPercent = taxPercent;
                         Controller.NewSubscriberPaymentProvider(Sub);
                     }
@@ -402,12 +428,13 @@ namespace Bitboxx.DNNModules.BBStore
                     {
                         Sub.PaymentProviderId = pp.PaymentProviderId;
                         Sub.PortalId = PortalId;
-                        Sub.Cost = Cost;
+                        Sub.Cost = cost;
+                        Sub.CostPercent = costPercent;
                         Sub.SubscriberId = 0;
-                        Sub.ViewOrder = ViewOrder;
-                        Sub.IsEnabled = IsChecked;
-                        Sub.Role = Role;
-                        Sub.PaymentProviderProperties = PaymentProviderProperties;
+                        Sub.ViewOrder = viewOrder;
+                        Sub.IsEnabled = isChecked;
+                        Sub.Role = role;
+                        Sub.PaymentProviderProperties = paymentProviderProperties;
                         Sub.TaxPercent = taxPercent;
                         Controller.UpdateSubscriberPaymentProvider(Sub);
                     }

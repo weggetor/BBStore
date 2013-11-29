@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -50,7 +51,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Product Groups",3, "BBStore Product Groups", "BBStore Product Groups", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net")]
+    [DNNtc.PackageProperties("BBStore Product Groups",3, "BBStore Product Groups", "BBStore Product Groups", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
     [DNNtc.ModuleProperties("BBStore Product Groups", "BBStore Product Groups", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Product Groups", DNNtc.ControlType.View, "", false, false)]
 	partial class ViewProductGroup : PortalModuleBase, IActionable
@@ -295,7 +296,7 @@ namespace Bitboxx.DNNModules.BBStore
 								if (ProductGroupId > -1)
 								{
 									// we need to check if productGroupId is in path 
-									string path = Controller.GetProductGroupPath(PortalId, productGroupId, CurrentLanguage, true, "|", "");
+									string path = Controller.GetProductGroupPath(PortalId, productGroupId, CurrentLanguage, true, "|", "", "");
 
 									if (path.Contains("|_" + ProductGroupId) || path.Contains("_" + ProductGroupId + "|") ||
 									    path == "_" + ProductGroupId)
@@ -334,9 +335,10 @@ namespace Bitboxx.DNNModules.BBStore
 							//if (!Page.IsPostBack)
 							{
 								List<ProductGroupInfo> productGroups = new List<ProductGroupInfo>();
-								if (Settings["ShowUpNavigation"] != null && Convert.ToBoolean(Settings["ShowUpNavigation"]))
+                                ProductGroupInfo thisgroup = Controller.GetProductGroup(PortalId, CurrentLanguage, ProductGroupId);
+
+                                if (Settings["ShowUpNavigation"] != null && Convert.ToBoolean(Settings["ShowUpNavigation"]))
 								{
-									ProductGroupInfo thisgroup = Controller.GetProductGroup(PortalId, CurrentLanguage, ProductGroupId);
 									if (thisgroup != null)
 									{
 										if (thisgroup.ParentId != -1)
@@ -363,9 +365,17 @@ namespace Bitboxx.DNNModules.BBStore
 										}
 									}
 								}
-								productGroups.AddRange(Controller.GetProductSubGroupsByNode(PortalId, CurrentLanguage, ProductGroupId,
-								                                                            ShowProductCount, IncludeChilds, IncludeDisabled));
-								ProductGroups = productGroups;
+							    
+                                if (thisgroup!= null && Settings["ShowThisNode"] != null && Convert.ToBoolean(Settings["ShowThisNode"]))
+							    {
+							       productGroups.Add(thisgroup); 
+							    }
+
+                                if (Settings["ShowSubNodes"] == null || (Settings["ShowSubNodes"] != null && Convert.ToBoolean(Settings["ShowSubNodes"])))
+							    {
+							        productGroups.AddRange(Controller.GetProductSubGroupsByNode(PortalId, CurrentLanguage, ProductGroupId, ShowProductCount, IncludeChilds, IncludeDisabled));
+							    }
+							    ProductGroups = productGroups;
 								if (ProductGroups.Count > 0)
 								{
 									lstProductGroups.DataSource = ProductGroups;
@@ -458,20 +468,39 @@ namespace Bitboxx.DNNModules.BBStore
 			try
 			{
                 // We can set the Title of our Module
-				if (SetTitle)
-				{
-					ProductGroupInfo pgi = Controller.GetProductGroup(PortalId, CurrentLanguage, ProductGroupId);
-					string titleLabelName = DotNetNukeContext.Current.Application.Version.Major < 6 ? "lblTitle" : "titleLabel";
-					Control ctl = Globals.FindControlRecursiveDown(this.ContainerControl, titleLabelName);
+			    if (SetTitle)
+			    {
+			        bool breadcrumb = (Settings["ShowBreadcrumb"] != null ? Convert.ToBoolean((string) Settings["ShowBreadcrumb"]) : false);
 
-					if (ctl != null)
-					{
-						if (pgi != null)
-							((Label)ctl).Text = pgi.ProductGroupName;
+			        string productGroupPath = "";
+			        string root = Localization.GetString("MainProductGroup.Text", this.LocalResourceFile);
+			        ProductGroupInfo pg = Controller.GetProductGroup(PortalId, CurrentLanguage, ProductGroupId);
 
-					}
-				}
-                if (!IsVisible && !IsEditable)
+			        if (pg != null)
+			        {
+			            int productGroupId = pg.ProductGroupId;
+			            if (breadcrumb)
+			            {
+			                string link = Globals.NavigateURL(TabId, "", "productgroup={1}");
+			                string linkTemplate = "<a href=\"" + link + "\">{0}</a>";
+			                productGroupPath = Controller.GetProductGroupPath(PortalId, pg.ProductGroupId, CurrentLanguage, false, " > ", linkTemplate, root);
+			            }
+			            else if (productGroupId > -1)
+			            {
+			                productGroupPath = pg.ProductGroupName;
+			            }
+			        }
+
+
+			        string titleLabelName = DotNetNukeContext.Current.Application.Version.Major < 6 ? "lblTitle" : "titleLabel";
+			        Control ctl = Globals.FindControlRecursiveDown(this.ContainerControl, titleLabelName);
+			        if (ctl != null)
+			        {
+			            ((Label) ctl).Text = productGroupPath != string.Empty ? productGroupPath : root;
+			        }
+			    }
+
+			    if (!IsVisible && !IsEditable)
                     this.ContainerControl.Visible = false;
 			}
 			catch (Exception exc)
@@ -526,6 +555,13 @@ namespace Bitboxx.DNNModules.BBStore
 					}
                     template = template.Replace("[ICON]", "<asp:Image ID=\"imgIcon\" runat=\"server\" />");
                     template = template.Replace("[PRODUCTCOUNT]", "<asp:Label ID=\"lblProductCount\" runat=\"server\" />");
+                    
+                    int linkCnt = 0;
+                    while (template.Contains("[LINK]"))
+                    {
+                        linkCnt++;
+                        template = template.ReplaceFirst("[LINK]", "<asp:Literal ID=\"ltrLink" + linkCnt.ToString() + "\" runat=\"server\" />");
+                    }
 
                     Control ctrl = ParseControl(template);
 					lblProductGroupName = FindControlRecursive(ctrl, "lblProductGroupName") as Label;
@@ -577,8 +613,23 @@ namespace Bitboxx.DNNModules.BBStore
 					lblProductCount = FindControlRecursive(ctrl, "lblProductCount") as Label;
 					if (lblProductCount != null)
 						lblProductCount.Text = productGroup.ProductCount.ToString();
-                    
-                    PlaceHolder ph = e.Item.FindControl("productGroupPlaceholder") as PlaceHolder;
+
+				    for (int i = 1; i < linkCnt+1; i++)
+				    {
+				        Literal ltrLink = FindControlRecursive(ctrl, "ltrLink"+ i.ToString()) as Literal;
+				        if (ltrLink != null)
+				        {
+				            if (productGroup.ProductListTabId != -1)
+				                ltrLink.Text = Globals.NavigateURL(productGroup.ProductListTabId, "", "productgroup=" + productGroup.ProductGroupId.ToString());
+				            else
+				            {
+				                int dynamicTab = Convert.ToInt32(Settings["DynamicPage"] ?? TabId.ToString());
+				                ltrLink.Text = Globals.NavigateURL(dynamicTab, "", "productgroup=" + productGroup.ProductGroupId.ToString());
+				            }
+				        }
+				    }
+
+				    PlaceHolder ph = e.Item.FindControl("productGroupPlaceholder") as PlaceHolder;
 					ph.Controls.Add(ctrl);
 				}
 			}
@@ -587,21 +638,6 @@ namespace Bitboxx.DNNModules.BBStore
 				lstProductGroups.Visible = false;
 			}
 
-		}
-		protected void lstProductGroups_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
-		{
-			ProductGroupId = (int)lstProductGroups.DataKeys[e.NewSelectedIndex].Value;
-			// TODO: 
-			SetFilter(ProductGroupId, IncludeChilds);
-
-			ProductGroupInfo pgi = Controller.GetProductGroup(PortalId, CurrentLanguage, ProductGroupId);
-			if (pgi != null && pgi.ProductListTabId != -1)
-				Response.Redirect(Globals.NavigateURL(pgi.ProductListTabId, "", "productgroup=" + ProductGroupId.ToString()));
-			else
-			{
-				int dynamicTab = Convert.ToInt32(Settings["DynamicPage"] ?? TabId.ToString());
-				Response.Redirect(Globals.NavigateURL(dynamicTab, "", "productgroup=" + ProductGroupId.ToString()));
-			}
 		}
 		protected void treeProductGroup_TreeNodePopulate(object sender, TreeNodeEventArgs e)
 		{
@@ -631,16 +667,27 @@ namespace Bitboxx.DNNModules.BBStore
 				parent.ChildNodes.Add(newNode);
 			}
 		}
+		protected void lstProductGroups_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
+		{
+			ProductGroupId = (int)lstProductGroups.DataKeys[e.NewSelectedIndex].Value;
+
+            SetFilter(ProductGroupId, IncludeChilds);
+
+			ProductGroupInfo pgi = Controller.GetProductGroup(PortalId, CurrentLanguage, ProductGroupId);
+			if (pgi != null && pgi.ProductListTabId != -1)
+				Response.Redirect(Globals.NavigateURL(pgi.ProductListTabId, "", "productgroup=" + ProductGroupId.ToString()));
+			else
+			{
+				int dynamicTab = Convert.ToInt32(Settings["DynamicPage"] ?? TabId.ToString());
+				Response.Redirect(Globals.NavigateURL(dynamicTab, "", "productgroup=" + ProductGroupId.ToString()));
+			}
+		}
 		protected void treeProductGroup_SelectedNodeChanged(object sender, EventArgs e)
 		{
 			ProductGroupId = Convert.ToInt32(treeProductGroup.SelectedNode.Value.Substring(1));
 
-			// TODO: 
 			SetFilter(ProductGroupId, IncludeChilds);
 			
-			// When ProductGroup is changed, FeatureFilter must be deleted
-			//Controller.DeleteProductFilter(PortalId, FilterSessionId, "Feature");
-
 			ProductGroupInfo pgi = Controller.GetProductGroup(PortalId, CurrentLanguage, ProductGroupId);
 			if (pgi != null && pgi.ProductListTabId != -1)
 				Response.Redirect(Globals.NavigateURL(pgi.ProductListTabId, "", "productgroup=" + ProductGroupId.ToString()));
@@ -657,16 +704,12 @@ namespace Bitboxx.DNNModules.BBStore
 
 			int dynamicTab = Convert.ToInt32(Settings["DynamicPage"] ?? TabId.ToString());
 
-			// When ProductGroup is changed, FeatureFilter must be deleted
-			//Controller.DeleteProductFilter(PortalId, FilterSessionId, "Feature");
-			
 			if (ProductGroupId == -1)
 			{
 				Controller.DeleteProductFilter(PortalId, FilterSessionId, "ProductGroup");
 				Response.Redirect(Globals.NavigateURL(dynamicTab));
 			}
 
-			// TODO: 
 			SetFilter(ProductGroupId, IncludeChilds);
 
 			ProductGroupInfo pgi = Controller.GetProductGroup(PortalId, CurrentLanguage, ProductGroupId);

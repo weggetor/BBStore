@@ -1,0 +1,240 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/**  Lets fix old things start  **/
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Cart]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart] ADD CreatedOnDate DATETIME NOT NULL DEFAULT getdate() 
+go
+
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	declare @default sysname, @sql nvarchar(max)
+
+	select @default = name 
+	from sys.default_constraints 
+	where parent_object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost]')
+	AND type = 'D'
+	AND parent_column_id = (
+		select column_id 
+		from sys.columns 
+		where object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost]')
+		and name = 'Quantity'
+		)
+
+	set @sql = N'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost] DROP CONSTRAINT ' + @default
+	exec sp_executesql @sql
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost] ALTER COLUMN  Quantity DECIMAL(12,3) NOT NULL
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost] ADD DEFAULT (1) FOR Quantity
+END
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartAdditionalCost]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	declare @default sysname, @sql nvarchar(max)
+	select @default = name 
+	from sys.default_constraints 
+	where parent_object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_CartProduct]')
+	AND type = 'D'
+	AND parent_column_id = (
+		select column_id 
+		from sys.columns 
+		where object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_CartProduct]')
+		and name = 'Quantity'
+		)
+
+	set @sql = N'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] DROP CONSTRAINT ' + @default
+	exec sp_executesql @sql
+
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] ALTER COLUMN  Quantity DECIMAL(12,3) NOT NULL
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] ADD DEFAULT (1) FOR Quantity
+END
+go
+
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	declare @default sysname, @sql nvarchar(max)
+	select @default = name 
+	from sys.default_constraints 
+	where parent_object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost]')
+	AND type = 'D'
+	AND parent_column_id = (
+		select column_id 
+		from sys.columns 
+		where object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost]')
+		and name = 'Quantity'
+		)
+
+	set @sql = N'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost] DROP CONSTRAINT ' + @default
+	exec sp_executesql @sql
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost] ALTER COLUMN Quantity DECIMAL(12,3) NOT NULL
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAdditionalCost] ADD DEFAULT (1) FOR Quantity
+END
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	declare @default sysname, @sql nvarchar(max)
+	select @default = name 
+	from sys.default_constraints 
+	where parent_object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_OrderProduct]')
+	AND type = 'D'
+	AND parent_column_id = (
+		select column_id 
+		from sys.columns 
+		where object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_OrderProduct]')
+		and name = 'Quantity'
+		)
+
+	set @sql = N'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct] DROP CONSTRAINT ' + @default
+	exec sp_executesql @sql
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct] ALTER COLUMN    Quantity DECIMAL(12,3) NOT NULL
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderProduct] ADD DEFAULT (0) FOR Quantity
+END
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_OrderState]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	declare @default sysname, @sql nvarchar(max)
+	select @default = name 
+	from sys.default_constraints 
+	where parent_object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_OrderState]')
+	AND type = 'D'
+	AND parent_column_id = (
+		select column_id 
+		from sys.columns 
+		where object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_OrderState]')
+		and name = 'PortalId'
+		)
+
+	set @sql = N'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderState] DROP CONSTRAINT ' + @default
+	exec sp_executesql @sql
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderState] ADD DEFAULT (-1) FOR PortalId
+END
+go
+
+/**  Lets fix old things end  **/
+
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingZone]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingZone] ( 
+         ShippingZoneID INT NOT NULL IDENTITY (1,1),
+         ShippingModelID INT NULL,
+		 ExemptionLimit DECIMAL(10,4) NOT NULL DEFAULT (-1)
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingZone] ADD CONSTRAINT PK_{objectQualifier}BBStore_ShippingZone PRIMARY KEY NONCLUSTERED  (ShippingZoneID ASC)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingModel]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingModel] ( 
+         ShippingModelID INT NOT NULL IDENTITY (1,1),
+         Tax DECIMAL(10,2) NOT NULL DEFAULT (0) ,
+         Enabled BIT NOT NULL DEFAULT (0) ,
+		 PortalId INT NOT NULL DEFAULT (0),
+		 Name NVARCHAR(40) NOT NULL DEFAULT ''
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingModel] ADD CONSTRAINT PK_{objectQualifier}BBStore_ShippingModel PRIMARY KEY NONCLUSTERED  (ShippingModelID ASC)
+   END
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingArea]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingArea] ( 
+         ShippingAreaID INT NOT NULL IDENTITY (1,1),
+         ShippingZoneID INT NULL,
+         PostalcodeMin INT NULL,
+         PostalcodeMax INT NULL,
+         CountryCodeISO2 CHAR(2) NOT NULL DEFAULT '' 
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingArea] ADD CONSTRAINT PK_{objectQualifier}BBStore_ShippingArea PRIMARY KEY NONCLUSTERED  (ShippingAreaID ASC)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingCost]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingCost] ( 
+         ShippingCostID INT NOT NULL IDENTITY (1,1),
+         ShippingModelID INT NULL,
+         ShippingZoneID INT NULL,
+         ShippingPrice DECIMAL(10,4) NULL,
+         PerPart BIT NOT NULL DEFAULT (0) ,
+		 FlatCharge BIT NOT NULL DEFAULT (0),
+         MinWeight DECIMAL(10,4) NULL,
+         MaxWeight DECIMAL(10,4) NULL,
+         MinPrice DECIMAL(10,4) NULL,
+         MaxPrice DECIMAL(10,4) NULL
+      )
+      ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingCost] ADD CONSTRAINT PK_{objectQualifier}BBStore_ShippingCost PRIMARY KEY NONCLUSTERED  (ShippingCostID ASC)
+   END
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingZoneLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+   BEGIN
+      CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingZoneLang] ( 
+         Language NCHAR(5) NOT NULL DEFAULT '' ,
+         Name NVARCHAR(40) NOT NULL DEFAULT '' ,
+		 OrderText NVARCHAR(120) NOT NULL DEFAULT '' ,
+         Description NVARCHAR(MAX) NOT NULL DEFAULT '' ,
+         ShippingZoneID INT NULL
+      )
+   END
+GO
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SubscriberPaymentProvider] ADD CostPercent DECIMAL(4,1) NOT NULL DEFAULT (0) 
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingZoneLang' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingZoneLang] WITH NOCHECK  ADD CONSTRAINT FK_{objectQualifier}ShippingZoneLang FOREIGN KEY ( ShippingZoneID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ShippingZone] ( ShippingZoneID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingModel_ShippingZone' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingZone] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ShippingModel_ShippingZone FOREIGN KEY ( ShippingModelID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ShippingModel] ( ShippingModelID ) ON DELETE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingZone_ShippingArea' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingArea] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ShippingZone_ShippingArea FOREIGN KEY ( ShippingZoneID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ShippingZone] ( ShippingZoneID ) ON UPDATE CASCADE
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingZone_ShippingCost' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingCost] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ShippingZone_ShippingCost FOREIGN KEY ( ShippingZoneID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ShippingZone] ( ShippingZoneID )
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingModel_ShippingCost' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingCost] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ShippingModel_ShippingCost FOREIGN KEY ( ShippingModelID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ShippingModel] ( ShippingModelID ) ON DELETE CASCADE
+GO
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SimpleProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] ADD Weight DECIMAL(12,3) NOT NULL DEFAULT(0)
+GO
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CartProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] ADD Weight DECIMAL(12,3) NOT NULL DEFAULT(0)
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] ADD CreatedOnDate DATETIME NOT NULL DEFAULT getdate()
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] ADD ShippingModelID INT NULL
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductShippingModel]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+    CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_ProductShippingModel] ( SimpleProductId INT NULL, ShippingModelID INT NULL )
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Product_ProductShippingModel' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductShippingModel] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Product_ProductShippingModel FOREIGN KEY ( SimpleProductId )  REFERENCES {databaseOwner}[{objectQualifier}BBStore_SimpleProduct]  ( SimpleProductId )
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingModel_ProductShippingModel' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductShippingModel] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ShippingModel_ProductShippingModel FOREIGN KEY ( ShippingModelID ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_ShippingModel] ( ShippingModelID )
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}ShippingModel_CartProduct' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ShippingModel_CartProduct FOREIGN KEY ( ShippingModelID )  REFERENCES {databaseOwner}[{objectQualifier}BBStore_ShippingModel] ( ShippingModelID )  ON DELETE SET NULL
+GO
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

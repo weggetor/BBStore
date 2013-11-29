@@ -166,6 +166,24 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.CheckBox chkSetTitle;
         
         /// <summary>
+        /// lblShowBreadcrumb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblShowBreadcrumb;
+        
+        /// <summary>
+        /// chkShowBreadcrumb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkShowBreadcrumb;
+        
+        /// <summary>
         /// MultiView1 control.
         /// </summary>
         /// <remarks>
@@ -202,6 +220,42 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.CheckBox chkShowUpNavigation;
         
         /// <summary>
+        /// lblShowThisNode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblShowThisNode;
+        
+        /// <summary>
+        /// chkShowThisNode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkShowThisNode;
+        
+        /// <summary>
+        /// lblShowSubNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblShowSubNodes;
+        
+        /// <summary>
+        /// chkShowSubNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkShowSubNodes;
+        
+        /// <summary>
         /// lblAllGroupsImage control.
         /// </summary>
         /// <remarks>
@@ -218,15 +272,6 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgImage;
-        
-        /// <summary>
-        /// AllGroupsImageSelector control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DotNetNuke.UI.UserControls.UrlControl AllGroupsImageSelector;
         
         /// <summary>
         /// lblProductGroupsInRow control.

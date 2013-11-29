@@ -47,7 +47,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Admin",6, "BBStore Admin", "BBStore Admin module", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net")]
+    [DNNtc.PackageProperties("BBStore Admin",6, "BBStore Admin", "BBStore Admin module", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
     [DNNtc.ModuleProperties("BBStore Admin", "BBStore Admin", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Admin", DNNtc.ControlType.View, "", false, false)]
 	partial class ViewAdmin : PortalModuleBase, IActionable

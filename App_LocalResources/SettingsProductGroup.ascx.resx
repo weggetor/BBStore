@@ -144,10 +144,10 @@
 	<data name="lblIncludeChilds.Text" xml:space="preserve">
     <value>Show Subgroup Products</value>
   </data>
-	<data name="lblShowBreadCrumb.Help" xml:space="preserve">
+	<data name="lblShowBreadcrumb.Help" xml:space="preserve">
     <value>Check if you want the "product breadcrumb path" to be shown </value>
   </data>
-	<data name="lblShowBreadCrumb.Text" xml:space="preserve">
+	<data name="lblShowBreadcrumb.Text" xml:space="preserve">
     <value>Show Breadcrumb</value>
   </data>
 	<data name="lblViewMode.Help" xml:space="preserve">
@@ -190,7 +190,7 @@
     <value>Check if the selected product group should be set as module title</value>
   </data>
 	<data name="lblSetTitle.Text" xml:space="preserve">
-    <value>Set Title</value>
+    <value>Productgroup as title</value>
   </data>
 	<data name="lblShowProductCount.Text" xml:space="preserve">
     <value>Show Product Count</value>
@@ -229,15 +229,27 @@
     <value>Mainlevel Image</value>
   </data>
 	<data name="lblShowUpNavigation.Help" xml:space="preserve">
-    <value>Check if you want to show an upwards navigation (dummy) productgroup while staying in a subgroup</value>
+    <value>Check if you want to show an additional parent productgroup while staying in a subgroup</value>
   </data>
 	<data name="lblShowUpNavigation.Text" xml:space="preserve">
-    <value>Show upwards navigation</value>
+    <value>Show parent productgroup</value>
   </data>
 	<data name="lblRootLevelFixed.Help" xml:space="preserve">
 		<value>Check if the selected Root product group should be shown always </value>
 	</data>
 	<data name="lblRootLevelFixed.Text" xml:space="preserve">
 		<value>Fix root productgroup</value>
+	</data>
+	<data name="lblShowThisNode.Text" xml:space="preserve">
+		<value>Show current product group</value>
+	</data>
+	<data name="lblShowThisNode.Help" xml:space="preserve">
+		<value>Check if you want to show the current product group</value>
+	</data>
+	<data name="lblShowSubNodes.Text" xml:space="preserve">
+		<value>Show Product Subgroups</value>
+	</data>
+	<data name="lblShowSubNodes.Help" xml:space="preserve">
+		<value>Check if you want to show the product subgroups</value>
 	</data>
 </root>

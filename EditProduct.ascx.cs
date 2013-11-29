@@ -50,6 +50,7 @@ namespace Bitboxx.DNNModules.BBStore
     [DNNtc.ModuleControlProperties("EDIT", "BBStore Edit Simple Product", DNNtc.ControlType.Edit, "", false, false)]
     partial class EditProduct : PortalModuleBase
     {
+        protected DotNetNuke.UI.UserControls.UrlControl ImageSelector;
 
         #region "Private Members"
 
@@ -145,6 +146,14 @@ namespace Bitboxx.DNNModules.BBStore
                         cboSupplier.DataBind();
                     }
 
+                    // Shipping Models
+                    List<ShippingModelInfo> shippingModels = Controller.GetShippingModels(PortalId);
+                    
+                    cboShippingModel.DataSource = shippingModels;
+                    cboShippingModel.DataValueField = "ShippingModelId";
+                    cboShippingModel.DataTextField = "Name";
+                    cboShippingModel.DataBind();
+
                     string selUnitText = Localization.GetString("SelectUnit.Text", this.LocalResourceFile);
                     ddlUnit.Items.Add(new ListItem(selUnitText, "-1"));
                     foreach (UnitInfo unit in Controller.GetUnits(PortalId,CurrentLanguage,"Unit"))
@@ -181,6 +190,7 @@ namespace Bitboxx.DNNModules.BBStore
                         cboSupplier.SelectedValue = "-1";
                         dbLangs.Add(new SimpleProductLangInfo() { Language = CurrentLanguage });
                         lngSimpleProducts.Langs = dbLangs;
+                        txtWeight.Text = 0.000m.ToString();
                     }
                     else
                     {
@@ -227,6 +237,12 @@ namespace Bitboxx.DNNModules.BBStore
                         ddlUnit.SelectedValue = SimpleProduct.UnitId.ToString();
                         ImageSelector.Url = imageUrl;
                         imgImage.ImageUrl = BBStoreHelper.FileNameToImgSrc(imageUrl, PortalSettings);
+                        txtWeight.Text = SimpleProduct.Weight.ToString();
+
+                        // Set ShippingModel
+                        List<ProductShippingModelInfo> productshippingModels = Controller.GetProductShippingModelsByProduct(SimpleProduct.SimpleProductId);
+                        if (productshippingModels.Count > 0)
+                            cboShippingModel.SelectedValue = productshippingModels[0].ShippingModelId.ToString();
                     }
 
                     // Treeview Basenode
@@ -303,6 +319,7 @@ namespace Bitboxx.DNNModules.BBStore
                     SimpleProduct.NoCart = chkNoCart.Checked;
                     SimpleProduct.SupplierId = String.IsNullOrEmpty(cboSupplier.SelectedValue) ? -1 : Convert.ToInt32(cboSupplier.SelectedValue);
                     SimpleProduct.UnitId = String.IsNullOrEmpty(ddlUnit.SelectedValue) ? -1 : Convert.ToInt32(ddlUnit.SelectedValue);
+                    SimpleProduct.Weight = Convert.ToDecimal(txtWeight.Text.Trim());
                     Controller.UpdateSimpleProduct(SimpleProduct);
                 }
                 else
@@ -323,8 +340,14 @@ namespace Bitboxx.DNNModules.BBStore
                     SimpleProduct.NoCart = chkNoCart.Checked;
                     SimpleProduct.SupplierId = String.IsNullOrEmpty(cboSupplier.SelectedValue) ? -1 : Convert.ToInt32(cboSupplier.SelectedValue);
                     SimpleProduct.UnitId = String.IsNullOrEmpty(ddlUnit.SelectedValue) ? -1 : Convert.ToInt32(ddlUnit.SelectedValue);
+                    SimpleProduct.Weight = Convert.ToDecimal(txtWeight.Text.Trim());
                     ProductId = Controller.NewSimpleProduct(SimpleProduct);
                 }
+
+                // Lets update the ShippingModel
+                Controller.DeleteProductShippingModelByProduct(ProductId);
+                Controller.InsertProductShippingModel(new ProductShippingModelInfo() {ShippingModelId = Convert.ToInt32(cboShippingModel.SelectedValue), SimpleProductId = ProductId});
+                
 
                 // Now lets update Language information
                 lngSimpleProducts.UpdateLangs();

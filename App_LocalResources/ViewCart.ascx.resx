@@ -405,4 +405,7 @@
 	<data name="Unit.Header" xml:space="preserve">
     <value>Unit</value>
   </data>
+	<data name="NoShipping.Text" xml:space="preserve">
+		<value>Sorry but we do not ship to {0} !</value>
+	</data>
 </root>

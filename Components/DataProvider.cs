@@ -19,6 +19,7 @@
 // 
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using DotNetNuke;
 
@@ -201,6 +202,7 @@ namespace Bitboxx.DNNModules.BBStore
         // SubscriberPaymentProvider methods
         public abstract IDataReader GetSubscriberPaymentProviders(int PortalId, int SubscriberId);
 		public abstract IDataReader GetSubscriberPaymentProvider(int PortalId, int SubscriberId, int PaymentProviderId);
+        public abstract IDataReader GetSubscriberPaymentProviderByCPP(int customerPaymentProviderId);
         public abstract int NewSubscriberPaymentProvider(SubscriberPaymentProviderInfo SubscriberPaymentProvider);
         public abstract void UpdateSubscriberPaymentProvider(SubscriberPaymentProviderInfo SubscriberPaymentProvider);
         public abstract void DeleteSubscriberPaymentProvider(int SubscriberPaymentProviderId);
@@ -257,7 +259,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract IDataReader GetProductGroup(int PortalId, string Language, int ProductGroupId);
 		public abstract IDataReader GetProductGroup(int PortalId, int ProductGroupId);
         public abstract string GetProductGroupPath(int PortalId, int ProductGroupId);
-        public abstract string GetProductGroupPath(int portalId, int productGroupId, string language, bool returnId, string delimiter, string linkTemplate);
+        public abstract string GetProductGroupPath(int portalId, int productGroupId, string language, bool returnId, string delimiter, string linkTemplate, string rootText);
 		public abstract int NewProductGroup(ProductGroupInfo ProductGroup);
 		public abstract void UpdateProductGroup(ProductGroupInfo ProductGroup);
 		public abstract void DeleteProductGroup(int ProductGroupId);
@@ -466,13 +468,41 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract void NewUnitLang(UnitLangInfo unitLang);
         public abstract void DeleteUnitLang(int unitId, string language);
         public abstract void DeleteUnitLangs(int unitId);
-        
-        // Helper methods
-        public abstract void ReseedTables();
+
+        // ShippingModel
+        public abstract IDataReader GetShippingModel(int shippingModelId);
+        public abstract IDataReader GetShippingModels(int portalId);
+        public abstract int NewShippingModel(ShippingModelInfo shippingModel);
+        public abstract void UpdateShippingModel(ShippingModelInfo shippingModel);
+        public abstract void DeleteShippingModel(int shippingModelId);
+
+        // ProductShippingModel
+        public abstract IDataReader GetProductShippingModelsByProduct(int productId);
+        public abstract void DeleteProductShippingModelByProduct(int productId);
+        public abstract void InsertProductShippingModel(ProductShippingModelInfo productShippingModel);
+
+       // ShippingCost methods
+        public abstract IDataReader GetShippingCosts(int PortalId);
+        public abstract IDataReader GetShippingCostsByModelId(int shippingModelId);
+        public abstract IDataReader GetShippingCostById(int ShippingCostId);
+        public abstract int NewShippingCost(ShippingCostInfo ShippingCost);
+        public abstract void UpdateShippingCost(ShippingCostInfo ShippingCost);
+        public abstract void DeleteShippingCost(int ShippingCostId);
         #endregion
 
-		#region SearchFilters
-		public abstract string GetProductGroupFilter(int PortalId, int ProductGroupId, bool IncludeChilds);
+        // ShippingZone methods
+        public abstract int GetShippingZoneIdByAddress(int modelId, string countryCodeISO2, int postalCode);
+        public abstract IDataReader GetShippingZoneById(int shippingZoneId, string language);
+
+        #region Helper methods
+
+        // Helper methods
+        public abstract void ReseedTables();
+
+        #endregion
+
+        #region SearchFilters
+        public abstract string GetProductGroupFilter(int PortalId, int ProductGroupId, bool IncludeChilds);
 		public abstract string GetSearchTextFilter(int PortalId, string SearchText, string Language);
 		public abstract string GetSearchStaticFilter(int PortalId, string Token, string Language);
 		public abstract string GetSearchStaticFilter(int StaticFilterId, string Language);

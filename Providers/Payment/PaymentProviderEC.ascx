@@ -56,7 +56,7 @@
     <asp:View ID="Edit" runat="server">
         <h3><asp:Label ID="lblTitle" runat="server" Text="Title" /></h3>
     </asp:View>
-    <asp:View ID="Summery" runat="server">
+    <asp:View ID="Summary" runat="server">
         <table style="border: 0; border-collapse: collapse;">
             <tr>
                 <td><b><asp:Label ID="lblAccountNameSummary" runat="server" /></b></td>

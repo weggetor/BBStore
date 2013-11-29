@@ -95,7 +95,7 @@ namespace Bitboxx.DNNModules.BBStore
 				string filter = "";
 
 				if (txtProduct.Text != string.Empty)
-					filter = "Name LIKE '%" + txtProduct.Text.Trim() + "%'";
+                    filter = String.Format("(Name LIKE '%{0}%' OR ItemNo LIKE '%{0}%')", txtProduct.Text.Trim());
 				return filter;
 			}
 		}

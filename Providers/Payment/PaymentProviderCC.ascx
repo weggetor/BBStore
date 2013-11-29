@@ -52,7 +52,7 @@
             <asp:ListItem Text="Visa Electron" Value="visa_electron" />
         </asp:CheckBoxList>
     </asp:View>
-    <asp:View ID="Summery" runat="server">
+    <asp:View ID="Summary" runat="server">
         <table style="border: 0; border-collapse: collapse;">
             <tr>
                 <td><b><asp:Label ID="lblCCTypeCapSummary" runat="server" /></b></td>

@@ -290,4 +290,16 @@ You can specify the difference in price by an additional letter. Use "&lt;strong
 	<data name="cmdRefresh.Text" xml:space="preserve">
 		<value>Refresh images</value>
 	</data>
+	<data name="lblWeight.Help" xml:space="preserve">
+		<value>Enter the weight of 1 product</value>
+	</data>
+	<data name="lblWeight.Text" xml:space="preserve">
+		<value>Weight</value>
+	</data>
+	<data name="lblShippingModel.Text" xml:space="preserve">
+		<value>Shipping Model</value>
+	</data>
+	<data name="lblShippingModel.Help" xml:space="preserve">
+		<value>Select the corresponding shipping model for the product</value>
+	</data>
 </root>

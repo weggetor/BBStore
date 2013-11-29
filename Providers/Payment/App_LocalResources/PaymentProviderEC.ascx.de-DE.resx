@@ -130,10 +130,10 @@
     <value>BIC / SWIFT</value>
   </data>
 	<data name="lblCost.Text" xml:space="preserve">
-    <value>Für die Verwendung von Lastschrift berechnen wir eine Gebühr von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Verwendung von Lastschrift berechnen wir eine Gebühr von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblDiscount.Text" xml:space="preserve">
-    <value>Für die Verwendung von Lastschrift gewähren wir einen Rabatt von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Verwendung von Lastschrift gewähren wir einen Rabatt von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblDescription.Text" xml:space="preserve">
     <value>&lt;p&gt;Nach dem Abschicken der Bestellung wird der Betrag Ihrem Konto belastet. Der Vorteil bei dieser Zahlungsart ist dass die Bestellung nach erfolgter Transaktion direkt versandbereit ist.&lt;br/&gt;&lt;br/&gt;
@@ -153,5 +153,14 @@ Bei gewerblichen Kunden benötigen wir zusätzlich ein ausgefülltes Lastschrift
 	</data>
 	<data name="lblFree.Text" xml:space="preserve">
 		<value>Diese Zahlungsart ist für Sie &lt;b&gt;komplett kostenlos&lt;/b&gt;. </value>
+	</data>
+	<data name="lblPercentage.Text" xml:space="preserve">
+		<value>{0:f1} Prozent des Gesamtbetrags</value>
+	</data>
+	<data name="lblFixed.Text" xml:space="preserve">
+		<value>{0:f2} Pauschale</value>
+	</data>
+	<data name="lblConcat.Text" xml:space="preserve">
+		<value>zzgl.</value>
 	</data>
 </root>

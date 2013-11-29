@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="Bitboxx.DNNModules.BBStore.ViewProductGroup" AutoEventWireup="true" CodeBehind="ViewProductGroup.ascx.cs" %>
-<div class="bbstore-productgroup dnnClear">
+<div class="bbstore-productgroup dnnClear" id="maindiv" runat="server">
     <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="viewTemplate" runat="server">
             <asp:ListView ID="lstProductGroups" runat="server" GroupItemCount="3" 
@@ -15,7 +15,7 @@
                     <tr id="Tr1" runat="server"><td id="itemPlaceholder" /></tr>
                 </GroupTemplate>
                 <ItemTemplate>
-                    <td id="Td1" runat="server" style="text-align:center;vertical-align:top">
+                    <td id="Td1" runat="server" class="bbstore-productgroup-list">
                         <asp:LinkButton ID="lnkProductGroup" runat="server"  CommandName="Select">
                             <asp:PlaceHolder ID="productGroupPlaceHolder" runat="server" />
                         </asp:LinkButton>
@@ -29,7 +29,7 @@
                 runat="server" ExpandDepth="0"
                 ontreenodepopulate="treeProductGroup_TreeNodePopulate" 
                 onselectednodechanged="treeProductGroup_SelectedNodeChanged" 
-			    Style="width:10px" CssClass="bbstore-productgroup-tree" NodeIndent="15">
+			    CssClass="bbstore-productgroup-tree" NodeIndent="15">
             </asp:TreeView>
         </asp:View>
 	    <asp:View ID="viewDropDown" runat="server">

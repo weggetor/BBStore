@@ -132,4 +132,7 @@
 	<data name="Configure.Message" xml:space="preserve">
 		<value>Bitte konfigurieren Sie das BBStore Productgroup Modul </value>
 	</data>
+	<data name="MainProductGroup.Text" xml:space="preserve">
+		<value>Produkte</value>
+	</data>
 </root>

@@ -118,10 +118,10 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="lblCost.Text" xml:space="preserve">
-    <value>Für die Verwendung von Nachnahme berechnen wir eine Gebühr von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Verwendung von Nachnahme berechnen wir eine Gebühr von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblDiscount.Text" xml:space="preserve">
-    <value>Für die Verwendung von Nachnahme gewähren wir einen Rabatt von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Verwendung von Nachnahme gewähren wir einen Rabatt von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblDescription.Text" xml:space="preserve">
 		<value>&lt;p&gt;Zahlung per Nachnahme bedeutet, dass Sie die Ware direkt beim Postboten an der Haustür bezahlen. Sie bestellen die Ware und bei Erhalt wird die komplette Bestellung bezahlt.&lt;br/&gt;&lt;br/&gt;{0}&lt;/p&gt;</value>
@@ -129,4 +129,14 @@
 	<data name="lblFree.Text" xml:space="preserve">
 		<value>Diese Zahlungsart ist für Sie &lt;b&gt;komplett kostenlos&lt;/b&gt;. </value>
 	</data>
+	<data name="lblPercentage.Text" xml:space="preserve">
+		<value>{0:f1} Prozent des Gesamtbetrags</value>
+	</data>
+	<data name="lblFixed.Text" xml:space="preserve">
+		<value>{0:f2} Pauschale</value>
+	</data>
+	<data name="lblConcat.Text" xml:space="preserve">
+		<value>zzgl.</value>
+	</data>
+	
 </root>

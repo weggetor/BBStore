@@ -46,7 +46,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Product Search",5, "BBStore Product Search", "BBStore Product Search", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net")]
+    [DNNtc.PackageProperties("BBStore Product Search",5, "BBStore Product Search", "BBStore Product Search", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
     [DNNtc.ModuleProperties("BBStore Product Search", "BBStore Search", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Product Search", DNNtc.ControlType.View, "", true, false)]
 	partial class ViewSearch : PortalModuleBase, IActionable
@@ -137,6 +137,7 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			try
 			{
+			    bool showReset = false;
                 lblCurrency.Text = Currency;
 				
 				// Search ProductGroup
@@ -144,17 +145,9 @@ namespace Bitboxx.DNNModules.BBStore
 				List<ProductFilterInfo> pgf = Controller.GetProductFilter(PortalId, FilterSessionId, "ProductGroup");
 				if (pgf.Count > 0)
 				{
-					string[] values = pgf[0].FilterValue.Split('|');
+				    showReset = true;
+                    string[] values = pgf[0].FilterValue.Split('|');
 					_productGroupId = Convert.ToInt32(values[0]);
-				}
-
-				if (Settings["ResetSearchEnabled"] != null && Convert.ToBoolean(Settings["ResetSearchEnabled"]))
-				{
-					pnlSearchReset.Visible = true;
-				}
-				else
-				{
-					pnlSearchReset.Visible = false;
 				}
 
 				if (Settings["ProductGroupSearchEnabled"] != null && Convert.ToBoolean(Settings["ProductGroupSearchEnabled"]))
@@ -171,7 +164,8 @@ namespace Bitboxx.DNNModules.BBStore
 				List<ProductFilterInfo> pfl = Controller.GetProductFilter(PortalId, FilterSessionId, "FeatureList");
 				if (pfl.Count > 0)
 				{
-					string[] values = pfl[0].FilterValue.Split('|');
+				    showReset = true;
+                    string[] values = pfl[0].FilterValue.Split('|');
 
 					int FeatureListId = Convert.ToInt32(values[0]);
 					FeatureListInfo fli = Controller.GetFeatureListById(FeatureListId,CurrentLanguage);
@@ -200,7 +194,8 @@ namespace Bitboxx.DNNModules.BBStore
 					}
 					else
 					{
-						MultiViewText.ActiveViewIndex = 1;
+					    showReset = true;
+                        MultiViewText.ActiveViewIndex = 1;
 						FilterValueText = fi[0].FilterValue;
 					}
 				}
@@ -217,7 +212,8 @@ namespace Bitboxx.DNNModules.BBStore
 						List<ProductFilterInfo> fi = Controller.GetProductFilter(PortalId, FilterSessionId, "StaticSearch");
 						if (fi.Count > 0 && fi[0].FilterValue != String.Empty)
 						{
-							MultiViewStatic.ActiveViewIndex = 1;
+						    showReset = true;
+                            MultiViewStatic.ActiveViewIndex = 1;
 							FilterValueStatic = Convert.ToInt32(fi[0].FilterValue);
 							StaticFilterInfo actFilter = sf.Find(x => x.StaticFilterId == FilterValueStatic);
 							if (actFilter != null)
@@ -249,7 +245,8 @@ namespace Bitboxx.DNNModules.BBStore
 					}
 					else
 					{
-						MultiViewPrice.ActiveViewIndex = 1;
+					    showReset = true;
+                        MultiViewPrice.ActiveViewIndex = 1;
 						FilterValuePrice = fi[0].FilterValue;
 					}
 				}
@@ -259,13 +256,19 @@ namespace Bitboxx.DNNModules.BBStore
 				// Search for Features
 				if (Settings["FeatureSearchEnabled"] != null && Convert.ToBoolean(Settings["FeatureSearchEnabled"]))
 				{
-					pnlFeatures.Visible = true;
+                    List<ProductFilterInfo> fi = Controller.GetProductFilter(PortalId, FilterSessionId, "FeatureSearch");
+                    if (fi.Count > 0 && fi[0].FilterValue != String.Empty)
+					    showReset = true;
+                    pnlFeatures.Visible = true;
 					FeatureGrid.ProductGroupId = _productGroupId;
 					FeatureGrid.FilterSessionId = FilterSessionId;
 					FeatureGrid.SearchTabId = DynamicPage;
 				}
 				else
 				    pnlFeatures.Visible = false;
+
+			    pnlSearchReset.Visible = (Settings["ResetSearchEnabled"] != null && Convert.ToBoolean(Settings["ResetSearchEnabled"]) && showReset);
+
 			}
 			catch (Exception exc)
 			{

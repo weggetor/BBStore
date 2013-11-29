@@ -18,20 +18,11 @@
 // DEALINGS IN THE SOFTWARE. 
 // 
 
+using DotNetNuke.Common;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Services.Exceptions;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Resources;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bitboxx.DNNModules.BBStore.Providers.Payment;
-using DotNetNuke.Common;
-using DotNetNuke.Common.Utilities;
-using DotNetNuke.Entities.Modules;
-using DotNetNuke.Entities.Modules.Actions;
-using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Services.Localization;
 
 namespace Bitboxx.DNNModules.BBStore
 {

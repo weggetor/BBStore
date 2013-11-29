@@ -49,6 +49,7 @@ namespace Bitboxx.DNNModules.BBStore
 		public List<CartAddressInfo> CartAddresses { get; set; }
 		public List<CartAdditionalCostInfo> CartAdditionalCosts { get; set; }
 		public List<CartProductInfo> CartProducts { get; set; }
+        public DateTime CreatedOnDate { get; set; }
 	}
 }
 

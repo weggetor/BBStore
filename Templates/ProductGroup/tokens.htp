@@ -1,6 +1,8 @@
 ﻿Please select a template or create a new for the product groups. You can use the following tokens:<br />
 <ul style="color:black;">
 	<li>[PRODUCTGROUPNAME] = Product Group Name</li>
+	<li>[PRODUCTGROUPSHORTDESCRIPTION] = Product Group Short Description</li>
+	<li>[PRODUCTGROUPDESCRIPTION] = Product Group Description</li>
 	<li>[IMAGE] = Product Group Image (orig. Width)</li>
 	<li>[IMAGE:width] = Product Group Image (Width in pixel)</li>
 	<li>[ICON] = Product Group Icon</li>

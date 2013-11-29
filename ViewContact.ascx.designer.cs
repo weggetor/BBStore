@@ -49,15 +49,6 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trCompany;
         
         /// <summary>
-        /// lblContactCompany control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactCompany;
-        
-        /// <summary>
         /// txtContactCompany control.
         /// </summary>
         /// <remarks>
@@ -83,15 +74,6 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trPrefix;
-        
-        /// <summary>
-        /// lblContactPrefix control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactPrefix;
         
         /// <summary>
         /// txtContactPrefix control.
@@ -121,15 +103,6 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trFirstname;
         
         /// <summary>
-        /// lblContactFirstname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactFirstname;
-        
-        /// <summary>
         /// txtContactFirstname control.
         /// </summary>
         /// <remarks>
@@ -157,15 +130,6 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trLastname;
         
         /// <summary>
-        /// lblContactLastname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactLastname;
-        
-        /// <summary>
         /// txtContactLastname control.
         /// </summary>
         /// <remarks>
@@ -191,24 +155,6 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trStreet;
-        
-        /// <summary>
-        /// lblContactStreet control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactStreet;
-        
-        /// <summary>
-        /// lblContactUnit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactUnit;
         
         /// <summary>
         /// txtContactStreet control.
@@ -247,15 +193,6 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trRegion;
         
         /// <summary>
-        /// lblContactRegion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactRegion;
-        
-        /// <summary>
         /// txtContactRegion control.
         /// </summary>
         /// <remarks>
@@ -281,15 +218,6 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trCity;
-        
-        /// <summary>
-        /// lblContactPostalcode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactPostalcode;
         
         /// <summary>
         /// txtContactPostalcode control.
@@ -328,15 +256,6 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trCountry;
         
         /// <summary>
-        /// lblContactCountry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactCountry;
-        
-        /// <summary>
         /// ddlCountry control.
         /// </summary>
         /// <remarks>
@@ -362,15 +281,6 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trPhone;
-        
-        /// <summary>
-        /// lblContactTelephone control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactTelephone;
         
         /// <summary>
         /// txtContactTelephone control.
@@ -400,15 +310,6 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trCell;
         
         /// <summary>
-        /// lblContactCell control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactCell;
-        
-        /// <summary>
         /// txtContactCell control.
         /// </summary>
         /// <remarks>
@@ -436,15 +337,6 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trFax;
         
         /// <summary>
-        /// lblContactFax control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactFax;
-        
-        /// <summary>
         /// txtContactFax control.
         /// </summary>
         /// <remarks>
@@ -470,15 +362,6 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trEmail;
-        
-        /// <summary>
-        /// lblContactEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactEmail;
         
         /// <summary>
         /// txtContactEmail control.

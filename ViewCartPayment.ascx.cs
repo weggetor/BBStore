@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -102,15 +103,18 @@ namespace Bitboxx.DNNModules.BBStore
 			        SubscriberPaymentProviderComparer comp = new SubscriberPaymentProviderComparer();
 			        SubscriberPaymentProvider.Sort(comp);
 
-			        // Coming from external payment ?
+                    // Coming from external payment ?
                     if (Request["result"] == "success")
-			        {
-			            int paymentProviderId = Convert.ToInt32(Request["provider"]);
-			            if (paymentProviderId == 5) // paypal
-			            {
-			                VerifyPaypalCheckout(paymentProviderId);
-			            }
-			        }
+                    {
+                        int subscriberPaymentProviderId = Convert.ToInt32(Request["provider"]);
+                        var selectedSubscriberPaymentProvider = (from s in SubscriberPaymentProvider
+                                                                 where s.SubscriberPaymentProviderId == subscriberPaymentProviderId
+                                                                 select s).FirstOrDefault();
+                        if (selectedSubscriberPaymentProvider != null && selectedSubscriberPaymentProvider.PaymentProviderId == 5) // paypal
+                        {
+                            VerifyPaypalCheckout(selectedSubscriberPaymentProvider);
+                        }
+                    }
                     if (Request["result"] == "cancel")
                     {
                         // Wir setzen den gewählten Paymentprovider zurück
@@ -150,6 +154,7 @@ namespace Bitboxx.DNNModules.BBStore
 	                ctrl.EnableViewState = true;
 	                ctrl.Properties = spp.PaymentProviderProperties;
 	                ctrl.Cost = spp.Cost;
+	                ctrl.CostPercent = spp.CostPercent;
 	                ctrl.TaxPercent = spp.TaxPercent;
 	                ctrl.PaymentProviderId = spp.PaymentProviderId;
                     ctrl.ShowNetprice = MainControl.ShowNetPrice;
@@ -273,21 +278,6 @@ namespace Bitboxx.DNNModules.BBStore
             Controller.UpdateCartCustomerPaymentProviderId(MainControl.CartId, customerPaymentProviderId);
             // and set the ID on our Cart Variable
             MainControl.Cart.CustomerPaymentProviderID = customerPaymentProviderId;
-
-            // Last we eventually have to add extra cost to CartAdditionalCost
-            Controller.DeleteCartAdditionalCost(MainControl.CartId, "PAYMENT");
-            if (pp.Cost != 0)
-            {
-                CartAdditionalCostInfo addCost = new CartAdditionalCostInfo();
-                addCost.CartId = MainControl.CartId;
-                addCost.Area = "PAYMENT";
-                // TODO: Etwas besseres als den Title finden für den Text im Warenkorb
-                addCost.Name = pp.Title;
-                addCost.Quantity = 1m;
-                addCost.UnitCost = pp.Cost;
-                addCost.TaxPercent = pp.TaxPercent;
-                Controller.NewCartAdditionalCost(addCost);
-            }
 		}
 
 	    private void StartPaypalCheckout(string properties, int paymentProviderId)
@@ -348,39 +338,38 @@ namespace Bitboxx.DNNModules.BBStore
 	        }
 	    }
 
-	    private void VerifyPaypalCheckout(int paymentProviderId)
-	    {
-	        string token = Request["token"];
-	        SubscriberPaymentProviderInfo subscriberPaymentProvider = Controller.GetSubscriberPaymentProvider(PortalId, MainControl.Cart.SubscriberID, paymentProviderId);
-	        if (subscriberPaymentProvider != null)
-	        {
-	            string[] userCredentials = subscriberPaymentProvider.PaymentProviderProperties.Split(',');
-	            PaypalUserCredentials cred = new PaypalUserCredentials(userCredentials[0], userCredentials[1], userCredentials[2]);
+        private void VerifyPaypalCheckout(SubscriberPaymentProviderInfo subscriberPaymentProvider)
+        {
+            string token = Request["token"];
+            if (subscriberPaymentProvider != null)
+            {
+                string[] userCredentials = subscriberPaymentProvider.PaymentProviderProperties.Split(',');
+                PaypalUserCredentials cred = new PaypalUserCredentials(userCredentials[0], userCredentials[1], userCredentials[2]);
                 PaypalApi.UseSandbox = (userCredentials.Length == 3 || (userCredentials.Length > 3 && Convert.ToBoolean(userCredentials[3]) == true));
-	            string response = PaypalApi.GetExpressCheckoutDetails(cred, token);
-	            PaypalCommonResponse ppCommon = new PaypalCommonResponse(response);
-	            if (ppCommon.Ack == PaypalAckType.Success)
-	            {
-	                // TODO: Paypal Payerinfo auswerten ?
+                string response = PaypalApi.GetExpressCheckoutDetails(cred, token);
+                PaypalCommonResponse ppCommon = new PaypalCommonResponse(response);
+                if (ppCommon.Ack == PaypalAckType.Success)
+                {
+                    // TODO: Paypal Payerinfo auswerten ?
                     PaypalPayerInfo payer = new PaypalPayerInfo(response);
-	                CustomerPaymentProviderInfo customerPaymentProvider = Controller.GetCustomerPaymentProvider(MainControl.Cart.CustomerPaymentProviderID);
-	                
+                    CustomerPaymentProviderInfo customerPaymentProvider = Controller.GetCustomerPaymentProvider(MainControl.Cart.CustomerPaymentProviderID);
+
                     // Save token and payerid in customerpaymentprovider for later confirmation of payment in paypal
                     customerPaymentProvider.PaymentProviderValues = ppCommon.Token + "," + payer.PayerId;
-	                Controller.UpdateCustomerPaymentProvider(customerPaymentProvider);
+                    Controller.UpdateCustomerPaymentProvider(customerPaymentProvider);
                     Response.Redirect(Globals.NavigateURL(TabId, "", "action=" + MainControl.GetNextAction()));
-	            }
-	            else
-	            {
-	                string message = "";
-	                foreach (PaypalError error in ppCommon.Errors)
-	                {
+                }
+                else
+                {
+                    string message = "";
+                    foreach (PaypalError error in ppCommon.Errors)
+                    {
                         message += String.Format("ErrorNo:{0} Message {1}<br/>\r\n", error.ErrorNo, error.LongMessage);
-	                }
-	                MainControl.ErrorText += message;
-	            }
-	        }
-	    }
+                    }
+                    MainControl.ErrorText += message;
+                }
+            }
+        }
 
         private Control FindControlRecursive(Control rootControl, string controlID)
         {

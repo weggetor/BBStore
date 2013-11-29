@@ -87,22 +87,39 @@ namespace Bitboxx.DNNModules.BBStore.Providers.Payment
                     pnlShow.SetActiveView(Edit);
                     break;
                 case ViewMode.Summary:
-                    pnlShow.SetActiveView(Summery);
+                    pnlShow.SetActiveView(Summary);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            string cost = "";
-            if (this.cost > 0)
-                cost = String.Format(Localization.GetString("lblCost.Text", this.LocalResourceFile), this.cost * (ShowNetprice ? 1 : (100 + TaxPercent) / 100));
-            else if (this.cost < 0)
-                cost = String.Format(Localization.GetString("lblDiscount.Text", this.LocalResourceFile), (-1) * this.cost * (ShowNetprice ? 1 : (100 + TaxPercent) / 100));
+            string description = "";
+            decimal fixedAmount = 0.0m;
+            if (this._cost > 0)
+            {
+                description = LocalizeString("lblCost.Text");
+                fixedAmount = this._cost * (ShowNetprice ? 1 : (100 + TaxPercent) / 100);
+            }
+            else if (this._cost < 0)
+            {
+                description = LocalizeString("lblDiscount.Text");
+                fixedAmount = (-1) * this._cost * (ShowNetprice ? 1 : (100 + TaxPercent) / 100);
+            }
             else
-                cost = Localization.GetString("lblFree.Text", this.LocalResourceFile);
+            {
+                description = LocalizeString("lblFree.Text");
+            }
 
+            string costText = "";
+            if (this._cost != 0 && this._costPercent != 0)
+                costText = String.Format(LocalizeString("lblFixed.Text"), fixedAmount) + " " + LocalizeString("lblConcat.Text") + " " + String.Format(LocalizeString("lblPercentage.Text"), this._costPercent);
+            else if (this._cost != 0)
+                costText = String.Format(LocalizeString("lblFixed.Text"), fixedAmount);
+            else if (this._costPercent != 0)
+                costText = String.Format(LocalizeString("lblPercentage.Text"), this._costPercent);
 
-            lblDescription.Text = String.Format(Localization.GetString("lblDescription.Text", this.LocalResourceFile), cost);
+            lblDescription.Text = String.Format(LocalizeString("lblDescription.Text"), String.Format(description, costText));
+
             txtAccountNo.Attributes.Add("onblur", "CreateIBAN(" + ddlCountry.ClientID + "," + txtBin.ClientID + "," + txtAccountNo.ClientID + "," + txtIban.ClientID + "," + hidValid.ClientID + ");");
             txtIban.Attributes.Add("onblur", "CheckIBAN(" + ddlCountry.ClientID + "," + txtBin.ClientID + "," + txtAccountNo.ClientID + "," + txtIban.ClientID + "," + hidValid.ClientID + ");");
             txtBic.Attributes.Add("onblur", "CheckBic(" + txtBic.ClientID + ");");

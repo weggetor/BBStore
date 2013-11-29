@@ -23,6 +23,7 @@ namespace Bitboxx.DNNModules.BBStore
             Control = "";
             ControlProps = "";
         }
+
 		public OptionListInfo(string opName, string opDim, string opValue, decimal opPrice, byte[] opImage, string opDesc, bool isMandatory, bool isDefault, bool askImage, bool askDesc, bool showDiff, string control, string controlProps)
         {
             OptionName = opName;

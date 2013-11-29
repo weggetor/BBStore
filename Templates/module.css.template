@@ -6,11 +6,12 @@ COLORALT : [COLORALT];
 COLORSUM : [COLORSUM];
 */
 /* Fix for DNN 7 */
-.dnnFormItem label, .dnnFormItem .dnnFormLabel, .dnnFormItem .dnnTooltip { display: block; float: left; font-weight: bold; margin-right: 16px; margin-top: 3px; text-align: right; width: 30%; }
+/*.dnnFormItem label, .dnnFormItem .dnnFormLabel, .dnnFormItem .dnnTooltip { display: block; float: left; font-weight: bold; margin-right: 16px; margin-top: 3px; text-align: right; width: 30%; }*/
 
 /* General */
 .bbstore-grid, .bbstore-grid td { background-color:White; border-color:[COLORBORDER]; border-style:none; border-width:1px; padding:3px ! important; font-size: 12px; }
 .bbstore-grid-header, .bbstore-grid-header th { background-color:[COLORHEAD]; font-weight:bold; color:White; padding:3px ! important; }
+.bbstore-grid-headerrow { background-color:[COLORALT]; vertical-align:top; }
 .bbstore-grid-row, .bbstore-grid-row td { background-color:[COLORROW]; color:Black; vertical-align:top; }
 .bbstore-grid-alternaterow, .bbstore-grid-alternaterow td { background-color:[COLORALT]; vertical-align:top; }
 .bbstore-grid-caption { text-decoration:none; }
@@ -57,6 +58,8 @@ COLORSUM : [COLORSUM];
 
 /* ProductGroup Module */
 .bbstore-productgroup-tree td { padding-left: 5px!important;}
+.bbstore-productgroup-treenode {width:99%!important;}
+.bbstore-productgroup-list {text-align:center; vertical-align:top}
 
 /* Admin module */
 .bbstore-admin .bbTopic { display: table-cell; text-align: center; padding: 30px; }
@@ -64,7 +67,7 @@ COLORSUM : [COLORSUM];
 .bbstore-admin .bbSection { border-bottom: #000 1px solid; padding-bottom: 20px;}
 .bbstore-admin .bbAction { margin-left: 20px;}
 .bbstore-admin .dnnFormMessage { display: block;}
-.bbstore-admin .dnnFormItem input[type="text"],.bbstore-admin .dnnFormItem textarea {min-width:0;}
+.bbstore-admin .dnnFormItem input[type="text"],.bbstore-admin-view .dnnFormItem textarea {min-width:0; width: auto;}
 .bbstore-admin .bbFormInput { background-color: #d6d6d6;}
 
 
@@ -89,10 +92,12 @@ COLORSUM : [COLORSUM];
 .bbstore-admin-editgrid-pager td { color:#333333!important; }
 
 /* Search module */
-.bbstore-search-value { font-size:smaller; color: Red; }
-.bbstore-search-title { font-size:smaller; }
+.bbstore-search-title { font-size:90%; font-weight:bold }
+.bbstore-search-value { font-size:80%; color: Red; }
+.bbstore-search-select { font-size:80%; }
 
 /* Tax Control */
+.bb-taxcontrol { display: inline;}
 .bb-taxcontrol-radiobutton label, .bb-taxcontrol-textbox {width:auto;}
 .bb-taxcontrol-radiobutton input {margin-left:5px;}
 

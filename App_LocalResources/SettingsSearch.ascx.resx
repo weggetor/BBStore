@@ -117,22 +117,55 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="cmdEdit.Text" xml:space="preserve">
-    <value>Edit Product Groups</value>
-  </data>
-	<data name="ShowAll.Text" xml:space="preserve">
-    <value>(Show all)</value>
-  </data>
-	<data name="Select.Text" xml:space="preserve">
-    <value>(Please select)</value>
-  </data>
-	<data name="AllGroups.Text" xml:space="preserve">
-    <value>All Productgroups</value>
-  </data>
-	<data name="Configure.Message" xml:space="preserve">
-		<value>Please configure the BBStore productgroup module first</value>
+	<data name="lblPriceSearchEnabled.Text" xml:space="preserve">
+		<value>Enable Price Search</value>
 	</data>
-	<data name="MainProductGroup.Text" xml:space="preserve">
-		<value>Products</value>
+	<data name="lblPriceSearchEnabled.Help" xml:space="preserve">
+		<value>Check if you want to allow search by price</value>
+	</data>
+	<data name="lblTextSearchEnabled.Text" xml:space="preserve">
+		<value>Enable Text Search</value>
+	</data>
+	<data name="lblTextSearchEnabled.Help" xml:space="preserve">
+		<value>Check if you want to allow search by text</value>
+	</data>
+	<data name="lblDynamicPage.Help" xml:space="preserve">
+		<value>Please select the page with a BBStore product list module (normally: this page)</value>
+	</data>
+	<data name="lblDynamicPage.Text" xml:space="preserve">
+		<value>Page Product List Module</value>
+	</data>
+	<data name="lblProductGroupSearchEnabled.Help" xml:space="preserve">
+		<value>Check if you want to be able to delete ProductGroup - Selection in Search Module</value>
+	</data>
+	<data name="lblProductGroupSearchEnabled.Text" xml:space="preserve">
+		<value>Enable ProductGroup Search</value>
+	</data>
+	<data name="ControlTitle_settings.Text" xml:space="preserve">
+		<value>BBStore Product Search Settings</value>
+	</data>
+	<data name="lblFeatureSearchEnabled.Text" xml:space="preserve">
+		<value>Enable Feature Search</value>
+	</data>
+	<data name="lblFeatureSearchEnabled.Help" xml:space="preserve">
+		<value>Check if you want to enable feature search</value>
+	</data>
+	<data name="lblStaticSearchEnabled.Text" xml:space="preserve">
+		<value>Enable Static Search</value>
+	</data>
+	<data name="lblStaticSearchEnabled.Help" xml:space="preserve">
+		<value>Check if you want to be able to choose from special selections (discounts, new products ...)</value>
+	</data>
+	<data name="lblResetSearchEnabled.Text" xml:space="preserve">
+		<value>Enable "Reset All Filters"</value>
+	</data>
+	<data name="lblResetSearchEnabled.Help" xml:space="preserve">
+		<value>Check if a button for deleting all filters should be shown</value>
+	</data>
+	<data name="lblResetSearchPGEnabled.Text" xml:space="preserve">
+		<value>"Reset" - ProductGroup too</value>
+	</data>
+	<data name="lblResetSearchPGEnabled.Help" xml:space="preserve">
+		<value>Check if the delete filter button should reset the selected product group too</value>
 	</data>
 </root>

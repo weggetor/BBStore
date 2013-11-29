@@ -23,7 +23,8 @@ namespace DNNtc
         /// <param name="ownerOrganization">Organization of owner</param>
         /// <param name="ownerUrl">Url of owner</param>
         /// <param name="ownerEmail">Email of owner</param>
-        public PackageProperties(string name, int viewOrder, string friendlyName, string description, string iconFile, string ownerName, string ownerOrganization, string ownerUrl, string ownerEmail)
+        /// <param name="azureCompatible">Flag for Azure Compatibility</param>
+        public PackageProperties(string name, int viewOrder, string friendlyName, string description, string iconFile, string ownerName, string ownerOrganization, string ownerUrl, string ownerEmail, bool azureCompatible)
         {
             //Intentially left empty
         }
@@ -123,7 +124,7 @@ namespace DNNtc
         }
     }
 
-#endregion
+    #endregion
 
     #region Helper Enumerations
 

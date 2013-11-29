@@ -9,6 +9,7 @@ COLORSUM : #A0AFEB;
 /* General */
 .bbstore-grid, .bbstore-grid td { background-color:White; border-color:#999999; border-style:none; border-width:1px; padding:3px ! important; font-size: 12px; }
 .bbstore-grid-header, .bbstore-grid-header th { background-color:#000084; font-weight:bold; color:White; padding:3px ! important; }
+.bbstore-grid-headerrow { background-color:#DCDCDC; vertical-align:top; }
 .bbstore-grid-row, .bbstore-grid-row td { background-color:#EEEEEE; color:Black; vertical-align:top; }
 .bbstore-grid-alternaterow, .bbstore-grid-alternaterow td { background-color:#DCDCDC; vertical-align:top; }
 .bbstore-grid-caption { text-decoration:none; }
@@ -55,7 +56,9 @@ COLORSUM : #A0AFEB;
 .bbstore-product-discountenabled .bbstore-product-price-mm  { color: #3cb371;}
 
 /* ProductGroup Module */
-.bbstore-productgroup-tree td { padding-left: 5px!important;}
+.bbstore-productgroup-tree td { padding-left: 5px!important}
+.bbstore-productgroup-treenode {width:99%!important;}
+.bbstore-productgroup-list {text-align:center; vertical-align:top}
 
 /* Admin module */
 .bbstore-admin .bbTopic { display: table-cell; text-align: center; padding: 30px; }
@@ -63,7 +66,7 @@ COLORSUM : #A0AFEB;
 .bbstore-admin .bbSection { border-bottom: #000 1px solid; padding-bottom: 20px;}
 .bbstore-admin .bbAction { margin-left: 20px;}
 .bbstore-admin .dnnFormMessage { display: block;}
-.bbstore-admin .dnnFormItem input[type="text"],.bbstore-admin-view .dnnFormItem textarea {min-width:0;}
+.bbstore-admin .dnnFormItem input[type="text"],.bbstore-admin-view .dnnFormItem textarea {min-width:0; width: auto;}
 .bbstore-admin .bbFormInput { background-color: #d6d6d6;}
 
 
@@ -88,10 +91,12 @@ COLORSUM : #A0AFEB;
 .bbstore-admin-editgrid-pager td { color:#333333!important; }
 
 /* Search module */
-.bbstore-search-value { font-size:smaller; color: Red; }
-.bbstore-search-title { font-size:smaller; }
+.bbstore-search-title { font-size:90%; font-weight:bold }
+.bbstore-search-value { font-size:80%; color: Red; }
+.bbstore-search-select { font-size:80%; }
 
 /* Tax Control */
+.bb-taxcontrol { display: inline;}
 .bb-taxcontrol-radiobutton label, .bb-taxcontrol-textbox {width:auto;}
 .bb-taxcontrol-radiobutton input {margin-left:5px;}
 

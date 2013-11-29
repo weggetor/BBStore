@@ -18,6 +18,7 @@ namespace Bitboxx.DNNModules.BBStore
             PaymentProviderProperties = "";
             IsEnabled = false;
         	TaxPercent = 0.00m;
+            CostPercent = 0.0m;
         }
         public int SubscriberPaymentProviderId { get; set; }
         public int PortalId { get; set; }
@@ -26,7 +27,8 @@ namespace Bitboxx.DNNModules.BBStore
         public int ViewOrder { get; set; }
         public string PaymentProviderProperties { get; set; }
         public decimal Cost { get; set; }
-		public decimal TaxPercent { get; set; }
+        public decimal CostPercent { get; set; }
+        public decimal TaxPercent { get; set; }
         public Boolean IsEnabled { get; set; }
         public string Role { get; set; }
 

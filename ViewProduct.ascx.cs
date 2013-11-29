@@ -23,6 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -52,7 +53,7 @@ namespace Bitboxx.DNNModules.BBStore
     /// <history> 
     /// </history> 
     /// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Product",1, "BBStore Product", "BBStore Product", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net")]
+    [DNNtc.PackageProperties("BBStore Product",1, "BBStore Product", "BBStore Product", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
     [DNNtc.ModuleProperties("BBStore Product", "BBStore Product", 0)]
     [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.CoreVersion, "06.00.00")]
     [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.Package, "BBImageHandler")]
@@ -460,7 +461,6 @@ namespace Bitboxx.DNNModules.BBStore
 						
 						// Parse the attributes and fill ProductOption
 						ParseAttributes(AttrLines);
-                    	
 						ProductOptionSelect.ShowNetPrice = showNetPrice;
                     	ProductOptionSelect.Product = SimpleProduct;
                         ProductOptionSelect.ProductOptions = ProductOptions;
@@ -479,7 +479,6 @@ namespace Bitboxx.DNNModules.BBStore
                     //Module failed to load 
                     Exceptions.ProcessModuleLoadException(this, exc);
                 }
-				
             }
         }
 
@@ -697,63 +696,71 @@ namespace Bitboxx.DNNModules.BBStore
                     Decimal.TryParse(txtAmount.Text, out Amount);
                 }
 
+                // Determine ShippingModel
+                int shippingModelId = -1;
+                ProductShippingModelInfo productShippingModel = Controller.GetProductShippingModelsByProduct(SimpleProduct.SimpleProductId).FirstOrDefault();
+                if (productShippingModel != null)
+                    shippingModelId = productShippingModel.ShippingModelId;
+                
                 // First add / update the Product in Cart
-            	CartProductInfo Product;
+            	CartProductInfo cartProduct;
             	bool isUpdate = false;
 				if (Request.QueryString["cpoid"] != null)
 				{
-					Product = Controller.GetCartProduct(Convert.ToInt32(Request.QueryString["cpoid"]));
+					cartProduct = Controller.GetCartProduct(Convert.ToInt32(Request.QueryString["cpoid"]));
 					isUpdate = true;
 				}
 				else
 				{
-					Product = Controller.GetCartProductByProductIdAndSelectedOptions(CartId, SimpleProduct.SimpleProductId, ProductOptionSelect.SelectedOptions);
+					cartProduct = Controller.GetCartProductByProductIdAndSelectedOptions(CartId, SimpleProduct.SimpleProductId, ProductOptionSelect.SelectedOptions);
 				}
                 int CartProductId;
-                if (Product == null)
+                if (cartProduct == null)
                 {
-                    Product = new CartProductInfo();
-                    Product.CartId = CartId;
-                    Product.ProductId = SimpleProduct.SimpleProductId;
-                    Product.Image = SimpleProduct.Image;
-                    Product.ItemNo = SimpleProduct.ItemNo;
-                    Product.Name = SimpleProduct.Name;
-                    Product.TaxPercent = SimpleProduct.TaxPercent;
-                    Product.UnitCost = SimpleProduct.UnitCost;
-                    Product.Quantity = Amount;
+                    cartProduct = new CartProductInfo();
+                    cartProduct.CartId = CartId;
+                    cartProduct.ProductId = SimpleProduct.SimpleProductId;
+                    cartProduct.Image = SimpleProduct.Image;
+                    cartProduct.ItemNo = SimpleProduct.ItemNo;
+                    cartProduct.Name = SimpleProduct.Name;
+                    cartProduct.TaxPercent = SimpleProduct.TaxPercent;
+                    cartProduct.UnitCost = SimpleProduct.UnitCost;
+                    cartProduct.Quantity = Amount;
+                    cartProduct.Weight = SimpleProduct.Weight;
+                    cartProduct.ShippingModelId = shippingModelId;
                     if (SimpleProduct.UnitId > -1)
                     {
                         UnitInfo unit = Controller.GetUnit(SimpleProduct.UnitId, CurrentLanguage);
-                        Product.Unit = unit.Symbol;
-                        Product.Decimals = unit.Decimals;
-                        Product.Quantity = Math.Round(Amount, Product.Decimals);
+                        cartProduct.Unit = unit.Symbol;
+                        cartProduct.Decimals = unit.Decimals;
+                        cartProduct.Quantity = Math.Round(Amount, cartProduct.Decimals);
                     }
 
-                    Product.ProductDiscount = GetDiscountLine(SimpleProduct.Attributes);
-                    CartProductId = Controller.NewCartProduct(CartId, Product);
+                    cartProduct.ProductDiscount = GetDiscountLine(SimpleProduct.Attributes);
+                    CartProductId = Controller.NewCartProduct(CartId, cartProduct);
 
 					// Building the options list for ProductUrl
 					List<string> options = new List<string>();
-					options.Add("ProductId=" + Product.ProductId.ToString());
+					options.Add("ProductId=" + cartProduct.ProductId.ToString());
 					options.Add("cpoid=" + CartProductId);
 
-					Product.ProductUrl = Globals.NavigateURL(TabId, "", options.ToArray());
-                	Product.CartProductId = CartProductId;
-					Controller.UpdateCartProduct(Product);
+					cartProduct.ProductUrl = Globals.NavigateURL(TabId, "", options.ToArray());
+                	cartProduct.CartProductId = CartProductId;
+					Controller.UpdateCartProduct(cartProduct);
 
                 }
                 else 
                 {
-                    CartProductId = Product.CartProductId;
+                    CartProductId = cartProduct.CartProductId;
 
                     if (!isUpdate)
-                        Product.Quantity = Product.Quantity + Amount;
+                        cartProduct.Quantity = cartProduct.Quantity + Amount;
                     else
-                        Product.Quantity = Amount;
+                        cartProduct.Quantity = Amount;
 
-                    Product.Quantity = Math.Round(Product.Quantity, Product.Decimals);
+                    cartProduct.Quantity = Math.Round(cartProduct.Quantity, cartProduct.Decimals);
 
-                    Controller.UpdateCartProductQuantity(CartProductId, Product.Quantity);
+                    Controller.UpdateCartProductQuantity(CartProductId, cartProduct.Quantity);
                 }
                 // Next delete ProductOptions and add new
                 Controller.DeleteCartProductOptions(CartProductId);
@@ -775,9 +782,9 @@ namespace Bitboxx.DNNModules.BBStore
 				string returnUrl;
 				if (Request["productgroup"] != null)
 					returnUrl = Globals.NavigateURL(TabId, "", "productgroup=" + Request["productgroup"],
-													"productid=" + Product.ProductId.ToString());
+													"productid=" + cartProduct.ProductId.ToString());
 				else
-					returnUrl = Globals.NavigateURL(TabId, "", "productid=" + Product.ProductId.ToString());
+					returnUrl = Globals.NavigateURL(TabId, "", "productid=" + cartProduct.ProductId.ToString());
 
 				if (Settings["OpenCartOnAdd"] != null && Convert.ToBoolean(Settings["OpenCartOnAdd"]))
 				{

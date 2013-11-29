@@ -144,10 +144,10 @@
 	<data name="lblIncludeChilds.Text" xml:space="preserve">
     <value>Untergruppen-Artikel anzeigen</value>
   </data>
-	<data name="lblShowBreadCrumb.Help" xml:space="preserve">
+	<data name="lblShowBreadcrumb.Help" xml:space="preserve">
     <value>Ankreuzen, wenn der komplette Produktgruppen-Pfad ("Breadcrumb") angezeigt werden soll</value>
   </data>
-	<data name="lblShowBreadCrumb.Text" xml:space="preserve">
+	<data name="lblShowBreadcrumb.Text" xml:space="preserve">
     <value>Breadcrumb zeigen</value>
   </data>
 	<data name="lblViewMode.Help" xml:space="preserve">
@@ -190,7 +190,7 @@
     <value>Ankreuzen, wenn die selektierte Artikelgruppe als Modultitel angezeigt werden soll</value>
   </data>
 	<data name="lblSetTitle.Text" xml:space="preserve">
-    <value>Titel setzen</value>
+    <value>Artikelgruppe als Titel</value>
   </data>
 	<data name="lblShowProductCount.Text" xml:space="preserve">
     <value>Produktanzahl anzeigen</value>
@@ -229,15 +229,27 @@
 		<value>Hauptartikelgruppen Bild</value>
 	</data>
 	<data name="lblShowUpNavigation.Help" xml:space="preserve">
-		<value>Ankreuzen, wenn Sie eine Aufwärts-Navigations-Produktgruppe angezeigt bekommen wollen wenn Sie sich in einer Untergruppe befinden</value>
+		<value>Ankreuzen, wenn Sie die übergeordnete Produktgruppe zusätzlich angezeigt bekommen wollen wenn Sie sich in einer Untergruppe befinden</value>
 	</data>
 	<data name="lblShowUpNavigation.Text" xml:space="preserve">
-		<value>Aufwärtsnavigation anzeigen</value>
+		<value>Übergeordnete Artikelgruppe anzeigen</value>
 	</data>
 	<data name="lblRootLevelFixed.Help" xml:space="preserve">
 		<value>Ankreuzen, wenn die gewählte Basisartikelgruppe immer angezeigt werden soll</value>
 	</data>
 	<data name="lblRootLevelFixed.Text" xml:space="preserve">
 		<value>Feste Basisartikelgruppe</value>
+	</data>
+	<data name="lblShowThisNode.Text" xml:space="preserve">
+		<value>Aktuelle Produktgruppe anzeigen</value>
+	</data>
+	<data name="lblShowThisNode.Help" xml:space="preserve">
+		<value>Ankreuzen, wenn Sie die aktuelle Produktgruppe angezeigt bekommen wollen</value>
+	</data>
+	<data name="lblShowSubNodes.Text" xml:space="preserve">
+		<value>Unterproduktgruppen anzeigen</value>
+	</data>
+	<data name="lblShowSubNodes.Help" xml:space="preserve">
+		<value>Ankreuzen, wenn Sie die untergeordneten Produktgruppen anzeigen wollen</value>
 	</data>
 </root>

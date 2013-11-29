@@ -130,10 +130,10 @@
     <value>BIC / SWIFT</value>
   </data>
 	<data name="lblCost.Text" xml:space="preserve">
-    <value>plus &lt;strong&gt;{0:n2}&lt;/strong&gt; extra fee for using debit payment</value>
+    <value>plus &lt;strong&gt;{0}&lt;/strong&gt; extra fee for using debit payment</value>
   </data>
 	<data name="lblDiscount.Text" xml:space="preserve">
-    <value>minus &lt;strong&gt;{0:n2}&lt;/strong&gt; discount for using debit payment</value>
+    <value>minus &lt;strong&gt;{0}&lt;/strong&gt; discount for using debit payment</value>
   </data>
 	<data name="lblIban.Text" xml:space="preserve">
 		<value>IBAN</value>
@@ -154,4 +154,13 @@ For commercial customers, we require in addition on a direct debit form. &lt;br/
 	<data name="lblFree.Text" xml:space="preserve">
 		<value>This payment procedure is for you &lt;b&gt;totally free&lt;/b&gt;.</value>
 	</data>
+	<data name="lblPercentage.Text" xml:space="preserve">
+		<value>{0:f1} Percent of order total</value>
+	</data>
+	<data name="lblConcat.Text" xml:space="preserve">
+		<value>and</value>
+	</data>
+	<data name="lblFixed.Text" xml:space="preserve">
+		<value>{0:f2} Package</value>
+	</data>	
 </root>

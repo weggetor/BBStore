@@ -1,6 +1,8 @@
 ﻿Por favor, seleccione una plantilla o crear una nueva para los grupos de productos. Puede utilizar los siguientes símbolos:<br>
 <ul style="color:black;">
 	<li>[PRODUCTGROUPNAME] = nombre de grupo de producto</li>
+	<li>[PRODUCTGROUPSHORTDESCRIPTION] = Product Group Short Description</li>
+	<li>[PRODUCTGROUPDESCRIPTION] = Product Group Description</li>
 	<li>[IMAGE] = imagen de grupo de producto (original) (Anchura)</li>
 	<li>[IMAGE: ancho] = imagen de grupo de producto (ancho en píxeles)</li>
 	<li>[ICON] = icono de grupo de producto</li>

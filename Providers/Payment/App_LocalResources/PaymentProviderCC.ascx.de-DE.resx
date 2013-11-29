@@ -124,10 +124,10 @@
     <value>Kartennummer:</value>
   </data>
 	<data name="lblCost.Text" xml:space="preserve">
-    <value>Für die Verwendung von Lastschrift berechnen wir eine Gebühr von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Verwendung von Lastschrift berechnen wir eine Gebühr von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblDiscount.Text" xml:space="preserve">
-    <value>Für die Verwendung von Lastschrift gewähren wir einen Rabatt von &lt;strong&gt;{0:n2}&lt;/strong&gt;</value>
+    <value>Für die Verwendung von Lastschrift gewähren wir einen Rabatt von &lt;strong&gt;{0}&lt;/strong&gt;</value>
   </data>
 	<data name="lblDescription.Text" xml:space="preserve">
     <value>&lt;p&gt;Die Kreditkarte - Keine andere Zahlungsweise sorgt für eine gleichermaßen hohe Zufriedenheit unter Online-Kunden und Händlern wie die Zahlung per Kreditkarte. Internet-Käufer schätzen die einfache und schnelle Abwicklung mit Kreditkarten, die hohe Sicherheit und dass die Belastung des eigenen Kontos in der Regel erst zu einem späteren Zeitpunkt erfolgt.&lt;br/&gt;&lt;br/&gt;{0}&lt;/p&gt;</value>
@@ -146,5 +146,14 @@
 	</data>
 	<data name="lblCCType.Text" xml:space="preserve">
 		<value>Kartenart:</value>
+	</data>
+	<data name="lblPercentage.Text" xml:space="preserve">
+		<value>{0:f1} Prozent des Gesamtbetrags</value>
+	</data>
+	<data name="lblFixed.Text" xml:space="preserve">
+		<value>{0:f2} Pauschale</value>
+	</data>
+	<data name="lblConcat.Text" xml:space="preserve">
+		<value>zzgl.</value>
 	</data>
 </root>

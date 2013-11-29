@@ -19,13 +19,14 @@ namespace Bitboxx.DNNModules.BBStore.Providers.Payment
   		#region Protected Declarations
 		protected PortalModuleBase parentControl;
         protected string _properties = "";
-        protected string values;
-        protected ViewMode displayMode = ViewMode.View;
-        protected decimal cost;
-        protected string title;
-        protected int paymentProviderId;
-        protected decimal taxPercent = 19.0m;
-		protected bool showNetPrice = false;
+        protected string _values;
+        protected ViewMode _displayMode = ViewMode.View;
+        protected decimal _cost;
+        protected decimal _costPercent;
+        protected string _title;
+        protected int _paymentProviderId;
+        protected decimal _taxPercent = 19.0m;
+		protected bool _showNetPrice = false;
 		#endregion
 
 		#region Public Properties
@@ -41,13 +42,13 @@ namespace Bitboxx.DNNModules.BBStore.Providers.Payment
         }
         public int PaymentProviderId
         {
-            get { return paymentProviderId; }
-            set { paymentProviderId = value; }
+            get { return _paymentProviderId; }
+            set { _paymentProviderId = value; }
         }
         public virtual string Values
         {
-            get { return values; }
-            set { values = value; }
+            get { return _values; }
+            set { _values = value; }
         }
 		public virtual bool IsValid
 		{
@@ -55,28 +56,33 @@ namespace Bitboxx.DNNModules.BBStore.Providers.Payment
 		}
         public ViewMode DisplayMode
         {
-            get { return displayMode; }
-            set { displayMode = value; }
+            get { return _displayMode; }
+            set { _displayMode = value; }
         }
         public virtual decimal Cost
         {
-            get { return cost; }
-            set { cost = value; }
+            get { return _cost; }
+            set { _cost = value; }
+        }
+        public virtual decimal CostPercent
+        {
+            get { return _costPercent; }
+            set { _costPercent = value; }
         }
         public virtual decimal TaxPercent
         {
-            get { return taxPercent; }
-            set { taxPercent = value; }
+            get { return _taxPercent; }
+            set { _taxPercent = value; }
         }
         public virtual string Title
         {
-            get { return title; }
-            set { title = value; }
+            get { return _title; }
+            set { _title = value; }
         }
         public virtual bool ShowNetprice
 		{
-			get { return showNetPrice; }
-			set { showNetPrice = value; }
+			get { return _showNetPrice; }
+			set { _showNetPrice = value; }
 		}
  		#endregion
 
@@ -103,6 +109,8 @@ namespace Bitboxx.DNNModules.BBStore.Providers.Payment
             this.LocalResourceFile = Localization.GetResourceFile(this, this.GetType().BaseType.Name + ".ascx");
 			base.OnLoad(e);
 		}
+
+
 		#endregion
 	}
 }
