@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,131 +59,122 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="lblAdrEditCell.Text" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lblAdrEditCell.Text" xml:space="preserve">
     <value>Cell</value>
   </data>
-	<data name="lblAdrEditCountry.Text" xml:space="preserve">
+  <data name="lblAdrEditCountry.Text" xml:space="preserve">
     <value>Country</value>
   </data>
-	<data name="lblAdrEditEmail.Text" xml:space="preserve">
+  <data name="lblAdrEditEmail.Text" xml:space="preserve">
     <value>Email</value>
   </data>
-	<data name="lblAdrEditFax.Text" xml:space="preserve">
+  <data name="lblAdrEditFax.Text" xml:space="preserve">
     <value>Fax</value>
   </data>
-	<data name="lblAdrEditFirstname.Text" xml:space="preserve">
+  <data name="lblAdrEditFirstname.Text" xml:space="preserve">
     <value>Firstname</value>
   </data>
-	<data name="lblAdrEditLastname.Text" xml:space="preserve">
+  <data name="lblAdrEditLastname.Text" xml:space="preserve">
     <value>Lastname</value>
   </data>
-	<data name="lblAdrEditMiddlename.Text" xml:space="preserve">
+  <data name="lblAdrEditMiddlename.Text" xml:space="preserve">
     <value>Middlename</value>
   </data>
-	<data name="lblAdrEditPostalCode.Text" xml:space="preserve">
+  <data name="lblAdrEditPostalCode.Text" xml:space="preserve">
     <value>Postalcode</value>
   </data>
-	<data name="lblAdrEditPrefix.Text" xml:space="preserve">
+  <data name="lblAdrEditPrefix.Text" xml:space="preserve">
     <value>Prefix</value>
   </data>
-	<data name="lblAdrEditRegion.Text" xml:space="preserve">
+  <data name="lblAdrEditRegion.Text" xml:space="preserve">
     <value>Region</value>
   </data>
-	<data name="lblAdrEditStreet.Text" xml:space="preserve">
+  <data name="lblAdrEditStreet.Text" xml:space="preserve">
     <value>Street</value>
   </data>
-	<data name="lblAdrEditSuburb.Text" xml:space="preserve">
+  <data name="lblAdrEditSuburb.Text" xml:space="preserve">
     <value>Suburb</value>
   </data>
-	<data name="lblAdrEditSuffix.Text" xml:space="preserve">
+  <data name="lblAdrEditSuffix.Text" xml:space="preserve">
     <value>Suffix</value>
   </data>
-	<data name="lblAdrEditPhone.Text" xml:space="preserve">
+  <data name="lblAdrEditPhone.Text" xml:space="preserve">
     <value>Telephone</value>
   </data>
-	<data name="lblAdrEditCompany.Text" xml:space="preserve">
+  <data name="lblAdrEditCompany.Text" xml:space="preserve">
     <value>Company</value>
   </data>
-	<data name="lblAdrEditUnit.Text" xml:space="preserve">
+  <data name="lblAdrEditUnit.Text" xml:space="preserve">
     <value>Unit</value>
   </data>
-	<data name="Intro.Message" xml:space="preserve">
+  <data name="Intro.Message" xml:space="preserve">
     <value>Please edit or enter the desired address. Please note that some fields must be filled out if necessary !</value>
   </data>
-	<data name="lblAdrEditCity.Text" xml:space="preserve">
+  <data name="lblAdrEditCity.Text" xml:space="preserve">
     <value>City</value>
   </data>
-	<data name="AddressTemplate.Text" xml:space="preserve">
-    <value>[COMPANY:300]
-[PREFIX:100]
-[FIRSTNAME:100] [MIDDLENAME:100] [LASTNAME:100]
-[SUFFIX:100]
-[STREET:250] [UNIT:50]
-[POSTALCODE:50] [CITY:150] - [SUBURB:100]
-[COUNTRY:300]</value>
+  <data name="cmdCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-	<data name="cmdCancel.Text" xml:space="preserve">
-		<value>Cancel</value>
-	</data>
-	<data name="cmdUpdate.Text" xml:space="preserve">
-		<value>Update</value>
-	</data>
+  <data name="cmdUpdate.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
 </root>

@@ -174,10 +174,13 @@
                         <asp:Label ID="lblTermsPre" runat="server" Resourcekey="lblTermsPre.Text"/>&nbsp;
                         <asp:LinkButton ID="lnkTerms" runat="server" ResourceKey="lnkTerms.Text" />&nbsp;
                         <asp:Label ID="lblTermsPost" runat="server" Resourcekey="lblTermsPost.Text"/></p>
+                    <p><asp:CheckBox ID="chkCancelTerms" runat="server" />&nbsp;
+                        <asp:Label ID="lblCancelTerms" runat="server"/>&nbsp;
                     <p><asp:Label ID="lblRemarks" runat="server" Resourcekey="lblRemarks.Text"/><br />
                         <asp:TextBox ID="txtRemarks" runat="server" Rows="5" TextMode="MultiLine" Columns="80" /></p>
 					<p><asp:Label ID="lblAttachment" runat="server" Resourcekey="lblAttachment.Text"/><asp:FileUpload runat="server" ID="fulAttachment"/></p>                
                     <asp:Label ID="lblTermsError" runat="server" CssClass="dnnFormMessage dnnFormValidationSummary" Visible="false" ResourceKey="lblTerms.Error"/>
+                    <asp:Label ID="lblCancelTermsError" runat="server" CssClass="dnnFormMessage dnnFormValidationSummary" Visible="false" ResourceKey="lblCancelTerms.Error"/>
                     <div style="text-align:right"><asp:Button ID="cmdFinish" runat="server" Resourcekey="cmdFinish.Text" onclick="cmdFinish_Click" /></div>
                 </asp:Panel>
                 <asp:Panel ID="pnlCheckout" runat="server" Visible="true">

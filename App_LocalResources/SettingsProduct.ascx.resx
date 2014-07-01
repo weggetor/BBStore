@@ -222,4 +222,10 @@
 	<data name="lblStatic.Text" xml:space="preserve">
 		<value>Static product</value>
 	</data>
+	<data name="lblListModulePage.Text" xml:space="preserve">
+		<value>List Module Page</value>
+	</data>
+	<data name="lblListModulePage.Help" xml:space="preserve">
+		<value>Select the page to be displayed automatically if no product is selected</value>
+	</data>
 </root>

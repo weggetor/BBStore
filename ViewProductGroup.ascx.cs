@@ -51,7 +51,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Product Groups",3, "BBStore Product Groups", "BBStore Product Groups", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
+    [DNNtc.PackageProperties("BBStore Product Groups", 3, "BBStore Product Groups", "BBStore Product Groups", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
     [DNNtc.ModuleProperties("BBStore Product Groups", "BBStore Product Groups", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Product Groups", DNNtc.ControlType.View, "", false, false)]
 	partial class ViewProductGroup : PortalModuleBase, IActionable

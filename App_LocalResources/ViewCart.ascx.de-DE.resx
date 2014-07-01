@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,356 +59,362 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="AddContent.Action" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
-	<data name="ModuleHelp.Text" xml:space="preserve">
+  <data name="ModuleHelp.Text" xml:space="preserve">
     <value>&lt;P&gt;Ein BBStore Module</value>
   </data>
-	<data name="NotConfigured.Message" xml:space="preserve">
+  <data name="NotConfigured.Message" xml:space="preserve">
     <value>Bitte erst das BBStore Warenkorb Modul konfigurieren</value>
   </data>
-	<data name="ExcludeTax.Text" xml:space="preserve">
+  <data name="ExcludeTax.Text" xml:space="preserve">
     <value>zzgl MwSt. ({0:F0}%)</value>
   </data>
-	<data name="IncludeTax.Text" xml:space="preserve">
+  <data name="IncludeTax.Text" xml:space="preserve">
     <value>inkl. MwSt. ({0:F0}%)</value>
   </data>
-	<data name="Total.Text" xml:space="preserve">
+  <data name="Total.Text" xml:space="preserve">
     <value>Gesamtsumme</value>
   </data>
-	<data name="Nettotal.Text" xml:space="preserve">
+  <data name="Nettotal.Text" xml:space="preserve">
     <value>Netto Gesamt</value>
   </data>
-	<data name="ItemNo.Header" xml:space="preserve">
+  <data name="ItemNo.Header" xml:space="preserve">
     <value>ArtikelNr.</value>
   </data>
-	<data name="NetTotal.Header" xml:space="preserve">
+  <data name="NetTotal.Header" xml:space="preserve">
     <value>Netto</value>
   </data>
-	<data name="Product.Header" xml:space="preserve">
+  <data name="Product.Header" xml:space="preserve">
     <value>Produkt</value>
   </data>
-	<data name="Quantity.Header" xml:space="preserve">
+  <data name="Quantity.Header" xml:space="preserve">
     <value>Menge</value>
   </data>
-	<data name="SubTotal.Header" xml:space="preserve">
+  <data name="SubTotal.Header" xml:space="preserve">
     <value>Betrag</value>
   </data>
-	<data name="TaxPercent.Header" xml:space="preserve">
+  <data name="TaxPercent.Header" xml:space="preserve">
     <value>MwSt. %</value>
   </data>
-	<data name="TaxTotal.Header" xml:space="preserve">
+  <data name="TaxTotal.Header" xml:space="preserve">
     <value>MwSt. Betrag</value>
   </data>
-	<data name="UnitCost.Header" xml:space="preserve">
+  <data name="UnitCost.Header" xml:space="preserve">
     <value>Einzel- preis</value>
   </data>
-	<data name="lblEmptyCart.Text" xml:space="preserve">
+  <data name="lblEmptyCart.Text" xml:space="preserve">
     <value>Warenkorb ist leer!</value>
   </data>
-	<data name="cmdCheckout.Text" xml:space="preserve">
+  <data name="cmdCheckout.Text" xml:space="preserve">
     <value>Zur Kasse</value>
   </data>
-	<data name="Register.Title" xml:space="preserve">
+  <data name="Register.Title" xml:space="preserve">
     <value>Registrieren</value>
   </data>
-	<data name="lblCapLogin.Text" xml:space="preserve">
+  <data name="lblCapLogin.Text" xml:space="preserve">
     <value>Bereits registriert ? Bitte melden Sie sich an:</value>
   </data>
-	<data name="lblCapRegister.Text" xml:space="preserve">
+  <data name="lblCapRegister.Text" xml:space="preserve">
     <value>Neu hier ? Füllen Sie einfach die folgenden Felder aus. Diese Information wird gespeichert und Sie müssen sie so später nicht noch einmal erfassen. Als registrierter Benutzer haben Sie ausserdem Zugriff auf Ihre Bestelldaten!</value>
   </data>
-	<data name="cmdAdrInvoice.Text" xml:space="preserve">
+  <data name="cmdAdrInvoice.Text" xml:space="preserve">
     <value>Rechnungsadresse bearbeiten</value>
   </data>
-	<data name="lblAdrEditCell.Text" xml:space="preserve">
+  <data name="lblAdrEditCell.Text" xml:space="preserve">
     <value>Mobil</value>
   </data>
-	<data name="lblAdrEditCountry.Text" xml:space="preserve">
+  <data name="lblAdrEditCountry.Text" xml:space="preserve">
     <value>Land</value>
   </data>
-	<data name="lblAdrEditEmail.Text" xml:space="preserve">
+  <data name="lblAdrEditEmail.Text" xml:space="preserve">
     <value>Email</value>
   </data>
-	<data name="lblAdrEditFax.Text" xml:space="preserve">
+  <data name="lblAdrEditFax.Text" xml:space="preserve">
     <value>Fax</value>
   </data>
-	<data name="lblAdrEditFirstname.Text" xml:space="preserve">
+  <data name="lblAdrEditFirstname.Text" xml:space="preserve">
     <value>Vorname</value>
   </data>
-	<data name="lblAdrEditLastname.Text" xml:space="preserve">
+  <data name="lblAdrEditLastname.Text" xml:space="preserve">
     <value>Nachname</value>
   </data>
-	<data name="lblAdrEditMiddlename.Text" xml:space="preserve">
+  <data name="lblAdrEditMiddlename.Text" xml:space="preserve">
     <value>Mittelname</value>
   </data>
-	<data name="lblAdrEditPostalCode.Text" xml:space="preserve">
+  <data name="lblAdrEditPostalCode.Text" xml:space="preserve">
     <value>PLZ</value>
   </data>
-	<data name="lblAdrEditPrefix.Text" xml:space="preserve">
+  <data name="lblAdrEditPrefix.Text" xml:space="preserve">
     <value>Anrede</value>
   </data>
-	<data name="lblAdrEditRegion.Text" xml:space="preserve">
+  <data name="lblAdrEditRegion.Text" xml:space="preserve">
     <value>Region</value>
   </data>
-	<data name="lblAdrEditStreet.Text" xml:space="preserve">
+  <data name="lblAdrEditStreet.Text" xml:space="preserve">
     <value>Strasse</value>
   </data>
-	<data name="lblAdrEditSuburb.Text" xml:space="preserve">
+  <data name="lblAdrEditSuburb.Text" xml:space="preserve">
     <value>Ortsteil</value>
   </data>
-	<data name="lblAdrEditSuffix.Text" xml:space="preserve">
+  <data name="lblAdrEditSuffix.Text" xml:space="preserve">
     <value>Suffix</value>
   </data>
-	<data name="lblAdrEditPhone.Text" xml:space="preserve">
+  <data name="lblAdrEditPhone.Text" xml:space="preserve">
     <value>Telefon</value>
   </data>
-	<data name="lblAdrEditCompany.Text" xml:space="preserve">
+  <data name="lblAdrEditCompany.Text" xml:space="preserve">
     <value>Firma</value>
   </data>
-	<data name="NextStep.Text" xml:space="preserve">
+  <data name="NextStep.Text" xml:space="preserve">
     <value>Weiter zum nächsten Schritt</value>
   </data>
-	<data name="lblPayment.Text" xml:space="preserve">
+  <data name="lblPayment.Text" xml:space="preserve">
     <value>Bitte wählen Sie eine der folgenden Zahlungsarten:</value>
   </data>
-	<data name="NoCart.Error" xml:space="preserve">
+  <data name="NoCart.Error" xml:space="preserve">
     <value>Der Warenkorb ist leer. Bitte wählen Sie zunächst einen Artikel.</value>
   </data>
-	<data name="cmdFinish.Text" xml:space="preserve">
+  <data name="cmdFinish.Text" xml:space="preserve">
     <value>Zahlungspflichtig Bestellen</value>
   </data>
-	<data name="lblConfirmHeader.Text" xml:space="preserve">
+  <data name="lblConfirmHeader.Text" xml:space="preserve">
     <value>Bitte überprüfen Sie Ihre Eingaben und korrigieren Sie diese wenn nötig.</value>
   </data>
-	<data name="lblRemarks.Text" xml:space="preserve">
+  <data name="lblRemarks.Text" xml:space="preserve">
     <value>Wenn Sie noch Wünsche, Anregungen oder Kritik haben, können Sie diese hier gerne vermerken</value>
   </data>
-	<data name="lblTerms.Error" xml:space="preserve">
+  <data name="lblTerms.Error" xml:space="preserve">
     <value>Zum Absenden der Bestellung müssen Sie die AGB's akzeptieren</value>
   </data>
-	<data name="lblTermsPre.Text" xml:space="preserve">
+  <data name="lblTermsPre.Text" xml:space="preserve">
     <value>Hiermit akzeptiere ich die</value>
   </data>
-	<data name="lnkTerms.Text" xml:space="preserve">
+  <data name="lnkTerms.Text" xml:space="preserve">
     <value>AGB / Widerrufsbedingung</value>
   </data>
-	<data name="lblPaymentConfirm.Text" xml:space="preserve">
+  <data name="lblPaymentConfirm.Text" xml:space="preserve">
     <value>Zahlungsart:</value>
   </data>
-	<data name="EmailAddress.Text" xml:space="preserve">
+  <data name="EmailAddress.Text" xml:space="preserve">
     <value>Adresse</value>
   </data>
-	<data name="EmailAddressInfo.Text" xml:space="preserve">
+  <data name="EmailAddressInfo.Text" xml:space="preserve">
     <value>Ihre Informationen</value>
   </data>
-	<data name="EmailCity.Text" xml:space="preserve">
+  <data name="EmailCity.Text" xml:space="preserve">
     <value>Ort</value>
   </data>
-	<data name="EmailComments.Text" xml:space="preserve">
+  <data name="EmailComments.Text" xml:space="preserve">
     <value>Ihre Anmerkungen</value>
   </data>
-	<data name="EmailCompany.Text" xml:space="preserve">
+  <data name="EmailCompany.Text" xml:space="preserve">
     <value>Firma</value>
   </data>
-	<data name="EmailCountry.Text" xml:space="preserve">
+  <data name="EmailCountry.Text" xml:space="preserve">
     <value>Land</value>
   </data>
-	<data name="EmailEmail.Text" xml:space="preserve">
+  <data name="EmailEmail.Text" xml:space="preserve">
     <value>E-Mail</value>
   </data>
-	<data name="EmailFax.Text" xml:space="preserve">
+  <data name="EmailFax.Text" xml:space="preserve">
     <value>Fax</value>
   </data>
-	<data name="EmailFooter.Message" xml:space="preserve">
+  <data name="EmailFooter.Message" xml:space="preserve">
     <value>Bitte beachten Sie: Diese E-Mail dient lediglich der Bestätigung des Einganges Ihrer Bestellung und stellt noch keine Annahme Ihres Angebotes auf Abschluss eines Kaufvertrages dar. Ihr Kaufvertrag für einen Artikel kommt zu Stande, wenn wir Ihre Bestellung annehmen, indem wir Ihnen eine E-Mail mit der Benachrichtigung zusenden, dass der Artikel an Sie abgeschickt wurde.</value>
   </data>
-	<data name="EmailInfo.Text" xml:space="preserve">
+  <data name="EmailInfo.Text" xml:space="preserve">
     <value>Bestell-Informationen</value>
   </data>
-	<data name="EmailInvoiceAddress.Text" xml:space="preserve">
+  <data name="EmailInvoiceAddress.Text" xml:space="preserve">
     <value>Rechnungsadresse</value>
   </data>
-	<data name="EmailName.Text" xml:space="preserve">
+  <data name="EmailName.Text" xml:space="preserve">
     <value>Name</value>
   </data>
-	<data name="EmailOrder.Text" xml:space="preserve">
+  <data name="EmailOrder.Text" xml:space="preserve">
     <value>Bestellung</value>
   </data>
-	<data name="EmailPayment.Text" xml:space="preserve">
+  <data name="EmailPayment.Text" xml:space="preserve">
     <value>Zahlungsart</value>
   </data>
-	<data name="EmailPhone.Text" xml:space="preserve">
+  <data name="EmailPhone.Text" xml:space="preserve">
     <value>Telefon</value>
   </data>
-	<data name="EmailProducts.Text" xml:space="preserve">
+  <data name="EmailProducts.Text" xml:space="preserve">
     <value>bestellte Produkte</value>
   </data>
-	<data name="EmailShipping.Text" xml:space="preserve">
+  <data name="EmailShipping.Text" xml:space="preserve">
     <value>Lieferung</value>
   </data>
-	<data name="EmailShippingAddress.Text" xml:space="preserve">
+  <data name="EmailShippingAddress.Text" xml:space="preserve">
     <value>Lieferadresse</value>
   </data>
-	<data name="EmailZip.Text" xml:space="preserve">
+  <data name="EmailZip.Text" xml:space="preserve">
     <value>Postleitzahl</value>
   </data>
-	<data name="cmdShopping.Text" xml:space="preserve">
+  <data name="cmdShopping.Text" xml:space="preserve">
     <value>Einkauf fortsetzen</value>
   </data>
-	<data name="lblConfirmCart.Text" xml:space="preserve">
+  <data name="lblConfirmCart.Text" xml:space="preserve">
     <value>Vielen Dank für Ihre Bestellung [ORDERNO]</value>
   </data>
-	<data name="lblFinishText.Text" xml:space="preserve">
+  <data name="lblFinishText.Text" xml:space="preserve">
     <value>&lt;p&gt;Wir beginnen jetzt mit der Bearbeitung Ihrer Bestellung. In Kürze werden Sie eine E-Mail-Bestätigung erhalten.&lt;/p&gt;&lt;br /&gt;&lt;p&gt;Bitte notieren Sie sich für eventuelle Rückfragen Ihre Web-Bestellnummer : {0}</value>
   </data>
-	<data name="Discount.Text" xml:space="preserve">
+  <data name="Discount.Text" xml:space="preserve">
     <value>Mengenrabatt</value>
   </data>
-	<data name="Order.Text" xml:space="preserve">
+  <data name="Order.Text" xml:space="preserve">
     <value>Bestellung</value>
   </data>
-	<data name="MandatoryFields.Error" xml:space="preserve">
+  <data name="MandatoryFields.Error" xml:space="preserve">
     <value>Bitte füllen Sie alle notwendigen Felder aus</value>
   </data>
-	<data name="NoPaymentProvider.Error" xml:space="preserve">
+  <data name="NoPaymentProvider.Error" xml:space="preserve">
     <value>Interner Fehler: Paymentprovider nicht gefunden.</value>
   </data>
-	<data name="ValidPaymentProvider.Error" xml:space="preserve">
+  <data name="ValidPaymentProvider.Error" xml:space="preserve">
     <value>Bitte wählen Sie eine gültige Zahlungsart aus</value>
   </data>
-	<data name="lblAttachment.Text" xml:space="preserve">
+  <data name="lblAttachment.Text" xml:space="preserve">
     <value>Anhang anfügen:</value>
   </data>
-	<data name="cmdLoadCart.Text" xml:space="preserve">
+  <data name="cmdLoadCart.Text" xml:space="preserve">
     <value>Warenkorb laden</value>
   </data>
-	<data name="cmdUploadCart.Text" xml:space="preserve">
+  <data name="cmdUploadCart.Text" xml:space="preserve">
     <value>Hochladen</value>
   </data>
-	<data name="cmdSaveCart.Text" xml:space="preserve">
+  <data name="cmdSaveCart.Text" xml:space="preserve">
     <value>Warenkorb speichern</value>
   </data>
-	<data name="navConfirm.Text" xml:space="preserve">
+  <data name="navConfirm.Text" xml:space="preserve">
     <value>Bestätigen</value>
   </data>
-	<data name="navFinish.Text" xml:space="preserve">
+  <data name="navFinish.Text" xml:space="preserve">
     <value>Fertig</value>
   </data>
-	<data name="navLogin.Text" xml:space="preserve">
+  <data name="navLogin.Text" xml:space="preserve">
     <value>Anmelden</value>
   </data>
-	<data name="navPayment.Text" xml:space="preserve">
+  <data name="navPayment.Text" xml:space="preserve">
     <value>Bezahlen</value>
   </data>
-	<data name="navShipping.Text" xml:space="preserve">
+  <data name="navShipping.Text" xml:space="preserve">
     <value>Versenden</value>
   </data>
-	<data name="NoSteps.Text" xml:space="preserve">
+  <data name="NoSteps.Text" xml:space="preserve">
     <value>Interner Fehler: Keine Schritte definiert</value>
   </data>
-	<data name="lblAdrInvoice.Text" xml:space="preserve">
+  <data name="lblAdrInvoice.Text" xml:space="preserve">
     <value>Rechnungsadresse</value>
   </data>
-	<data name="lblAdrShipping.Text" xml:space="preserve">
+  <data name="lblAdrShipping.Text" xml:space="preserve">
     <value>Versandadresse</value>
   </data>
-	<data name="navCustomer.Text" xml:space="preserve">
+  <data name="navCustomer.Text" xml:space="preserve">
     <value>Kunden</value>
   </data>
-	<data name="lblAdrEditUnit.Text" xml:space="preserve">
+  <data name="lblAdrEditUnit.Text" xml:space="preserve">
     <value>Hausnr.</value>
   </data>
-	<data name="cmdAdrNew.Text" xml:space="preserve">
+  <data name="cmdAdrNew.Text" xml:space="preserve">
     <value>neue Adresse hinzufügen</value>
   </data>
-	<data name="cmdAdrUse.Text" xml:space="preserve">
+  <data name="cmdAdrUse.Text" xml:space="preserve">
     <value>Weiter</value>
   </data>
-	<data name="Intro.Message" xml:space="preserve">
+  <data name="Intro.Message" xml:space="preserve">
     <value>Bitte legen Sie fest, welche Adressen jeweils für was verwendet werden sollen. Bitte beachten Sie das ggfs. einige Adressarten angegeben werden müssen!&lt;br/&gt;&lt;br/&gt;Pflichtangaben sind: &lt;b&gt;{0}&lt;/b&gt;</value>
   </data>
-	<data name="MissingAddress.Message" xml:space="preserve">
+  <data name="MissingAddress.Message" xml:space="preserve">
     <value>Bitte wählen Sie für alle Pflicht-Adresstypen eine Adresse aus !&lt;br/&gt;&lt;br/&gt;Pflichtangaben sind: &lt;b&gt;{0}&lt;/b&gt;</value>
   </data>
-	<data name="NoMandatoryTypes.Text" xml:space="preserve">
+  <data name="NoMandatoryTypes.Text" xml:space="preserve">
     <value>Keine</value>
   </data>
-	<data name="lblAdrEditCity.Text" xml:space="preserve">
+  <data name="lblAdrEditCity.Text" xml:space="preserve">
     <value>Ort</value>
   </data>
-	<data name="navCart.Text" xml:space="preserve">
+  <data name="navCart.Text" xml:space="preserve">
     <value>Warenkorb</value>
   </data>
-	<data name="cmdDeleteCart.Text" xml:space="preserve">
+  <data name="cmdDeleteCart.Text" xml:space="preserve">
     <value>Warenkorb leeren</value>
   </data>
-	<data name="PPCart.Text" xml:space="preserve">
+  <data name="PPCart.Text" xml:space="preserve">
     <value>Ihr Einkauf bei '{0}'</value>
   </data>
-	<data name="Unit.Header" xml:space="preserve">
+  <data name="Unit.Header" xml:space="preserve">
     <value>Einh.</value>
   </data>
-	<data name="NoShipping.Text" xml:space="preserve">
-		<value>Verzeihung aber nach {0} verschicken wir nicht !</value>
-	</data>
+  <data name="NoShipping.Text" xml:space="preserve">
+    <value>Verzeihung aber nach {0} verschicken wir nicht !</value>
+  </data>
+  <data name="lblCancelTerms.Error" xml:space="preserve">
+    <value>Bitte bestätigen Sie das Sie die Widerrufsbedingungen akzeptieren</value>
+  </data>
+  <data name="lblCancelTerms.Text" xml:space="preserve">
+    <value>Ich akzeptiere die Widerrufsbedingungen</value>
+  </data>
 </root>

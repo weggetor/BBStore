@@ -83,5 +83,6 @@
 	    <dnn:Label id="lblEmailSubject" runat="server" controlname="txtEmailSubject" suffix=":"/>
         <asp:TextBox ID="txtEmailSubject" runat="server" Columns="60" ></asp:TextBox>
     </div>
+    <bb:TemplateControl ID="tplProduct" runat="server" Key="Contact" ViewMode="View" EditorControl="TextEditor"/>
     <bb:TemplateControl ID="tplTemplate" runat="server" Key="Request" ViewMode="View" EditorControl="TextEditor"/>
 </div>

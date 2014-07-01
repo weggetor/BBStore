@@ -238,6 +238,24 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.Label lblTermsPost;
         
         /// <summary>
+        /// chkCancelTerms control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkCancelTerms;
+        
+        /// <summary>
+        /// lblCancelTerms control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCancelTerms;
+        
+        /// <summary>
         /// lblRemarks control.
         /// </summary>
         /// <remarks>
@@ -281,6 +299,15 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTermsError;
+        
+        /// <summary>
+        /// lblCancelTermsError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCancelTermsError;
         
         /// <summary>
         /// cmdFinish control.

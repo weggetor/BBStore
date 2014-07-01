@@ -46,7 +46,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Product Search",5, "BBStore Product Search", "BBStore Product Search", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
+    [DNNtc.PackageProperties("BBStore Product Search", 5, "BBStore Product Search", "BBStore Product Search", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
     [DNNtc.ModuleProperties("BBStore Product Search", "BBStore Search", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Product Search", DNNtc.ControlType.View, "", true, false)]
 	partial class ViewSearch : PortalModuleBase, IActionable

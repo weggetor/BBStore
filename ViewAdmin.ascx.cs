@@ -34,6 +34,7 @@ using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
+using DotNetNuke.UI.Skins.Controls;
 
 namespace Bitboxx.DNNModules.BBStore
 {
@@ -47,7 +48,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Admin",6, "BBStore Admin", "BBStore Admin module", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
+    [DNNtc.PackageProperties("BBStore Admin",6, "BBStore Admin", "BBStore Admin module", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
     [DNNtc.ModuleProperties("BBStore Admin", "BBStore Admin", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Admin", DNNtc.ControlType.View, "", false, false)]
 	partial class ViewAdmin : PortalModuleBase, IActionable
@@ -276,13 +277,21 @@ namespace Bitboxx.DNNModules.BBStore
 						ddlOrderStates.AutoPostBack = true;
 						
 						string orderHtml = adminCartControl.GenOrderHtml(order,false);
+				        orderHtml = orderHtml.Replace("cid:Logo", PortalSettings.HomeDirectory+ PortalSettings.LogoFile);
+				        orderHtml = "<div style=\"float:right\"><asp:Button id=\"cmdSendAgain\" runat=\"server\" /></div><div style=\"clear:right\"></div>" + orderHtml;
 						orderHtml = orderHtml.Replace("[BBSTORE-ORDERSTATE]", "<asp:PlaceHolder id=\"phOrderState\" runat=\"server\" />");
 						Control ctrl = ParseControl(orderHtml);
 						PlaceHolder phOrderState = FindControlRecursive(ctrl, "phOrderState") as PlaceHolder;
 						if (phOrderState != null)
 							phOrderState.Controls.Add(ddlOrderStates);
 
-						phContent.Controls.Add(ctrl);
+				        Button cmdSendAgain = FindControlRecursive(ctrl,"cmdSendAgain") as Button;
+				        if (cmdSendAgain != null)
+				        {
+				            cmdSendAgain.Text = LocalizeString("cmdSendAgain.Text");
+                            cmdSendAgain.Click += cmdSendAgain_Click;
+				        }
+				        phContent.Controls.Add(ctrl);
 
 						lblTitle.Text = Localization.GetString("TitleViewOrder.Text", this.LocalResourceFile);
 						break;
@@ -293,6 +302,27 @@ namespace Bitboxx.DNNModules.BBStore
 				//Module failed to load 
 				Exceptions.ProcessModuleLoadException(this, exc);
 			}
+        }
+
+        void cmdSendAgain_Click(object sender, EventArgs e)
+        {
+            int orderId = Convert.ToInt32(Request.QueryString["orderid"]);
+            ViewCart viewCartControl = LoadControl(@"~\DesktopModules\BBStore\ViewCart.ascx") as ViewCart;
+
+            // Settings
+            ModuleController oModules = new ModuleController();
+            ModuleInfo mailCartModule = oModules.GetModuleByDefinition(PortalId, "BBStore Cart");
+            viewCartControl.ModuleConfiguration = mailCartModule;
+
+            // ResourceFile
+            string resourceFile = System.IO.Path.GetFileNameWithoutExtension(viewCartControl.AppRelativeVirtualPath);
+            viewCartControl.LocalResourceFile = viewCartControl.LocalResourceFile + resourceFile + ".ascx.resx";
+
+            orderId = Convert.ToInt32(Request.QueryString["orderid"]);
+            viewCartControl.MailOrder(orderId);
+
+            string message = LocalizeString("SendAgain.Message");
+            DotNetNuke.UI.Skins.Skin.AddModuleMessage(this,message, ModuleMessage.ModuleMessageType.BlueInfo);
         }
 
 	    void ddlOrderStates_SelectedIndexChanged(object sender, EventArgs e)

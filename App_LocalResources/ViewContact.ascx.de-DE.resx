@@ -234,8 +234,8 @@
 	<data name="EmailRequestDate.Text" xml:space="preserve">
 		<value>Anfragedatum</value>
 	</data>
-	<data name="lblProductData.text" xml:space="preserve">
-		<value>Produkte</value>
+	<data name="lblInterest.Text" xml:space="preserve">
+		<value>Ich interessiere mich für</value>
 	</data>
 	<data name="Configure.Message" xml:space="preserve">
 		<value>Bitte konfigurieren Sie das BBStore Contact Modul </value>

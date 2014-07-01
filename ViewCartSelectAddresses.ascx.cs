@@ -215,7 +215,7 @@ namespace Bitboxx.DNNModules.BBStore
 				CheckBoxList lstAddressType = e.Item.FindControl("lstAddresstype") as CheckBoxList;
 				HiddenField hidCustomerAddressId = e.Item.FindControl("hidCustomerAddressId") as HiddenField;
 
-				string template = Localization.GetString("AddressTemplate.Text", this.LocalResourceFile);
+				string template = Localization.GetString("AddressTemplate.Text", this.LocalResourceFile.Replace("ViewCartSelectAddresses","ViewCartAddressEdit"));
 				lblAdress.Text = lstCustomerAddress.ToHtml(template,true);
 
 

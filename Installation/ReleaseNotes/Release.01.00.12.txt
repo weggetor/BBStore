@@ -1,0 +1,14 @@
+﻿<h1>Releasenotes</h1>
+<p>
+	<ul>
+		<li>Widerrufs-Checkbox + konfigurierbarer Text im Warenkorb</li>
+		<li>FeatureListItemImages Unterstützung</li>
+		<li>Modul Contact: Darstellung Produkt über Template</li>
+		<li>Packaging: Icons eingebunden</li>
+		<li>Settings Product: Neues Setting ListModulePage</li>
+		<li>Bugfix AdressTemplate (falsche Resourcedatei)</li>
+		<li>Bestellung aus dem Admin Bereich erneut verschicken</li>
+		<li>Angebot anfordern mit Übergabe der selektierten Attribute</li>
+	</ul>
+</p>
+	

@@ -179,6 +179,12 @@ namespace Bitboxx.DNNModules.BBStore
 					if (ModuleSettings["TermsMandatory"] != null)
 						chkTermsMandatory.Checked = Convert.ToBoolean(ModuleSettings["TermsMandatory"]);
 
+                    if (ModuleSettings["CancelTermsMandatory"] != null)
+                        chkCancelTermsMandatory.Checked = Convert.ToBoolean(ModuleSettings["CancelTermsMandatory"]);
+
+                    if (ModuleSettings["CancelTerms"] != null)
+                        txtCancelTerms.Text = (string)ModuleSettings["CancelTerms"];
+                    
                     if (ModuleSettings["StartPage"] != null)
                         urlSelectStartPage.Url = (string)ModuleSettings["StartPage"];
 
@@ -214,6 +220,8 @@ namespace Bitboxx.DNNModules.BBStore
                 objModules.UpdateModuleSetting(ModuleId, "ShowNetpriceInCart", opgShowNetpriceInCart.SelectedValue);
 				objModules.UpdateModuleSetting(ModuleId, "TermsUrl", urlSelectTerms.Url);
 				objModules.UpdateModuleSetting(ModuleId, "TermsMandatory", chkTermsMandatory.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "CancelTermsMandatory", chkCancelTermsMandatory.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "CancelTerms", txtCancelTerms.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "StartPage", urlSelectStartPage.Url);
 				objModules.UpdateModuleSetting(ModuleId, "ProductImageDir", cboProductImageDir.Text.Trim());
 				objModules.UpdateModuleSetting(ModuleId, "ProductGroupImageDir", cboProductGroupImageDir.Text.Trim());

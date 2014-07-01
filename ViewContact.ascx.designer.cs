@@ -400,6 +400,15 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.Label lblProductData;
         
         /// <summary>
+        /// lblInterest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInterest;
+        
+        /// <summary>
         /// lstProducts control.
         /// </summary>
         /// <remarks>
@@ -442,7 +451,7 @@ namespace Bitboxx.DNNModules.BBStore {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRequest;
+        protected global::System.Web.UI.UserControl lblRequest;
         
         /// <summary>
         /// txtRequest control.

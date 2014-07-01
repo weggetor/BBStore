@@ -9,7 +9,11 @@
         <div class="dnnFormItem">
             <dnn:Label ID="lblShowNetPrice" runat="server" ControlName="rblShowNetPrice" Suffix=":"/>   
             <asp:RadioButtonList ID="rblShowNetPrice" runat="server" RepeatDirection="Horizontal" CssClass="dnnFormRadioButtons"/>
-        </div>    
+        </div>
+        <div class="dnnFormItem">
+		    <dnn:Label id="lblListModulePage" runat="server" controlname="urlListModulePage" suffix=":"/>
+			<bb:TabSelectControl ID="urlListModulePage" runat="server" Width="200" />
+		</div>    
 		<div class="dnnFormItem">
 		    <dnn:Label id="lblContactModulePage" runat="server" controlname="urlContactModulePage" suffix=":"/>
 			<bb:TabSelectControl ID="urlContactModulePage" runat="server" Width="200" />

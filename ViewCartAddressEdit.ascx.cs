@@ -120,22 +120,22 @@ namespace Bitboxx.DNNModules.BBStore
 
 		                if (CustomerAddress != null && CustomerAddress.CustomerId == this.MainControl.CustomerId)
 		                {
-		                    if (txtAdrEditCompany != null) txtAdrEditCompany.Text = CustomerAddress.Company;
-		                    if (txtAdrEditPrefix != null) txtAdrEditPrefix.Text = CustomerAddress.Prefix;
-		                    if (txtAdrEditFirstname != null) txtAdrEditFirstname.Text = CustomerAddress.Firstname;
-		                    if (txtAdrEditMiddlename != null) txtAdrEditMiddlename.Text = CustomerAddress.Middlename;
-		                    if (txtAdrEditLastname != null) txtAdrEditLastname.Text = CustomerAddress.Lastname;
-		                    if (txtAdrEditSuffix != null) txtAdrEditSuffix.Text = CustomerAddress.Suffix;
-		                    if (txtAdrEditUnit != null) txtAdrEditUnit.Text = CustomerAddress.Unit;
-		                    if (txtAdrEditStreet != null) txtAdrEditStreet.Text = CustomerAddress.Street;
-		                    if (txtAdrEditRegion != null) txtAdrEditRegion.Text = CustomerAddress.Region;
-		                    if (txtAdrEditPostalCode != null) txtAdrEditPostalCode.Text = CustomerAddress.PostalCode;
-		                    if (txtAdrEditCity != null) txtAdrEditCity.Text = CustomerAddress.City;
-		                    if (txtAdrEditSuburb != null) txtAdrEditSuburb.Text = CustomerAddress.Suburb;
-		                    if (txtAdrEditPhone != null) txtAdrEditPhone.Text = CustomerAddress.Telephone;
-		                    if (txtAdrEditFax != null) txtAdrEditFax.Text = CustomerAddress.Fax;
-		                    if (txtAdrEditCell != null) txtAdrEditCell.Text = CustomerAddress.Cell;
-		                    if (txtAdrEditEmail != null) txtAdrEditEmail.Text = CustomerAddress.Email;
+		                    if (txtAdrEditCompany != null) txtAdrEditCompany.Text = CustomerAddress.Company.Trim();
+                            if (txtAdrEditPrefix != null) txtAdrEditPrefix.Text = CustomerAddress.Prefix.Trim();
+                            if (txtAdrEditFirstname != null) txtAdrEditFirstname.Text = CustomerAddress.Firstname.Trim();
+                            if (txtAdrEditMiddlename != null) txtAdrEditMiddlename.Text = CustomerAddress.Middlename.Trim();
+                            if (txtAdrEditLastname != null) txtAdrEditLastname.Text = CustomerAddress.Lastname.Trim();
+                            if (txtAdrEditSuffix != null) txtAdrEditSuffix.Text = CustomerAddress.Suffix.Trim();
+                            if (txtAdrEditUnit != null) txtAdrEditUnit.Text = CustomerAddress.Unit.Trim();
+                            if (txtAdrEditStreet != null) txtAdrEditStreet.Text = CustomerAddress.Street.Trim();
+                            if (txtAdrEditRegion != null) txtAdrEditRegion.Text = CustomerAddress.Region.Trim();
+                            if (txtAdrEditPostalCode != null) txtAdrEditPostalCode.Text = CustomerAddress.PostalCode.Trim();
+                            if (txtAdrEditCity != null) txtAdrEditCity.Text = CustomerAddress.City.Trim();
+                            if (txtAdrEditSuburb != null) txtAdrEditSuburb.Text = CustomerAddress.Suburb.Trim();
+                            if (txtAdrEditPhone != null) txtAdrEditPhone.Text = CustomerAddress.Telephone.Trim();
+                            if (txtAdrEditFax != null) txtAdrEditFax.Text = CustomerAddress.Fax.Trim();
+                            if (txtAdrEditCell != null) txtAdrEditCell.Text = CustomerAddress.Cell.Trim();
+                            if (txtAdrEditEmail != null) txtAdrEditEmail.Text = CustomerAddress.Email.Trim();
 		                    selectedCountryCode = CustomerAddress.CountryCode;
 		                }
 		                else
@@ -178,28 +178,28 @@ namespace Bitboxx.DNNModules.BBStore
 			else
 				IsNewAddress = false;
 
-			if (txtAdrEditCompany != null) CustomerAddress.Company = txtAdrEditCompany.Text;
-			if (txtAdrEditPrefix != null) CustomerAddress.Prefix = txtAdrEditPrefix.Text;
-			if (txtAdrEditFirstname != null) CustomerAddress.Firstname = txtAdrEditFirstname.Text;
-			if (txtAdrEditMiddlename != null) CustomerAddress.Middlename = txtAdrEditMiddlename.Text;
-			if (txtAdrEditLastname != null) CustomerAddress.Lastname = txtAdrEditLastname.Text;
-			if (txtAdrEditSuffix != null) CustomerAddress.Suffix = txtAdrEditSuffix.Text;
-			if (txtAdrEditUnit != null) CustomerAddress.Unit = txtAdrEditUnit.Text;
-			if (txtAdrEditStreet != null) CustomerAddress.Street = txtAdrEditStreet.Text;
-			if (txtAdrEditRegion != null) CustomerAddress.Region = txtAdrEditRegion.Text;
-			if (txtAdrEditPostalCode != null) CustomerAddress.PostalCode = txtAdrEditPostalCode.Text;
-			if (txtAdrEditCity != null) CustomerAddress.City = txtAdrEditCity.Text;
-			if (txtAdrEditSuburb != null) CustomerAddress.Suburb = txtAdrEditSuburb.Text;
+            if (txtAdrEditCompany != null) CustomerAddress.Company = txtAdrEditCompany.Text.Trim();
+            if (txtAdrEditPrefix != null) CustomerAddress.Prefix = txtAdrEditPrefix.Text.Trim();
+            if (txtAdrEditFirstname != null) CustomerAddress.Firstname = txtAdrEditFirstname.Text.Trim();
+            if (txtAdrEditMiddlename != null) CustomerAddress.Middlename = txtAdrEditMiddlename.Text.Trim();
+            if (txtAdrEditLastname != null) CustomerAddress.Lastname = txtAdrEditLastname.Text.Trim();
+            if (txtAdrEditSuffix != null) CustomerAddress.Suffix = txtAdrEditSuffix.Text.Trim();
+            if (txtAdrEditUnit != null) CustomerAddress.Unit = txtAdrEditUnit.Text.Trim();
+            if (txtAdrEditStreet != null) CustomerAddress.Street = txtAdrEditStreet.Text.Trim();
+            if (txtAdrEditRegion != null) CustomerAddress.Region = txtAdrEditRegion.Text.Trim();
+            if (txtAdrEditPostalCode != null) CustomerAddress.PostalCode = txtAdrEditPostalCode.Text.Trim();
+            if (txtAdrEditCity != null) CustomerAddress.City = txtAdrEditCity.Text.Trim();
+            if (txtAdrEditSuburb != null) CustomerAddress.Suburb = txtAdrEditSuburb.Text.Trim();
 			if (ddlCountry != null)
 			{
 				CustomerAddress.Country = ddlCountry.SelectedItem.Text;
 				CustomerAddress.CountryCode = ddlCountry.SelectedItem.Value;
 			}
 
-			if (txtAdrEditPhone != null) CustomerAddress.Telephone = txtAdrEditPhone.Text;
-			if (txtAdrEditFax != null) CustomerAddress.Fax = txtAdrEditFax.Text;
-			if (txtAdrEditCell != null) CustomerAddress.Cell = txtAdrEditCell.Text;
-			if (txtAdrEditEmail != null) CustomerAddress.Email = txtAdrEditEmail.Text;
+            if (txtAdrEditPhone != null) CustomerAddress.Telephone = txtAdrEditPhone.Text.Trim();
+            if (txtAdrEditFax != null) CustomerAddress.Fax = txtAdrEditFax.Text.Trim();
+            if (txtAdrEditCell != null) CustomerAddress.Cell = txtAdrEditCell.Text.Trim();
+            if (txtAdrEditEmail != null) CustomerAddress.Email = txtAdrEditEmail.Text.Trim();
 			if (IsNewAddress)
 				Controller.NewCustomerAddress(CustomerAddress);
 			else
@@ -238,7 +238,7 @@ namespace Bitboxx.DNNModules.BBStore
 
 		private string GenerateForm()
 		{
-			string template = Localization.GetString("AddressTemplate.Text", this.LocalResourceFile);
+			string template = Localization.GetString("AddressTemplate.Text", this.LocalResourceFile.Replace("ViewCartAddressEdit","ViewCart"));
 
 			bool mandCompany = Settings["MandCompany"] != null && Convert.ToBoolean(Settings["MandCompany"]);
 			bool mandPrefix = Settings["MandPrefix"] != null && Convert.ToBoolean(Settings["MandPrefix"]);

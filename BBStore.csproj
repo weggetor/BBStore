@@ -693,6 +693,8 @@
     <Content Include="App_LocalResources\SettingsMiniCart.ascx.de-DE.resx">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_LocalResources\SettingsAdmin.ascx.de-DE.resx" />
+    <Content Include="App_LocalResources\SettingsAdmin.ascx.resx" />
     <EmbeddedResource Include="App_LocalResources\SettingsCart.ascx.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -731,7 +733,9 @@
     <Content Include="Controls\SelectFolderControl.ascx" />
     <Content Include="Controls\TemplateControl.ascx" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.11.txt" />
+    <Content Include="Installation\ReleaseNotes\Release.01.00.12.txt" />
     <Content Include="SettingsMiniCart.ascx" />
+    <Content Include="Templates\Contact\Default.htm" />
     <Content Include="Templates\FeatureList\Default.htm" />
     <Content Include="Templates\FeatureList\Default.jpg" />
     <Content Include="Templates\MiniCart\Default.htm" />
@@ -862,7 +866,7 @@
     <Content Include="App_LocalResources\ViewCartCustomer.ascx.resx" />
     <Content Include="App_LocalResources\ViewAdminShipping.ascx.de-DE.resx" />
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.de-DE.resx" />
-    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCC.resx" />
+    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.resx" />
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderPaypal.ascx.resx" />
     <Content Include="Controls\App_LocalResources\SelectFolderControl.ascx.resx" />
     <Content Include="App_LocalResources\ViewAdminUnitList.ascx.de-DE.resx" />
@@ -916,6 +920,7 @@
     <Content Include="Templates\MiniCart\tokens.de-DE.htp" />
     <Content Include="Templates\MiniCart\tokens.es-ES.htp" />
     <Content Include="Templates\MiniCart\tokens.htp" />
+    <Content Include="Templates\Contact\tokens.htp" />
     <None Include="Templates\module.css.template" />
     <Content Include="SettingsCart.ascx" />
     <Content Include="ViewCart.ascx" />

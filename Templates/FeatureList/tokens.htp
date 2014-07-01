@@ -1,6 +1,10 @@
-﻿Please select a template or create a new for the Featurelistitems. You can use the following tokens:<br />
+﻿Please select a template or create a new for the Contact ProductItems. You can use the following tokens:<br />
 <ul style="color:black;">
-	<li>[TITLE] = Featurelist item name</li>
+	<li>[TITLE] = product name</li>
+	<li>[ITEMNO] = item no.</li>
+	<li>[PRODUCTSHORTDESCRIPTION] = Product Short Description</li>
+	<li>[PRODUCTDESCRIPTION] = Product Description</li>
 	<li>[IMAGE] = Product Image (orig. dimension)</li>
 	<li>[IMAGE:width] = Product Image (width in pixel)</li>
+	<li>[DELETE] = Remove image button
 </ul>

@@ -330,9 +330,7 @@ namespace Bitboxx.DNNModules.BBStore
                     if (ModuleSettings["Template"] != null) 
                         tplTemplate.Value = (string)ModuleSettings["Template"];
 
-                    txtAddressTemplate.Text = Localization.GetString("AddressTemplate.Text", this.LocalResourceFile.Replace("SettingsCart", "ViewCartAddressEdit"));
-
-
+                    txtAddressTemplate.Text = Localization.GetString("AddressTemplate.Text", this.LocalResourceFile.Replace("SettingsCart", "ViewCart"));
                 }
             }
             catch (Exception exc)
@@ -387,7 +385,7 @@ namespace Bitboxx.DNNModules.BBStore
 				objModules.UpdateModuleSetting(ModuleId, "MandEmail", chkMandEmail.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "Template", tplTemplate.Value);
 
-				string resFile = this.LocalResourceFile.Replace("SettingsCart", "ViewCartAddressEdit") + ".ascx" + (CurrentLanguage != "en-US" ? "." + CurrentLanguage : "") +
+				string resFile = this.LocalResourceFile.Replace("SettingsCart", "ViewCart") + ".ascx" + (CurrentLanguage != "en-US" ? "." + CurrentLanguage : "") +
 	                             ".Portal-" + PortalSettings.PortalId.ToString() + ".resx";
 
 				Dictionary<string, string> entries = new Dictionary<string, string>();

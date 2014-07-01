@@ -50,6 +50,14 @@
 	        <dnn:Label id="lblTermsMandatory" runat="server" controlname="chkTermsMandatory" suffix=":"/>
             <asp:CheckBox runat="server" ID="chkTermsMandatory"/>
         </div>
+        <div class="dnnFormItem">
+	        <dnn:Label id="lblCancelTermsMandatory" runat="server" controlname="chkCancelTermsMandatory" suffix=":"/>
+            <asp:CheckBox runat="server" ID="chkCancelTermsMandatory"/>
+        </div>
+        <div class="dnnFormItem">
+	        <dnn:Label id="lblCancelTerms" runat="server" controlname="txtCancelTerms" suffix=":"/>
+            <asp:TextBox runat="server" ID="txtCancelTerms" Rows="6" TextMode="MultiLine"/>
+        </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="lblSupplierRole" runat="server" controlname="cboSupplierRole" suffix=":"/>
             <asp:DropDownList Width="200"  runat="server" ID="cboSupplierRole"/>

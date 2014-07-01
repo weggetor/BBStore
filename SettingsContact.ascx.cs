@@ -19,6 +19,7 @@
 // 
 
 using System;
+using System.Web.UI.WebControls;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
 
@@ -43,6 +44,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             tplTemplate.CaptionText = LocalizeString("lblTemplate.Text");
             tplTemplate.CaptionHelp = LocalizeString("lblTemplate.Help");
+
+            tplProduct.CaptionText = LocalizeString("lblProductTemplate.Text");
+            tplProduct.CaptionHelp = LocalizeString("lblProductTemplate.Help");
             base.OnLoad(e);
         }
         
@@ -143,6 +147,9 @@ namespace Bitboxx.DNNModules.BBStore
 
                 if (ModuleSettings["Template"] != null) 
                     tplTemplate.Value = (string)ModuleSettings["Template"];
+
+                if (ModuleSettings["ProductTemplate"] != null)
+                    tplProduct.Value = (string)ModuleSettings["ProductTemplate"];
             }
             catch (Exception exc)
             {
@@ -182,6 +189,7 @@ namespace Bitboxx.DNNModules.BBStore
 				objModules.UpdateModuleSetting(ModuleId, "ShopHome", urlShopHome.Url);
 				objModules.UpdateModuleSetting(ModuleId, "EmailSubject", txtEmailSubject.Text);
                 objModules.UpdateModuleSetting(ModuleId, "Template", tplTemplate.Value);
+                objModules.UpdateModuleSetting(ModuleId, "ProductTemplate", tplProduct.Value);
             }
             catch (Exception exc)
             {

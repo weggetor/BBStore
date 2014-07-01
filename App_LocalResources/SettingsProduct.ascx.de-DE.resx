@@ -222,4 +222,10 @@
 	<data name="lblStatic.Text" xml:space="preserve">
 		<value>Fester Artikel</value>
 	</data>
+	<data name="lblListModulePage.Text" xml:space="preserve">
+		<value>Listenmodul Seite</value>
+	</data>
+	<data name="lblListModulePage.Help" xml:space="preserve">
+		<value>Wählen Sie die Seite die automatisch angezeigt werden soll wenn kein aktuelles Produkt ausgewählt wurde</value>
+	</data>
 </root>

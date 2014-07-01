@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using DotNetNuke.Entities.Modules;
@@ -25,6 +26,7 @@ namespace Bitboxx.DNNModules.BBStore
 			Multiselect = false;
 			FeatureListItemId = null;
 			FeatureListItem = "";
+            FeatureListItemImage = "";
 			nValue = null;
 			cValue = null;
 			tValue = null;
@@ -48,6 +50,7 @@ namespace Bitboxx.DNNModules.BBStore
 
 		public int? FeatureListItemId { get; set; }
 		public string FeatureListItem { get; set; }
+        public string FeatureListItemImage { get; set; }
 		public decimal? nValue {get; set;}
 		public string cValue {get; set;}
 		public DateTime? tValue {get; set;}
@@ -72,6 +75,7 @@ namespace Bitboxx.DNNModules.BBStore
 			Multiselect = Convert.ToBoolean(Null.SetNull(dr["Multiselect"], Multiselect));
 			FeatureListItemId = (dr["FeatureListItemid"] == DBNull.Value ? null : (int?)dr["FeatureListItemId"]);
 			FeatureListItem = Convert.ToString(Null.SetNull(dr["FeatureListItem"], FeatureListItem));
+            FeatureListItemImage = Convert.ToString(Null.SetNull(dr["FeatureListItemImage"], FeatureListItemImage)).Trim();
 			nValue = (dr["nValue"] == DBNull.Value ? null : (decimal?)dr["nValue"]);
 			cValue = (dr["cValue"] == DBNull.Value ? null : (string)dr["cValue"]);
 			tValue = (dr["tValue"] == DBNull.Value ? null : (DateTime?)dr["tValue"]);

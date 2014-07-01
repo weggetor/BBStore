@@ -31,6 +31,24 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.RadioButtonList rblShowNetPrice;
         
         /// <summary>
+        /// lblListModulePage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblListModulePage;
+        
+        /// <summary>
+        /// urlListModulePage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Bitboxx.DNNModules.BBStore.TabSelectControl urlListModulePage;
+        
+        /// <summary>
         /// lblContactModulePage control.
         /// </summary>
         /// <remarks>

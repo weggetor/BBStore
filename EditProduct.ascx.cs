@@ -346,7 +346,9 @@ namespace Bitboxx.DNNModules.BBStore
 
                 // Lets update the ShippingModel
                 Controller.DeleteProductShippingModelByProduct(ProductId);
-                Controller.InsertProductShippingModel(new ProductShippingModelInfo() {ShippingModelId = Convert.ToInt32(cboShippingModel.SelectedValue), SimpleProductId = ProductId});
+                int shippingModelId = -1;
+                if (cboShippingModel.SelectedValue != null && Int32.TryParse(cboShippingModel.SelectedValue,out shippingModelId))
+                    Controller.InsertProductShippingModel(new ProductShippingModelInfo() {ShippingModelId = shippingModelId, SimpleProductId = ProductId});
                 
 
                 // Now lets update Language information

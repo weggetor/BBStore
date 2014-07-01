@@ -23,7 +23,7 @@ using DotNetNuke.UI.Skins.Controls;
 
 namespace Bitboxx.DNNModules.BBStore
 {
-    [DNNtc.PackageProperties("BBStore Contact", 7, "BBStore Contact", "BBStore Contact", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
+    [DNNtc.PackageProperties("BBStore Contact", 7, "BBStore Contact", "BBStore Contact", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
     [DNNtc.ModuleProperties("BBStore Contact", "BBStore Contact", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Contact", DNNtc.ControlType.View, "", true, false)]
 	public partial class ViewContact : PortalModuleBase, IActionable
@@ -47,6 +47,7 @@ namespace Bitboxx.DNNModules.BBStore
 		BBStoreController _controller;
 		List<SimpleProductInfo> Products;
         private ContactAddressInfo _contactAddress;
+        private string _template = "";
 		#endregion
 
 		#region Properties
@@ -149,7 +150,11 @@ namespace Bitboxx.DNNModules.BBStore
 			    }
 			    else
 			    {
-			        if (!Page.IsPostBack)
+                    TemplateControl tp = LoadControl("controls/TemplateControl.ascx") as TemplateControl;
+                    tp.Key = "Contact";
+                    _template = tp.GetTemplate((string)Settings["ProductTemplate"]);
+                    
+                    if (!Page.IsPostBack)
 			        {
 			            ListController ListController = new ListController();
 			            ListEntryInfoCollection Countries = ListController.GetListEntryInfoCollection("Country");
@@ -388,71 +393,55 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			if (IsConfigured)
 			{
-				int imageWidth = 145;
-				StringBuilder Template = new StringBuilder();
-				Template.AppendLine("<table>");
-				Template.AppendLine("	<tr>");
-				Template.AppendLine("		<td rowspan=\"2\">");
-				Template.AppendLine("		    <asp:PlaceHolder ID=\"phImgProduct\" runat=\"server\" />");
-				Template.AppendLine("		</td>");
-				Template.AppendLine("		<td>");
-				Template.AppendLine("			<asp:Label id=\"lblItemNo\" runat=\"server\"/>&nbsp;<asp:Label id=\"lblName\" runat=\"server\"/>");
-				Template.AppendLine("		</td>");
-				Template.AppendLine("		<td rowspan=\"2\">");
-				Template.AppendLine("			<asp:ImageButton runat=\"server\" id=\"cmdDelete\" CommandName=\"Delete\" CausesValidation=\"False\"></asp:ImageButton>");
-				Template.AppendLine("		</td>");
-				Template.AppendLine("	</tr>");
-				Template.AppendLine("	<tr>");
-				Template.AppendLine("		<td style=\"font-size:x-small\"><asp:Label id=\"lblShortDescription\" runat=\"server\"/></td>");
-				Template.AppendLine("	</tr>");
-				Template.AppendLine("</table>");
+                
+                int imageWidth = 145;
 
 				ListView lv = sender as ListView;
 				ListViewDataItem item = e.Item as ListViewDataItem;
-				SimpleProductInfo SimpleProduct = item.DataItem as SimpleProductInfo;
-				if (SimpleProduct != null)
+				SimpleProductInfo simpleProduct = item.DataItem as SimpleProductInfo;
+				if (simpleProduct != null)
 				{
-					PlaceHolder ph = e.Item.FindControl("productPlaceholder") as PlaceHolder;
-					Control ctrl = ParseControl(Template.ToString());
+                    string template = _template;
 
-					ImageButton cmdDelete = FindControlRecursive(ctrl, "cmdDelete") as ImageButton;
-					if (cmdDelete != null)
-						cmdDelete.ImageUrl = "~/Images/delete.gif";
+                    if (template.IndexOf("[IMAGE") > -1)
+                    {
+                        if (template.IndexOf("[IMAGE:") > -1)
+                        {
+                            string width;
+                            width = template.Substring(template.IndexOf("[IMAGE:") + 7);
+                            width = width.Substring(0, width.IndexOf("]"));
+                            if (Int32.TryParse(width, out imageWidth) == false)
+                                imageWidth = 200;
+                            template = template.Replace("[IMAGE:" + width + "]", "<asp:PlaceHolder ID=\"phimgProduct\" runat=\"server\" />");
+                        }
+                        else
+                            template = template.Replace("[IMAGE]", "<asp:PlaceHolder ID=\"phimgProduct\" runat=\"server\" />");
+                    }
+                    template = template.Replace("[ITEMNO]", simpleProduct.ItemNo);
+				    template = template.Replace("[TITLE]", simpleProduct.Name);
+                    template = template.Replace("[PRODUCTDESCRIPTION]", simpleProduct.ProductDescription);
+                    template = template.Replace("[PRODUCTSHORTDESCRIPTION]", simpleProduct.ShortDescription);
+                    template = template.Replace("[DELETE]", "<asp:ImageButton runat=\"server\" id=\"cmdDelete\" CommandName=\"Delete\" CausesValidation=\"False\" IconKey=\"Delete\"></asp:ImageButton>");
+                    
+					Control ctrl = ParseControl(template);
 
-					Label lblItemNo = FindControlRecursive(ctrl, "lblItemNo") as Label;
-					if (lblItemNo != null)
-						lblItemNo.Text = SimpleProduct.ItemNo;
+                    PlaceHolder phimgProduct = FindControlRecursive(ctrl, "phimgProduct") as PlaceHolder;
+                    if (phimgProduct != null && simpleProduct.Image != null)
+                    {
+                        string fileName =
+                                PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
+                                simpleProduct.Image.Replace('/', '\\');
 
-					PlaceHolder phImgProduct = FindControlRecursive(ctrl, "phImgProduct") as PlaceHolder;
-					if (phImgProduct != null && SimpleProduct.Image != null)
-					{
-						string fileName =
-							PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
-							SimpleProduct.Image.Replace('/', '\\');
-						GeneratedImage imgProduct = new GeneratedImage();
-						imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
-						if (imageWidth > 0)
-							imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
-						imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
-						// TODO: Watermark
-						//if (false)
-						//{
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkText", Value = Localization.GetString("Sold.Text", this.LocalResourceFile) });
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontFamily", Value = "Verdana" });
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontColor", Value = "Red" });
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
-						//}
-						phImgProduct.Controls.Add(imgProduct);
-					}
+                        GeneratedImage imgProduct = new GeneratedImage();
+                        imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
+                        if (imageWidth > 0)
+                            imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
+                        imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
+                        // TODO: Watermark
+                        phimgProduct.Controls.Add(imgProduct);
+                    }
 
-					Label lblName = FindControlRecursive(ctrl, "lblName") as Label;
-					if (lblName != null)
-						lblName.Text = SimpleProduct.Name;
-
-					Label lblShortDescription = FindControlRecursive(ctrl, "lblShortDescription") as Label;
-					if (lblShortDescription != null)
-						lblShortDescription.Text = SimpleProduct.ShortDescription;
-
+                    PlaceHolder ph = e.Item.FindControl("productPlaceholder") as PlaceHolder;
 					ph.Controls.Add(ctrl);
 				}
 			}
@@ -623,7 +612,7 @@ namespace Bitboxx.DNNModules.BBStore
 
             string productTemplate = "<tr class=\"Normal\" style=\"[STYLE]\">" +
                 "  <td style=\"vertical-align:top;text-align:left\">[PRODUCTITEMNO]</td>" +
-                "  <td style=\"vertical-align:top;text-align:left\">[PRODUCTNAME]</td>" +
+                "  <td style=\"vertical-align:top;text-align:left\">[PRODUCTNAME]<br><span style=\"font-size:10px\">[PRODUCTSHORTDESCRIPTION]</span></td>" +
                 "</tr>";
 
             int loop = 0;
@@ -633,6 +622,7 @@ namespace Bitboxx.DNNModules.BBStore
                 string artname = product.Name.Trim();
                 requestItems = requestItems.Replace("[PRODUCTNAME]", product.Name.Trim());
                 requestItems = requestItems.Replace("[PRODUCTITEMNO]", product.ItemNo.Trim());
+                requestItems = requestItems.Replace("[PRODUCTSHORTDESCRIPTION]", product.ShortDescription);
                 if (loop % 2 == 0)
                     requestItems = requestItems.Replace("[STYLE]", "background-color:#F8F8F8");
                 else

@@ -438,7 +438,7 @@ namespace Bitboxx.DNNModules.BBStore
 		// ContactProduct methods
 		public abstract IDataReader GetContactProductsByCartId(int PortalId, Guid CartId, string Language);
 		public abstract IDataReader GetContactProductsByAddressId(int PortalId, int ContactAddressId, string Language);
-		public abstract void NewContactProduct(Guid CartId, int ProductId, int ContactAddressId);
+		public abstract void NewContactProduct(Guid CartId, int ProductId, int ContactAddressId, string selectedAttributes);
 		public abstract void UpdateContactProduct(Guid CartId, int ProductId, int ContactAddressId);
 		public abstract void DeleteContactProduct(Guid CartId, int ProductId);
 		public abstract void DeleteContactProduct(int ContactAddressId, int ProductId);

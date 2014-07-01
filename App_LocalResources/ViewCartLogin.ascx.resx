@@ -121,13 +121,13 @@
     <value>Please enter your email address.</value>
   </data>
 	<data name="LoginFailure.Text" xml:space="preserve">
-		<value>Please review email address or password. Something seems to be wrong ! &lt;br /&gt;Forgot your password ? Please follow this link: &lt;a href="{0}"&gt;{0}&lt;/a&gt;!</value>
+		<value>Please review email address or password. Something seems to be wrong ! &lt;br /&gt;Forgot your password ? Please follow this link: &lt;a href="{0}"&gt;{0}&lt;/a&gt; and select "Reset password"!</value>
 	</data>
 	<data name="WrongEmail.Text" xml:space="preserve">
 		<value>Please enter a valid email address.</value>
 	</data>
 	<data name="KnownUser.Text" xml:space="preserve">
-		<value>Welcome back {0}. Please enter your password to confirm your data. &lt;br /&gt;Forgot your password ? Please follow this  link: &lt;a href="{1}"&gt;{1}&lt;/a&gt;!</value>
+		<value>Welcome back {0}. Please enter your password to confirm your data. &lt;br /&gt;Forgot your password ? Please follow this  link: &lt;a href="{1}"&gt;{1}&lt;/a&gt; and select "Reset password"!</value>
 	</data>
 	<data name="lblPassword.Text" xml:space="preserve">
 		<value>Password</value>

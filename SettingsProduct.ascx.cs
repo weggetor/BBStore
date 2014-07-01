@@ -181,7 +181,11 @@ namespace Bitboxx.DNNModules.BBStore
 					else
 					{
 						SimpleProductInfo pi = Controller.GetSimpleProductByProductId(PortalId, ProductId, CurrentLanguage);
-						lblSelected.Text = "(" + ProductId.ToString() + ") " + pi.ItemNo + " " + pi.Name;
+					    if (pi != null)
+					        lblSelected.Text = "(" + ProductId.ToString() + ") " + pi.ItemNo + " " + pi.Name;
+					    else
+					        lblSelected.Text = "(" + ProductId.ToString() + ")";
+
                         rblSelectType.SelectedValue = "1";
                         pnlStatic.Visible = true;
                         divMessage.Attributes.Add("class", "dnnFormMessage dnnFormInfo");
@@ -222,6 +226,9 @@ namespace Bitboxx.DNNModules.BBStore
             
             if (ModuleSettings["ContactModulePage"] != null)
 				urlContactModulePage.Url = (string)ModuleSettings["ContactModulePage"];
+
+            if (ModuleSettings["ListModulePage"] != null)
+                urlListModulePage.Url = (string)ModuleSettings["ListModulePage"];
         }
         public override void UpdateSettings()
         {
@@ -230,6 +237,7 @@ namespace Bitboxx.DNNModules.BBStore
 				ModuleController objModules = new ModuleController();
 				objModules.UpdateModuleSetting(ModuleId, "OpenCartOnAdd", chkOpenCartOnAdd.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "ContactModulePage", urlContactModulePage.Url);
+                objModules.UpdateModuleSetting(ModuleId, "ListModulePage", urlListModulePage.Url);
                 objModules.UpdateModuleSetting(ModuleId, "ProductId", ProductId.ToString());
                 int isTaxIncluded = (string.IsNullOrEmpty(rblShowNetPrice.SelectedValue) ? 1 : Convert.ToInt32(rblShowNetPrice.SelectedValue));
                 objModules.UpdateModuleSetting(ModuleId, "ShowNetPrice" ,isTaxIncluded.ToString() );

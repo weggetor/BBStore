@@ -2908,6 +2908,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " ISNULL((SELECT FeatureList FROM " + GetFullyQualifiedName("FeatureListLang") + " WHERE FeatureListId = f.FeatureListid AND Language = @Language),'') as FeatureList, " +
                 " f.ViewOrder as FViewOrder, f.DataType,f.Control, f.MultiSelect, fv.FeatureListItemId," +
                 " ISNULL((SELECT FeatureListItem FROM " + GetFullyQualifiedName("FeatureListItemLang") + " WHERE FeatureListItemId = fv.FeatureListItemid AND Language = @Language),'') as FeatureListItem, " +
+                " ISNULL((SELECT Image FROM " + GetFullyQualifiedName("FeatureListItem") + " WHERE FeatureListItemId = fv.FeatureListItemid ),'') as FeatureListItemImage, " +
                 " fv.nValue,fv.cValue,fv.tValue,fv.iValue,fv.fValue,fv.bValue" +
                 " FROM " + GetFullyQualifiedName("Feature") + " f " +
                 " INNER JOIN " + GetFullyQualifiedName("FeatureLang") + " fl ON f.FeatureId = fl.FeatureId" +
@@ -2953,6 +2954,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " ISNULL((SELECT FeatureList FROM " + GetFullyQualifiedName("FeatureListLang") + " WHERE FeatureListId = f.FeatureListid AND Language = @Language),'') as FeatureList, " +
                 " f.ViewOrder as FViewOrder,f.DataType,f.Control, f.MultiSelect, fv.FeatureListItemId," +
                 " ISNULL((SELECT FeatureListItem FROM " + GetFullyQualifiedName("FeatureListItemLang") + " WHERE FeatureListItemId = fv.FeatureListItemid AND Language = @Language),'') as FeatureListItem, " +
+                " ISNULL((SELECT Image FROM " + GetFullyQualifiedName("FeatureListItem") + " WHERE FeatureListItemId = fv.FeatureListItemid ),'') as FeatureListItemImage, " +
                 " fv.nValue,fv.cValue,fv.tValue,fv.iValue,fv.fValue, fv.bValue" +
                 " FROM " + GetFullyQualifiedName("Feature") + " f " +
                 " INNER JOIN " + GetFullyQualifiedName("FeatureLang") + " fl ON f.FeatureId = fl.FeatureId" +
@@ -4510,7 +4512,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " SimpleProduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
                 " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
                 " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,SimpleProduct.Disabled," +
-                " Lang.ShortDescription,Lang.ProductDescription, Lang.Attributes, Lang.Name" +
+                " Lang.ShortDescription + ContactProduct.SelectedAttributes AS ShortDescription,Lang.ProductDescription, Lang.Attributes, Lang.Name" +
                 " FROM " + GetFullyQualifiedName("SimpleProduct") + " SimpleProduct" +
                 " INNER JOIN " + GetFullyQualifiedName("SimpleProductLang") + " Lang ON SimpleProduct.SimpleProductId = Lang.SimpleProductId" +
                 " INNER JOIN " + GetFullyQualifiedName("ContactProduct") + " ContactProduct ON Simpleproduct.SimpleProductId = ContactProduct.ProductId" +
@@ -4547,32 +4549,35 @@ namespace Bitboxx.DNNModules.BBStore
 
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, SqlParams);
         }
-        public override void NewContactProduct(Guid CartId, int ProductId, int ContactAddressId)
+        public override void NewContactProduct(Guid CartId, int ProductId, int ContactAddressId, string selectedAttributes)
         {
             string insCmd = "INSERT INTO " + GetFullyQualifiedName("ContactProduct") +
-                " (CartId,ProductId, ContactAddressId)" +
+                " (CartId,ProductId, ContactAddressId, SelectedAttributes)" +
                 " VALUES " +
-                " (@CartId,@ProductId,@ContactAddressId)";
+                " (@CartId,@ProductId,@ContactAddressId, @SelectedAttributes)";
 
             SqlParameter[] SqlParams = new SqlParameter[] {
                 new SqlParameter("CartId",CartId),
                 new SqlParameter("ContactAddressId",ContactAddressId),
-                new SqlParameter("ProductId",ProductId)};
+                new SqlParameter("ProductId",ProductId),
+                new SqlParameter("SelectedAttributes", selectedAttributes), 
+            };
 
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, insCmd, SqlParams);
         }
         public override void UpdateContactProduct(Guid CartId, int ProductId, int ContactAddressId)
         {
             string updCmd = "UPDATE " + GetFullyQualifiedName("ContactProduct") + " SET " +
-                " CartId = NULL," +
-                " ContactAddressId = @ContactAddressId" +
-                " WHERE CartId = @CartId" +
-                " AND ProductId = @ProductId";
+                            " CartId = NULL," +
+                            " ContactAddressId = @ContactAddressId" +
+                            " WHERE CartId = @CartId" +
+                            " AND ProductId = @ProductId";
 
             SqlParameter[] SqlParams = new SqlParameter[] {
                 new SqlParameter("CartId",CartId),
                 new SqlParameter("ContactAddressId",ContactAddressId),
-                new SqlParameter("ProductId",ProductId)};
+                new SqlParameter("ProductId",ProductId),
+            };
 
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
         }

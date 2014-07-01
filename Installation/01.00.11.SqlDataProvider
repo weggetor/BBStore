@@ -235,6 +235,10 @@ IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Shippin
 	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_CartProduct] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}ShippingModel_CartProduct FOREIGN KEY ( ShippingModelID )  REFERENCES {databaseOwner}[{objectQualifier}BBStore_ShippingModel] ( ShippingModelID )  ON DELETE SET NULL
 GO
 
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ContactProduct]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ContactProduct] ADD SelectedAttributes NVARCHAR(MAX) NOT NULL DEFAULT '' 
+go
+
 /************************************************************/
 /*****              SqlDataProvider                     *****/
 /************************************************************/

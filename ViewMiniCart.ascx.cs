@@ -11,7 +11,7 @@ using DotNetNuke.Services.Localization;
 
 namespace Bitboxx.DNNModules.BBStore
 {
-    [DNNtc.PackageProperties("BBStore MiniCart", 9, "BBStore MiniCart", "BBStore MiniCart", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
+    [DNNtc.PackageProperties("BBStore MiniCart", 9, "BBStore MiniCart", "BBStore MiniCart", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
     [DNNtc.ModuleProperties("BBStore MiniCart", "BBStore MiniCart", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore MiniCart", DNNtc.ControlType.View, "", true, false)]
 	public partial class ViewMiniCart : PortalModuleBase

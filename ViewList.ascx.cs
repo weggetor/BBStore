@@ -50,7 +50,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Product List",4, "BBStore Product List", "BBStore Product List", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
+    [DNNtc.PackageProperties("BBStore Product List", 4, "BBStore Product List", "BBStore Product List", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
     [DNNtc.ModuleProperties("BBStore Product List", "BBStore Product List", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Product List", DNNtc.ControlType.View, "", false, false)]
 	partial class ViewList : PortalModuleBase, IActionable
@@ -659,7 +659,7 @@ namespace Bitboxx.DNNModules.BBStore
                     lblUnit = FindControlRecursive(ctrl, "lblUnit") as Label;
 
 
-				    for (int i = 0; i < linkCnt; i++)
+				    for (int i = 1; i < linkCnt+1; i++)
 				    {
                         Literal ltrLink = FindControlRecursive(ctrl, "ltrLink"+i.ToString()) as Literal;
                         if (ltrLink != null)

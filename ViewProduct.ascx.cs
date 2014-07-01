@@ -53,7 +53,7 @@ namespace Bitboxx.DNNModules.BBStore
     /// <history> 
     /// </history> 
     /// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Product",1, "BBStore Product", "BBStore Product", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
+    [DNNtc.PackageProperties("BBStore Product", 1, "BBStore Product", "BBStore Product", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
     [DNNtc.ModuleProperties("BBStore Product", "BBStore Product", 0)]
     [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.CoreVersion, "06.00.00")]
     [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.Package, "BBImageHandler")]
@@ -216,7 +216,13 @@ namespace Bitboxx.DNNModules.BBStore
                 }
                 else
                 {
-                    IsVisible = false;
+                    if (Settings["ListModulePage"] != null)
+                    {
+                        int listModuleTabId = Convert.ToInt32(Settings["ListModulePage"]);
+                        Response.Redirect(Globals.NavigateURL(listModuleTabId, "", "productgroup=-1"),true);
+                    }
+                    else
+                        IsVisible = false;
                 }
             }
             
@@ -245,20 +251,23 @@ namespace Bitboxx.DNNModules.BBStore
 				template = template.Replace("[PRICE]", "<asp:Label ID=\"lblPrice\" runat=\"server\" />");
 				template = template.Replace("[ORIGINALPRICE]", "<asp:Label ID=\"lblOriginalPrice\" runat=\"server\" />");
 
-				if (template.IndexOf("[IMAGELINK") > -1)
+				
+                while (template.IndexOf("[IMAGELINK") > -1)
 				{
-					string ImageUrl = Page.ResolveUrl("~\\BBImagehandler.ashx") + "?&Mode=FitSquare&File=" + HttpUtility.UrlEncode(PortalSettings.HomeDirectoryMapPath + SimpleProduct.Image);
-					if (template.IndexOf("[IMAGELINK:") > -1)
+					string imageUrlHandler = Page.ResolveUrl("~\\BBImagehandler.ashx") + "?&Mode=FitSquare&File=" + HttpUtility.UrlEncode(PortalSettings.HomeDirectoryMapPath + SimpleProduct.Image);
+				    string imageUrl = PortalSettings.HomeDirectory + SimpleProduct.Image;
+
+                    if (template.IndexOf("[IMAGELINK:") > -1)
 					{
 						string width;
 						width = template.Substring(template.IndexOf("[IMAGELINK:") + 11);
 						width = width.Substring(0, width.IndexOf("]"));
 						if (Int32.TryParse(width, out imageWidth) == false)
 							imageWidth = 200;
-						template = template.Replace("[IMAGELINK:" + width + "]", ImageUrl + "&Width=" + imageWidth.ToString());
+						template = template.Replace("[IMAGELINK:" + width + "]", imageUrlHandler + "&Width=" + imageWidth.ToString());
 					}
 					else
-						template = template.Replace("[IMAGELINK]", ImageUrl);
+						template = template.Replace("[IMAGELINK]", imageUrl);
 				}
 
 				int isWidth = 0;
@@ -499,7 +508,8 @@ namespace Bitboxx.DNNModules.BBStore
                         List<OptionListInfo> options = new List<OptionListInfo>();
                         if (Request.QueryString["cpoid"] != null)
                         {
-                            lnkAddCart.Text = Localization.GetString("lnkUpdateCart.Text", this.LocalResourceFile);
+                            if (lnkAddCart != null)
+                                lnkAddCart.Text = Localization.GetString("lnkUpdateCart.Text", this.LocalResourceFile);
                             if (!IsPostBack)
                             {
                                 int cpoId = Convert.ToInt32(Request.QueryString["cpoid"]);
@@ -621,6 +631,7 @@ namespace Bitboxx.DNNModules.BBStore
 						if (lblOriginalPrice!= null) lblOriginalPrice.Visible = false;
 						if (lblTax != null) lblTax.Visible = false;
 						if (lblCurrency!= null) lblCurrency.Visible = false;
+					    if (lblUnit != null) lblUnit.Visible = false;
 					}
 
 					// We can set the Title of our Module
@@ -652,7 +663,13 @@ namespace Bitboxx.DNNModules.BBStore
         }
 		protected void lnkAskOffer_Click(object sender, EventArgs e)
 		{
-			Controller.NewContactProduct(CartId, SimpleProduct.SimpleProductId, -1);
+		    string selectedAttributes = "";
+            foreach (OptionListInfo oli in ProductOptionSelect.SelectedOptions)
+            {
+                selectedAttributes += oli.OptionValue != String.Empty ? "<br/>" + oli.OptionName + " = " + oli.OptionValue : "";
+            }
+            
+            Controller.NewContactProduct(CartId, SimpleProduct.SimpleProductId, -1, selectedAttributes);
 			if (Settings["ContactModulePage"] != null)
 			{
 				int TabId = Convert.ToInt32(Settings["ContactModulePage"]);

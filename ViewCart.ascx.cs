@@ -40,7 +40,7 @@ namespace Bitboxx.DNNModules.BBStore
     /// <history> 
     /// </history> 
     /// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Cart", 2, "BBStore Cart", "BBStore cart", "", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
+    [DNNtc.PackageProperties("BBStore Cart", 2, "BBStore Cart", "BBStore cart", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
     [DNNtc.ModuleProperties("BBStore Cart", "BBStore Cart", 0)]
     [DNNtc.ModuleControlProperties("", "View Cart", DNNtc.ControlType.View, "", false, false)]
     partial class ViewCart : PortalModuleBase, IActionable
@@ -311,6 +311,17 @@ namespace Bitboxx.DNNModules.BBStore
                     lblTermsPre.Visible = false;
                     lnkTerms.Visible = false;
                     lblTermsPost.Visible = false;
+                }
+
+                // Mandatory Cancel Terms
+                if (StoreSettings["CancelTermsMandatory"] != null && Convert.ToBoolean(StoreSettings["CancelTermsMandatory"]) == false)
+                {
+                    chkCancelTerms.Visible = false;
+                    lblCancelTerms.Visible = false;
+                }
+                else
+                {
+                    lblCancelTerms.Text = (string) StoreSettings["CancelTerms"] ?? LocalizeString("lblCancelTerms.Text");
                 }
 
                 //Cart Navigation Control Style
@@ -596,9 +607,15 @@ namespace Bitboxx.DNNModules.BBStore
         {
             bool termsMandatory = (StoreSettings["TermsMandatory"] == null ||
                                    Convert.ToBoolean(StoreSettings["TermsMandatory"]) == true);
-            if (chkTerms.Checked || !termsMandatory)
+
+            bool cancelTermsMandatory = (StoreSettings["CancelTermsMandatory"] == null ||
+                       Convert.ToBoolean(StoreSettings["CancelTermsMandatory"]) == true);
+
+            if ((chkTerms.Checked || !termsMandatory) && (chkCancelTerms.Checked || !cancelTermsMandatory))
             {
                 lblTermsError.Visible = false;
+                lblCancelTermsError.Visible = false;
+                
                 // Fill the order and send mail & empty cart
                 Cart.Comment = txtRemarks.Text;
                 if (fulAttachment.HasFile)
@@ -639,7 +656,10 @@ namespace Bitboxx.DNNModules.BBStore
             }
             else
             {
-                lblTermsError.Visible = true;
+                if (!chkTerms.Checked && termsMandatory)
+                    lblTermsError.Visible = true;
+                if (!chkCancelTerms.Checked && cancelTermsMandatory)
+                    lblCancelTermsError.Visible = true;
             }
         }
 
@@ -1189,6 +1209,10 @@ namespace Bitboxx.DNNModules.BBStore
 
             foreach (int shippingModelId in shippingModelIds)
             {
+                // if CartProducts have no ShippingModel, we skip these !
+                if (shippingModelId == -1)
+                    continue;
+
                 int shippingZoneId = -1;
                 decimal shippingSum = 0.00m;
 
@@ -1429,7 +1453,7 @@ namespace Bitboxx.DNNModules.BBStore
             }
         }
 
-        private void MailOrder(int OrderId)
+        internal void MailOrder(int OrderId)
         {
             string storeEmail = (string)StoreSettings["StoreEmail"] ?? "";
             string storeName = (string)StoreSettings["StoreName"] ?? "";
