@@ -19,7 +19,7 @@
     <globalSetting name="autoTranslateForm.prefixTextBox.Text">####</globalSetting>
     <globalSetting name="autoTranslateForm.prefixCheckBox.Checked">False</globalSetting>
     <globalSetting name="autoTranslateForm.referenceLanguageComboBoxEdit.SelectedIndex">0</globalSetting>
-    <globalSetting name="autoTranslateForm.languagesToTranslateCheckListBox">0;1</globalSetting>
+    <globalSetting name="autoTranslateForm.languagesToTranslateCheckListBox">1</globalSetting>
     <globalSetting name="AddNewFileGroupForm.destinationLanguagesListBox">0;1;2</globalSetting>
     <globalSetting name="AddNewFileGroupForm.extensionComboBoxEdit">0</globalSetting>
     <globalSetting name="AddNewFileGroupForm.baseFolderTextEdit.Text">C:\Inetpub\wwwroot\bbstore\DesktopModules\BBStore\App_LocalResources</globalSetting>

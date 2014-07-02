@@ -183,4 +183,10 @@
 	<data name="TitleEditUnit.Text" xml:space="preserve">
 		<value>Editar Unidades</value>
 	</data>
+	<data name="cmdSendAgain.Text" xml:space="preserve">
+		<value>Enviar otra vez</value>
+	</data>
+	<data name="SendAgain.Message" xml:space="preserve">
+		<value>El correo de orden lo envió de nuevo!</value>
+	</data>
 </root>

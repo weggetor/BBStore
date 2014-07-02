@@ -128,5 +128,14 @@
 	</data>
 	<data name="lblConcat.Text" xml:space="preserve">
 		<value>y</value>
-	</data>	
+	</data>
+	<data name="lblCost.Text" xml:space="preserve">
+		<value>Además de &lt;strong&gt;{0}&lt;/strong&gt; adicional del honorario para el uso de factura</value>
+	</data>
+	<data name="lblDiscount.Text" xml:space="preserve">
+		<value>descuento para el uso de factura menos &lt;strong&gt;{0}&lt;/strong&gt;</value>
+	</data>
+	<data name="lblDescription.Text" xml:space="preserve">
+		<value>&lt;p&gt;El pago con la factura es el más conveniente y más segura de pago para tu método. Usted paga por las mercancías fácilmente vía cable transfieren después de mantenerlos en sus manos. &lt;br/&gt; &lt;br/&gt;{0}&lt;/p&gt;</value>
+	</data>
 </root>

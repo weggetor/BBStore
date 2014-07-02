@@ -97,4 +97,31 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+	<data name="cmdCancel.Text" xml:space="preserve">
+		<value>Cancelar</value>
+	</data>
+	<data name="cmdNew.Text" xml:space="preserve">
+		<value>Nuevo cliente</value>
+	</data>
+	<data name="cmdSave.Text" xml:space="preserve">
+		<value>Salvar al cliente</value>
+	</data>
+	<data name="CustomerName.Header" xml:space="preserve">
+		<value>Nombre del cliente</value>
+	</data>
+	<data name="Intro.Text" xml:space="preserve">
+		<value>Los clientes pertenecientes a administrarlo (editar o eliminar clientes y añadir nuevos). Finalmente, seleccione a un cliente para pago y envío</value>
+	</data>
+	<data name="lblCustomerName.Help" xml:space="preserve">
+		<value>Introduzca un nombre para su cliente que permiten identificar a su cliente único</value>
+	</data>
+	<data name="lblCustomerName.Text" xml:space="preserve">
+		<value>Nombre del cliente</value>
+	</data>
+	<data name="cmdCustomer.Text" xml:space="preserve">
+		<value>Seleccione {0}</value>
+	</data>
+	<data name="NoDelete.Message" xml:space="preserve">
+		<value>No se puede eliminar al cliente. Esto suele ocurrir cuando un cliente ha adjuntado información &lt;br/&gt;. Mensaje de error exacto: {0}</value>
+	</data>
 </root>

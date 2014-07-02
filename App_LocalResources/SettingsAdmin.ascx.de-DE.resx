@@ -354,4 +354,16 @@
 	<data name="lblLastCheck.Header" xml:space="preserve">
 		<value>Letzte Überprüfung</value>
 	</data>
+	<data name="lblCancelTerms.Help" xml:space="preserve">
+		<value>Bitte fügen Sie den Text ein, der im Warenkorb zum Bestätigen der Kenntnissnahme der Widerrufsklausel angezeigt werden soll</value>
+	</data>
+	<data name="lblCancelTerms.Text" xml:space="preserve">
+		<value>Widerrufs-Text </value>
+	</data>
+	<data name="lblCancelTermsMandatory.Help" xml:space="preserve">
+		<value>Ankreuzen, wenn die Bestätigung der Kenntnissnahme des Widerrufsrechts notwendig ist um den Bestellvorgang abzuschliessen</value>
+	</data>
+	<data name="lblCancelTermsMandatory.Text" xml:space="preserve">
+		<value>Widerrufsbestätigung anzeigen</value>
+	</data>
 </root>

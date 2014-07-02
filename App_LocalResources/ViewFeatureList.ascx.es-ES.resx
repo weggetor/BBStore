@@ -123,4 +123,10 @@
 	<data name="Configure.Message" xml:space="preserve">
     <value>En primer lugar, configure módulo</value>
   </data>
+	<data name="cmdEdit.Text" xml:space="preserve">
+		<value>Editar lista de funciones</value>
+	</data>
+	<data name="cmdNew.Text" xml:space="preserve">
+		<value>Nuevo FeatureList</value>
+	</data>
 </root>

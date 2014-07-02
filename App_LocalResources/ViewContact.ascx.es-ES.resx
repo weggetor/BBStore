@@ -234,4 +234,10 @@
 	<data name="EmailRequestDate.Text" xml:space="preserve">
 		<value>Fecha de solicitud</value>
 	</data>
+	<data name="Configure.Message" xml:space="preserve">
+		<value>Por favor contacto BBStore configurar los módulos de primero</value>
+	</data>
+	<data name="lblInterest.Text" xml:space="preserve">
+		<value>Estoy interesado en</value>
+	</data>
 </root>

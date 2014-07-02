@@ -353,4 +353,16 @@
 	<data name="lblLastCheck.Header" xml:space="preserve">
 		<value>Última revisión</value>
 	</data>
+	<data name="lblCancelTerms.Help" xml:space="preserve">
+		<value>Confirmó al entrar por favor retirada su política de cancelación para ser</value>
+	</data>
+	<data name="lblCancelTerms.Text" xml:space="preserve">
+		<value>Política de cancelación</value>
+	</data>
+	<data name="lblCancelTermsMandatory.Help" xml:space="preserve">
+		<value>Compruebe si la confirmación de la política de cancelación es necesaria para completar el pedido</value>
+	</data>
+	<data name="lblCancelTermsMandatory.Text" xml:space="preserve">
+		<value>Confirmar la política de cancelación </value>
+	</data>
 </root>

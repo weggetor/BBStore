@@ -192,4 +192,7 @@
 	<data name="hdrLanguage.Text" xml:space="preserve">
 		<value>Statische Texte</value>
 	</data>
+	<data name="hdrTemplates.Text" xml:space="preserve">
+		<value>Vorlagen</value>
+	</data>
 </root>

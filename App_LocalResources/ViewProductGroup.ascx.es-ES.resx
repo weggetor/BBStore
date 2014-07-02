@@ -129,4 +129,10 @@
 	<data name="MainProductGroup.Text" xml:space="preserve">
 		<value>Productos</value>
 	</data>
+	<data name="AllGroups.Text" xml:space="preserve">
+		<value>Grupos de productoss todos</value>
+	</data>
+	<data name="Configure.Message" xml:space="preserve">
+		<value>Por favor, configurar los módulos productgroup BBStore primero</value>
+	</data>
 </root>

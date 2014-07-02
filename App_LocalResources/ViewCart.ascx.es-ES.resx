@@ -405,4 +405,22 @@
 	<data name="NoShipping.Text" xml:space="preserve">
 		<value>Pero después de que {0} que no enviamos perdonarme!</value>
 	</data>
+	<data name="cmdDeleteCart.Text" xml:space="preserve">
+		<value>Borrar carrito</value>
+	</data>
+	<data name="AddressTemplate.Text" xml:space="preserve">
+		<value>[COMPANY:300]
+[PREFIX:100]
+[FIRSTNAME:100] [MIDDLENAME:100] [LASTNAME:100]
+[SUFFIX:100]
+[STREET:250] [UNIT:50]
+[POSTALCODE:50] [CITY:150] - [SUBURB:100]
+[COUNTRY:300]</value>
+	</data>
+	<data name="lblCancelTerms.Error" xml:space="preserve">
+		<value>Por favor confirme que aceptará la política de cancelación</value>
+	</data>
+	<data name="lblCancelTerms.Text" xml:space="preserve">
+		<value>Acepto la política de cancelación</value>
+	</data>
 </root>

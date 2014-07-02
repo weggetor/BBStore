@@ -240,4 +240,7 @@
 	<data name="Configure.Message" xml:space="preserve">
 		<value>Bitte konfigurieren Sie das BBStore Contact Modul </value>
 	</data>
+	<data name="lblProductData.text" xml:space="preserve">
+		<value>Produkte</value>
+	</data>
 </root>
