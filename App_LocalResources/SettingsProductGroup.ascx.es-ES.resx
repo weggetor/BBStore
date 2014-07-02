@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="ControlTitle_settings.Text" xml:space="preserve">
+    <value>Configuración de grupo de producto de BBStore</value>
+  </data>
+	<data name="DeleteProductTemplate.Text" xml:space="preserve">
+    <value>¿Está seguro de eliminar esta plantilla de grupo de producto? Los productos que va a utilizar esta plantilla volverá a la pantalla predeterminada!</value>
+  </data>
+	<data name="lblProductGroupsInRow.Help" xml:space="preserve">
+    <value>Introduzca el número de productgroups que se muestra en una fila</value>
+  </data>
+	<data name="lblProductGroupsInRow.Text" xml:space="preserve">
+    <value>Productgroups en fila</value>
+  </data>
+	<data name="lnkReset.Text" xml:space="preserve">
+    <value>Restablecer a predeterminado</value>
+  </data>
+	<data name="lblDynamicPage.Help" xml:space="preserve">
+    <value>Por favor, seleccione la página con un módulo de lista de productos de BBStore (normalmente: esta página)</value>
+  </data>
+	<data name="lblDynamicPage.Text" xml:space="preserve">
+    <value>Módulos de lista de productos de página</value>
+  </data>
+	<data name="lblIncludeChilds.Help" xml:space="preserve">
+    <value>Compruebe si los productos en subgrupos deberían incluirse en pantalla</value>
+  </data>
+	<data name="lblIncludeChilds.Text" xml:space="preserve">
+    <value>Mostrar productos subgrupo</value>
+  </data>
+	<data name="lblShowBreadcrumb.Help" xml:space="preserve">
+    <value>Compruebe si desea "el camino de la ruta de exploración del producto" que se muestra</value>
+  </data>
+	<data name="lblShowBreadcrumb.Text" xml:space="preserve">
+    <value>Mostrar la ruta de exploración</value>
+  </data>
+	<data name="lblViewMode.Help" xml:space="preserve">
+    <value>Seleccione el modo de visualización</value>
+  </data>
+	<data name="lblViewMode.Text" xml:space="preserve">
+    <value>Modo de vista</value>
+  </data>
+	<data name="lblShowExpandCollapse.Help" xml:space="preserve">
+    <value>Compruebe si desea ver + / - sign contraer y expandir los nodos</value>
+  </data>
+	<data name="lblShowExpandCollapse.Text" xml:space="preserve">
+    <value>Mostrar expandir / contraer</value>
+  </data>
+	<data name="lblShowIcons.Help" xml:space="preserve">
+    <value>Compruebe si desea ver el icono debajo del nombre de grupo</value>
+  </data>
+	<data name="lblShowIcons.Text" xml:space="preserve">
+    <value>Mostrar iconos</value>
+  </data>
+	<data name="lblTreeHoverClass.Help" xml:space="preserve">
+    <value>Introduzca el nombre de la clase css para el treenode activado</value>
+  </data>
+	<data name="lblTreeHoverClass.Text" xml:space="preserve">
+    <value>CssClass rondaba el nodo</value>
+  </data>
+	<data name="lblTreeNormalClass.Help" xml:space="preserve">
+    <value>Introduzca el nombre de la clase CSS para un treenode normal</value>
+  </data>
+	<data name="lblTreeNormalClass.Text" xml:space="preserve">
+    <value>CssClass Treenode</value>
+  </data>
+	<data name="lblTreeSelectedClass.Help" xml:space="preserve">
+    <value>Introduzca el nombre de la clase css para el treenode seleccionado</value>
+  </data>
+	<data name="lblTreeSelectedClass.Text" xml:space="preserve">
+    <value>CssClass nodo seleccionado</value>
+  </data>
+	<data name="lblSetTitle.Help" xml:space="preserve">
+    <value>Compruebe si el grupo de producto seleccionado debe establecerse como módulo de título</value>
+  </data>
+	<data name="lblShowProductCount.Text" xml:space="preserve">
+		<value>Mostrar número de producto</value>
+	</data>
+	<data name="lblShowProductCount.Help" xml:space="preserve">
+		<value>Cuenta productos por categoría de productos. Comprueba si el rendimiento es pobre.</value>
+	</data>
+	<data name="lblShowLevels.Text" xml:space="preserve">
+		<value>Mostrar niveles</value>
+	</data>
+	<data name="lblShowLevels.Help" xml:space="preserve">
+		<value>Introduzca la cantidad máxima de niveles que desee mostrar en treeview. Dejar 0 si ilimitado</value>
+	</data>
+	<data name="lblRootLevel.Text" xml:space="preserve">
+		<value>Productgroup de raíz</value>
+	</data>
+	<data name="lblRootLevel.Help" xml:space="preserve">
+		<value>Seleccione el grupo de producto base para mostrar (opcional). </value>
+	</data>
+	<data name="lblSetTitle.Text" xml:space="preserve">
+		<value>Título conjunto</value>
+	</data>
+	<data name="Edit.Text" xml:space="preserve">
+		<value>(Editar)</value>
+	</data>
+	<data name="lblWrapNode.Text" xml:space="preserve">
+		<value>Ajustar línea de texto</value>
+	</data>
+	<data name="lblWrapNode.Help" xml:space="preserve">
+		<value>Por favor, si una línea la categoría se permiten</value>
+	</data>
+	<data name="SelectOption.Text" xml:space="preserve">
+		<value>Raíz</value>
+	</data>
+	<data name="lblAllGroupsImage.Help" xml:space="preserve">
+		<value>Imagen para mostrar cuando hacia arriba la navegación está activada y el nivel principal con todos los grupos de producto principal se deben navegar.</value>
+	</data>
+	<data name="lblAllGroupsImage.Text" xml:space="preserve">
+		<value>Imagen de nivel principal</value>
+	</data>
+	<data name="lblShowUpNavigation.Help" xml:space="preserve">
+		<value>Echale un vistazo y quiere si Mostrar hacia arriba navegación (dummy) productgroup durante su estancia en un subgrupo</value>
+	</data>
+	<data name="lblShowUpNavigation.Text" xml:space="preserve">
+		<value>Mostrar hacia arriba navegación</value>
+	</data>
+	<data name="lblRootLevelFixed.Help" xml:space="preserve">
+		<value>Compruebe si el grupo de productos seleccionados de la raíz debe mostrarse siempre </value>
+	</data>
+	<data name="lblRootLevelFixed.Text" xml:space="preserve">
+		<value> Fijar la raíz productgroup</value>
+	</data>
+	<data name="lblShowThisNode.Text" xml:space="preserve">
+		<value>Mostrar el producto real grupo</value>
+	</data>
+	<data name="lblShowThisNode.Help" xml:space="preserve">
+		<value>Marque si usted quiere conseguir el actual grupo de productos</value>
+	</data>
+	<data name="lblShowSubNodes.Text" xml:space="preserve">
+		<value>Ver productos por grupo</value>
+	</data>
+	<data name="lblShowSubNodes.Help" xml:space="preserve">
+		<value>Marque si desea mostrar los grupos de producto infantil</value>
+	</data>
+</root>

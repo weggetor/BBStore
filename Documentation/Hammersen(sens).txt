@@ -1,0 +1,49 @@
+Horst
+------
+Diese Modell ist eher für das Grobe gedacht. Wenn Sie mal wieder die
+Strasse aufreissen müssen, dann ist Horst der richtige Hammer für Sie.<br />
+<br />
+Lassen Sie es <strong>ROCKEN !</strong>
+
+!Grösse:klein,mittel,gross
+
+
+Waltraut
+--------
+Waltraut ist unser Modell für den Heimwerker-Anfänger. Zwar weniger
+geeignet um damit was in die Wand zu bekommen aber eine schicke
+Alternative zum Nudelholz ist Waltraut alle Mal!
+
+!Farbe:blau,grün,rot[+10.0000],gelb[-2.0000]
+Anmerkung
+
+Waltraut is our model für the tooltime-beginner. 
+Not made for getting things to the wall but always 
+a nice alternative to a rolling pin !
+
+!Color:blue,green,red[+10.0000],yellow[-2.0000]
+
+THOR-STEN
+---------
+Dieses Modell gehörte einst dem Donnergott Thor und hört auf den Namen
+Mjölnir. Neben Blitzen kann der aber auch Steine zerkloppen und die Welt
+retten.<br />
+Unser Luxusmodell!
+
+Stiel:S,L,XXXL[+10000]
+
+This model once belonged to Thor the Thundergod and its name is Mjølnir. Beside throwing of thunderbolts he is able to crash rocks and to save the world.
+Our luxury model!
+
+Shaft:S,L,XXXL[+10000]
+
+
+Detlef
+------
+
+Dieser dufte Hammer ist gaaanz suuuper weich und damit kann man sich gar nicht weh tun.
+
+!Grösse:klein,mittel,gross
+Anmerkung
+Farbe:grün[+2.000],blau[-1.000]
+

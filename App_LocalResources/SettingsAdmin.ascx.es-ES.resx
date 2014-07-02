@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="ControlTitle_settings.Text" xml:space="preserve">
+    <value>Configuración de administrador de BBStore</value>
+  </data>
+	<data name="lblGross.Text" xml:space="preserve">
+    <value>Bruto</value>
+  </data>
+	<data name="lblNet.Text" xml:space="preserve">
+    <value>NET</value>
+  </data>
+	<data name="lblShowNetpriceInCart.Help" xml:space="preserve">
+    <value>Mostrar precio neto o grande para productos y subtotales en BBStore</value>
+  </data>
+	<data name="lblShowNetpriceInCart.Text" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+	<data name="shGlobal.Text" xml:space="preserve">
+    <value>Configuración global</value>
+  </data>
+	<data name="shColors.Text" xml:space="preserve">
+    <value>Ajustes de color</value>
+  </data>
+	<data name="lblColorAlt.Text" xml:space="preserve">
+    <value>Color de fondo de fila alternos</value>
+  </data>
+	<data name="lblColorBorder.Text" xml:space="preserve">
+    <value>Color del borde</value>
+  </data>
+	<data name="lblColorHead.Text" xml:space="preserve">
+    <value>Jefe de fila color de fondo</value>
+  </data>
+	<data name="lblColorRow.Text" xml:space="preserve">
+    <value>Fila normal volver de color</value>
+  </data>
+	<data name="lblColorSum.Text" xml:space="preserve">
+    <value>Color de fondo de fila de suma</value>
+  </data>
+	<data name="cmdSaveCss.Text" xml:space="preserve">
+    <value>Guardar la hoja de estilos</value>
+  </data>
+	<data name="cmdRestoreCss.Text" xml:space="preserve">
+    <value>Restaurar la hoja de estilo predeterminada</value>
+  </data>
+	<data name="lblTermsPage.Help" xml:space="preserve">
+    <value>Seleccione la página en su portal que contiene los términos de uso</value>
+  </data>
+	<data name="lblTermsPage.Text" xml:space="preserve">
+    <value>Vínculo a página de términos</value>
+  </data>
+	<data name="lblStoreAdmin.Help" xml:space="preserve">
+    <value>Introduzca la dirección de correo electrónico de administrador de tienda para enviar la orden de </value>
+  </data>
+	<data name="lblStoreAdmin.Text" xml:space="preserve">
+    <value>Correo electrónico del administrador de tienda</value>
+  </data>
+	<data name="lblStoreEmail.Help" xml:space="preserve">
+    <value>Introduzca la dirección de correo electrónico del remitente de tienda (por ejemplo, "bbstore@bitboxx.de")</value>
+  </data>
+	<data name="lblStoreEmail.Text" xml:space="preserve">
+    <value>Almacenar el correo electrónico </value>
+  </data>
+	<data name="lblStoreName.Help" xml:space="preserve">
+    <value>Introduzca el nombre de correo electrónico del remitente de tienda (por ejemplo, "Bitboxx Store")</value>
+  </data>
+	<data name="lblStoreName.Text" xml:space="preserve">
+    <value>Almacenar el nombre de correo electrónico</value>
+  </data>
+	<data name="lblStoreReplyTo.Help" xml:space="preserve">
+    <value>Introduzca la dirección de correo electrónico para enviar correo a cuando el cliente responde a un correo de orden</value>
+  </data>
+	<data name="lblStoreReplyTo.Text" xml:space="preserve">
+    <value>Almacenar el correo electrónico de responder</value>
+  </data>
+	<data name="shMail.Text" xml:space="preserve">
+    <value>Configuración de correo</value>
+  </data>
+	<data name="lblStoreSubject.Help" xml:space="preserve">
+    <value>Introduzca al asunto del mail de orden. Desea colocar el tipo de pedido [ORDERNO] donde usted número (por ejemplo, "BBStore orden Nº.") [ORDERNO] ")</value>
+  </data>
+	<data name="lblStoreSubject.Text" xml:space="preserve">
+    <value>Asunto del correo de orden</value>
+  </data>
+	<data name="lblVendorCity.Help" xml:space="preserve">
+    <value>Entrar en la ciudad de la dirección de la tienda</value>
+  </data>
+	<data name="lblVendorCity.Text" xml:space="preserve">
+    <value>Ciudad</value>
+  </data>
+	<data name="lblVendorName.Help" xml:space="preserve">
+    <value>Introduzca el nombre de la tienda o proveedor</value>
+  </data>
+	<data name="lblVendorName.Text" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+	<data name="lblVendorStreet1.Help" xml:space="preserve">
+    <value>Introduzca la calle de dirección de la tienda</value>
+  </data>
+	<data name="lblVendorStreet1.Text" xml:space="preserve">
+    <value>Calle 1</value>
+  </data>
+	<data name="lblVendorStreet2.Help" xml:space="preserve">
+    <value>Introduzca la dirección de calle de tienda (continuado)</value>
+  </data>
+	<data name="lblVendorStreet2.Text" xml:space="preserve">
+    <value>Calle 2</value>
+  </data>
+	<data name="lblVendorZip.Help" xml:space="preserve">
+    <value>Introduzca el código postal de la dirección de la tienda</value>
+  </data>
+	<data name="lblVendorZip.Text" xml:space="preserve">
+    <value>ZIP</value>
+  </data>
+	<data name="shVendor.Text" xml:space="preserve">
+    <value>Configuración de proveedor</value>
+  </data>
+	<data name="lblOrderMask.Help" xml:space="preserve">
+    <value>&lt;p&gt;Introduzca aquí la cadena de caracteres que se basa en el número de pedido.&lt;/p&gt;
+&lt;p&gt;Se permiten las siguientes cadenas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;%D%: el día de hoy&lt;/li&gt;
+&lt;li&gt;%M%: mes de hoy&lt;/li&gt;
+&lt;li&gt;%Y2%: año de hoy (2 dígitos)&lt;/li&gt;
+&lt;li&gt;%Y4%: año de hoy (4 dígitos)&lt;/li&gt;
+&lt;li&gt;%Nx%: orden serie numerada con x dígitos = pero&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Puede utilizar todos los otros personajes de la máscara, por ejemplo: "% D %Y4% - %N5%" es "D 2010-00001" de primer orden&lt;/p&gt;</value>
+  </data>
+	<data name="lblOrderMask.Text" xml:space="preserve">
+    <value>Máscara de número de orden</value>
+  </data>
+	<data name="lblStartPage.Help" xml:space="preserve">
+    <value>Seleccione la página de inicio de la tienda.</value>
+  </data>
+	<data name="lblStartPage.Text" xml:space="preserve">
+    <value>Página principal de la tienda</value>
+  </data>
+	<data name="lblColorAlt.Help" xml:space="preserve">
+    <value>Seleccione o introduzca el carro alternando backColor de fila</value>
+  </data>
+	<data name="lblColorBorder.Help" xml:space="preserve">
+    <value>Seleccione o introduzca el color del borde de carro</value>
+  </data>
+	<data name="lblColorHead.Help" xml:space="preserve">
+    <value>Seleccione o introduzca el color de fondo del encabezado de carro</value>
+  </data>
+	<data name="lblColorInfo.Text" xml:space="preserve">
+    <value>Tenga en cuenta que los cambios aparecerán sólo después de guardar la hoja de estilos y una actualización del navegador pulsando Mayús-F5</value>
+  </data>
+	<data name="lblColorRow.Help" xml:space="preserve">
+    <value>Seleccione o introduzca el carro normalmente backColor de fila</value>
+  </data>
+	<data name="lblColorSum.Help" xml:space="preserve">
+    <value>Seleccione o introduzca el carro suma fila backColor</value>
+  </data>
+	<data name="lblVendorCountry.Help" xml:space="preserve">
+    <value>Introduzca es el país donde tu tienda asentaron (país predeterminado para el registro de usuario)</value>
+  </data>
+	<data name="lblVendorCountry.Text" xml:space="preserve">
+    <value>País</value>
+  </data>
+	<data name="lblProductGroupImageDir.Text" xml:space="preserve">
+		<value>Grupos de imágenes de artículos</value>
+	</data>
+	<data name="lblProductGroupImageDir.Help" xml:space="preserve">
+		<value>Por favor, seleccione el directorio donde se deben almacenar imágenes de grupo de producto</value>
+	</data>
+	<data name="lblProductImageDir.Text" xml:space="preserve">
+		<value>Imágenes de artículo</value>
+	</data>
+	<data name="lblProductImageDir.Help" xml:space="preserve">
+		<value>Seleccione el directorio en el que se deben colocar imágenes de artículo</value>
+	</data>
+	<data name="lblProductGroupIconDir.Text" xml:space="preserve">
+		<value>Grupo de artículo de iconos</value>
+	</data>
+	<data name="lblProductGroupIconDir.Help" xml:space="preserve">
+		<value>Seleccione el directorio en el que se colocarán los grupos de iconos de artículos</value>
+	</data>
+	<data name="shFolder.Text" xml:space="preserve">
+		<value>Directorios de imágenes</value>
+	</data>
+	<data name="lblItemsPerPage.Help" xml:space="preserve">
+		<value>Escriba una lista separada por comas de números (ej.: 25,! 50, 75 y 100). Debe escribir al menos un valor. (! es el valor predeterminado)</value>
+	</data>
+	<data name="lblItemsPerPage.Text" xml:space="preserve">
+		<value>Número de entradas de la lista por página</value>
+	</data>
+	<data name="shAdmin.Text" xml:space="preserve">
+		<value>Opciones de back-end</value>
+	</data>
+	<data name="lblSupplierRole.Text" xml:space="preserve">
+		<value>Grupo de usuarios de proveedor</value>
+	</data>
+	<data name="SelectRole.Text" xml:space="preserve">
+		<value>(Seleccione Grupo de usuarios)</value>
+	</data>
+	<data name="lblSupplierRole.Help" xml:space="preserve">
+		<value>Por favor, seleccione el grupo de usuario que contiene el proveedor. Si selecciona nada aquí no se muestra el campo proveedor en el artículo</value>
+	</data>
+	<data name="lblTermsMandatory.Help" xml:space="preserve">
+		<value>Compruebe si la confirmación de los términos y condiciones generales se requiere completar el pedido</value>
+	</data>
+	<data name="lblTermsMandatory.Text" xml:space="preserve">
+		<value>Confirmar los términos</value>
+	</data>
+	<data name="shLicense.Text" xml:space="preserve">
+		<value>Datos de la licencia</value>
+	</data>
+	<data name="lblInitialKey.Text" xml:space="preserve">
+		<value>Clave de licencia</value>
+	</data>
+	<data name="lblInitialKey.Help" xml:space="preserve">
+		<value>Pegar aquí la clave de licencia que recibió por parte del vendedor de módulo</value>
+	</data>
+	<data name="lblLicense.Help" xml:space="preserve">
+		<value>Visualización de los datos de la licencia</value>
+	</data>
+	<data name="lblLicense.Text" xml:space="preserve">
+		<value>Datos de la licencia</value>
+	</data>
+	<data name="cmdRefreshLicense.Text" xml:space="preserve">
+		<value>Actualización de Licencia</value>
+	</data>
+	<data name="lblTag.Header" xml:space="preserve">
+		<value>Domain/IP</value>
+	</data>
+	<data name="lblVersion.Header" xml:space="preserve">
+		<value>Versión</value>
+	</data>
+	<data name="lblModules.Header" xml:space="preserve">
+		<value>Módulos</value>
+	</data>
+	<data name="lblValid.Header" xml:space="preserve">
+		<value>Fin de la licencia</value>
+	</data>
+	<data name="lblLastCheck.Header" xml:space="preserve">
+		<value>Última revisión</value>
+	</data>
+</root>

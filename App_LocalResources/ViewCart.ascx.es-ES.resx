@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AddContent.Action" xml:space="preserve">
+    <value>Añadir contenido</value>
+  </data>
+	<data name="ModuleHelp.Text" xml:space="preserve">
+    <value>&lt;p&gt;Un módulo de BBStore&lt;/p&gt;</value>
+  </data>
+	<data name="NotConfigured.Message" xml:space="preserve">
+    <value>Configure el primer módulo de carro</value>
+  </data>
+	<data name="ExcludeTax.Text" xml:space="preserve">
+    <value>IVA ({0:F0} %)</value>
+  </data>
+	<data name="IncludeTax.Text" xml:space="preserve">
+    <value>IVA incluido ({0:F0} %)</value>
+  </data>
+	<data name="Total.Text" xml:space="preserve">
+    <value>Total</value>
+  </data>
+	<data name="Nettotal.Text" xml:space="preserve">
+    <value>Red total</value>
+  </data>
+	<data name="ItemNo.Header" xml:space="preserve">
+    <value>Nº de artículo.</value>
+  </data>
+	<data name="NetTotal.Header" xml:space="preserve">
+    <value>NET</value>
+  </data>
+	<data name="Product.Header" xml:space="preserve">
+    <value>Producto</value>
+  </data>
+	<data name="Quantity.Header" xml:space="preserve">
+    <value>Cdad.</value>
+  </data>
+	<data name="SubTotal.Header" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+	<data name="TaxPercent.Header" xml:space="preserve">
+    <value>% De impuesto</value>
+  </data>
+	<data name="TaxTotal.Header" xml:space="preserve">
+    <value>Fiscal</value>
+  </data>
+	<data name="UnitCost.Header" xml:space="preserve">
+    <value>Coste unitario</value>
+  </data>
+	<data name="lblEmptyCart.Text" xml:space="preserve">
+    <value>Cesta está vacía.</value>
+  </data>
+	<data name="cmdCheckout.Text" xml:space="preserve">
+    <value>Pago y envío</value>
+  </data>
+	<data name="Register.Title" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+	<data name="lblCapLogin.Text" xml:space="preserve">
+    <value>¿Ya estás registrado? Inicie sesión:</value>
+  </data>
+	<data name="lblCapRegister.Text" xml:space="preserve">
+    <value>¿Nuevo aquí? Rellene los campos siguientes. La información será guardada y parca volver a escribir más tarde. Como usuario registrado tiene acceso a su información de pedidos!</value>
+  </data>
+	<data name="cmdAdrInvoice.Text" xml:space="preserve">
+    <value>Editar dirección de factura</value>
+  </data>
+	<data name="lblAdrEditCell.Text" xml:space="preserve">
+    <value>Celda</value>
+  </data>
+	<data name="lblAdrEditCountry.Text" xml:space="preserve">
+    <value>País</value>
+  </data>
+	<data name="lblAdrEditEmail.Text" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
+	<data name="lblAdrEditFax.Text" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+	<data name="lblAdrEditFirstname.Text" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+	<data name="lblAdrEditLastname.Text" xml:space="preserve">
+    <value>Apellidos</value>
+  </data>
+	<data name="lblAdrEditMiddlename.Text" xml:space="preserve">
+    <value>MiddleName</value>
+  </data>
+	<data name="lblAdrEditPostalCode.Text" xml:space="preserve">
+    <value>Código postal</value>
+  </data>
+	<data name="lblAdrEditPrefix.Text" xml:space="preserve">
+    <value>Prefijo</value>
+  </data>
+	<data name="lblAdrEditRegion.Text" xml:space="preserve">
+    <value>Región</value>
+  </data>
+	<data name="lblAdrEditStreet.Text" xml:space="preserve">
+    <value>Calle</value>
+  </data>
+	<data name="lblAdrEditSuburb.Text" xml:space="preserve">
+    <value>Suburbio</value>
+  </data>
+	<data name="lblAdrEditSuffix.Text" xml:space="preserve">
+    <value>Sufijo</value>
+  </data>
+	<data name="lblAdrEditPhone.Text" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+	<data name="lblAdrEditCompany.Text" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+	<data name="NextStep.Text" xml:space="preserve">
+    <value>Vaya al paso siguiente</value>
+  </data>
+	<data name="lblPayment.Text" xml:space="preserve">
+    <value>Por favor, seleccione una de las siguientes formas de pago:</value>
+  </data>
+	<data name="NoCart.Error" xml:space="preserve">
+    <value>Cesta está vacía. Por favor, seleccione primero un producto!</value>
+  </data>
+	<data name="cmdFinish.Text" xml:space="preserve">
+    <value>Enviar pedido</value>
+  </data>
+	<data name="lblConfirmHeader.Text" xml:space="preserve">
+    <value>Por favor, compruebe la siguiente información antes de ordenar.</value>
+  </data>
+	<data name="lblRemarks.Text" xml:space="preserve">
+    <value>Si tienes cualquier comentarios, no dude en entrar en ellas aquí:</value>
+  </data>
+	<data name="lblTerms.Error" xml:space="preserve">
+    <value>Comprobar "Acepto los términos de uso" primero por favor</value>
+  </data>
+	<data name="lblTermsPre.Text" xml:space="preserve">
+    <value>Acepto el</value>
+  </data>
+	<data name="lnkTerms.Text" xml:space="preserve">
+    <value>términos de uso</value>
+  </data>
+	<data name="lblPaymentConfirm.Text" xml:space="preserve">
+    <value>Forma de pago:</value>
+  </data>
+	<data name="Order.Text" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+	<data name="EmailAddress.Text" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+	<data name="EmailAddressInfo.Text" xml:space="preserve">
+    <value>Su información</value>
+  </data>
+	<data name="EmailCity.Text" xml:space="preserve">
+    <value>Ciudad</value>
+  </data>
+	<data name="EmailComments.Text" xml:space="preserve">
+    <value>Sus comentarios:</value>
+  </data>
+	<data name="EmailCompany.Text" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+	<data name="EmailCountry.Text" xml:space="preserve">
+    <value>País</value>
+  </data>
+	<data name="EmailEmail.Text" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
+	<data name="EmailFax.Text" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+	<data name="EmailInfo.Text" xml:space="preserve">
+    <value>Información de pedido</value>
+  </data>
+	<data name="EmailInvoiceAddress.Text" xml:space="preserve">
+    <value>Dirección de factura</value>
+  </data>
+	<data name="EmailName.Text" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+	<data name="EmailOrder.Text" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+	<data name="EmailPayment.Text" xml:space="preserve">
+    <value>Pago</value>
+  </data>
+	<data name="EmailPhone.Text" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+	<data name="EmailProducts.Text" xml:space="preserve">
+    <value>Productos ordenados</value>
+  </data>
+	<data name="EmailShipping.Text" xml:space="preserve">
+    <value>Gastos de envío</value>
+  </data>
+	<data name="EmailShippingAddress.Text" xml:space="preserve">
+    <value>Dirección de envío</value>
+  </data>
+	<data name="EmailZip.Text" xml:space="preserve">
+    <value>ZIP</value>
+  </data>
+	<data name="cmdShopping.Text" xml:space="preserve">
+    <value>Continuar comprando</value>
+  </data>
+	<data name="lblConfirmCart.Text" xml:space="preserve">
+    <value>Gracias por su pedido [ORDERNO]</value>
+  </data>
+	<data name="lblFinishText.Text" xml:space="preserve">
+    <value>&lt;p&gt;Empezamos con la tramitación de su pedido. Pronto recibirá una confirmación por correo electrónico.&lt;/p&gt;&lt;br&gt;&lt;p&gt;Tenga en cuenta el número de pedido para posibles preguntas: {0}&lt;/p&gt;</value>
+  </data>
+	<data name="Discount.Text" xml:space="preserve">
+    <value>Descuento</value>
+  </data>
+	<data name="MandatoryFields.Error" xml:space="preserve">
+    <value>Rellene todos los campos obligatorios</value>
+  </data>
+	<data name="NoPaymentProvider.Error" xml:space="preserve">
+    <value>Error interno: proveedor de pago no se ha encontrado</value>
+  </data>
+	<data name="ValidPaymentProvider.Error" xml:space="preserve">
+    <value>Por favor, seleccione un proveedor de pago válida</value>
+  </data>
+	<data name="lblAttachment.Text" xml:space="preserve">
+    <value>Adjuntar anexo:</value>
+  </data>
+	<data name="cmdLoadCart.Text" xml:space="preserve">
+    <value>Descargar el carrito</value>
+  </data>
+	<data name="cmdUploadCart.Text" xml:space="preserve">
+    <value>Subir</value>
+  </data>
+	<data name="cmdSaveCart.Text" xml:space="preserve">
+    <value>Guardar el carrito</value>
+  </data>
+	<data name="navConfirm.Text" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+	<data name="navFinish.Text" xml:space="preserve">
+    <value>Finalizar</value>
+  </data>
+	<data name="navLogin.Text" xml:space="preserve">
+    <value>Inicio de sesión</value>
+  </data>
+	<data name="navPayment.Text" xml:space="preserve">
+    <value>Pago</value>
+  </data>
+	<data name="navShipping.Text" xml:space="preserve">
+    <value>Gastos de envío</value>
+  </data>
+	<data name="NoSteps.Text" xml:space="preserve">
+    <value>Error interno: </value>
+  </data>
+	<data name="lblAdrShipping.Text" xml:space="preserve">
+    <value>Dirección de envío</value>
+  </data>
+	<data name="lblAdrInvoice.Text" xml:space="preserve">
+    <value>Dirección de facturación</value>
+  </data>
+	<data name="navCustomer.Text" xml:space="preserve">
+    <value>Clientes</value>
+  </data>
+	<data name="lblAdrEditUnit.Text" xml:space="preserve">
+    <value>Número</value>
+  </data>
+	<data name="cmdAdrNew.Text" xml:space="preserve">
+    <value>Añadir nueva dirección de envío</value>
+  </data>
+	<data name="cmdAdrUse.Text" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+	<data name="Intro.Message" xml:space="preserve">
+    <value>Por favor, especifique qué direcciones deben ser utilizado para lo que cada uno. ¿Tenga en cuenta que tal vez? Algunos tipos de dirección deben estar seleccionados! &lt;br/&gt;&lt;br/&gt;Obligatorio son: &lt;b&gt;{0}&lt;/b&gt;</value>
+  </data>
+	<data name="MissingAddress.Message" xml:space="preserve">
+    <value>Por favor, seleccione una dirección para todos los tipos de dirección de destino!&lt;br/&gt;&lt;br/&gt;Obligatorio son: &lt;b&gt;{0}&lt;/b&gt;</value>
+  </data>
+	<data name="NoMandatoryTypes.Text" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+	<data name="lblAdrEditCity.Text" xml:space="preserve">
+    <value>Cuidad</value>
+  </data>
+	<data name="navCart.Text" xml:space="preserve">
+    <value>Carro de compras</value>
+  </data>
+	<data name="PPCart.Text" xml:space="preserve">
+    <value>Su compra en '{0}'</value>
+  </data>
+	<data name="Unit.Header" xml:space="preserve">
+    <value>Unidad</value>
+  </data>
+	<data name="NoShipping.Text" xml:space="preserve">
+		<value>Pero después de que {0} que no enviamos perdonarme!</value>
+	</data>
+</root>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="cmdAdd.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Liste hinzufügen</value>
+	</data>
+	<data name="cmdEditItems.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Elemente bearbeiten</value>
+	</data>
+	<data name="ControlTitle_edit.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Bearbeiten BBStore FeatureList</value>
+	</data>
+	<data name="DeleteConfirm.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Möchten Sie wirklich diese Merkmalliste löschen?</value>
+	</data>
+	<data name="lblFeatureList.Help" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Geben Sie der Merkmalliste einen namen</value>
+	</data>
+	<data name="lblFeatureList.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Merkmalliste</value>
+	</data>
+	<data name="lblFLDetailsCaption.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Merkmalliste:</value>
+	</data>
+	<data name="lblFLIDetailsCaption.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Merkmallisten-Elemente:</value>
+	</data>
+	<data name="lblLanguage.Help" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Wählen Sie die Sprache, die Sie bearbeiten möchten</value>
+	</data>
+	<data name="lblLanguage.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Sprache auswählen </value>
+	</data>
+	<data name="lblSelFL.Help" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Wählen Sie ein Merkmallisten-Element mit einem Klick zur Bearbeitung</value>
+	</data>
+	<data name="lblSelFL.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Wählen Sie eine Merkmalliste</value>
+	</data>
+	<data name="LstDisabled.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Bitte wählen Sie zuerst "Abbrechen" oder "Aktualisieren" bevor Sie eine andere Merkmalliste auswählen</value>
+	</data>
+	<data name="NewFeatureList.Text" lastModified="2013-04-19 13:22:46">
+		<value xml:space="preserve">Neue Merkmalliste</value>
+	</data>
+</root>
