@@ -125,13 +125,6 @@
     <Compile Include="BBStoreService.svc.cs">
       <DependentUpon>BBStoreService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CartNavigationControl.ascx.cs">
-      <DependentUpon>CartNavigationControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\CartNavigationControl.ascx.designer.cs">
-      <DependentUpon>CartNavigationControl.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Components\BBStoreHelper.cs" />
     <Compile Include="Components\BBStoreImportController.cs" />
     <Compile Include="Components\BBStoreSitemapProvider.cs" />
@@ -139,37 +132,6 @@
     <Compile Include="Components\BBStoreController.cs" />
     <Compile Include="Components\IEBrowser.cs" />
     <Compile Include="Components\SqlDataProvider.cs" />
-    <Compile Include="Controls\ColorPickerControl.ascx.cs">
-      <DependentUpon>ColorPickerControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ColorPickerControl.ascx.designer.cs">
-      <DependentUpon>ColorPickerControl.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ILanguageEditorInfo.cs" />
-    <Compile Include="Controls\LanguageEditorAttribute.cs" />
-    <Compile Include="Controls\LanguageEditorControl.ascx.cs">
-      <DependentUpon>LanguageEditorControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\LanguageEditorControl.ascx.designer.cs">
-      <DependentUpon>LanguageEditorControl.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\LanguageEditorEditItemTemplate.cs" />
-    <Compile Include="Controls\SelectFolderControl.ascx.cs">
-      <DependentUpon>SelectFolderControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\SelectFolderControl.ascx.designer.cs">
-      <DependentUpon>SelectFolderControl.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TemplateControl.ascx.cs">
-      <DependentUpon>TemplateControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\TemplateControl.ascx.designer.cs">
-      <DependentUpon>TemplateControl.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Infoclasses\ModuleKindEnum.cs" />
     <Compile Include="Infoclasses\ProductShippingModelInfo.cs" />
     <Compile Include="Infoclasses\ShippingCostInfo.cs" />
@@ -355,13 +317,6 @@
     <Compile Include="SettingsContact.ascx.designer.cs">
       <DependentUpon>SettingsContact.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ImageScrollerControl.ascx.cs">
-      <DependentUpon>ImageScrollerControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ImageScrollerControl.ascx.designer.cs">
-      <DependentUpon>ImageScrollerControl.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Infoclasses\ContactAddressInfo.cs" />
     <Compile Include="Infoclasses\FeatureGroupInfo.cs" />
     <Compile Include="Infoclasses\FeatureGroupLangInfo.cs" />
@@ -402,13 +357,6 @@
     </Compile>
     <Compile Include="EditProductGroup.ascx.designer.cs">
       <DependentUpon>EditProductGroup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FeatureGridControl.ascx.cs">
-      <DependentUpon>FeatureGridControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\FeatureGridControl.ascx.designer.cs">
-      <DependentUpon>FeatureGridControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Infoclasses\FeatureValueInfo.cs" />
     <Compile Include="Infoclasses\FeatureGridFeatureInfo.cs" />
@@ -490,13 +438,6 @@
     <Compile Include="Infoclasses\SimpleProductInfo.cs" />
     <Compile Include="Infoclasses\SimpleProductLangInfo.cs" />
     <Compile Include="Infoclasses\SubscriberPaymentProviderInfo.cs" />
-    <Compile Include="Controls\ProductOptionSelectControl.ascx.cs">
-      <DependentUpon>ProductOptionSelectControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ProductOptionSelectControl.ascx.designer.cs">
-      <DependentUpon>ProductOptionSelectControl.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Providers\Payment\PaymentProviderEC.ascx.cs">
       <DependentUpon>PaymentProviderEC.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -527,20 +468,6 @@
     </Compile>
     <Compile Include="Providers\Payment\PaymentProviderCOD.ascx.designer.cs">
       <DependentUpon>PaymentProviderCOD.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TabSelectControl.ascx.cs">
-      <DependentUpon>TabSelectControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\TabSelectControl.ascx.designer.cs">
-      <DependentUpon>TabSelectControl.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TaxControl.ascx.cs">
-      <DependentUpon>TaxControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\TaxControl.ascx.designer.cs">
-      <DependentUpon>TaxControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="VfpInterop.cs" />
     <Compile Include="ViewProduct.ascx.cs">
@@ -580,46 +507,16 @@
     <Content Include="App_LocalResources\EditProduct.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_LocalResources\EditProduct.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\SettingsCart.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\ViewCart.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\ViewProduct.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Controls\App_LocalResources\TaxControl.ascx.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Controls\App_LocalResources\TaxControl.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_LocalResources\SettingsList.ascx.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\SettingsList.ascx.de-DE.resx">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_LocalResources\ViewList.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_LocalResources\ViewList.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_LocalResources\SettingsProductGroup.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_LocalResources\SettingsProductGroup.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_LocalResources\SettingsProduct.ascx.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\SettingsProduct.ascx.de-DE.resx">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_LocalResources\EditProductGroup.ascx.resx">
@@ -628,50 +525,23 @@
     <Content Include="App_LocalResources\ViewProductGroup.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_LocalResources\ViewProductGroup.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\EditProductGroup.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_LocalResources\ViewSearch.ascx.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\ViewSearch.ascx.de-DE.resx">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_LocalResources\ViewContact.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_LocalResources\ViewContact.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_LocalResources\SettingsContact.ascx.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\SettingsContact.ascx.de-DE.resx">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_LocalResources\SettingsFeatureList.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_LocalResources\SettingsFeatureList.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_LocalResources\ViewAdminProductList.ascx.resx" />
-    <Content Include="Controls\App_LocalResources\FeatureGridControl.ascx.resx" />
-    <Content Include="Controls\App_LocalResources\FeatureGridControl.ascx.de-DE.resx" />
     <Content Include="App_LocalResources\ViewFeatureList.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_LocalResources\ViewFeatureList.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\ViewCartSelectAddresses.ascx.de-DE.resx" />
-    <Content Include="App_LocalResources\ViewCartCustomer.ascx.de-DE.resx" />
     <Content Include="App_LocalResources\ViewCartLogin.ascx.resx" />
-    <Content Include="Controls\App_LocalResources\ProductOptionSelectControl.ascx.de-DE.resx" />
-    <Content Include="Controls\App_LocalResources\ProductOptionSelectControl.ascx.resx" />
     <Content Include="App_LocalResources\EditFeatureList.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
@@ -684,54 +554,14 @@
     <Content Include="App_LocalResources\ViewCartAddressEdit.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_LocalResources\ViewCartAddressEdit.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_LocalResources\SettingsMiniCart.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_LocalResources\SettingsMiniCart.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_LocalResources\SettingsAdmin.ascx.de-DE.resx" />
     <Content Include="App_LocalResources\SettingsAdmin.ascx.resx" />
     <EmbeddedResource Include="App_LocalResources\SettingsCart.ascx.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="BBStoreService.svc" />
-    <Content Include="Controls\CartNavigationControl.ascx" />
-    <Content Include="Controls\ColorPickerControl.ascx" />
-    <Content Include="Controls\Images\CartNavigationControl\golf_active.png" />
-    <Content Include="Controls\Images\CartNavigationControl\golf_empty.png" />
-    <Content Include="Controls\Images\CartNavigationControl\golf_emptystretch.png" />
-    <Content Include="Controls\Images\CartNavigationControl\golf_fullstretch.png" />
-    <Content Include="Controls\Images\CartNavigationControl\golf_set.png" />
-    <Content Include="Controls\Images\CartNavigationControl\redbar_activeend.png" />
-    <Content Include="Controls\Images\CartNavigationControl\redbar_activestart.png" />
-    <Content Include="Controls\Images\CartNavigationControl\redbar_activestretch.png" />
-    <Content Include="Controls\Images\CartNavigationControl\redbar_endbow.png" />
-    <Content Include="Controls\Images\CartNavigationControl\redbar_notactiveend.png" />
-    <Content Include="Controls\Images\CartNavigationControl\redbar_startbow.png" />
-    <Content Include="Controls\Images\CartNavigationControl\redbar_stretch.png" />
-    <Content Include="Controls\Images\SelectFolderControl\plus.png" />
-    <Content Include="Controls\LanguageEditorControl.ascx" />
-    <Content Include="Controls\Images\ColorPickerControl\blank.gif" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_overlay.png" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_select.gif" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_background.png" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hex.png" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hsb_b.png" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hsb_h.png" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hsb_s.png" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_indic.gif" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_rgb_b.png" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_rgb_g.png" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_rgb_r.png" />
-    <Content Include="Controls\Images\ColorPickerControl\colorpicker_submit.png" />
-    <Content Include="Controls\Images\ColorPickerControl\select.png" />
-    <Content Include="Controls\Images\ColorPickerControl\slider.png" />
-    <Content Include="Controls\SelectFolderControl.ascx" />
-    <Content Include="Controls\TemplateControl.ascx" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.11.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.12.txt" />
     <Content Include="SettingsMiniCart.ascx" />
@@ -769,7 +599,6 @@
     <Content Include="Installation\Config\Config.txt" />
     <Content Include="Installation\License.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.10.txt" />
-    <Content Include="Controls\js\jquery.colorpicker.js" />
     <Content Include="Providers\Payment\Images\creditcard.png" />
     <Content Include="Providers\Payment\Images\creditcardlogos.png" />
     <Content Include="Providers\Payment\Images\invoice.png" />
@@ -791,21 +620,16 @@
     <Content Include="ViewAdminShipping.ascx" />
     <Content Include="EditFeatureListItem.ascx" />
     <Content Include="EditFeatureList.ascx" />
-    <Content Include="Controls\Images\CartNavigationControl\standard_active.png" />
     <Content Include="Images\admin_featurelist.png" />
     <Content Include="Images\admin_maintenance.png" />
     <Content Include="Images\admin_productgroup.png" />
     <Content Include="Images\admin_product.png" />
     <Content Include="Images\Admin_Settings.png" />
-    <Content Include="Controls\Images\CartNavigationControl\standard_bigline.png" />
     <Content Include="Images\Checked.png" />
-    <Content Include="Controls\Images\CartNavigationControl\standard_empty.png" />
     <Content Include="Images\firstgrey.png" />
     <Content Include="Images\lastgrey.png" />
     <Content Include="Images\nextgrey.png" />
     <Content Include="Images\prevgrey.png" />
-    <Content Include="Controls\Images\CartNavigationControl\standard_set.png" />
-    <Content Include="Controls\Images\CartNavigationControl\standard_smallline.png" />
     <Content Include="Images\Unchecked.png" />
     <Content Include="ViewAdminMaintenance.ascx" />
     <Content Include="ViewAdminOrderList.ascx" />
@@ -819,13 +643,11 @@
     <Content Include="ViewCartSelectAddresses.ascx" />
     <Content Include="ViewFeatureList.ascx" />
     <Content Include="SettingsContact.ascx" />
-    <Content Include="Controls\ImageScrollerControl.ascx" />
     <Content Include="Images\imageplaceholder.png" />
     <Content Include="SettingsSearch.ascx" />
     <Content Include="ViewContact.ascx" />
     <Content Include="ViewSearch.ascx" />
     <Content Include="EditProductGroup.ascx" />
-    <Content Include="Controls\FeatureGridControl.ascx" />
     <Content Include="MiniCartSkinObject.ascx" />
     <Content Include="SettingsProduct.ascx" />
     <Content Include="ProductGroupBreadCrumbSkinObject.ascx" />
@@ -833,46 +655,25 @@
     <Content Include="ViewProductGroup.ascx" />
     <Content Include="SettingsList.ascx" />
     <Content Include="ViewList.ascx" />
-    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderEC.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderEC.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderInvoice.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderInvoice.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderPrepaid.ascx.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderPrepaid.ascx.de-DE.resx">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCOD.ascx.de-DE.resx">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCOD.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_LocalResources\ViewAdmin.ascx.resx" />
-    <Content Include="App_LocalResources\ViewAdmin.ascx.de-DE.resx" />
-    <Content Include="App_LocalResources\ViewAdminProductList.ascx.de-DE.resx" />
-    <Content Include="App_LocalResources\ViewAdminOrderList.ascx.de-DE.resx" />
     <Content Include="App_LocalResources\ViewAdminOrderList.ascx.resx" />
     <Content Include="App_LocalResources\ViewCartSelectAddresses.ascx.resx" />
     <Content Include="App_LocalResources\ViewCartCustomer.ascx.resx" />
-    <Content Include="App_LocalResources\ViewAdminShipping.ascx.de-DE.resx" />
-    <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.de-DE.resx" />
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.resx" />
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderPaypal.ascx.resx" />
-    <Content Include="Controls\App_LocalResources\SelectFolderControl.ascx.resx" />
-    <Content Include="App_LocalResources\ViewAdminUnitList.ascx.de-DE.resx" />
     <Content Include="App_LocalResources\ViewAdminUnitList.ascx.resx" />
-    <Content Include="Controls\App_LocalResources\TemplateControl.ascx.de-DE.resx" />
-    <Content Include="Controls\App_LocalResources\TemplateControl.ascx.resx" />
     <None Include="App_LocalResources\ViewCart.ascx.resx">
       <SubType>Designer</SubType>
     </None>
@@ -902,14 +703,10 @@
     <Content Include="Documentation\defaultcolorscheme.bmp" />
     <Content Include="Documentation\Logo2.gif" />
     <Content Include="EditProduct.ascx" />
-    <Content Include="Controls\js\CalcTax.js" />
-    <Content Include="Controls\ProductOptionSelectControl.ascx" />
     <Content Include="Providers\Payment\PaymentProviderEC.ascx" />
     <Content Include="Providers\Payment\PaymentProviderInvoice.ascx" />
     <Content Include="Providers\Payment\PaymentProviderPrepaid.ascx" />
     <Content Include="Providers\Payment\PaymentProviderCOD.ascx" />
-    <Content Include="Controls\TabSelectControl.ascx" />
-    <Content Include="Controls\TaxControl.ascx" />
     <Content Include="ViewProduct.ascx" />
     <Content Include="Documentation\Documentation.css" />
     <Content Include="Documentation\Documentation.html" />
