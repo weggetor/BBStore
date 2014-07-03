@@ -52,6 +52,10 @@
 	<ItemGroup>
     <!--<ProjectsToExclude Include="$(MSBuildProjectDirectory)\MyProject.Tests\**" />-->
 	</ItemGroup>
+  <ItemGroup>
+    <Languages Include="de-DE" />
+    <Languages Include="es-ES" />
+  </ItemGroup>
 	<!--####################################################################### -->
 	<!--END Settings. !Do not change anything below this line!  -->
 	<!--####################################################################### -->
@@ -128,6 +132,7 @@
 		<CallTarget Targets="ZipInstall" />
 		<CallTarget Targets="ResetScripts" />
 		<CallTarget Targets="ZipSource" Condition="'$(AlsoBuildSourcesZip)'=='true'" />
+    <CallTarget Targets="ZipLang"  />
 	</Target>
 	<!-- Remove previous files -->
 	<Target Name="RemoveZips">
@@ -139,8 +144,7 @@
 	</Target>
 	<!--Create DNN file-->
   <Target Name="DnnFileCreation">
-    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.vb;
-                $(MSBuildProjectDirectory)\**\*.cs;">
+    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.vb;$(MSBuildProjectDirectory)\**\*.cs;">
       <Output TaskParameter="Include" ItemName="CodeFiles" />
     </CreateItem>
     <CreateItem Include="$(InstallDir)\*.sqldataprovider">
@@ -206,11 +210,11 @@
 		<Message Text="Original stylesheets found = @(StylesheetsToCompressFiles)"/>
 		<!-- Select only the original scripts, to make it writable -->
 		<ItemGroup>
-			<ScriptFilesToCompress Include="$(MSBuildProjectDirectory)\**\*.js;" Exclude="$(MSBuildProjectDirectory)\tmpCompressScript\**\*.js" >
+			<ScriptFilesToCompress Include="$(MSBuildProjectDirectory)\**\*.js;" Exclude="$(MSBuildProjectDirectory)\**\*.min.js;$(MSBuildProjectDirectory)\tmpCompressScript\**\*.js;" >
 			</ScriptFilesToCompress>
 		</ItemGroup>
 		<ItemGroup>
-			<StylesheetFilesToCompress Include="$(MSBuildProjectDirectory)\**\*.css;" Exclude="$(MSBuildProjectDirectory)\tmpCompressCSS\**\*.css" >
+			<StylesheetFilesToCompress Include="$(MSBuildProjectDirectory)\**\*.css;" Exclude="$(MSBuildProjectDirectory)\**\*.min.css;$(MSBuildProjectDirectory)\tmpCompressCSS\**\*.css" >
 			</StylesheetFilesToCompress>
 		</ItemGroup>
 		<!--Make Scripts and CSS writable-->
@@ -265,6 +269,9 @@
 		<!-- Get files -->
 		<CreateItem
           Exclude="**\.svn\**;
+            $(MSBuildProjectDirectory)\*.git\**;
+            $(MSBuildProjectDirectory)\**\*.ascx.??-??.resx;
+            $(MSBuildProjectDirectory)\**\*.ascx.??-??.*.resx;
             $(MSBuildProjectDirectory)\_*\**;
 						$(MSBuildProjectDirectory)\obj\**;
 						$(MSBuildProjectDirectory)\bin\**;
@@ -274,8 +281,10 @@
 						$(MSBuildProjectDirectory)\*ReSharper*\**;
             $(MSBuildProjectDirectory)\Installation\*.png;
             $(MSBuildProjectDirectory)\tmpCompressScript\**;
-			$(MSBuildProjectDirectory)\tmpCompressCSS\**;
-			@(ProjectsToExclude)"
+			      $(MSBuildProjectDirectory)\tmpCompressCSS\**;
+            $(MSBuildProjectDirectory)\**\*.min.js;
+            $(MSBuildProjectDirectory)\**\*.min.css;
+			      @(ProjectsToExclude)"
           Include="$(MSBuildProjectDirectory)\**\*.ascx;
 						$(MSBuildProjectDirectory)\**\*.aspx;
 						$(MSBuildProjectDirectory)\**\*.css;
@@ -289,9 +298,7 @@
             $(MSBuildProjectDirectory)\**\*.js;
             $(MSBuildProjectDirectory)\**\*.template;
             $(MSBuildProjectDirectory)\**\*.htm;
-            $(MSBuildProjectDirectory)\**\*.htp;
-            
-            ">
+            $(MSBuildProjectDirectory)\**\*.htp;">
 			<Output TaskParameter="Include" ItemName="resources" />
 		</CreateItem>
 		<!-- Include module png as IconFile in resources zip -->
@@ -369,8 +376,39 @@
 		<RemoveDir ContinueOnError="true" Directories="$(MSBuildProjectDirectory)\tmpCompressCSS" />
 	</Target>
 	<!--####################################################################### -->
-	<!-- Source code zip file -->
-	<Target Name="ZipSource">
+  <Target Name="ZipLang" Inputs="@(Languages)" Outputs="%(Identity).Dummy">
+    <Message Text="Start create language resource pack for Language: @(Languages)" />
+    
+    <!-- Base Path for language pack is "DesktopModules" -->  
+    <CreateItem Include="$(MSBuildProjectDirectory)\..\..\">
+      <Output ItemName="MSBuildProjectParentDirectory" TaskParameter="Include"/>
+    </CreateItem>
+    <!-- We need the code files for reading package information -->
+    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.vb;$(MSBuildProjectDirectory)\**\*.cs">
+      <Output TaskParameter="Include" ItemName="CodeFiles" />
+    </CreateItem>
+    <!-- Get all language resource files -->
+    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.ascx.%(Languages.Identity).resx" >
+      <Output TaskParameter="Include" ItemName="LanguageFiles" />
+    </CreateItem>
+    <!--manifest file name-->
+    <CreateItem Include="$(MSBuildProjectParentDirectory)\$(ZipFileNamePrefix) %(Languages.Identity).dnn" >
+      <Output TaskParameter="Include" ItemName="dnnLangFile" />
+    </CreateItem>
+    <!--Write the dnn file-->
+    <CreateDnnLanguageFile Target="@(dnnLangFile)" CodeFiles="@(CodeFiles)" Language="%(Languages.Identity)" LanguageFiles="@(LanguageFiles)" Version="$(FileMajor).$(FileMinor).$(FileBuild)" ModulePath="$(DesktopFolderName)"/>
+    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.ascx.%(Languages.Identity).resx;$(MSBuildProjectParentDirectory)\$(ZipFileNamePrefix) %(Languages.Identity).dnn" >
+      <Output TaskParameter="Include" ItemName="langSources" />
+    </CreateItem>
+    <!-- Zip content -->
+    <CreateItem Include="$(InstallDir)\Resource.$(ZipFileNamePrefix)_$(FileMajor).$(FileMinor).$(FileBuild)_Lang_%(Languages.Identity).zip">
+      <Output ItemName="ZipFile" TaskParameter="Include"/>
+    </CreateItem>
+    <Zip Files="@(langSources)" WorkingDirectory="%(MSBuildProjectParentDirectory.Fullpath)" ZipFileName="@(ZipFile)" />
+    <Message Text="Created language resource pack  %(ZipFile.FullPath) for Language: @(Languages)" />
+  </Target>
+  <!-- Source code zip file -->
+  <Target Name="ZipSource">
 		<!-- zip source code -->
 		<RemoveDir ContinueOnError="true" Directories="$(InstallDir)\tmpsrc" />
 		<MakeDir Directories="$(InstallDir)\tmpsrc" />

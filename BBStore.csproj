@@ -132,6 +132,69 @@
     <Compile Include="Components\BBStoreController.cs" />
     <Compile Include="Components\IEBrowser.cs" />
     <Compile Include="Components\SqlDataProvider.cs" />
+    <Compile Include="Controls\CartNavigationControl.ascx.cs">
+      <DependentUpon>CartNavigationControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CartNavigationControl.ascx.designer.cs">
+      <DependentUpon>CartNavigationControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorPickerControl.ascx.cs">
+      <DependentUpon>ColorPickerControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorPickerControl.ascx.designer.cs">
+      <DependentUpon>ColorPickerControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FeatureGridControl.ascx.cs">
+      <DependentUpon>FeatureGridControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FeatureGridControl.ascx.designer.cs">
+      <DependentUpon>FeatureGridControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ILanguageEditorInfo.cs" />
+    <Compile Include="Controls\ImageScrollerControl.ascx.cs">
+      <DependentUpon>ImageScrollerControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageScrollerControl.ascx.designer.cs">
+      <DependentUpon>ImageScrollerControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LanguageEditorAttribute.cs" />
+    <Compile Include="Controls\LanguageEditorControl.ascx.cs">
+      <DependentUpon>LanguageEditorControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LanguageEditorControl.ascx.designer.cs">
+      <DependentUpon>LanguageEditorControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LanguageEditorEditItemTemplate.cs" />
+    <Compile Include="Controls\ProductOptionSelectControl.ascx.cs">
+      <DependentUpon>ProductOptionSelectControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProductOptionSelectControl.ascx.designer.cs">
+      <DependentUpon>ProductOptionSelectControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SelectFolderControl.ascx.cs">
+      <DependentUpon>SelectFolderControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SelectFolderControl.ascx.designer.cs">
+      <DependentUpon>SelectFolderControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TabSelectControl.ascx.cs">
+      <DependentUpon>TabSelectControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TabSelectControl.ascx.designer.cs">
+      <DependentUpon>TabSelectControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TaxControl.ascx.cs">
+      <DependentUpon>TaxControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TaxControl.ascx.designer.cs">
+      <DependentUpon>TaxControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TemplateControl.ascx.cs">
+      <DependentUpon>TemplateControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TemplateControl.ascx.designer.cs">
+      <DependentUpon>TemplateControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Infoclasses\ModuleKindEnum.cs" />
     <Compile Include="Infoclasses\ProductShippingModelInfo.cs" />
     <Compile Include="Infoclasses\ShippingCostInfo.cs" />
@@ -562,6 +625,51 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="BBStoreService.svc" />
+    <Content Include="Controls\CartNavigationControl.ascx" />
+    <Content Include="Controls\ColorPickerControl.ascx" />
+    <Content Include="Controls\FeatureGridControl.ascx" />
+    <Content Include="Controls\ImageScrollerControl.ascx" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_active.png" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_empty.png" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_emptystretch.png" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_fullstretch.png" />
+    <Content Include="Controls\Images\CartNavigationControl\golf_set.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_activeend.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_activestart.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_activestretch.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_endbow.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_notactiveend.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_startbow.png" />
+    <Content Include="Controls\Images\CartNavigationControl\redbar_stretch.png" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_active.png" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_bigline.png" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_empty.png" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_set.png" />
+    <Content Include="Controls\Images\CartNavigationControl\standard_smallline.png" />
+    <Content Include="Controls\Images\ColorPickerControl\blank.gif" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_background.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hex.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hsb_b.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hsb_h.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_hsb_s.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_indic.gif" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_overlay.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_rgb_b.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_rgb_g.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_rgb_r.png" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_select.gif" />
+    <Content Include="Controls\Images\ColorPickerControl\colorpicker_submit.png" />
+    <Content Include="Controls\Images\ColorPickerControl\select.png" />
+    <Content Include="Controls\Images\ColorPickerControl\slider.png" />
+    <Content Include="Controls\Images\SelectFolderControl\plus.png" />
+    <Content Include="Controls\js\CalcTax.js" />
+    <Content Include="Controls\js\jquery.colorpicker.js" />
+    <Content Include="Controls\LanguageEditorControl.ascx" />
+    <Content Include="Controls\ProductOptionSelectControl.ascx" />
+    <Content Include="Controls\SelectFolderControl.ascx" />
+    <Content Include="Controls\TabSelectControl.ascx" />
+    <Content Include="Controls\TaxControl.ascx" />
+    <Content Include="Controls\TemplateControl.ascx" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.11.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.12.txt" />
     <Content Include="SettingsMiniCart.ascx" />
@@ -674,6 +782,11 @@
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.resx" />
     <Content Include="Providers\Payment\App_LocalResources\PaymentProviderPaypal.ascx.resx" />
     <Content Include="App_LocalResources\ViewAdminUnitList.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\FeatureGridControl.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\ProductOptionSelectControl.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\SelectFolderControl.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\TaxControl.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\TemplateControl.ascx.resx" />
     <None Include="App_LocalResources\ViewCart.ascx.resx">
       <SubType>Designer</SubType>
     </None>
@@ -686,7 +799,9 @@
     <None Include="Installation\01.00.09.SqlDataProvider" />
     <Content Include="Installation\01.00.11.SqlDataProvider" />
     <None Include="Installation\01.00.10.SqlDataProvider" />
-    <Content Include="Installation\Project.targets" />
+    <Content Include="Installation\Project.targets">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Installation\Uninstall.SqlDataProvider" />
     <Content Include="Templates\ProductList\tokens.de-DE.htp" />
     <Content Include="Templates\ProductList\tokens.htp" />
