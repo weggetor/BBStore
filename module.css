@@ -110,7 +110,7 @@ COLORSUM : #A0AFEB;
 .bb-navigationcontrol.standard .rightouterstep { width: 0;padding: 0;}
 .bb-navigationcontrol.standard .leftstep { width: 49%;}
 .bb-navigationcontrol.standard .rightstep { width: 49%;}
-.bb-navigationcontrol.standard .set {background: url('Controls/Images/standard_bigline.png') repeat-x left top; }
+.bb-navigationcontrol.standard .set {background: url('Controls/Images/CartNavigationControl/standard_bigline.png') repeat-x left top; }
 .bb-navigationcontrol.standard .empty {color:#d6d6d6; background: url('Controls/Images/CartNavigationControl/standard_smallline.png') repeat-x left top;}
 .bb-navigationcontrol.standard .leftstep.active {background: url('Controls/Images/CartNavigationControl/standard_bigline.png') repeat-x left top;}
 .bb-navigationcontrol.standard .rightstep.active {background: url('Controls/Images/CartNavigationControl/standard_smallline.png') repeat-x left top;}
