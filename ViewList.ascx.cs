@@ -23,6 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.UI;
@@ -512,6 +513,9 @@ namespace Bitboxx.DNNModules.BBStore
 				pnlListHead.Visible = false;
 				pnlListFooter.Visible = false;
 			}
+
+            if (Convert.ToBoolean(Settings["HideEmptyModule"] ?? "false") == true && _products.Any() == false && !IsEditable)
+                this.ContainerControl.Visible = false;
 
             // Check licensing
             LicenseDataInfo license = Controller.GetLicense(PortalId, false);

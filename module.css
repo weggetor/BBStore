@@ -7,8 +7,8 @@ COLORSUM : #A0AFEB;
 */
 
 /* General */
-.bbstore-grid, .bbstore-grid td { background-color:White; border-color:#999999; border-style:none; border-width:1px; padding:3px ! important; font-size: 12px; }
-.bbstore-grid-header, .bbstore-grid-header th { background-color:#000084; font-weight:bold; color:White; padding:3px ! important; }
+.bbstore-grid, .bbstore-grid td { background-color:White; border-color:#999999; border-style:none; border-width:1px; padding:3px !important; font-size: 12px; }
+.bbstore-grid-header, .bbstore-grid-header th { background-color:#000084; font-weight:bold; color:White; padding:3px !important; }
 .bbstore-grid-headerrow { background-color:#DCDCDC; vertical-align:top; }
 .bbstore-grid-row, .bbstore-grid-row td { background-color:#EEEEEE; color:Black; vertical-align:top; }
 .bbstore-grid-alternaterow, .bbstore-grid-alternaterow td { background-color:#DCDCDC; vertical-align:top; }
@@ -16,7 +16,7 @@ COLORSUM : #A0AFEB;
 .bbstore-grid-row a { color:Black!important; }
 .bbstore-grid-alternaterow a { color:Black!Important; }
 .bbstore-grid-sumrow, .bbstore-grid-sumrow td { background-color:#A0AFEB; font-weight:bold;  }
-.bbstore-grid-summary, .bbstore-grid-summary td { background-color:#000084; font-weight:bold; color:White; padding:3px ! important; font-size: 12px; }
+.bbstore-grid-summary, .bbstore-grid-summary td { background-color:#000084; font-weight:bold; color:White; padding:3px !important; font-size: 12px; }
 .bbstore-imagescroller ul li {list-style:none;}
 .bbstore-template  { font-family: monospace !important; font-size: small;}
 
@@ -51,7 +51,7 @@ COLORSUM : #A0AFEB;
 .bbstore-cart-payment input.valid { background: url('Providers/Payment/images/tick.png') no-repeat scroll 240px center white;}
 
 /* Product Module*/
-.bbstore-product-cartbox { background-color:#DCDCDC; padding: 5px 25px 5px 25px ! important; }
+.bbstore-product-cartbox { background-color:#DCDCDC; padding: 5px 25px 5px 25px !important; }
 .bbstore-product-price-mm {color: #000; text-shadow: 0 -2px #FFF, 2px 0 #FFF, 0 2px #FFF, -2px 0 #FFF, -2px -2px #FFF, 2px 2px #FFF, -2px 2px #FFF,2px -2px #FFF,3px 4px 3px #000; font-size:  46px; font-family: Avantgarde, Impact, Verdana, Arial, Sanserif; font-style: italic; }
 .bbstore-product-discountenabled .bbstore-product-price-mm  { color: #3cb371;}
 

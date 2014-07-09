@@ -220,7 +220,7 @@
 		<value>Página de producto lista de módulos</value>
 	</data>
 	<data name="lblProductListModulePage.Help" xml:space="preserve">
-		<value>Por favor, seleccione una página que contiene un módulo Productoy con opción de selección de datos dinámicos</value>
+		<value>Por favor, seleccione una página que contiene una lista de productos módulos con ajuste de selección de datos dinámicos. Rellene este campo sólo si ha restringido el número de productos (eg. "Productos de la semana") y han permitido el enlace "Mostrar todo". La selección de la izquierda y luego salta a los seleccionados</value>
 	</data>
 	<data name="lblShowAllLink.Text" xml:space="preserve">
 		<value>Vínculo "Mostrar todo"</value>
@@ -269,5 +269,23 @@
 	</data>
 	<data name="lblLanguage.Text" xml:space="preserve">
 		<value>Seleccionar idioma</value>
+	</data>
+	<data name="lblHideEmptyModule.Text" xml:space="preserve">
+		<value>Ocultar módulos vacíos</value>
+	</data>
+	<data name="lblHideEmptyModule.Help" xml:space="preserve">
+		<value>Compruebe si el módulo no debe mostrarse si no existen datos correspondientes a la selección</value>
+	</data>
+	<data name="hdrGlobal.Text" xml:space="preserve">
+		<value>Configuración global</value>
+	</data>
+	<data name="hdrTemplates.Text" xml:space="preserve">
+		<value>Plantillas	</value>
+	</data>
+	<data name="hdrLanguage.Text" xml:space="preserve">
+		<value>Texto estático</value>
+	</data>
+	<data name="hdrData.Text" xml:space="preserve">
+		<value>Selección de datos</value>
 	</data>
 </root>

@@ -119,11 +119,6 @@ Viele Grüße</globalSetting>
       <remarks>
       </remarks>
     </fileGroup>
-    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="102" ignoreDuringExportAndImport="False" uniqueID="836b9b21-86c3-45cf-93a3-64c48b64ad7d">
-      <file filePath="App_LocalResources\ProductOptionSelectControl.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ProductOptionSelectControl.ascx.es-ES.resx" uniqueID="a7d9cdb5-0d6b-48ce-b204-5896f86b791c" />
-      <remarks>
-      </remarks>
-    </fileGroup>
     <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="103" ignoreDuringExportAndImport="False" uniqueID="77320d10-c82a-4998-8c2e-8d3a4caead37">
       <file filePath="App_LocalResources\SelectProduct.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\SelectProduct.ascx.es-ES.resx" uniqueID="904f41f8-b8ff-4e3d-91c2-097dcb3bb0c4" />
       <remarks>
@@ -215,8 +210,6 @@ Viele Grüße</globalSetting>
     </fileGroup>
     <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="175" ignoreDuringExportAndImport="False" uniqueID="5a525f2c-9e4c-45c1-95dc-25978ca68ee4">
       <file filePath="App_LocalResources\ViewAdminPayment.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminPayment.ascx.resx" uniqueID="6ae9ae15-f503-4e06-bb95-51b0a8b5c68b" />
-      <file filePath="App_LocalResources\ViewAdminPayment.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminPayment.de-DE.resx" uniqueID="54a3bd09-aa75-4a63-883e-13c0588ff653" />
-      <file filePath="App_LocalResources\ViewAdminPayment.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminPayment.es-ES.resx" uniqueID="bfc70f47-3b10-42ce-89e8-3f190478ffa9" />
       <remarks>
       </remarks>
     </fileGroup>
@@ -321,14 +314,14 @@ Viele Grüße</globalSetting>
     <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="190" ignoreDuringExportAndImport="False" uniqueID="864ff1f0-4e5a-4463-887f-41c1626cd85e">
       <file filePath="Controls\App_LocalResources\FeatureGridControl.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\FeatureGridControl.ascx.resx" uniqueID="aea17adf-7d06-4742-a595-990c348265a9" />
       <file filePath="Controls\App_LocalResources\FeatureGridControl.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\FeatureGridControl.ascx.de-DE.resx" uniqueID="88ced874-a6cc-4de1-be61-f10633590a8e" />
-      <file filePath="Controls\App_LocalResources\FeatureGridControl.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\FeatureGridControl.ascx.es-ES.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+      <file filePath="Controls\App_LocalResources\FeatureGridControl.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\FeatureGridControl.ascx.es-ES.resx" uniqueID="a3da0dd3-180e-4e24-ad67-aed4508a125e" />
       <remarks>
       </remarks>
     </fileGroup>
     <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="191" ignoreDuringExportAndImport="False" uniqueID="fd642a88-02c2-4732-9380-991b6099b5fa">
       <file filePath="Controls\App_LocalResources\ProductOptionSelectControl.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\ProductOptionSelectControl.ascx.resx" uniqueID="d364c1db-2db9-430d-a59e-58671138751e" />
       <file filePath="Controls\App_LocalResources\ProductOptionSelectControl.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\ProductOptionSelectControl.ascx.de-DE.resx" uniqueID="c5ce683b-e08d-4989-b985-875ef012ea45" />
-      <file filePath="Controls\App_LocalResources\ProductOptionSelectControl.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\ProductOptionSelectControl.ascx.es-ES.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+      <file filePath="Controls\App_LocalResources\ProductOptionSelectControl.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\ProductOptionSelectControl.ascx.es-ES.resx" uniqueID="8cda724e-e879-40c3-b282-e68e8b48b4c8" />
       <remarks>
       </remarks>
     </fileGroup>
@@ -342,7 +335,7 @@ Viele Grüße</globalSetting>
     <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="193" ignoreDuringExportAndImport="False" uniqueID="0af63722-b5b5-468e-a0bc-5d0fb94a3540">
       <file filePath="Controls\App_LocalResources\TaxControl.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\TaxControl.ascx.resx" uniqueID="211fefba-8a0f-4f9a-9d2b-ec261e91d88c" />
       <file filePath="Controls\App_LocalResources\TaxControl.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\TaxControl.ascx.de-DE.resx" uniqueID="bc363a80-d715-4b42-9085-2787088b2aab" />
-      <file filePath="Controls\App_LocalResources\TaxControl.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\TaxControl.ascx.es-ES.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+      <file filePath="Controls\App_LocalResources\TaxControl.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\TaxControl.ascx.es-ES.resx" uniqueID="6e49f289-6ccf-45fd-b15f-abdf43d99eb0" />
       <remarks>
       </remarks>
     </fileGroup>

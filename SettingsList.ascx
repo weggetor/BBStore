@@ -41,6 +41,10 @@
             <asp:CheckBox  ID="chkRandomSort" runat="server" />
         </div>
         <div class="dnnFormItem">
+            <dnn:Label id="lblHideEmptyModule" runat="server" controlname="chkHideEmptyModule" suffix=":"/>
+            <asp:CheckBox  ID="chkHideEmptyModule" runat="server" />
+        </div>
+        <div class="dnnFormItem">
             <dnn:Label id="lblProductModulePage" runat="server" controlname="urlProductModulePage" suffix=":"/>
             <bb:TabSelectControl ID="urlProductModulePage" runat="server" Width="200" />
         </div>

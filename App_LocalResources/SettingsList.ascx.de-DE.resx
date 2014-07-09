@@ -282,4 +282,10 @@
 	<data name="hdrData.Text" xml:space="preserve">
 		<value>Datenselektion	</value>
 	</data>
+	<data name="lblHideEmptyModule.Text" xml:space="preserve">
+		<value>Leeres Modul verbergen</value>
+	</data>
+	<data name="lblHideEmptyModule.Help" xml:space="preserve">
+		<value>Ankreuzen, wenn das Modul nicht angezeigt werden soll wenn keine der Selektion entsprechenden Daten vorhanden sind</value>
+	</data>
 </root>
