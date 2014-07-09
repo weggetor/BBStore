@@ -9,6 +9,8 @@
 	<li>[UNIT] = Unidad</li>
 	<li>[IMAGE] = Imagen del producto (dimensión original)</li>
 	<li>[IMAGE: ancho] = Imagen del producto (ancho en píxeles)</li>
+	<li>[IMAGEURL] = Ruta de acceso relativa a la imagen a partir de las raíces portal</li>
+	<li>[LINK] = dirección url de destino</li>
 	<li>[FEATURE: token.property] = Característica del producto con el símbolo (token) nombre (por ejemplo). ("hacer"). Propiedades válidas:<ul style="color:black">
 			<li>FeatureGroup = Grupo de función</li>
 			<li>Feature = Nombre de la función</li>

@@ -644,6 +644,7 @@ namespace Bitboxx.DNNModules.BBStore
 					Template = Template.Replace("[TAX]", "<asp:Label ID=\"lblTax\" runat=\"server\"/>");
                     Template = Template.Replace("[UNIT]", "<asp:Label ID=\"lblUnit\" runat=\"server\"/>");
 					Template = Template.Replace("[TITLE]", "<asp:Label ID=\"lblTitle\" runat=\"server\" />");
+				    Template = Template.Replace("[IMAGEURL]", SimpleProduct.Image);
 
 					Control ctrl = ParseControl(Template);
 					lblItemNo = FindControlRecursive(ctrl, "lblItemNo") as Label;
@@ -656,7 +657,8 @@ namespace Bitboxx.DNNModules.BBStore
 					if (ltrProductDescription != null)
 						ltrProductDescription.Text = SimpleProduct.ProductDescription;
 
-					lblMandatory = FindControlRecursive(ctrl, "lblMandatory") as Label;
+                    lblCurrency = FindControlRecursive(ctrl, "lblCurrency") as Label;
+                    lblMandatory = FindControlRecursive(ctrl, "lblMandatory") as Label;
 					lblPrice = FindControlRecursive(ctrl, "lblPrice") as Label;
 					lblOriginalPrice = FindControlRecursive(ctrl, "lblOriginalPrice") as Label;
 					lblTax = FindControlRecursive(ctrl, "lblTax") as Label;
@@ -700,8 +702,6 @@ namespace Bitboxx.DNNModules.BBStore
 					lblTitle = FindControlRecursive(ctrl, "lblTitle") as Label;
 					if (lblTitle != null)
 						lblTitle.Text = SimpleProduct.Name;
-
-					lblCurrency = FindControlRecursive(ctrl, "lblCurrency") as Label;
 
 					Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
 					

@@ -9,6 +9,8 @@
 	<li>[UNIT] = Einheit</li>
 	<li>[IMAGE] = Produktbild (orig. Größe)</li>
 	<li>[IMAGE:width] = Produktbild (Breite in pixel)</li>
+    <li>[IMAGEURL] = Relativer Image Pfad (beginnend im Portalverzeichnis)</li>
+	<li>[LINK] = Ziel-Urll</li>
 	<li>[FEATURE:token.property] = Produkt-Merkmal mit Token-Name (z.B:. "BAUJAHR"). Gültige Properties:
 			<ul style="color:black">
 				<li>FeatureGroup = Gruppenname des Merkmals</li>
