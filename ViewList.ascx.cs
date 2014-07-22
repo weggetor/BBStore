@@ -90,7 +90,7 @@ namespace Bitboxx.DNNModules.BBStore
                 else if (Request.Cookies["SortExpression"] != null)
                     return Request.Cookies["SortExpression"].Value;
 				else
-					return "SimpleProductid";
+					return "Name";
 			}
 			set
 			{
