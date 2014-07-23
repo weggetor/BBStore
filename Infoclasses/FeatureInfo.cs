@@ -26,6 +26,7 @@ namespace Bitboxx.DNNModules.BBStore
 			RegEx = "";
 			RoleID = 0;
 			ShowInSearch = false;
+		    ShowInProduct = true;
 			SearchGroups = "";
 			Feature = "";
 			Unit = "";
@@ -60,6 +61,8 @@ namespace Bitboxx.DNNModules.BBStore
 		public Int32 RoleID { get; set; }
 		[DataMember()]
 		public Boolean ShowInSearch { get; set; }
+        [DataMember()]
+        public Boolean ShowInProduct { get; set; }
 		[DataMember()]
 		public string SearchGroups { get; set; }
 		[DataMember()]

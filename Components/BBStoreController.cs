@@ -851,9 +851,9 @@ namespace Bitboxx.DNNModules.BBStore
         }
 
         // FeatureGrid methods
-        public List<FeatureGridValueInfo> GetFeatureGridValues(int PortalId, int ProductId, string Language,int RoleId, int FeatureGroupId)
+        public List<FeatureGridValueInfo> GetFeatureGridValues(int PortalId, int ProductId, string Language,int RoleId, int FeatureGroupId, bool showAll)
         {
-            return CBO.FillCollection<FeatureGridValueInfo>(DataProvider.Instance().GetFeatureGridValues(PortalId, ProductId, Language, RoleId, FeatureGroupId));
+            return CBO.FillCollection<FeatureGridValueInfo>(DataProvider.Instance().GetFeatureGridValues(PortalId, ProductId, Language, RoleId, FeatureGroupId, showAll));
         }
         public FeatureGridValueInfo GetFeatureGridValueByProductAndToken(int PortalId, int ProductId, string Language, string FeatureToken)
         {

@@ -347,7 +347,7 @@ namespace Bitboxx.DNNModules.BBStore
 		#region "Render methods"
 		private void RenderViewMode()
 		{
-			List<FeatureGridValueInfo> myValues = Controller.GetFeatureGridValues(PortalId, ProductId, CurrentLanguage, -1, FeatureGroupId );
+			List<FeatureGridValueInfo> myValues = Controller.GetFeatureGridValues(PortalId, ProductId, CurrentLanguage, -1, FeatureGroupId, false );
 
 			// Wir bauen die Ausgabe
 			if (myValues.Count() > 0)
@@ -668,7 +668,8 @@ namespace Bitboxx.DNNModules.BBStore
 				}
 				PlaceHolder1.Controls.Add(myTable);
 
-				SetControlValues();
+                List<FeatureGridValueInfo> myValues = Controller.GetFeatureGridValues(PortalId, ProductId, CurrentLanguage, -1, FeatureGroupId, true);
+                SetControlValues(myValues);
 			}
 		}
 		private void RenderSearchMode()
@@ -1189,10 +1190,8 @@ namespace Bitboxx.DNNModules.BBStore
 			}
 		}
 
-		private void SetControlValues()
+		private void SetControlValues(List<FeatureGridValueInfo> myValues)
 		{
-			List<FeatureGridValueInfo> myValues = Controller.GetFeatureGridValues(PortalId, ProductId, CurrentLanguage, -1, FeatureGroupId);
-
 			if (myValues.Count > 0)
 			{
 				foreach (var loValue in myValues)

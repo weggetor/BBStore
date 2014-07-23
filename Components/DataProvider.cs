@@ -292,7 +292,7 @@ namespace Bitboxx.DNNModules.BBStore
 		public abstract void DeleteProductFilter(int PortalId, Guid FilterSessionId, string FilterSource, string FirstFilterValue);
 
 		//FeatureGrid methods
-		public abstract IDataReader GetFeatureGridValues(int PortalId, int ProductId, string Language, int RoleId, int FeatureGroupId);
+		public abstract IDataReader GetFeatureGridValues(int PortalId, int ProductId, string Language, int RoleId, int FeatureGroupId, bool showAll);
 		public abstract IDataReader GetFeatureGridValueByProductAndToken(int PortalId, int ProductId, string Language, string FeatureToken);
 		public abstract IDataReader GetFeatureGridFeaturesByProduct(int PortalId, int ProductId, string Language, int RoleId, int FeatureGroupId );
 		public abstract IDataReader GetFeatureGridFeaturesByProductGroup(int PortalId, int ProductGroupId, string Language, int RoleId, int FeatureGroupId,bool OnlyShowInSearch);

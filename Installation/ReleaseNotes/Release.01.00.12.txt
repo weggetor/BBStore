@@ -1,14 +1,20 @@
 ﻿<h1>Releasenotes</h1>
 <p>
+	<h2>Version 1.0.12</h2>
 	<ul>
 		<li>Widerrufs-Checkbox + konfigurierbarer Text im Warenkorb</li>
-		<li>FeatureListItemImages Unterstützung</li>
+		<li>FeatureListItemImages Unterst&uuml;tzung</li>
 		<li>Modul Contact: Darstellung Produkt über Template</li>
 		<li>Packaging: Icons eingebunden</li>
 		<li>Settings Product: Neues Setting ListModulePage</li>
 		<li>Bugfix AdressTemplate (falsche Resourcedatei)</li>
 		<li>Bestellung aus dem Admin Bereich erneut verschicken</li>
-		<li>Angebot anfordern mit Übergabe der selektierten Attribute</li>
+		<li>Angebot anfordern mit &Uuml;bergabe der selektierten Attribute</li>
+		<li>Standardsortierung ProductList ge&auml;ndert von ID nach Name</li>
+		<li>Bug beim Suchen in den Bestellungen</li>
+		<li>Installation Sprachpakete auf htp-Files erweitert</li>
+		<li>Neuer Platzhalter für die ImageUrl</li>
+		<li>ProductList optional unsichtbar schalten wenn keine Daten vorhanden </li>
+		<li>Bug in module.css (falscher Pfad bei WarenkorbControl-Linien)</li> 
 	</ul>
 </p>
-	
