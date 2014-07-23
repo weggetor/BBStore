@@ -13,7 +13,6 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
-using System.Drawing;
 using DotNetNuke.Services.Localization;
 
 namespace Bitboxx.DNNModules.BBStore
@@ -24,6 +23,12 @@ namespace Bitboxx.DNNModules.BBStore
 		Edit,
 		Search
 	}
+
+    public enum FeatureGridOrientation
+    {
+        Vertical,
+        Horizontal
+    }
 
 	public partial class FeatureGridControl : PortalModuleBase
 	{
@@ -45,6 +50,10 @@ namespace Bitboxx.DNNModules.BBStore
 				return _mode;
 			}
 		}
+
+        // Only for SearchMode !
+        public FeatureGridOrientation Orientation { get; set; }
+
 		public int FeatureGroupId
 		{
 			set { _FeatureGroupId = value; }
@@ -102,61 +111,6 @@ namespace Bitboxx.DNNModules.BBStore
 			set { _FeatureCaptionCssClass = value; }
 			get { return _FeatureCaptionCssClass; }
 		}
-		//public System.Drawing.Color FeatureBackColor
-		//{
-		//    set { _FeatureBackColor = value; }
-		//    get { return _FeatureBackColor; }
-		//}
-		//public System.Drawing.Color FeatureForeColor
-		//{
-		//    set { _FeatureForeColor = value; }
-		//    get { return _FeatureForeColor; }
-		//}
-		
-		//public System.Drawing.Color AlternateFeatureBackColor
-		//{
-		//    set { _AlternateFeatureBackColor = value; }
-		//    get { return _AlternateFeatureBackColor; }
-		//}
-		//public System.Drawing.Color AlternateFeatureForeColor
-		//{
-		//    set { _AlternateFeatureForeColor = value; }
-		//    get { return _AlternateFeatureForeColor; }
-		//}
-		
-		//public System.Drawing.Color GroupBackColor
-		//{
-		//    set { _GroupBackColor = value; }
-		//    get { return _GroupBackColor; }
-		//}
-		//public System.Drawing.Color GroupForeColor
-		//{
-		//    set { _GroupForeColor = value; }
-		//    get { return _GroupForeColor; }
-		//}
-		
-		//public System.Drawing.Color FeatureValueBackColor
-		//{
-		//    set { _FeatureValueBackColor = value; }
-		//    get { return _FeatureValueBackColor; }
-		//}
-		//public System.Drawing.Color FeatureValueForeColor
-		//{
-		//    set { _FeatureValueForeColor = value; }
-		//    get { return _FeatureValueForeColor; }
-		//}
-		
-		//public System.Drawing.Color AlternateFeatureValueBackColor
-		//{
-		//    set { _AlternateFeatureValueBackColor = value; }
-		//    get { return _AlternateFeatureValueBackColor; }
-		//}
-		//public System.Drawing.Color AlternateFeatureValueForeColor
-		//{
-		//    set { _AlternateFeatureValueForeColor = value; }
-		//    get { return _AlternateFeatureValueForeColor; }
-		//}
-		
 
 		// Language
 		protected string CurrentLanguage
@@ -702,9 +656,11 @@ namespace Bitboxx.DNNModules.BBStore
 					loop++;
 					int valCount = 1;
 					myCaptionRow = new TableRow();
+                    myRow = new TableRow();
 
 					// Feature
 					TableCell tblCaptionCell = new TableCell();
+                    tblCell = new TableCell();
 
 					if (lastFeature != loValue.Feature)
 					{
@@ -718,15 +674,25 @@ namespace Bitboxx.DNNModules.BBStore
 					{
 						tblCaptionCell.Controls.Add(new LiteralControl("&nbsp;"));
 					}
-					tblCaptionCell.Style.Add("vertical-align", "top");
-					tblCaptionCell.Attributes.Add("colspan", "2");
-					myCaptionRow.Cells.Add(tblCaptionCell);
-
+                    
+                    if (Orientation == FeatureGridOrientation.Vertical)
+                    {
+                        tblCaptionCell.Attributes.Add("colspan", "2");
+                        tblCaptionCell.Style.Add("vertical-align", "top");
+                        myCaptionRow.Cells.Add(tblCaptionCell);
+                    }
+                    else
+                    {
+                        tblCaptionCell.Controls.Add(new LiteralControl("&nbsp;"));
+                        tblCaptionCell.Attributes.Add("width","1px");
+                        myRow.Cells.Add(tblCaptionCell);
+                    }
+					
 					// FeatureValues
-					myRow = new TableRow();
-					tblCell = new TableCell();
 
-					switch (loValue.Datatype)
+                    #region switch (loValue.Datatype)
+
+                    switch (loValue.Datatype)
 					{
 						case "L":
 							List<FeatureListItemInfo> featureListItems =
@@ -1178,11 +1144,16 @@ namespace Bitboxx.DNNModules.BBStore
 							tblCell = new TableCell();
 							myRow.Cells.Add(tblCell);
 							break;
-					}
-					if (valCount > 0)
+                    }
+                    #endregion
+                    
+                    if (valCount > 0)
 					{
-						myTable.Rows.Add(myCaptionRow);
-						myTable.Rows.Add(myRow);
+					    if (Orientation == FeatureGridOrientation.Vertical)
+					    {
+					        myTable.Rows.Add(myCaptionRow);
+					    }
+					    myTable.Rows.Add(myRow);
 					}
 				    lastFeature = loValue.Feature;
 				}
