@@ -9,6 +9,8 @@
 	<li>[UNIT] = Unit</li>
 	<li>[IMAGE] = Product Image (orig. dimension)</li>
 	<li>[IMAGE:width] = Product Image (width in pixel)</li>
+	<li>[IMAGEURL] = relative path to Image starting at portalroot</li>
+	<li>[LINK] = target url</li>
 	<li>[FEATURE:token.property] = Product-Feature with token name (eg. "make"). Valid Properties:
 		<ul style="color:black">
 			<li>FeatureGroup = Group of Feature</li>

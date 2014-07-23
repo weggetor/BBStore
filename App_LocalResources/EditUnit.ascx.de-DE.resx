@@ -118,25 +118,25 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="lblDecimals.Help" xml:space="preserve">
-    <value>Geben Sie hier die Summe der Ziffern nach dem komma</value>
+    <value>Geben Sie hier die Anzahl der Nachkommastellen an</value>
   </data>
 	<data name="lblDecimals.Text" xml:space="preserve">
-    <value>Dezimalzahlen</value>
+    <value>Nachkommastellen</value>
   </data>
 	<data name="lblLanguage.Help" xml:space="preserve">
     <value>Wählen Sie die Sprache, die Sie bearbeiten möchten</value>
   </data>
 	<data name="lblLanguage.Text" xml:space="preserve">
-    <value>Sprache auswählen</value>
+    <value>Sprache wählen</value>
   </data>
 	<data name="lblSymbol.Help" xml:space="preserve">
-    <value>Geben Sie hier die Kurzform des Referats (z.B. kg)</value>
+    <value>Geben Sie hier die Kurzform der Einheit ein (z.B. kg)</value>
   </data>
 	<data name="lblSymbol.Text" xml:space="preserve">
     <value>Symbol</value>
   </data>
 	<data name="lblUnit.Help" xml:space="preserve">
-    <value>Geben Sie hier den vollständigen Namen des Referats (z.B. Kilogramm)</value>
+    <value>Geben Sie hier den vollständigen Namen der Einheit ein (z.B. Kilogramm)</value>
   </data>
 	<data name="lblUnit.Text" xml:space="preserve">
     <value>Einheit</value>

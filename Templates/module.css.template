@@ -9,8 +9,8 @@ COLORSUM : [COLORSUM];
 /*.dnnFormItem label, .dnnFormItem .dnnFormLabel, .dnnFormItem .dnnTooltip { display: block; float: left; font-weight: bold; margin-right: 16px; margin-top: 3px; text-align: right; width: 30%; }*/
 
 /* General */
-.bbstore-grid, .bbstore-grid td { background-color:White; border-color:[COLORBORDER]; border-style:none; border-width:1px; padding:3px ! important; font-size: 12px; }
-.bbstore-grid-header, .bbstore-grid-header th { background-color:[COLORHEAD]; font-weight:bold; color:White; padding:3px ! important; }
+.bbstore-grid, .bbstore-grid td { background-color:White; border-color:[COLORBORDER]; border-style:none; border-width:1px; padding:3px !important; font-size: 12px; }
+.bbstore-grid-header, .bbstore-grid-header th { background-color:[COLORHEAD]; font-weight:bold; color:White; padding:3px !important; }
 .bbstore-grid-headerrow { background-color:[COLORALT]; vertical-align:top; }
 .bbstore-grid-row, .bbstore-grid-row td { background-color:[COLORROW]; color:Black; vertical-align:top; }
 .bbstore-grid-alternaterow, .bbstore-grid-alternaterow td { background-color:[COLORALT]; vertical-align:top; }
@@ -18,7 +18,7 @@ COLORSUM : [COLORSUM];
 .bbstore-grid-row a { color:Black!important; }
 .bbstore-grid-alternaterow a { color:Black!Important; }
 .bbstore-grid-sumrow, .bbstore-grid-sumrow td { background-color:[COLORSUM]; font-weight:bold;  }
-.bbstore-grid-summary, .bbstore-grid-summary td { background-color:[COLORHEAD]; font-weight:bold; color:White; padding:3px ! important; font-size: 12px; }
+.bbstore-grid-summary, .bbstore-grid-summary td { background-color:[COLORHEAD]; font-weight:bold; color:White; padding:3px !important; font-size: 12px; }
 .bbstore-imagescroller ul li {list-style:none;}
 .bbstore-template  { font-family: monospace !important; font-size: small;}
 
@@ -53,7 +53,7 @@ COLORSUM : [COLORSUM];
 .bbstore-cart-payment input.valid { background: url('Providers/Payment/images/tick.png') no-repeat scroll 240px center white;}
 
 /* Product Module*/
-.bbstore-product-cartbox { background-color:[COLORALT]; padding: 5px 25px 5px 25px ! important; }
+.bbstore-product-cartbox { background-color:[COLORALT]; padding: 5px 25px 5px 25px !important; }
 .bbstore-product-price-mm {color: #000; text-shadow: 0 -2px #FFF, 2px 0 #FFF, 0 2px #FFF, -2px 0 #FFF, -2px -2px #FFF, 2px 2px #FFF, -2px 2px #FFF,2px -2px #FFF,3px 4px 3px #000; font-size:  46px; font-family: Avantgarde, Impact, Verdana, Arial, Sanserif; font-style: italic; }
 
 /* ProductGroup Module */

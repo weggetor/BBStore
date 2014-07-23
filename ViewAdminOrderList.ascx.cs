@@ -102,8 +102,7 @@ namespace Bitboxx.DNNModules.BBStore
 					         " OR OrderAddress.City LIKE '%" + txtOrder.Text.Trim() + "%'" +
 					         " OR OrderAddress.PostalCode LIKE '%" + txtOrder.Text.Trim() + "%'" +
 					         " OR OrderAddress.CountryCode LIKE '%" + txtOrder.Text.Trim() + "%'" +
-					         " OR OrderStateLang.OrderState LIKE '%" + txtOrder.Text.Trim() + "%'" +
-					         " OR PaymentProviderLang.ProviderName LIKE '%" + txtOrder.Text.Trim() + "%')";
+					         " OR OrderStateLang.OrderState LIKE '%" + txtOrder.Text.Trim() + "%')";
 
 				return filter;
 			}

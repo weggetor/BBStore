@@ -1,9 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TemplateControl.ascx.cs" Inherits="Bitboxx.DNNModules.BBStore.TemplateControl" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="TextEditor" Src="~/controls/TextEditor.ascx" %>
-<asp:Panel ID="pnlHelp" runat="server" CssClass="dnnFormMessage dnnFormInfo dnnClear" Visible="False">
-	<asp:Label runat="server" ID="ltrHelp" />
-</asp:Panel>
 <div class="dnnFormItem dnnClear">
     <dnn:Label id="lblCaption" runat="server" ControlName="ddlTemplate" suffix=":"/>
     <asp:Panel runat="server" ID="pnlView" CssClass="dnnLeft">
@@ -16,13 +13,19 @@
         </div>
     </asp:Panel>
     <asp:Panel runat="server" ID="pnlEdit" Visible="False" CssClass="dnnLeft">
-	    <asp:Panel runat="server" ID="pnlNewTemplate">
+        <asp:Panel ID="pnlHelp" runat="server"  Visible="False">
+            <dnn:Label runat="server" id="Label1" controlname="ltrHelp"  />
+            <div class="dnnFormMessage dnnFormInfo dnnClear" style="max-width: 400px;">
+                <asp:Label runat="server" ID="ltrHelp" />
+            </div>
+        </asp:Panel>
+	    <asp:Panel runat="server" ID="pnlNewTemplate" CssClass="dnnFormItem">
 		    <dnn:Label runat="server" id="lblName" controlname="txtName" suffix=":" />
 		    <asp:TextBox ID="txtName" runat="server" />
 		    <asp:RequiredFieldValidator ID="valNameRequired" ControlToValidate="txtName" runat="server" Resourcekey="valNameRequired.Error"/>
 	    </asp:Panel>
 	    <asp:Panel runat="server" ID="pnlEditTemplate">
-		    <div class="dnnClear">
+            <div class="dnnClear">
 			    <dnn:Label runat="server" id="lblMode" controlname="rblMode" suffix=":" />
                 <asp:RadioButtonList ID="rblMode" runat="server"  RepeatDirection="Horizontal" 
 				    AutoPostBack="True" OnSelectedIndexChanged="rblMode_SelectedIndexChanged">
@@ -41,11 +44,11 @@
 	    </asp:Panel>
 	    <div class="dnnClear">
 		    <asp:Textbox id="txtTemplate" CssClass="dnnFormInput bbstore-template" textmode="MultiLine" rows="10" runat="server" />
-	        <dnn:TextEditor ID="edtTemplate" runat="server"  TextRenderMode="Raw" HtmlEncode="False" defaultmode="Rich"  choosemode="False" visible="false" />
+	        <dnn:TextEditor ID="edtTemplate" runat="server"  TextRenderMode="Raw" HtmlEncode="False" defaultmode="Rich"  choosemode="false" visible="false" />
 	    </div>
 	    <ul class="dnnActions dnnClear">
-		    <li><asp:LinkButton ID="cmdSave" runat="server" resourcekey="cmdSave" OnClick="cmdSave_Click" CausesValidation="True"/></li>
-		    <li><asp:LinkButton ID="cmdCancelEdit" runat="server" resourcekey="cmdCancelEdit" OnClick="cmdCancelEdit_Click" CausesValidation="False"/></li>
+		    <li><asp:LinkButton ID="cmdSave" runat="server" resourcekey="cmdSave" OnClick="cmdSave_Click" CausesValidation="True" CssClass="dnnSecondaryAction"/></li>
+		    <li><asp:LinkButton ID="cmdCancelEdit" runat="server" resourcekey="cmdCancelEdit" OnClick="cmdCancelEdit_Click" CausesValidation="False" CssClass="dnnSecondaryAction"/></li>
 	    </ul>
     </asp:Panel>
 </div>

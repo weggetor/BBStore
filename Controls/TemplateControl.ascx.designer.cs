@@ -13,24 +13,6 @@ namespace Bitboxx.DNNModules.BBStore {
     public partial class TemplateControl {
         
         /// <summary>
-        /// pnlHelp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlHelp;
-        
-        /// <summary>
-        /// ltrHelp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ltrHelp;
-        
-        /// <summary>
         /// lblCaption control.
         /// </summary>
         /// <remarks>
@@ -101,6 +83,33 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlEdit;
+        
+        /// <summary>
+        /// pnlHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlHelp;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl Label1;
+        
+        /// <summary>
+        /// ltrHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ltrHelp;
         
         /// <summary>
         /// pnlNewTemplate control.

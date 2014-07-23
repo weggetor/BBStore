@@ -272,6 +272,7 @@
             $(MSBuildProjectDirectory)\*.git\**;
             $(MSBuildProjectDirectory)\**\*.ascx.??-??.resx;
             $(MSBuildProjectDirectory)\**\*.ascx.??-??.*.resx;
+            $(MSBuildProjectDirectory)\**\*.??-??.htp;
             $(MSBuildProjectDirectory)\_*\**;
 						$(MSBuildProjectDirectory)\obj\**;
 						$(MSBuildProjectDirectory)\bin\**;
@@ -388,7 +389,7 @@
       <Output TaskParameter="Include" ItemName="CodeFiles" />
     </CreateItem>
     <!-- Get all language resource files -->
-    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.ascx.%(Languages.Identity).resx" >
+    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.ascx.%(Languages.Identity).resx;$(MSBuildProjectDirectory)\**\*.%(Languages.Identity).htp" >
       <Output TaskParameter="Include" ItemName="LanguageFiles" />
     </CreateItem>
     <!--manifest file name-->
@@ -397,7 +398,7 @@
     </CreateItem>
     <!--Write the dnn file-->
     <CreateDnnLanguageFile Target="@(dnnLangFile)" CodeFiles="@(CodeFiles)" Language="%(Languages.Identity)" LanguageFiles="@(LanguageFiles)" Version="$(FileMajor).$(FileMinor).$(FileBuild)" ModulePath="$(DesktopFolderName)"/>
-    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.ascx.%(Languages.Identity).resx;$(MSBuildProjectParentDirectory)\$(ZipFileNamePrefix) %(Languages.Identity).dnn" >
+    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.ascx.%(Languages.Identity).resx;;$(MSBuildProjectDirectory)\**\*.%(Languages.Identity).htp;$(MSBuildProjectParentDirectory)\$(ZipFileNamePrefix) %(Languages.Identity).dnn" >
       <Output TaskParameter="Include" ItemName="langSources" />
     </CreateItem>
     <!-- Zip content -->

@@ -132,6 +132,12 @@
   <data name="lblFileCap.Text" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="lblHelp.Help" xml:space="preserve">
+    <value>Information about the usable placeholders for this template</value>
+  </data>
+  <data name="lblHelp.Text" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="lblLanguage.Text" xml:space="preserve">
     <value>Select Language</value>
   </data>

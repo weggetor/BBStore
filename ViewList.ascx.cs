@@ -23,6 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.UI;
@@ -89,7 +90,7 @@ namespace Bitboxx.DNNModules.BBStore
                 else if (Request.Cookies["SortExpression"] != null)
                     return Request.Cookies["SortExpression"].Value;
 				else
-					return "SimpleProductid";
+					return "Name";
 			}
 			set
 			{
@@ -513,6 +514,9 @@ namespace Bitboxx.DNNModules.BBStore
 				pnlListFooter.Visible = false;
 			}
 
+            if (Convert.ToBoolean(Settings["HideEmptyModule"] ?? "false") == true && _products.Any() == false && !IsEditable)
+                this.ContainerControl.Visible = false;
+
             // Check licensing
             LicenseDataInfo license = Controller.GetLicense(PortalId, false);
             Controller.CheckLicense(license, this, ModuleKind);
@@ -640,6 +644,7 @@ namespace Bitboxx.DNNModules.BBStore
 					Template = Template.Replace("[TAX]", "<asp:Label ID=\"lblTax\" runat=\"server\"/>");
                     Template = Template.Replace("[UNIT]", "<asp:Label ID=\"lblUnit\" runat=\"server\"/>");
 					Template = Template.Replace("[TITLE]", "<asp:Label ID=\"lblTitle\" runat=\"server\" />");
+				    Template = Template.Replace("[IMAGEURL]", SimpleProduct.Image);
 
 					Control ctrl = ParseControl(Template);
 					lblItemNo = FindControlRecursive(ctrl, "lblItemNo") as Label;
@@ -652,7 +657,8 @@ namespace Bitboxx.DNNModules.BBStore
 					if (ltrProductDescription != null)
 						ltrProductDescription.Text = SimpleProduct.ProductDescription;
 
-					lblMandatory = FindControlRecursive(ctrl, "lblMandatory") as Label;
+                    lblCurrency = FindControlRecursive(ctrl, "lblCurrency") as Label;
+                    lblMandatory = FindControlRecursive(ctrl, "lblMandatory") as Label;
 					lblPrice = FindControlRecursive(ctrl, "lblPrice") as Label;
 					lblOriginalPrice = FindControlRecursive(ctrl, "lblOriginalPrice") as Label;
 					lblTax = FindControlRecursive(ctrl, "lblTax") as Label;
@@ -696,8 +702,6 @@ namespace Bitboxx.DNNModules.BBStore
 					lblTitle = FindControlRecursive(ctrl, "lblTitle") as Label;
 					if (lblTitle != null)
 						lblTitle.Text = SimpleProduct.Name;
-
-					lblCurrency = FindControlRecursive(ctrl, "lblCurrency") as Label;
 
 					Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
 					

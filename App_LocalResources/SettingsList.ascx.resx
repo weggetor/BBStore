@@ -223,7 +223,7 @@
     <value>Productlist Module Page</value>
   </data>
 	<data name="lblProductListModulePage.Help" xml:space="preserve">
-    <value>Please select a page which contains a productlist module with dynamic data selection setting. Fill this field only if you have restricted the number of products (eg. 'Products of the week') and have enabled the link "show all". The selection of the links then jumps to the selctedt page</value>
+    <value>Please select a page which contains a productlist module with dynamic data selection setting. Fill this field only if you have restricted the number of products (eg. 'Products of the week') and have enabled the link "show all". The selection of the links then jumps to the selected page</value>
   </data>
 	<data name="lblShowAllLink.Text" xml:space="preserve">
     <value>"Show All"-Link</value>
@@ -281,5 +281,11 @@
 	</data>
 	<data name="hdrData.Text" xml:space="preserve">
 		<value>Data Selection</value>
+	</data>
+	<data name="lblHideEmptyModule.Text" xml:space="preserve">
+		<value>Hide empty module</value>
+	</data>
+	<data name="lblHideEmptyModule.Help" xml:space="preserve">
+		<value>Check if the module should not be displayed if there are no data corresponding to the selection</value>
 	</data>
 </root>
