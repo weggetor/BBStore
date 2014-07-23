@@ -100,6 +100,6 @@
 	    </asp:MultiView>
     </asp:Panel>
     <asp:Panel ID="pnlFeatures" runat="server">
-	    <bb:FeatureGridControl ID="FeatureGrid" runat="server" Mode="Search" Orientation="Horizontal" />
+	    <bb:FeatureGridControl ID="FeatureGrid" runat="server" Mode="Search" />
     </asp:Panel>
 </div>
