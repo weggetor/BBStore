@@ -3485,7 +3485,7 @@ namespace Bitboxx.DNNModules.BBStore
                 new SqlParameter("RegEx",Feature.RegEx),
                 new SqlParameter("RoleID",Feature.RoleID),
                 new SqlParameter("ShowInSearch",Feature.ShowInSearch),
-                new SqlParameter("ShowInSearch",Feature.ShowInProduct),
+                new SqlParameter("ShowInProduct",Feature.ShowInProduct),
                 new SqlParameter("SearchGroups",Feature.SearchGroups),
                 new SqlParameter("FeatureToken",Feature.FeatureToken),
                 new SqlParameter("ViewOrder",Feature.ViewOrder),
