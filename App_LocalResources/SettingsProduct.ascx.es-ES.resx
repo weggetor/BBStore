@@ -145,7 +145,7 @@
     <value>Selección no.</value>
   </data>
 	<data name="ShowNetPrice.Cart.Text" xml:space="preserve">
-    <value>Consulte Ajustes de carro</value>
+    <value>Configuración de la tienda de lago</value>
   </data>
 	<data name="ShowNetPrice.Gross.Text" xml:space="preserve">
     <value>Bruto</value>
@@ -197,5 +197,35 @@
   </data>
 	<data name="Individual.Text" xml:space="preserve">
 		<value>(individuales)</value>
+	</data>
+	<data name="hdrGlobal.Text" xml:space="preserve">
+		<value>Configuración global</value>
+	</data>
+	<data name="hdrTemplates.Text" xml:space="preserve">
+		<value>Plantillas</value>
+	</data>
+	<data name="hdrProduct.Text" xml:space="preserve">
+		<value>Producto</value>
+	</data>
+	<data name="rblSelectTypeDynamic.Text" xml:space="preserve">
+		<value>Dinámica </value>
+	</data>
+	<data name="rblSelectTypeStatic.Text" xml:space="preserve">
+		<value>Estática</value>
+	</data>
+	<data name="lblSelectType.Text" xml:space="preserve">
+		<value>Tipo de pantalla</value>
+	</data>
+	<data name="lblSelectType.Help" xml:space="preserve">
+		<value>Seleccione el tipo de pantalla. Usted puede elegir entre Mostrar siempre el mismo producto (estático) o dependiendo de los parámetros pasados 'productid' (dinámico). Si estática, por favor seleccione un producto de la lista.</value>
+	</data>
+	<data name="lblStatic.Text" xml:space="preserve">
+		<value>Producto estático</value>
+	</data>
+	<data name="lblListModulePage.Text" xml:space="preserve">
+		<value>Módulos página lista</value>
+	</data>
+	<data name="lblListModulePage.Help" xml:space="preserve">
+		<value>Seleccione la página que se muestra automáticamente si no se ha seleccionado ningún producto</value>
 	</data>
 </root>
