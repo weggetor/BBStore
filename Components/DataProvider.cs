@@ -304,6 +304,7 @@ namespace Bitboxx.DNNModules.BBStore
 		public abstract int NewFeatureValue(FeatureValueInfo FeatureValue);
 		public abstract void UpdateFeatureValue(FeatureValueInfo FeatureValue);
 		public abstract void DeleteFeatureValue(int FeatureValueId);
+        public abstract void DeleteFeatureValuesByPortal(int portalId);
 
 		// FeatureGroup methods
 		public abstract IDataReader GetFeatureGroupById(int FeatureGroupId);
@@ -392,6 +393,7 @@ namespace Bitboxx.DNNModules.BBStore
 		public abstract void NewProductGroupFeature(int FeatureId, int ProductGroupId);
 		public abstract void DeleteProductGroupFeatures(int FeatureId);
 		public abstract void DeleteProductGroupFeature(int FeatureId, int ProductGroupId);
+        public abstract void DeleteProductGroupFeaturesByPortal(int portalId);
 
 		// ProductGroupListItems methods
         public abstract IDataReader GetProductGroupListItemsByPortal(int portalId);

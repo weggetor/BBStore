@@ -894,6 +894,10 @@ namespace Bitboxx.DNNModules.BBStore
         {
             DataProvider.Instance().DeleteFeatureValue(FeatureValueId);
         }
+        public void DeleteFeatureValuesByPortal(int portalId)
+        {
+            DataProvider.Instance().DeleteFeatureValuesByPortal(portalId);
+        }
 
         // FeatureGroup methods
         public FeatureGroupInfo GetFeatureGroupById(int FeatureGroupId)
@@ -1188,6 +1192,10 @@ namespace Bitboxx.DNNModules.BBStore
         public void DeleteProductGroupFeature(int FeatureId, int ProductGroupId)
         {
             DataProvider.Instance().DeleteProductGroupFeature(FeatureId, ProductGroupId);
+        }
+        public void DeleteProductGroupFeaturesByPortal(int portalId)
+        {
+            DataProvider.Instance().DeleteProductGroupFeaturesByPortal(portalId);
         }
 
         // ProductGroupListItems methods

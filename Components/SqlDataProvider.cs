@@ -3240,6 +3240,14 @@ namespace Bitboxx.DNNModules.BBStore
 
         }
 
+        public override void DeleteFeatureValuesByPortal(int portalId)
+        {
+            string sqlCmd = "DELETE FROM " + GetFullyQualifiedName("FeatureValue") +
+                " WHERE FeatureId IN " +
+                " (SELECT FeatureId FROM " + GetFullyQualifiedName("Feature") + "  WHERE PortalId = @PortalId)";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, new SqlParameter("PortalId", portalId));
+        }
+
         // FeatureGroup methods
         public override IDataReader GetFeatureGroups(int PortalId)
         {
@@ -4087,6 +4095,16 @@ namespace Bitboxx.DNNModules.BBStore
 
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, param);
         }
+
+        public override void DeleteProductGroupFeaturesByPortal(int portalId)
+        {
+            string delCmd = "DELETE FROM " + Prefix + "ProductGroupFeature " +
+                " WHERE ProductGroupId IN (SELECT ProductGroupId FROM " + GetFullyQualifiedName("ProductGroup") + " WHERE PortalId = @PortalId)";
+            SqlParameter[] param = new SqlParameter[] {
+                new SqlParameter("Portalid",portalId)};
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd,param);
+        }
+
 
         // ProductGroupListItems methods
         public override IDataReader GetProductGroupListItemsByPortal(int portalId)
