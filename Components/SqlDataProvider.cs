@@ -2189,7 +2189,7 @@ namespace Bitboxx.DNNModules.BBStore
                             " ISNULL(OrderAddress.PostalCode,'') as PostalCode," +
                             " ISNULL(OrderAddress.City,'') as City, " +
                             " ISNULL(OrderAddress.CountryCode,'') as CountryCode, " +
-                            " ISNULL((SELECT ProviderName FROM " + GetFullyQualifiedName("BBStore_PaymentProviderLang") + " WHERE PaymentProviderId = Orders.PaymentProviderId AND Language = @Language) ,'') as PaymentProvider, " +
+                            " ISNULL((SELECT ProviderName FROM " + GetFullyQualifiedName("PaymentProviderLang") + " WHERE PaymentProviderId = Orders.PaymentProviderId AND Language = @Language) ,'') as PaymentProvider, " +
                             " OrderStateLang.OrderState" +
                             " FROM " + GetFullyQualifiedName("Order") + " Orders " +
                             " LEFT JOIN " + GetFullyQualifiedName("OrderAddress") + " OrderAddress ON Orders.OrderId = OrderAddress.OrderId" +
