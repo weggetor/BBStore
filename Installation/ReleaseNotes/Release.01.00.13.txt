@@ -2,7 +2,11 @@
 <p>
 	<h2>Version 1.0.13</h2>
 	<ul>
-		<li>Neues Feld in BBStore_Feature (ShowInProduct)</li>
+		<li>New property BBStore_Feature (ShowInProduct)</li>
+		<li>Setting "ShoWNetPrice" now in store settings (formerly cart settings)</li>
+		<li>FeatureGridControl Orientation vertical / horizontal</li>
+		<li>FeatureGridControl Orientation vertical / horizontal</li>
+		<li>Bugfix in SQL GetOrders (hardcoded "dbo."")</li>
 	</ul>
 </p>
 	
