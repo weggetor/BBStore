@@ -19,6 +19,7 @@
 // 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -46,9 +47,8 @@ namespace Bitboxx.DNNModules.BBStore
     [DNNtc.ModuleControlProperties("Settings", "BBStore Product Settings", DNNtc.ControlType.Edit, "", true, false)]
     partial class SettingsProduct : ModuleSettingsBase
     {
-		BBStoreController Controller;
-		int PageIndex;
-		bool HasCartModule = true;
+		BBStoreController _controller;
+		int _pageIndex;
 
 		public string Sort
 		{
@@ -71,7 +71,7 @@ namespace Bitboxx.DNNModules.BBStore
 			{
 				if (ViewState["Search"] != null)
 				{
-					return Controller.GetSearchTextFilter(PortalId, (string)ViewState["Search"], CurrentLanguage);
+					return _controller.GetSearchTextFilter(PortalId, (string)ViewState["Search"], CurrentLanguage);
 				}
 				else
 					return "";
@@ -112,11 +112,8 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			try
 			{
-				Controller = new BBStoreController();
+				_controller = new BBStoreController();
 				Localization.LocalizeGridView(ref GridView1, this.LocalResourceFile);
-				ModuleController objModules = new ModuleController();
-				if (objModules.GetModuleByDefinition(PortalId, "BBStore Cart") == null)
-					HasCartModule = false;
 
 				if (!IsPostBack)
 				{
@@ -129,14 +126,13 @@ namespace Bitboxx.DNNModules.BBStore
                         ProductId = -1;
 
 					// Fill the net / gross / see cart Optiongroup
-					if (HasCartModule)
-						rblShowNetPrice.Items.Add(new ListItem(Localization.GetString("ShowNetPrice.Cart.Text", this.LocalResourceFile), "-1"));
+					rblShowNetPrice.Items.Add(new ListItem(Localization.GetString("ShowNetPrice.Cart.Text", this.LocalResourceFile), "-1"));
 					rblShowNetPrice.Items.Add(new ListItem(Localization.GetString("ShowNetPrice.Net.Text", this.LocalResourceFile), "0"));
 					rblShowNetPrice.Items.Add(new ListItem(Localization.GetString("ShowNetPrice.Gross.Text", this.LocalResourceFile), "1"));
 
-					PageIndex = 0;
+					_pageIndex = 0;
 					Sort = "SimpleProductId";
-					GridView1.PageIndex = PageIndex;
+					GridView1.PageIndex = _pageIndex;
 				}
 			    tplTemplate.CreateImageCallback = CreateThumbHtml;
 			}
@@ -150,7 +146,7 @@ namespace Bitboxx.DNNModules.BBStore
 		protected override void OnPreRender(EventArgs e)
 		{
 			base.OnPreRender(e);
-			List<SimpleProductInfo> products = Controller.GetSimpleProducts(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort, Where);
+			List<SimpleProductInfo> products = _controller.GetSimpleProducts(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort, Where);
 			GridView1.DataSource = products;
 			GridView1.DataBind();
 
@@ -180,7 +176,7 @@ namespace Bitboxx.DNNModules.BBStore
                     }
 					else
 					{
-						SimpleProductInfo pi = Controller.GetSimpleProductByProductId(PortalId, ProductId, CurrentLanguage);
+						SimpleProductInfo pi = _controller.GetSimpleProductByProductId(PortalId, ProductId, CurrentLanguage);
 					    if (pi != null)
 					        lblSelected.Text = "(" + ProductId.ToString() + ") " + pi.ItemNo + " " + pi.Name;
 					    else
@@ -214,7 +210,7 @@ namespace Bitboxx.DNNModules.BBStore
             if (ModuleSettings["ShowNetPrice"] != null)
                 rblShowNetPrice.SelectedValue = (string)ModuleSettings["ShowNetPrice"];
             else
-                rblShowNetPrice.SelectedValue = HasCartModule ? "-1" : "1";
+                rblShowNetPrice.SelectedValue = "-1";
 
             if (ModuleSettings["OpenCartOnAdd"] != null)
 				chkOpenCartOnAdd.Checked = Convert.ToBoolean(ModuleSettings["OpenCartOnAdd"]);
@@ -297,16 +293,16 @@ namespace Bitboxx.DNNModules.BBStore
 		protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
 		{
 			Sort = e.SortExpression;
-			PageIndex = 0;
-			GridView1.PageIndex = PageIndex;
-			GridView1.DataSource = Controller.GetSimpleProducts(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort);
+			_pageIndex = 0;
+			GridView1.PageIndex = _pageIndex;
+			GridView1.DataSource = _controller.GetSimpleProducts(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort);
 			GridView1.DataBind();
 		}
 		protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
-			PageIndex = e.NewPageIndex;
-			GridView1.PageIndex = PageIndex;
-			GridView1.DataSource = Controller.GetSimpleProducts(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort);
+			_pageIndex = e.NewPageIndex;
+			GridView1.PageIndex = _pageIndex;
+			GridView1.DataSource = _controller.GetSimpleProducts(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort);
 			GridView1.DataBind();
 		}
 

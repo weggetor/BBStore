@@ -238,8 +238,8 @@ namespace Bitboxx.DNNModules.BBStore
 					Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
 					showNetPrice = (string)storeSettings["ShowNetpriceInCart"] == "0";
 				}
-				else if (IsTaxIncluded == 1)
-					showNetPrice = false;
+				else 
+                    showNetPrice = (IsTaxIncluded == 0);
 
                 int imageWidth = 0;
 

@@ -851,9 +851,9 @@ namespace Bitboxx.DNNModules.BBStore
         }
 
         // FeatureGrid methods
-        public List<FeatureGridValueInfo> GetFeatureGridValues(int PortalId, int ProductId, string Language,int RoleId, int FeatureGroupId)
+        public List<FeatureGridValueInfo> GetFeatureGridValues(int PortalId, int ProductId, string Language,int RoleId, int FeatureGroupId, bool showAll)
         {
-            return CBO.FillCollection<FeatureGridValueInfo>(DataProvider.Instance().GetFeatureGridValues(PortalId, ProductId, Language, RoleId, FeatureGroupId));
+            return CBO.FillCollection<FeatureGridValueInfo>(DataProvider.Instance().GetFeatureGridValues(PortalId, ProductId, Language, RoleId, FeatureGroupId, showAll));
         }
         public FeatureGridValueInfo GetFeatureGridValueByProductAndToken(int PortalId, int ProductId, string Language, string FeatureToken)
         {
@@ -893,6 +893,10 @@ namespace Bitboxx.DNNModules.BBStore
         public void DeleteFeatureValue(int FeatureValueId)
         {
             DataProvider.Instance().DeleteFeatureValue(FeatureValueId);
+        }
+        public void DeleteFeatureValuesByPortal(int portalId)
+        {
+            DataProvider.Instance().DeleteFeatureValuesByPortal(portalId);
         }
 
         // FeatureGroup methods
@@ -1188,6 +1192,10 @@ namespace Bitboxx.DNNModules.BBStore
         public void DeleteProductGroupFeature(int FeatureId, int ProductGroupId)
         {
             DataProvider.Instance().DeleteProductGroupFeature(FeatureId, ProductGroupId);
+        }
+        public void DeleteProductGroupFeaturesByPortal(int portalId)
+        {
+            DataProvider.Instance().DeleteProductGroupFeaturesByPortal(portalId);
         }
 
         // ProductGroupListItems methods

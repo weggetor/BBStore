@@ -145,7 +145,7 @@
     <value>No selection</value>
   </data>
 	<data name="ShowNetPrice.Cart.Text" xml:space="preserve">
-    <value>See cart settings</value>
+    <value>See store settings</value>
   </data>
 	<data name="ShowNetPrice.Gross.Text" xml:space="preserve">
     <value>Gross</value>

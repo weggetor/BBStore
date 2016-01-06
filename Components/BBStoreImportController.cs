@@ -121,13 +121,21 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 SaveFeatureLang(portalId, featureLang, storeGuid);
             }
-            foreach (ProductGroupFeatureInfo productGroupFeature in bbStore.ProductGroupFeature)
+            if (bbStore.ProductGroupFeature.Count > 0)
             {
-                SaveProductGroupFeature(portalId, productGroupFeature.FeatureId, productGroupFeature.ProductGroupId, storeGuid);
+                Controller.DeleteProductGroupFeaturesByPortal(portalId);
+                foreach (ProductGroupFeatureInfo productGroupFeature in bbStore.ProductGroupFeature)
+                {
+                    SaveProductGroupFeature(portalId, productGroupFeature.FeatureId, productGroupFeature.ProductGroupId, storeGuid);
+                }
             }
-            foreach (FeatureValueInfo featureValue in bbStore.FeatureValue)
+            if (bbStore.FeatureValue.Count > 0)
             {
-                SaveFeatureValue(portalId, featureValue, storeGuid);
+                Controller.DeleteFeatureValuesByPortal(portalId);
+                foreach (FeatureValueInfo featureValue in bbStore.FeatureValue)
+                {
+                    SaveFeatureValue(portalId, featureValue, storeGuid);
+                }
             }
             DeleteProductGroupListItems(portalId,storeGuid);
             foreach (ProductGroupListItemInfo productGroupListItem in bbStore.ProductGroupListItem)

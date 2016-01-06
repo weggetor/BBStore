@@ -91,7 +91,7 @@ COLORSUM : #A0AFEB;
 .bbstore-admin-editgrid-pager td { color:#333333!important; }
 
 /* Search module */
-.bbstore-search-title { font-size:90%; font-weight:bold }
+.bbstore-search-title { font-size:90%;font-weight: bold; white-space:nowrap }
 .bbstore-search-value { font-size:80%; color: Red; }
 .bbstore-search-select { font-size:80%; }
 

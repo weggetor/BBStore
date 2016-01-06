@@ -145,7 +145,7 @@
     <value>Keine Auswahl getroffen</value>
   </data>
 	<data name="ShowNetPrice.Cart.Text" xml:space="preserve">
-    <value>siehe Warenkorb</value>
+    <value>siehe Shopeinstellungen</value>
   </data>
 	<data name="ShowNetPrice.Gross.Text" xml:space="preserve">
     <value>Brutto</value>

@@ -2189,7 +2189,7 @@ namespace Bitboxx.DNNModules.BBStore
                             " ISNULL(OrderAddress.PostalCode,'') as PostalCode," +
                             " ISNULL(OrderAddress.City,'') as City, " +
                             " ISNULL(OrderAddress.CountryCode,'') as CountryCode, " +
-                            " ISNULL((SELECT ProviderName FROM dbo.BBStore_PaymentProviderLang WHERE PaymentProviderId = Orders.PaymentProviderId AND Language = @Language) ,'') as PaymentProvider, " +
+                            " ISNULL((SELECT ProviderName FROM " + GetFullyQualifiedName("PaymentProviderLang") + " WHERE PaymentProviderId = Orders.PaymentProviderId AND Language = @Language) ,'') as PaymentProvider, " +
                             " OrderStateLang.OrderState" +
                             " FROM " + GetFullyQualifiedName("Order") + " Orders " +
                             " LEFT JOIN " + GetFullyQualifiedName("OrderAddress") + " OrderAddress ON Orders.OrderId = OrderAddress.OrderId" +
@@ -2902,7 +2902,7 @@ namespace Bitboxx.DNNModules.BBStore
 
 
         //FeatureGrid methods
-        public override IDataReader GetFeatureGridValues(int PortalId, int ProductId, string Language, int RoleId, int FeatureGroupId)
+        public override IDataReader GetFeatureGridValues(int PortalId, int ProductId, string Language, int RoleId, int FeatureGroupId, bool showAll)
         {
             string selCmd = "SELECT DISTINCT fg.FeatureGroupId,fg.ViewOrder as GViewOrder,fgl.FeatureGroup,fl.FeatureId,fl.Feature,f.FeatureToken,fl.Unit,f.FeatureListId," +
                 " ISNULL((SELECT FeatureList FROM " + GetFullyQualifiedName("FeatureListLang") + " WHERE FeatureListId = f.FeatureListid AND Language = @Language),'') as FeatureList, " +
@@ -2930,6 +2930,11 @@ namespace Bitboxx.DNNModules.BBStore
                 "    INNER JOIN " + GetFullyQualifiedName("ProductGroup") + " pg ON pgli.ProductGroupId = pg.ProductGroupId" +
                 "    INNER JOIN " + GetFullyQualifiedName("ProductInGroup") + " pig ON pg.ProductGroupId = pig.ProductGroupId" +
                 "    WHERE pig.SimpleProductId = @ProductId))";
+
+            if (!showAll)
+            {
+                selCmd += " AND f.ShowInProduct = 1";
+            }
 
             SqlParameter[] SqlParams = new SqlParameter[] {
                 new SqlParameter("ProductId",ProductId),
@@ -3235,6 +3240,14 @@ namespace Bitboxx.DNNModules.BBStore
 
         }
 
+        public override void DeleteFeatureValuesByPortal(int portalId)
+        {
+            string sqlCmd = "DELETE FROM " + GetFullyQualifiedName("FeatureValue") +
+                " WHERE FeatureId IN " +
+                " (SELECT FeatureId FROM " + GetFullyQualifiedName("Feature") + "  WHERE PortalId = @PortalId)";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, new SqlParameter("PortalId", portalId));
+        }
+
         // FeatureGroup methods
         public override IDataReader GetFeatureGroups(int PortalId)
         {
@@ -3459,10 +3472,10 @@ namespace Bitboxx.DNNModules.BBStore
         {
             string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("Feature") +
                 " (PortalID,FeatureGroupId,FeatureListId,Datatype,Multiselect,Control,"+
-                "  Dimension,Required,MinValue,MaxValue,RegEx,RoleID,ShowInSearch,SearchGroups,FeatureToken,ViewOrder)" +
+                "  Dimension,Required,MinValue,MaxValue,RegEx,RoleID,ShowInSearch,ShowInProduct,SearchGroups,FeatureToken,ViewOrder)" +
                 " VALUES " +
                 " (@PortalID,@FeatureGroupId,@FeatureListId,@Datatype,@Multiselect,@Control,"+
-                " @Dimension,@Required,@MinValue,@MaxValue,@RegEx,@RoleID,@ShowInSearch,@SearchGroups,@FeatureToken,@ViewOrder)"+
+                " @Dimension,@Required,@MinValue,@MaxValue,@RegEx,@RoleID,@ShowInSearch,@ShowInProduct,@SearchGroups,@FeatureToken,@ViewOrder)"+
                 " SELECT CAST(scope_identity() AS INTEGER);";
 
             SqlParameter[] SqlParams = new SqlParameter[] {
@@ -3480,6 +3493,7 @@ namespace Bitboxx.DNNModules.BBStore
                 new SqlParameter("RegEx",Feature.RegEx),
                 new SqlParameter("RoleID",Feature.RoleID),
                 new SqlParameter("ShowInSearch",Feature.ShowInSearch),
+                new SqlParameter("ShowInProduct",Feature.ShowInProduct),
                 new SqlParameter("SearchGroups",Feature.SearchGroups),
                 new SqlParameter("FeatureToken",Feature.FeatureToken),
                 new SqlParameter("ViewOrder",Feature.ViewOrder),
@@ -3503,6 +3517,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " RegEx = @RegEx," +
                 " RoleID = @RoleID," +
                 " ShowInSearch = @ShowInSearch," +
+                " ShowInProduct = @ShowInProduct," +
                 " SearchGroups = @SearchGroups," +
                 " FeatureToken = @FeatureToken," +
                 " ViewOrder = @ViewOrder" +
@@ -3523,6 +3538,7 @@ namespace Bitboxx.DNNModules.BBStore
                 new SqlParameter("RegEx",Feature.RegEx),
                 new SqlParameter("RoleID",Feature.RoleID),
                 new SqlParameter("ShowInSearch",Feature.ShowInSearch),
+                new SqlParameter("ShowInProduct",Feature.ShowInProduct),
                 new SqlParameter("SearchGroups",Feature.SearchGroups),
                 new SqlParameter("FeatureToken",Feature.FeatureToken),
                 new SqlParameter("ViewOrder",Feature.ViewOrder)
@@ -4079,6 +4095,16 @@ namespace Bitboxx.DNNModules.BBStore
 
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, param);
         }
+
+        public override void DeleteProductGroupFeaturesByPortal(int portalId)
+        {
+            string delCmd = "DELETE FROM " + Prefix + "ProductGroupFeature " +
+                " WHERE ProductGroupId IN (SELECT ProductGroupId FROM " + GetFullyQualifiedName("ProductGroup") + " WHERE PortalId = @PortalId)";
+            SqlParameter[] param = new SqlParameter[] {
+                new SqlParameter("Portalid",portalId)};
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd,param);
+        }
+
 
         // ProductGroupListItems methods
         public override IDataReader GetProductGroupListItemsByPortal(int portalId)
