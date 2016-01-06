@@ -367,6 +367,10 @@ namespace Bitboxx.DNNModules.BBStore
         {
             DataProvider.Instance().UpdateCartCustomerPaymentProviderId(CartId, CustomerPaymentProviderId);
         }
+        public void UpdateCartCouponId(Guid cartId, int couponId)
+        {
+            DataProvider.Instance().UpdateCartCouponId(cartId, couponId);
+        }
         public string SerializeCart(Guid cartId)
         {
             return DataProvider.Instance().SerializeCart(cartId);
@@ -1481,7 +1485,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             DataProvider.Instance().InsertProductShippingModel(productShippingModel);
         }
-        #endregion
+        
 
         // ShippingCost methods
         public List<ShippingCostInfo> GetShippingCosts(int PortalId)
@@ -1509,6 +1513,40 @@ namespace Bitboxx.DNNModules.BBStore
             DataProvider.Instance().DeleteShippingCost(ShippingCostId);
         }
 
+        // Coupon methods
+        public CouponInfo GetCouponById(int CouponId)
+        {
+            return (CouponInfo)CBO.FillObject(DataProvider.Instance().GetCouponById(CouponId), typeof(CouponInfo));
+        }
+        public CouponInfo GetCouponByCode(string code)
+        {
+            return (CouponInfo)CBO.FillObject(DataProvider.Instance().GetCouponByCode(code), typeof(CouponInfo));
+        }
+        public List<CouponInfo> GetCoupons(int PortalId)
+        {
+            return CBO.FillCollection<CouponInfo>(DataProvider.Instance().GetCoupons(PortalId));
+        }
+        public List<CouponInfo> GetCoupons(int portalId, string sortByField)
+        {
+            return CBO.FillCollection<CouponInfo>(DataProvider.Instance().GetCoupons(portalId, sortByField));
+        }
+        public int NewCoupon(CouponInfo Coupon)
+        {
+            return DataProvider.Instance().NewCoupon(Coupon);
+        }
+        public void UpdateCoupon(CouponInfo Coupon)
+        {
+            DataProvider.Instance().UpdateCoupon(Coupon);
+        }
+        public void UpdateCouponCount(int couponId, int count)
+        {
+            DataProvider.Instance().UpdateCouponCount(couponId,count);
+        }
+        public void DeleteCoupon(int CouponId)
+        {
+            DataProvider.Instance().DeleteCoupon(CouponId);
+        }
+
         // ShippingZone methods
         public int GetShippingZoneIdByAddress(int modelId, string countryCodeISO2, int postalCode)
         {
@@ -1518,6 +1556,8 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return (ShippingZoneDisplayInfo)CBO.FillObject(DataProvider.Instance().GetShippingZoneById(shippingZoneId, language), typeof(ShippingZoneDisplayInfo));
         }
+
+        #endregion
 
         #region SearchFilters
 

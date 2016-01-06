@@ -426,4 +426,22 @@
 [POSTALCODE:50] [CITY:150] - [SUBURB:100]
 [COUNTRY:300]</value>
 	</data>
+	<data name="cmdCoupon.Text" xml:space="preserve">
+		<value>Einlösen</value>
+	</data>
+	<data name="Coupon.Text" xml:space="preserve">
+		<value>Gutschein</value>
+	</data>
+	<data name="CouponNotFound.Error" xml:space="preserve">
+		<value>Der eingebene Gutscheincode ist nicht gültig</value>
+	</data>
+	<data name="CouponOutdated.Error" xml:space="preserve">
+		<value>Der Gutschein für {0} ist abgelaufen.</value>
+	</data>
+	<data name="CouponUsed.Error" xml:space="preserve">
+		<value>Der Gutschein für {0} wurde bereits verwendet.</value>
+	</data>
+	<data name="lblCoupon.Text" xml:space="preserve">
+		<value>Wenn Sie einen Gutschein haben können Sie den Code hier eingeben:</value>
+	</data>
 </root>

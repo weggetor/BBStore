@@ -144,6 +144,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract IDataReader GetCartTax(int PortalId, Guid CartId);
         public abstract void UpdateCartCustomerId(Guid CartId, int CustomerId);
 	    public abstract void UpdateCartCustomerPaymentProviderId(Guid CartId, int CustomerPaymentProviderId);
+        public abstract void UpdateCartCouponId(Guid cartId, int couponId);
     	public abstract string SerializeCart(Guid cartId);
 		public abstract CartInfo DeserializeCart(int portalId, int userId, Guid cartId, string cartXml);
 
@@ -490,11 +491,22 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract int NewShippingCost(ShippingCostInfo ShippingCost);
         public abstract void UpdateShippingCost(ShippingCostInfo ShippingCost);
         public abstract void DeleteShippingCost(int ShippingCostId);
-        #endregion
+
+        // Coupon methods
+        public abstract IDataReader GetCoupons(int PortalId);
+        public abstract IDataReader GetCoupons(int portalId, string sortByField);
+        public abstract IDataReader GetCouponById(int CouponId);
+        public abstract IDataReader GetCouponByCode(string code);
+        public abstract int NewCoupon(CouponInfo Coupon);
+        public abstract void UpdateCoupon(CouponInfo Coupon);
+        public abstract void UpdateCouponCount(int couponId, int count);
+        public abstract void DeleteCoupon(int CouponId);
 
         // ShippingZone methods
         public abstract int GetShippingZoneIdByAddress(int modelId, string countryCodeISO2, int postalCode);
         public abstract IDataReader GetShippingZoneById(int shippingZoneId, string language);
+
+        #endregion
 
         #region Helper methods
 

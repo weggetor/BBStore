@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,137 +59,137 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="ControlTitle_settings.Text" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="ControlTitle_settings.Text" xml:space="preserve">
     <value>BBStore Contact Einstellungen</value>
   </data>
-  <data name="lblCity.Text" xml:space="preserve">
+	<data name="lblCity.Text" xml:space="preserve">
     <value>Ort</value>
   </data>
-  <data name="lblCapAddressPart.Text" xml:space="preserve">
+	<data name="lblCapAddressPart.Text" xml:space="preserve">
     <value>Adressteil</value>
   </data>
-  <data name="lblCapMandatory.Text" xml:space="preserve">
+	<data name="lblCapMandatory.Text" xml:space="preserve">
     <value>Erforderlich</value>
   </data>
-  <data name="lblCapShow.Text" xml:space="preserve">
+	<data name="lblCapShow.Text" xml:space="preserve">
     <value>Anzeigen</value>
   </data>
-  <data name="lblCell.Text" xml:space="preserve">
+	<data name="lblCell.Text" xml:space="preserve">
     <value>Mobil</value>
   </data>
-  <data name="lblCompany.Text" xml:space="preserve">
+	<data name="lblCompany.Text" xml:space="preserve">
     <value>Firma</value>
   </data>
-  <data name="lblCountry.Text" xml:space="preserve">
+	<data name="lblCountry.Text" xml:space="preserve">
     <value>Land</value>
   </data>
-  <data name="lblFax.Text" xml:space="preserve">
+	<data name="lblFax.Text" xml:space="preserve">
     <value>Fax</value>
   </data>
-  <data name="lblFirstname.Text" xml:space="preserve">
+	<data name="lblFirstname.Text" xml:space="preserve">
     <value>Vorname</value>
   </data>
-  <data name="lblLastname.Text" xml:space="preserve">
+	<data name="lblLastname.Text" xml:space="preserve">
     <value>Nachname</value>
   </data>
-  <data name="lblPhone.Text" xml:space="preserve">
+	<data name="lblPhone.Text" xml:space="preserve">
     <value>Telefon</value>
   </data>
-  <data name="lblPrefix.Text" xml:space="preserve">
+	<data name="lblPrefix.Text" xml:space="preserve">
     <value>Anrede</value>
   </data>
-  <data name="lblRegion.Text" xml:space="preserve">
+	<data name="lblRegion.Text" xml:space="preserve">
     <value>Region</value>
   </data>
-  <data name="lblStreet.Text" xml:space="preserve">
+	<data name="lblStreet.Text" xml:space="preserve">
     <value>Strasse</value>
   </data>
-  <data name="lblAddressFields.Text" xml:space="preserve">
+	<data name="lblAddressFields.Text" xml:space="preserve">
     <value>Adressfelder</value>
   </data>
-  <data name="lblAddressFields.Help" xml:space="preserve">
+	<data name="lblAddressFields.Help" xml:space="preserve">
     <value>Wählen Sie aus welche Adressfelder angezeigt werden sollen und welche ausgefüllt werden müssen</value>
   </data>
-  <data name="lblShopHome.Text" xml:space="preserve">
+	<data name="lblShopHome.Text" xml:space="preserve">
     <value>Shop Startseite</value>
   </data>
-  <data name="lblShopHome.Help" xml:space="preserve">
+	<data name="lblShopHome.Help" xml:space="preserve">
     <value>Bitte wählen Sie die Shop-Startseite aus (die Seite, welche angezeigt wird, nachdem eine Anfrage gesendet wurde)</value>
   </data>
-  <data name="lblEmailSubject.Text" xml:space="preserve">
+	<data name="lblEmailSubject.Text" xml:space="preserve">
     <value>Mail Betreff</value>
   </data>
-  <data name="lblEmailSubject.Help" xml:space="preserve">
+	<data name="lblEmailSubject.Help" xml:space="preserve">
     <value>Geben Sie hier den Betreff für die Anfragemail an. Verwenden Sie den Platzhalter [REQUESTNO] für die Anfragenummer (z.B. "BBStore Anfrage Nr. [REQUESTNO]")</value>
   </data>
-  <data name="lblTemplate.Text" xml:space="preserve">
+	<data name="lblTemplate.Text" xml:space="preserve">
     <value>E-Mail Vorlage</value>
   </data>
-  <data name="lblTemplate.Help" xml:space="preserve">
+	<data name="lblTemplate.Help" xml:space="preserve">
     <value>Wählen Sie die E-Mail Vorlage für die Anfrage E-Mail aus bzw. erzeugen / bearbeiten Sie diese</value>
   </data>
-  <data name="lblProductTemplate.Help" xml:space="preserve">
+	<data name="lblProductTemplate.Help" xml:space="preserve">
     <value>Wählen Sie die Vorlage für die Anzeige der Produkte aus bzw. erzeugen / bearbeiten Sie diese</value>
   </data>
-  <data name="lblProductTemplate.Text" xml:space="preserve">
+	<data name="lblProductTemplate.Text" xml:space="preserve">
     <value>Produkt Vorlage</value>
   </data>
 </root>

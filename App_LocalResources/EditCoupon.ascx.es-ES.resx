@@ -117,79 +117,58 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="ControlTitle_settings.Text" xml:space="preserve">
-		<value>Configuración del contacto BBStore</value>
-	</data>
-	<data name="lblCapAddressPart.Text" xml:space="preserve">
-		<value>Parte de la dirección</value>
-	</data>
-	<data name="lblCapMandatory.Text" xml:space="preserve">
-		<value>Obligatorio</value>
-	</data>
-	<data name="lblCapShow.Text" xml:space="preserve">
-		<value>Mostrar</value>
-	</data>
-	<data name="lblCell.Text" xml:space="preserve">
-		<value>Celda</value>
-	</data>
-	<data name="lblCompany.Text" xml:space="preserve">
-		<value>Empresa</value>
-	</data>
-	<data name="lblCountry.Text" xml:space="preserve">
-		<value>País</value>
-	</data>
-	<data name="lblFax.Text" xml:space="preserve">
-		<value>Fax</value>
-	</data>
-	<data name="lblFirstname.Text" xml:space="preserve">
-		<value>Nombre</value>
-	</data>
-	<data name="lblLastname.Text" xml:space="preserve">
-		<value>Apellidos</value>
-	</data>
-	<data name="lblPhone.Text" xml:space="preserve">
-		<value>Teléfono</value>
-	</data>
-	<data name="lblPrefix.Text" xml:space="preserve">
-		<value>Prefijo</value>
-	</data>
-	<data name="lblRegion.Text" xml:space="preserve">
-		<value>Región</value>
-	</data>
-	<data name="lblStreet.Text" xml:space="preserve">
-		<value>Calle </value>
-	</data>
-	<data name="lblAddressFields.Text" xml:space="preserve">
-		<value>Campos de dirección</value>
-	</data>
-	<data name="lblAddressFields.Help" xml:space="preserve">
-		<value>Seleccione los campos de la dirección se muestran y que son obligatorios</value>
-	</data>
-	<data name="lblShopHome.Text" xml:space="preserve">
-		<value>Página principal de la tienda</value>
-	</data>
-	<data name="lblShopHome.Help" xml:space="preserve">
-		<value>Por favor, seleccione la página de inicio de tienda (la página de inicio después de enviar la solicitud)</value>
-	</data>
-	<data name="lblEmailSubject.Text" xml:space="preserve">
-		<value>Asunto de correo</value>
-	</data>
-	<data name="lblEmailSubject.Help" xml:space="preserve">
-		<value>Introduzca al asunto para el mensaje de solicitud. Escriba [REQUESTNO] donde desee colocar el número de orden (por ejemplo, "BBStore no solicitar.") [REQUESTNO] ")</value>
-	</data>
-	<data name="lblCity.Text" xml:space="preserve">
-		<value>Ciudad</value>
-	</data>
-	<data name="lblTemplate.Text" xml:space="preserve">
-		<value>Plantilla de correo</value>
-	</data>
-	<data name="lblTemplate.Help" xml:space="preserve">
-		<value>Seleccionar o editar / crear la plantilla para el correo electrónico solicitando</value>
-	</data>
-	<data name="lblProductTemplate.Help" xml:space="preserve">
-		<value>Seleccionar, editar o crear la plantilla para la exhibición de productos en la lista</value>
-	</data>
-	<data name="lblProductTemplate.Text" xml:space="preserve">
-		<value>Plantilla de productos</value>
-	</data>
+	<data name="cmdGenerateCode.Text" xml:space="preserve">
+    <value>Generar nuevo código</value>
+  </data>
+	<data name="lblCode.Help" xml:space="preserve">
+    <value>Introduzca aquí el código del cupón</value>
+  </data>
+	<data name="lblCode.Text" xml:space="preserve">
+    <value>Código</value>
+  </data>
+	<data name="lblDiscountPercent.Help" xml:space="preserve">
+    <value>Entrar en descuento (%) o descuento (cantidad)</value>
+  </data>
+	<data name="lblDiscountPercent.Text" xml:space="preserve">
+    <value>Descuento (%)</value>
+  </data>
+	<data name="lblDiscountValue.Help" xml:space="preserve">
+    <value>Entrar en descuento (%) o descuento (cantidad)</value>
+  </data>
+	<data name="lblDiscountValue.Text" xml:space="preserve">
+    <value>Descuento (cantidad)</value>
+  </data>
+	<data name="lblMaxUsages.Help" xml:space="preserve">
+    <value>Entrar cuantas veces se puede utilizar el cupón</value>
+  </data>
+	<data name="lblMaxUsages.Text" xml:space="preserve">
+    <value>Max usa</value>
+  </data>
+	<data name="lblUsagesLeft.Help" xml:space="preserve">
+    <value>Contar cuántas veces el cupón puede utilizarse</value>
+  </data>
+	<data name="lblUsagesLeft.Text" xml:space="preserve">
+    <value>Utiliza</value>
+  </data>
+	<data name="lblValidUntil.Help" xml:space="preserve">
+    <value>Introducir la fecha, hasta cuando el cupón sea válido (deje en blanco, si él nunca expira)</value>
+  </data>
+	<data name="lblValidUntil.Text" xml:space="preserve">
+    <value>Válido hasta el</value>
+  </data>
+	<data name="ValidatorTaxPercent.Error" xml:space="preserve">
+    <value>Por favor, introduzca un porcentaje válido</value>
+  </data>
+	<data name="lblCaption.Help" xml:space="preserve">
+    <value>Introduzca el nombre de la campaña (aparecerá en la cesta de compras)</value>
+  </data>
+	<data name="lblCaption.Text" xml:space="preserve">
+    <value>Kampangne</value>
+  </data>
+	<data name="lblTaxPercent.Help" xml:space="preserve">
+    <value>Escriba el porcentaje de tasa de impuesto con máximo 1 decimal</value>
+  </data>
+	<data name="lblTaxPercent.Text" xml:space="preserve">
+    <value>% DE IVA</value>
+  </data>
 </root>

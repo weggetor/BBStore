@@ -189,4 +189,10 @@
 	<data name="SendAgain.Message" xml:space="preserve">
     <value>The order mail was sent again!</value>
   </data>
+	<data name="cmdCoupon.Text" xml:space="preserve">
+    <value>Coupons</value>
+  </data>
+	<data name="TitleCoupon.Text" xml:space="preserve">
+    <value>Edit Coupons</value>
+  </data>
 </root>

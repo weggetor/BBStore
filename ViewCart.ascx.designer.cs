@@ -193,6 +193,60 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.GridView grdSummary;
         
         /// <summary>
+        /// pnlCoupon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCoupon;
+        
+        /// <summary>
+        /// lblCoupon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCoupon;
+        
+        /// <summary>
+        /// pnlCouponError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCouponError;
+        
+        /// <summary>
+        /// lblCouponError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCouponError;
+        
+        /// <summary>
+        /// txtCoupon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCoupon;
+        
+        /// <summary>
+        /// cmdCoupon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cmdCoupon;
+        
+        /// <summary>
         /// pnlConfirm2 control.
         /// </summary>
         /// <remarks>

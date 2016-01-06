@@ -186,4 +186,13 @@
 	<data name="lblRotatorHeight.Help" xml:space="preserve">
 		<value>Especificar la altura de la caminadora (en píxeles)</value>
 	</data>
+	<data name="hdrGlobal.Text" xml:space="preserve">
+		<value>Configuración global</value>
+	</data>
+	<data name="hdrLanguage.Text" xml:space="preserve">
+		<value>Texto estático</value>
+	</data>
+	<data name="hdrTemplates.Text" xml:space="preserve">
+		<value>Plantillas</value>
+	</data>
 </root>
