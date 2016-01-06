@@ -116,6 +116,7 @@ namespace Bitboxx.DNNModules.BBStore
                 actions.Add(GetNextActionID(), Localization.GetString("cmdFeatureList.Text", this.LocalResourceFile), ModuleActionType.AddContent, "", ControlPath + "Images/admin_featurelist_small.png", Globals.NavigateURL(TabId, "", "adminmode=featurelist"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
                 actions.Add(GetNextActionID(), Localization.GetString("cmdUnits.Text", this.LocalResourceFile), ModuleActionType.AddContent, "", ControlPath + "Images/admin_units_small.png", Globals.NavigateURL(TabId, "", "adminmode=unitlist"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
                 actions.Add(GetNextActionID(), Localization.GetString("cmdOrder.Text", this.LocalResourceFile), ModuleActionType.AddContent, "", ControlPath + "Images/admin_order_small.png", Globals.NavigateURL(TabId, "", "adminmode=orderlist"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
+                actions.Add(GetNextActionID(), Localization.GetString("cmdCoupon.Text", this.LocalResourceFile), ModuleActionType.AddContent, "", ControlPath + "Images/admin_coupon_small.png", Globals.NavigateURL(TabId, "", "adminmode=couponlist"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
 
                 return actions;
             }
@@ -295,6 +296,23 @@ namespace Bitboxx.DNNModules.BBStore
 
 						lblTitle.Text = Localization.GetString("TitleViewOrder.Text", this.LocalResourceFile);
 						break;
+                    case "couponlist":
+                        pnlMain.Visible = false;
+						pnlPlaceholder.Visible = true;
+						pnlBackLink.Visible = true;
+                        ViewAdminCoupon adminCouponControl = LoadControl(@"~\DesktopModules\BBStore\ViewAdminCoupon.ascx") as ViewAdminCoupon;
+                        adminCouponControl.ModuleConfiguration = this.ModuleConfiguration;
+                        phContent.Controls.Add(adminCouponControl);
+						lblTitle.Text = Localization.GetString("TitleCoupon.Text", this.LocalResourceFile);
+						break;
+                    case "editcoupon":
+                        pnlMain.Visible = false;
+                        pnlPlaceholder.Visible = true;
+                        pnlBackLink.Visible = true;
+                        EditCoupon editCouponControl = LoadControl(@"~\DesktopModules\BBStore\EditCoupon.ascx") as EditCoupon;
+                        phContent.Controls.Add(editCouponControl);
+                        lblTitle.Text = Localization.GetString("TitleEditCoupon.Text", this.LocalResourceFile);
+                        break;
 				}
 			}
 			catch (Exception exc)
@@ -373,6 +391,10 @@ namespace Bitboxx.DNNModules.BBStore
         {
             Response.Redirect(Globals.NavigateURL(TabId, "", "adminmode=unitlist"));
         }
+        protected void cmdCoupon_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(Globals.NavigateURL(TabId, "", "adminmode=couponlist"));
+        }
         protected void cmdMainMenu_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["adminmode"] != null && Request.QueryString["adminmode"] == "featurelistitem")
@@ -412,6 +434,7 @@ namespace Bitboxx.DNNModules.BBStore
             buttons.Add(new BBStoreAdminButtonType() { Name = "FeatureList", ImageUrl = "Images/admin_featurelist.png", ImgClickFunc = cmdFeatureList_Click, LnkClickFunc = cmdFeatureList_Click, Enabled = true });
             buttons.Add(new BBStoreAdminButtonType() { Name = "Units", ImageUrl = "Images/admin_units.png", ImgClickFunc = cmdUnits_Click, LnkClickFunc = cmdUnits_Click, Enabled = true });
             buttons.Add(new BBStoreAdminButtonType() { Name = "Order", ImageUrl = "Images/admin_order.png", ImgClickFunc = cmdOrder_Click, LnkClickFunc = cmdOrder_Click, Enabled = (cartModule != null)});
+            buttons.Add(new BBStoreAdminButtonType() { Name = "Coupon", ImageUrl = "Images/admin_coupon.png", ImgClickFunc = cmdCoupon_Click, LnkClickFunc = cmdCoupon_Click, Enabled = (cartModule != null) });
 
 	        int i = 0;
 

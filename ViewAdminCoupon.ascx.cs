@@ -41,7 +41,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-	partial class ViewAdminUnitList : PortalModuleBase
+	partial class ViewAdminCoupon : PortalModuleBase
 	{
 		#region Private Members
 		private const string Currency = "EUR";
@@ -62,21 +62,21 @@ namespace Bitboxx.DNNModules.BBStore
 			}
 		}
 
-		public string UnitSort
+		public string CouponSort
 		{
 			get
 			{
-				if (ViewState["UnitSort"] != null)
-					return ViewState["UnitSort"].ToString();
+				if (ViewState["CouponSort"] != null)
+                    return ViewState["CouponSort"].ToString();
 				else
-					return "UnitId";
+					return "CouponId";
 			}
-		    set { ViewState["UnitSort"] = value; }
+            set { ViewState["CouponSort"] = value; }
 		}
 		
-		public List<UnitInfo> Units
+		public List<CouponInfo> Coupons
 		{
-			get { return Controller.GetUnits(PortalId, CurrentLanguage, UnitSort); }
+			get { return Controller.GetCoupons(PortalId, CouponSort); }
 		}
 		protected string CurrentLanguage
 		{
@@ -121,17 +121,17 @@ namespace Bitboxx.DNNModules.BBStore
                             break;
                         }
                     }
-                    ddlUnitPageSize.DataSource = sizes;
-                    ddlUnitPageSize.DataBind();
-                    ddlUnitPageSize.SelectedValue = defaultValue;
+                    ddlCouponPageSize.DataSource = sizes;
+                    ddlCouponPageSize.DataBind();
+                    ddlCouponPageSize.SelectedValue = defaultValue;
                     
-                    Localization.LocalizeGridView(ref grdUnit, this.LocalResourceFile);
-					grdUnit.PageSize = Int16.Parse(ddlUnitPageSize.SelectedValue);
+                    Localization.LocalizeGridView(ref grdCoupon, this.LocalResourceFile);
+                    grdCoupon.PageSize = Int16.Parse(ddlCouponPageSize.SelectedValue);
 
 					_pageIndex = 0;
-					grdUnit.PageIndex = _pageIndex;
-					grdUnit.DataSource = Units;
-					grdUnit.DataBind();
+                    grdCoupon.PageIndex = _pageIndex;
+                    grdCoupon.DataSource = Coupons;
+                    grdCoupon.DataBind();
 				}
 			}
 			catch (Exception exc)
@@ -151,14 +151,14 @@ namespace Bitboxx.DNNModules.BBStore
 		
 		protected override void Render(HtmlTextWriter writer)
 		{
-			if (grdUnit.Rows.Count > 0)
+            if (grdCoupon.Rows.Count > 0)
 			{
-				foreach (GridViewRow row in grdUnit.Rows)
+                foreach (GridViewRow row in grdCoupon.Rows)
 				{
 					if (row.RowType == DataControlRowType.DataRow)
 					{
 						row.Attributes.Add("onclick",
-						                   Page.ClientScript.GetPostBackEventReference(grdUnit, "Select$" + row.RowIndex, true));
+                                           Page.ClientScript.GetPostBackEventReference(grdCoupon, "Select$" + row.RowIndex, true));
 					}
 				}
 			}
@@ -167,15 +167,15 @@ namespace Bitboxx.DNNModules.BBStore
 		#endregion
 
 
-		protected void grdUnit_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void grdCoupon_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			_pageIndex = (e.NewPageIndex < 0 ? 0 : e.NewPageIndex);
-			grdUnit.PageIndex = _pageIndex;
-            grdUnit.DataSource = Units;
-            grdUnit.DataBind();
+			grdCoupon.PageIndex = _pageIndex;
+            grdCoupon.DataSource = Coupons;
+            grdCoupon.DataBind();
 		}
 
-        protected void grdUnit_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void grdCoupon_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			try
 			{
@@ -183,12 +183,12 @@ namespace Bitboxx.DNNModules.BBStore
 				{
 					case "Select":
 						int index = Convert.ToInt32(e.CommandArgument);
-						int unitId = (int)grdUnit.DataKeys[index].Value;
-						_redirection = Globals.NavigateURL(TabId, Null.NullString, "adminmode=editunit", "unitid=" + unitId.ToString());
+                        int couponId = (int)grdCoupon.DataKeys[index].Value;
+						_redirection = Globals.NavigateURL(TabId, Null.NullString, "adminmode=editcoupon", "couponid=" + couponId.ToString());
 						break;
 
 					case "Insert":
-						_redirection = Globals.NavigateURL(TabId, Null.NullString, "adminmode=editunit");
+						_redirection = Globals.NavigateURL(TabId, Null.NullString, "adminmode=editcoupon");
 						break;
 
 					default:
@@ -203,16 +203,16 @@ namespace Bitboxx.DNNModules.BBStore
 
 		}
 
-        protected void grdUnit_Sorting(object sender, GridViewSortEventArgs e)
+        protected void grdCoupon_Sorting(object sender, GridViewSortEventArgs e)
 		{
-			UnitSort = e.SortExpression;
+			CouponSort = e.SortExpression;
 			_pageIndex = 0;
-			grdUnit.PageIndex = _pageIndex;
-			grdUnit.DataSource = Units;
-			grdUnit.DataBind();
+            grdCoupon.PageIndex = _pageIndex;
+            grdCoupon.DataSource = Coupons;
+            grdCoupon.DataBind();
 		}
 
-        protected void grdUnit_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void grdCoupon_RowDataBound(object sender, GridViewRowEventArgs e)
 		{
 			if (e.Row.RowType == DataControlRowType.DataRow)
 			{
@@ -222,24 +222,24 @@ namespace Bitboxx.DNNModules.BBStore
 			}
 		}
 
-        protected void grdUnit_DataBound(object sender, EventArgs e)
+        protected void grdCoupon_DataBound(object sender, EventArgs e)
 		{
-			GridViewRow gvrPager = grdUnit.BottomPagerRow;
+            GridViewRow gvrPager = grdCoupon.BottomPagerRow;
 
 			if (gvrPager == null)
 				return;
 
 			// get your controls from the gridview
-			DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlUnitPages");
+			DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlCouponPages");
 			if (ddlPages != null)
 			{
 				// populate pager
-				for (int i = 0; i < grdUnit.PageCount; i++)
+                for (int i = 0; i < grdCoupon.PageCount; i++)
 				{
 					int intPageNumber = i + 1;
 					ListItem lstItem = new ListItem(intPageNumber.ToString());
 
-					if (i == grdUnit.PageIndex)
+                    if (i == grdCoupon.PageIndex)
 						lstItem.Selected = true;
 
 					ddlPages.Items.Add(lstItem);
@@ -249,16 +249,16 @@ namespace Bitboxx.DNNModules.BBStore
 			// populate page count
 			Label lblPageCount = (Label)gvrPager.Cells[0].FindControl("lblPageCount");
 			if (lblPageCount != null)
-				lblPageCount.Text = grdUnit.PageCount.ToString();
+                lblPageCount.Text = grdCoupon.PageCount.ToString();
 
 			// populate item count
 			Label lblItemCount = (Label)gvrPager.Cells[0].FindControl("lblItemCount");
 			if (lblItemCount != null)
-				lblItemCount.Text = String.Format("{0} items on {1} pages", _rowCount, grdUnit.PageCount);
+                lblItemCount.Text = String.Format("{0} items on {1} pages", _rowCount, grdCoupon.PageCount);
 
 		}
 
-        protected void grdUnit_RowCreated(object sender, GridViewRowEventArgs e)
+        protected void grdCoupon_RowCreated(object sender, GridViewRowEventArgs e)
 		{
 			if (e.Row.RowType == DataControlRowType.Footer)
 			{
@@ -271,35 +271,35 @@ namespace Bitboxx.DNNModules.BBStore
 			}
 		}
 
-		protected void grdUnit_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void grdCoupon_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
-			int simpleProductId = (int)grdUnit.DataKeys[e.RowIndex].Value;
-			Controller.DeleteSimpleProduct(simpleProductId);
-			grdUnit.DataSource = Units;
-			grdUnit.DataBind();
+            int couponId = (int)grdCoupon.DataKeys[e.RowIndex].Value;
+			Controller.DeleteCoupon(couponId);
+            grdCoupon.DataSource = Coupons;
+            grdCoupon.DataBind();
 		}
 
 		protected void cmdFilter_Click(object sender, EventArgs e)
 		{
-			grdUnit.DataSource = Units;
-			grdUnit.DataBind();
+            grdCoupon.DataSource = Coupons;
+            grdCoupon.DataBind();
 		}
 
-		protected void ddlUnitPageSize_SelectedIndexChanged(object sender, EventArgs e)
+		protected void ddlCouponPageSize_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			grdUnit.PageSize = Int16.Parse(ddlUnitPageSize.SelectedValue);
-			grdUnit.DataSource = Units;
-			grdUnit.DataBind();
+            grdCoupon.PageSize = Int16.Parse(ddlCouponPageSize.SelectedValue);
+            grdCoupon.DataSource = Coupons;
+            grdCoupon.DataBind();
 		}
 
-		protected void ddlUnitPages_SelectedIndexChanged(object sender, EventArgs e)
+		protected void ddlCouponPages_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			GridViewRow gvrPager = grdUnit.BottomPagerRow;
-			DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlUnitPages");
+            GridViewRow gvrPager = grdCoupon.BottomPagerRow;
+			DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlCouponPages");
 
-			grdUnit.PageIndex = ddlPages.SelectedIndex;
-			grdUnit.DataSource = Units;
-			grdUnit.DataBind();
+            grdCoupon.PageIndex = ddlPages.SelectedIndex;
+            grdCoupon.DataSource = Coupons;
+            grdCoupon.DataBind();
 		}
 
         #region Helper Methods

@@ -423,4 +423,22 @@
 	<data name="lblCancelTerms.Text" xml:space="preserve">
 		<value>Acepto la política de cancelación</value>
 	</data>
+	<data name="cmdCoupon.Text" xml:space="preserve">
+		<value>Redimir a</value>
+	</data>
+	<data name="Coupon.Text" xml:space="preserve">
+		<value>Cupón</value>
+	</data>
+	<data name="CouponNotFound.Error" xml:space="preserve">
+		<value>Introducir el código de cupón no es válido.</value>
+	</data>
+	<data name="CouponOutdated.Error" xml:space="preserve">
+		<value>La campaña de cupón de {0} está obsoleta.</value>
+	</data>
+	<data name="CouponUsed.Error" xml:space="preserve">
+		<value>La campaña de cupón de {0} ya se consume.</value>
+	</data>
+	<data name="lblCoupon.Text" xml:space="preserve">
+		<value># Si tiene un cupón de introducir aquí el código:</value>
+	</data>
 </root>

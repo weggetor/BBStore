@@ -189,4 +189,10 @@
 	<data name="SendAgain.Message" xml:space="preserve">
     <value>Die Bestellmail wurde erneut verschickt!</value>
   </data>
+	<data name="cmdCoupon.Text" xml:space="preserve">
+		<value>Gutscheine</value>
+	</data>
+	<data name="TitleCoupon.Text" xml:space="preserve">
+		<value>Gutscheine bearbeiten</value>
+	</data>
 </root>

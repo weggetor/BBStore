@@ -406,6 +406,9 @@ namespace Bitboxx.DNNModules.BBStore
                             IsChangeable = true;
                             navCart.Visible = false;
                             MultiView1.SetActiveView(viewCartPane);
+                            // We have to remove any Coupons editing the cart
+                            Controller.DeleteCartAdditionalCost(CartId, "COUPON");
+                            Controller.UpdateCartCouponId(CartId,-1);
                             ShowCart();
                             break;
                         case "login":
@@ -631,9 +634,17 @@ namespace Bitboxx.DNNModules.BBStore
                 }
 
                 Controller.UpdateCart(PortalId, Cart);
+                
+                // If Coupon used we have to subtract the usages field
+                if (Cart.CouponId > 0)
+                    Controller.UpdateCouponCount(Cart.CouponId, -1);
+
+                // Save the order
                 Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
                 string numberMask = (string)storeSettings["OrderMask"];
                 int OrderId = Controller.SaveOrder(Cart.CartID, PortalId, numberMask);
+
+                // Mail Order, finish Paypal and delete Cart
                 if (OrderId >= 0)
                 {
                     MailOrder(OrderId);
@@ -647,7 +658,8 @@ namespace Bitboxx.DNNModules.BBStore
                     }
                     Controller.DeleteCart(Cart.CartID);
                 }
-                // Lets delete the cookie
+                
+                // Delete the cookie
                 HttpCookie keks = new HttpCookie("BBStoreCartId_" + PortalId.ToString());
                 keks.Value = "";
                 keks.Expires = DateTime.Now.AddDays(-1);
@@ -717,6 +729,33 @@ namespace Bitboxx.DNNModules.BBStore
             pnlFullCart.Visible = true;
             pnlUploadCart.Visible = false;
         }
+
+        protected void cmdCoupon_Click(object sender, EventArgs e)
+        {
+            CouponInfo coupon = Controller.GetCouponByCode(txtCoupon.Text);
+            if (coupon == null)
+            {
+                lblCouponError.Text = LocalizeString("CouponNotFound.Error");
+                pnlCouponError.Visible = true;
+            }
+            else if (coupon.UsagesLeft <= 0)
+            {
+                lblCouponError.Text = String.Format(LocalizeString("CouponUsed.Error"), coupon.Caption);
+                pnlCouponError.Visible = true;
+            }
+            else if (coupon.ValidUntil != null && coupon.ValidUntil < DateTime.Now)
+            {
+                lblCouponError.Text = String.Format(LocalizeString("CouponOutdated.Error"), coupon.Caption);
+                pnlCouponError.Visible = true;
+            }
+            else
+            {
+                UpdateCoupon(coupon);
+                pnlCouponError.Visible = false;
+                txtCoupon.Text = "";
+            }
+        }
+
         protected void lstCustomerAddresses_ItemDataBound(object sender, ListViewItemEventArgs e)
         {
             if (e.Item.ItemType == ListViewItemType.DataItem)
@@ -1025,6 +1064,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             pnlConfirm.Visible = true;
             pnlConfirm2.Visible = true;
+            pnlCoupon.Visible = Cart.CouponId <= 0;
             pnlCheckout.Visible = false;
 
             List<CustomerAddressInfo> cartAddresses = Controller.GetCustomerAddressesByCart(CartId, CurrentLanguage);
@@ -1409,6 +1449,36 @@ namespace Bitboxx.DNNModules.BBStore
                 }
             }
         }
+
+        private void UpdateCoupon(CouponInfo coupon)
+        {
+            // Last we eventually have to add extra cost to CartAdditionalCost
+            Controller.DeleteCartAdditionalCost(CartId, "COUPON");
+            Cart = Controller.GetCart(PortalId, CartId);
+            decimal couponCost = 0.0m;
+            if (coupon.DiscountPercent != null && coupon.DiscountPercent > 0)
+            {
+                decimal total = Cart.OrderTotal;
+                couponCost += total * (decimal)coupon.DiscountPercent / 100;
+            }
+            if (coupon.DiscountValue != null && coupon.DiscountValue > 0)
+                couponCost += (decimal)coupon.DiscountValue;
+
+            if (couponCost > 0)
+            {
+                CartAdditionalCostInfo addCouponCost = new CartAdditionalCostInfo();
+                addCouponCost.CartId = CartId;
+                addCouponCost.Area = "COUPON";
+                addCouponCost.Name = coupon.Caption;
+                addCouponCost.Quantity = 1m;
+                addCouponCost.UnitCost = (-1) * couponCost;
+                addCouponCost.TaxPercent = coupon.TaxPercent;
+                Controller.NewCartAdditionalCost(addCouponCost);
+                Controller.UpdateCartCouponId(CartId,coupon.CouponId);
+                pnlCoupon.Visible = false;
+            }
+        }
+
 
         private void UpdateDiscount()
         {

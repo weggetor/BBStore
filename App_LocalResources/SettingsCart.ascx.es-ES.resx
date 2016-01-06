@@ -300,4 +300,40 @@
 	<data name="lblUnits.Text" xml:space="preserve">
 		<value>Unidad</value>
 	</data>
+	<data name="hdrLanguage.Text" xml:space="preserve">
+		<value>Texto estático</value>
+	</data>
+	<data name="lblAddressTemplate.Help" xml:space="preserve">
+		<value># Diseño de la disposición en que direcciones deben mostradas y editadas. Use token replace syntax:[TOKEN:Width (in pixel)]
+Select the following tokens:
+&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Token&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;
+&lt;tr&gt;&lt;td&gt;COMPANY&lt;/td&gt;&lt;td&gt;Company&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;PREFIX&lt;/td&gt;&lt;td&gt;Prefix&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;FIRSTNAME&lt;/td&gt;&lt;td&gt;Firstname&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;MIDDLENAME&lt;/td&gt;&lt;td&gt;Middlename&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;LASTNAME&lt;/td&gt;&lt;td&gt;Lastname&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SUFFIX&lt;/td&gt;&lt;td&gt;Suffix&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;STREET&lt;/td&gt;&lt;td&gt;Street&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;UNIT&lt;/td&gt;&lt;td&gt;Unit&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;REGION&lt;/td&gt;&lt;td&gt;Region&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;POSTALCODE&lt;/td&gt;&lt;td&gt;Postalcode&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;CITY&lt;/td&gt;&lt;td&gt;City&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SUBURB&lt;/td&gt;&lt;td&gt;Suburb&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;COUNTRY&lt;/td&gt;&lt;td&gt;Country&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;PHONE&lt;/td&gt;&lt;td&gt;Phone&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;CELL&lt;/td&gt;&lt;td&gt;Cellphome&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;FAX&lt;/td&gt;&lt;td&gt;Fax&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;EMAIL&lt;/td&gt;&lt;td&gt;Email&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</value>
+	</data>
+	<data name="hdrTemplates.Text" xml:space="preserve">
+		<value> Plantillas</value>
+	</data>
+	<data name="lblTemplate.Text" xml:space="preserve">
+		<value>Plantilla de correo</value>
+	</data>
+	<data name="lblTemplate.Help" xml:space="preserve">
+		<value>Seleccionar, editar o crear una plantilla para correo electrónico de la orden</value>
+	</data>
 </root>

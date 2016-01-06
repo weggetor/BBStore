@@ -205,17 +205,32 @@
     <Compile Include="Controls\TemplateControl.ascx.designer.cs">
       <DependentUpon>TemplateControl.ascx</DependentUpon>
     </Compile>
+    <Compile Include="EditCoupon.ascx.cs">
+      <DependentUpon>EditCoupon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditCoupon.ascx.designer.cs">
+      <DependentUpon>EditCoupon.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Infoclasses\ModuleKindEnum.cs" />
     <Compile Include="Infoclasses\ProductShippingModelInfo.cs" />
     <Compile Include="Infoclasses\ShippingCostInfo.cs" />
     <Compile Include="Infoclasses\ShippingModelInfo.cs" />
     <Compile Include="Infoclasses\ShippingZoneDisplayInfo.cs" />
+    <Compile Include="Infoclasses\CouponInfo.cs" />
     <Compile Include="SettingsMiniCart.ascx.cs">
       <DependentUpon>SettingsMiniCart.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SettingsMiniCart.ascx.designer.cs">
       <DependentUpon>SettingsMiniCart.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdminCoupon.ascx.cs">
+      <DependentUpon>ViewAdminCoupon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdminCoupon.ascx.designer.cs">
+      <DependentUpon>ViewAdminCoupon.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMiniCart.ascx.cs">
       <DependentUpon>ViewMiniCart.ascx</DependentUpon>
@@ -631,6 +646,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_LocalResources\SettingsAdmin.ascx.resx" />
+    <Content Include="App_LocalResources\EditCoupon.ascx.resx" />
     <EmbeddedResource Include="App_LocalResources\SettingsCart.ascx.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -680,8 +696,12 @@
     <Content Include="Controls\TabSelectControl.ascx" />
     <Content Include="Controls\TaxControl.ascx" />
     <Content Include="Controls\TemplateControl.ascx" />
+    <Content Include="EditCoupon.ascx" />
+    <Content Include="Images\admin_coupon.png" />
+    <Content Include="Images\admin_coupon_small.png" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.11.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.12.txt" />
+    <None Include="Installation\ReleaseNotes\Release.01.00.14txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.13.txt" />
     <Content Include="SettingsMiniCart.ascx" />
     <Content Include="Templates\Contact\Default.htm" />
@@ -695,6 +715,7 @@
     <Content Include="Templates\ProductList\Default.jpg" />
     <Content Include="Templates\SimpleProduct\Default.htm" />
     <Content Include="Templates\SimpleProduct\Default.jpg" />
+    <Content Include="ViewAdminCoupon.ascx" />
     <Content Include="ViewMiniCart.ascx" />
     <Content Include="EditUnit.ascx" />
     <Content Include="Images\admin_featurelist_small.png" />
@@ -798,6 +819,7 @@
     <Content Include="Controls\App_LocalResources\SelectFolderControl.ascx.resx" />
     <Content Include="Controls\App_LocalResources\TaxControl.ascx.resx" />
     <Content Include="Controls\App_LocalResources\TemplateControl.ascx.resx" />
+    <Content Include="App_LocalResources\ViewAdminCoupon.ascx.resx" />
     <None Include="App_LocalResources\ViewCart.ascx.resx">
       <SubType>Designer</SubType>
     </None>
@@ -814,6 +836,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Installation\01.00.13.SqlDataProvider" />
+    <Content Include="Installation\01.00.14 .SqlDataProvider" />
     <None Include="Installation\Uninstall.SqlDataProvider" />
     <Content Include="Templates\ProductList\tokens.de-DE.htp" />
     <Content Include="Templates\ProductList\tokens.htp" />

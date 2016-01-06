@@ -169,6 +169,14 @@
                      </Columns>
                 </asp:GridView>
                 <p>&nbsp;</p>
+                <asp:Panel runat="server" ID="pnlCoupon" Visible="false">
+                    <p><asp:Label ID="lblCoupon" runat="server" Resourcekey="lblCoupon.Text"/>&nbsp;</p>
+                    <asp:Panel runat="server" ID="pnlCouponError" CssClass="dnnFormMessage dnnFormValidationSummary" Visible="false">
+                        <asp:Label ID="lblCouponError" runat="server" />    
+                    </asp:Panel>
+                    <p><asp:TextBox ID="txtCoupon" runat="server" Columns="60" />
+                       <asp:Button ID="cmdCoupon" Resourcekey="cmdCoupon.Text" runat="server" OnClick="cmdCoupon_Click" /></p>
+                </asp:Panel>
                 <asp:Panel ID="pnlConfirm2" runat="server" Visible="false">
                     <p><asp:CheckBox ID="chkTerms" runat="server" />&nbsp;
                         <asp:Label ID="lblTermsPre" runat="server" Resourcekey="lblTermsPre.Text"/>&nbsp;

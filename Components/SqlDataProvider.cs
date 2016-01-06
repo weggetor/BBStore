@@ -840,10 +840,10 @@ namespace Bitboxx.DNNModules.BBStore
         {
             string sqlCmd = "INSERT INTO " + GetFullyQualifiedName("Cart") +
                             " (CartID,StoreGuid,PortalID,SubscriberID,CustomerID,CustomerPaymentProviderID," +
-                            "  Comment,Currency,Total,AttachName,AttachContentType,Attachment,CartName)" +
+                            "  Comment,Currency,Total,AttachName,AttachContentType,Attachment,CartName,CouponId)" +
                             " VALUES " +
                             " (@CartID,@StoreGuid,@PortalID,@SubscriberID,@CustomerID,@CustomerPaymentProviderID," +
-                            "  @Comment,@Currency,@Total,@AttachName,@AttachContentType,@Attachment, @CartName)";
+                            "  @Comment,@Currency,@Total,@AttachName,@AttachContentType,@Attachment, @CartName, @CouponId)";
 
             SqlParameter[] SqlParams = new SqlParameter[]
                 {
@@ -851,6 +851,7 @@ namespace Bitboxx.DNNModules.BBStore
                     new SqlParameter("StoreGuid", cart.StoreGuid),
                     new SqlParameter("PortalID", portalId),
                     new SqlParameter("SubscriberID", cart.SubscriberID),
+                    new SqlParameter("CouponId", cart.CouponId),
                     new SqlParameter("CustomerID", GetNull(cart.CustomerID)),
                     new SqlParameter("CustomerPaymentProviderID", GetNull(cart.CustomerPaymentProviderID)),
                     new SqlParameter("Comment", cart.Comment),
@@ -859,7 +860,7 @@ namespace Bitboxx.DNNModules.BBStore
                     new SqlParameter("AttachName", cart.AttachName),
                     new SqlParameter("AttachContentType", cart.AttachContentType),
                     new SqlParameter("Attachment", SqlDbType.VarBinary) {Value = cart.Attachment}, 
-                    new SqlParameter("CartName", cart.CartName)
+                    new SqlParameter("CartName", cart.CartName),
                 };
 
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, SqlParams);
@@ -944,6 +945,13 @@ namespace Bitboxx.DNNModules.BBStore
         {
             string updCmd = "UPDATE " + Prefix + "Cart SET " +
                 " CustomerPaymentProviderId = " + (customerPaymentProviderId == -1 ? "Null" : customerPaymentProviderId.ToString()) +
+                " WHERE cartID = '" + cartId.ToString() + "'";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd);
+        }
+        public override void UpdateCartCouponId(Guid cartId, int couponId)
+        {
+            string updCmd = "UPDATE " + Prefix + "Cart SET " +
+                " CouponId = " + (couponId == -1 ? "Null" : couponId.ToString()) +
                 " WHERE cartID = '" + cartId.ToString() + "'";
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd);
         }
@@ -5098,6 +5106,120 @@ namespace Bitboxx.DNNModules.BBStore
                 return (int)result;
             }
             return -1;
+        }
+
+        // Coupon methods
+        public override IDataReader GetCoupons(int PortalId)
+        {
+            string selCmd = "SELECT *" +
+                " FROM " + GetFullyQualifiedName("Coupon") +
+                " WHERE PortalId = @PortalId" +
+                " ORDER BY CouponId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
+        }
+
+        public override IDataReader GetCoupons(int PortalId, string sortByField)
+        {
+            string selCmd = "SELECT *" +
+                " FROM " + GetFullyQualifiedName("Coupon") + 
+                " WHERE PortalId = @PortalId" +
+                " ORDER BY " + sortByField + " ASC";
+
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
+        }
+        public override IDataReader GetCouponById(int CouponId)
+        {
+            string selCmd = "SELECT *" +
+                " FROM " + GetFullyQualifiedName("Coupon") +
+                " WHERE CouponId = @CouponId" +
+                " ORDER BY CouponId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("CouponId", CouponId));
+        }
+
+        public override IDataReader GetCouponByCode(string code)
+        {
+            string selCmd = "SELECT *" +
+                " FROM " + GetFullyQualifiedName("Coupon") +
+                " WHERE Code = @Code" +
+                " ORDER BY CouponId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("Code", code));
+        }
+
+        public override int NewCoupon(CouponInfo Coupon)
+        {
+            string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("Coupon") +
+                            " (PortalId,Caption,Code,ValidUntil,DiscountPercent,DiscountValue,MaxUsages,UsagesLeft,TaxPercent)" +
+                            " VALUES " +
+                            " (@PortalId,@Caption,@Code,@ValidUntil,@DiscountPercent,@DiscountValue,@MaxUsages,@UsagesLeft,@TaxPercent) SELECT CAST(scope_identity() AS INTEGER);";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("CouponId", Coupon.CouponId),
+                                           new SqlParameter("PortalId", Coupon.PortalId),
+                                           new SqlParameter("Caption", Coupon.Caption),
+                                           new SqlParameter("Code", Coupon.Code),
+                                           new SqlParameter("ValidUntil", Coupon.ValidUntil),
+                                           new SqlParameter("DiscountPercent", Coupon.DiscountPercent),
+                                           new SqlParameter("DiscountValue", Coupon.DiscountValue),
+                                           new SqlParameter("MaxUsages", Coupon.MaxUsages),
+                                           new SqlParameter("UsagesLeft", Coupon.UsagesLeft),
+                                           new SqlParameter("TaxPercent", Coupon.TaxPercent)
+                                       };
+
+            return (int) SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
+        }
+
+        public override void UpdateCoupon(CouponInfo Coupon)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("Coupon") + " SET " +
+                            " Caption = @Caption," +
+                            " PortalId = @PortalId," +
+                            " Code = @Code," +
+                            " ValidUntil = @ValidUntil," +
+                            " DiscountPercent = @DiscountPercent," +
+                            " DiscountValue = @DiscountValue," +
+                            " MaxUsages = @MaxUsages," +
+                            " UsagesLeft = @UsagesLeft," +
+                            " TaxPercent = @TaxPercent" +
+                            " WHERE CouponId = @CouponId";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("CouponId", Coupon.CouponId),
+                                           new SqlParameter("PortalId", Coupon.PortalId),
+                                           new SqlParameter("Caption", Coupon.Caption),
+                                           new SqlParameter("Code", Coupon.Code),
+                                           new SqlParameter("ValidUntil", Coupon.ValidUntil),
+                                           new SqlParameter("DiscountPercent", Coupon.DiscountPercent),
+                                           new SqlParameter("DiscountValue", Coupon.DiscountValue),
+                                           new SqlParameter("MaxUsages", Coupon.MaxUsages),
+                                           new SqlParameter("UsagesLeft", Coupon.UsagesLeft),
+                                           new SqlParameter("TaxPercent", Coupon.TaxPercent)
+                                       };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
+
+        public override void UpdateCouponCount(int couponId, int count)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("Coupon") + " SET " +
+                            " UsagesLeft = UsagesLeft + @Count" +
+                            " WHERE CouponId = @CouponId";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("CouponId", couponId),
+                                           new SqlParameter("Count", count)
+                                       };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
+
+        public override void DeleteCoupon(int CouponId)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("Coupon") +
+                " WHERE CouponId = @CouponId";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("CouponId", CouponId));
         }
 
         public override IDataReader GetShippingZoneById(int shippingZoneId, string language)
