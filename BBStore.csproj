@@ -701,7 +701,7 @@
     <Content Include="Images\admin_coupon_small.png" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.11.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.12.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.01.00.15 .txt" />
+    <Content Include="Installation\ReleaseNotes\Release.01.00.15.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.14.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.13.txt" />
     <Content Include="SettingsMiniCart.ascx" />
