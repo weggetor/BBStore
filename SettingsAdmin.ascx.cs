@@ -65,6 +65,8 @@ namespace Bitboxx.DNNModules.BBStore
             base.OnInit(e);
 			cboSupplierRole.DataSource = GetRoles();
 			cboSupplierRole.DataBind();
+            rblSMTPSettings.Items.Add(new ListItem(LocalizeString("SMTPSettingsHost"), "0"));
+            rblSMTPSettings.Items.Add(new ListItem(LocalizeString("SMTPSettingsManual"), "1"));
 		}
        
 		protected override void OnLoad(EventArgs e)
@@ -87,6 +89,7 @@ namespace Bitboxx.DNNModules.BBStore
                     ddlVendorCountry.DataBind();
                 }
             }
+
             base.OnLoad(e);
         }
 
@@ -136,6 +139,14 @@ namespace Bitboxx.DNNModules.BBStore
                     if (ModuleSettings["StoreSubject"] != null)
                         txtStoreSubject.Text = (string)ModuleSettings["StoreSubject"];
 
+                    int smtpSettings = Convert.ToInt32(ModuleSettings["SMTPSettings"] ?? "0");
+                    pnlSMTP.Visible = (smtpSettings == 1);
+                    rblSMTPSettings.SelectedIndex = smtpSettings;
+
+                    txtSMTPServer.Text = (string)ModuleSettings["SMTPServer"] ?? "";
+                    txtSMTPUser.Text = (string)ModuleSettings["SMTPUser"] ?? "";
+                    txtSMTPPassword.Text = (string)ModuleSettings["SMTPPassword"] ?? "";
+
                     if (ModuleSettings["VendorName"] != null)
                         txtVendorName.Text = (string)ModuleSettings["VendorName"];
                     if (ModuleSettings["VendorStreet1"] != null)
@@ -184,7 +195,10 @@ namespace Bitboxx.DNNModules.BBStore
 
                     if (ModuleSettings["CancelTerms"] != null)
                         txtCancelTerms.Text = (string)ModuleSettings["CancelTerms"];
-                    
+
+                    if (ModuleSettings["CouponsEnabled"] != null)
+                        chkCouponsEnabled.Checked = Convert.ToBoolean(ModuleSettings["CouponsEnabled"]);
+
                     if (ModuleSettings["StartPage"] != null)
                         urlSelectStartPage.Url = (string)ModuleSettings["StartPage"];
 
@@ -222,6 +236,7 @@ namespace Bitboxx.DNNModules.BBStore
 				objModules.UpdateModuleSetting(ModuleId, "TermsMandatory", chkTermsMandatory.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "CancelTermsMandatory", chkCancelTermsMandatory.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "CancelTerms", txtCancelTerms.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "CouponsEnabled", chkCouponsEnabled.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "StartPage", urlSelectStartPage.Url);
 				objModules.UpdateModuleSetting(ModuleId, "ProductImageDir", cboProductImageDir.Text.Trim());
 				objModules.UpdateModuleSetting(ModuleId, "ProductGroupImageDir", cboProductGroupImageDir.Text.Trim());
@@ -231,6 +246,10 @@ namespace Bitboxx.DNNModules.BBStore
                 objModules.UpdateModuleSetting(ModuleId, "StoreReplyTo", txtStoreReplyTo.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "StoreAdmin", txtStoreAdmin.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "StoreSubject", txtStoreSubject.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "SMTPSettings", rblSMTPSettings.SelectedValue);
+                objModules.UpdateModuleSetting(ModuleId, "SMTPServer", txtSMTPServer.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "SMTPUser", txtSMTPUser.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "SMTPPassword", txtSMTPPassword.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "VendorName", txtVendorName.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "VendorStreet1", txtVendorStreet1.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "VendorStreet2", txtVendorStreet2.Text.Trim());
@@ -266,6 +285,11 @@ namespace Bitboxx.DNNModules.BBStore
             ModuleController objModules = new ModuleController();
             objModules.UpdateModuleSetting(ModuleId, "InitialKey", txtInitialKey.Text.Trim());
             RefreshLicense(true);
+        }
+
+        protected void rblSMTPSettings_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            pnlSMTP.Visible = (rblSMTPSettings.SelectedValue == "1");
         }
 
         protected void cmdRefreshLicense_OnClick(object sender, EventArgs e)
@@ -489,7 +513,6 @@ namespace Bitboxx.DNNModules.BBStore
         }
         
 		#endregion
-
 	}
 }
 

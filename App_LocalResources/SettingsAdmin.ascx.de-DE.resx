@@ -366,4 +366,40 @@
 	<data name="lblCancelTermsMandatory.Text" xml:space="preserve">
 		<value>Widerrufsbestätigung anzeigen</value>
 	</data>
+	<data name="lblCouponsEnabled.Help" xml:space="preserve">
+		<value>Ankreuzen wenn Sie Gutscheineverwenden wollen</value>
+	</data>
+	<data name="lblCouponsEnabled.Text" xml:space="preserve">
+		<value>Gutscheine verwenden</value>
+	</data>
+	<data name="lblSMTPPassword.Help" xml:space="preserve">
+		<value>Geben Sie das Passwort zur Anmeldung an den SMTP Server ein</value>
+	</data>
+	<data name="lblSMTPPassword.Text" xml:space="preserve">
+		<value>SMTP Passwort</value>
+	</data>
+	<data name="lblSMTPServer.Help" xml:space="preserve">
+		<value>Geben Sie die SMTP Server Adresse ein. Sie können auch einen alternativen Port eingeben indem sie an die Adresse einen Doppelpunkt und die Portnummer (z.B. (smtp.googlemail.de:587) anfügen. Wenn Sie nur den Servernamen angeben wird der Standardport 25 verwendet</value>
+	</data>
+	<data name="lblSMTPServer.Text" xml:space="preserve">
+		<value>SMTP Server und Port</value>
+	</data>
+	<data name="lblSMTPSettings.Help" xml:space="preserve">
+		<value>Wäheln Sie ob sie die SMTP Einstellungen des Systems oder eigene Einstellungen für den Shop verwenden wollen</value>
+	</data>
+	<data name="lblSMTPSettings.Text" xml:space="preserve">
+		<value>SMTP Einstellungen</value>
+	</data>
+	<data name="lblSMTPUser.Help" xml:space="preserve">
+		<value>Geben Sie den Benutzernamen zur Anmeldung an den SMTP Server ein</value>
+	</data>
+	<data name="lblSMTPUser.Text" xml:space="preserve">
+		<value>SMTP Benutzername</value>
+	</data>
+	<data name="SMTPSettingsHost.Text" xml:space="preserve">
+		<value>Verwende Systemeinstellungen</value>
+	</data>
+	<data name="SMTPSettingsManual.Text" xml:space="preserve">
+		<value>Einstellungen eintragen</value>
+	</data>
 </root>

@@ -16,7 +16,8 @@ IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwne
    BEGIN
       CREATE TABLE {databaseOwner}[{objectQualifier}BBStore_Coupon] ( 
          CouponId INT NOT NULL IDENTITY (1,1),
-         Caption NVARCHAR(100) NOT NULL DEFAULT '',
+         PortalId INT NOT NULL DEFAULT (0),
+		 Caption NVARCHAR(100) NOT NULL DEFAULT '',
 		 Code NVARCHAR(20) NOT NULL DEFAULT '' ,
          ValidUntil DATETIME NULL,
          MaxUsages INT NOT NULL DEFAULT (1) ,
@@ -28,13 +29,6 @@ IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwne
       ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Coupon] ADD CONSTRAINT PK_{objectQualifier}BBStore_Coupon PRIMARY KEY NONCLUSTERED  (CouponId ASC) WITH ( IGNORE_DUP_KEY = OFF)
    END
 GO
-IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Cart_Coupon' and type='F')
-   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart] WITH NOCHECK ADD CONSTRAINT FK_{objectQualifier}Cart_Coupon FOREIGN KEY ( CouponId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_Coupon] ( CouponId ) ON DELETE SET NULL
-GO
-
-
-
-
 /************************************************************/
 /*****              SqlDataProvider                     *****/
 /************************************************************/

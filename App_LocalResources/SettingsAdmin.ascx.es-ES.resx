@@ -365,4 +365,40 @@
 	<data name="lblCancelTermsMandatory.Text" xml:space="preserve">
 		<value>Confirmar la política de cancelación </value>
 	</data>
+	<data name="lblCouponsEnabled.Help" xml:space="preserve">
+		<value>Comprobar cupones en tu tienda si desea utilizar</value>
+	</data>
+	<data name="lblCouponsEnabled.Text" xml:space="preserve">
+		<value>Activar cupones</value>
+	</data>
+	<data name="lblSMTPPassword.Help" xml:space="preserve">
+		<value>Introduzca la contraseña para el servidor SMTP</value>
+	</data>
+	<data name="lblSMTPPassword.Text" xml:space="preserve">
+		<value>Contraseña de SMTP</value>
+	</data>
+	<data name="lblSMTPServer.Help" xml:space="preserve">
+		<value>Introduzca la dirección del servidor SMTP. Así que puede especificar el puerto alternativo mediante la adición de dos puntos y el número de puerto (por ejemplo smtp.googlemail.com: 587). Introduzca el nombre del servidor SMTP para utilizar el número de puerto predeterminado (25)</value>
+	</data>
+	<data name="lblSMTPServer.Text" xml:space="preserve">
+		<value>Puerto y servidor SMTP</value>
+	</data>
+	<data name="lblSMTPSettings.Help" xml:space="preserve">
+		<value>Elija si desea utilizar la configuración de SMTP del sistema o si desea acceder a los ajustes propios para uso en tu tienda</value>
+	</data>
+	<data name="lblSMTPSettings.Text" xml:space="preserve">
+		<value>Configuración de SMTP</value>
+	</data>
+	<data name="lblSMTPUser.Help" xml:space="preserve">
+		<value>Escriba el nombre de usuario para el servidor SMTP</value>
+	</data>
+	<data name="lblSMTPUser.Text" xml:space="preserve">
+		<value>Nombre de usuario SMTP</value>
+	</data>
+	<data name="SMTPSettingsHost.Text" xml:space="preserve">
+		<value>Utilizar la configuración de host</value>
+	</data>
+	<data name="SMTPSettingsManual.Text" xml:space="preserve">
+		<value>Acceder a los ajustes</value>
+	</data>
 </root>

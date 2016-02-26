@@ -1064,7 +1064,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             pnlConfirm.Visible = true;
             pnlConfirm2.Visible = true;
-            pnlCoupon.Visible = Cart.CouponId <= 0;
+            pnlCoupon.Visible = Cart.CouponId <= 0 && Convert.ToBoolean(StoreSettings["CouponsEnabled"] ?? "false");
             pnlCheckout.Visible = false;
 
             List<CustomerAddressInfo> cartAddresses = Controller.GetCustomerAddressesByCart(CartId, CurrentLanguage);
@@ -1543,9 +1543,16 @@ namespace Bitboxx.DNNModules.BBStore
                 //set the addresses
                 string smtpServer = DotNetNuke.Entities.Host.Host.SMTPServer;
                 string smtpAuthentication = DotNetNuke.Entities.Host.Host.SMTPAuthentication;
-
                 string smtpUsername = DotNetNuke.Entities.Host.Host.SMTPUsername;
                 string smtpPassword = DotNetNuke.Entities.Host.Host.SMTPPassword;
+
+                if (Convert.ToInt32(StoreSettings["SMTPSettings"] ?? "0") == 1)
+                {
+                    smtpServer = (string)StoreSettings["SMTPServer"];
+                    smtpAuthentication = "1";
+                    smtpUsername = (string)StoreSettings["SMTPUser"];
+                    smtpPassword = (string)StoreSettings["SMTPPassword"]; ;
+                }
 
                 mail.From = new MailAddress("\"" + storeName.Trim() + "\" <" + storeEmail.Trim() + ">");
                 mail.To.Add(UserInfo.Email.Trim());

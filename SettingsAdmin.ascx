@@ -58,6 +58,10 @@
 	        <dnn:Label id="lblCancelTerms" runat="server" controlname="txtCancelTerms" suffix=":"/>
             <asp:TextBox runat="server" ID="txtCancelTerms" Rows="6" TextMode="MultiLine"/>
         </div>
+        <div class="dnnFormItem">
+	        <dnn:Label id="lblCouponsEnabled" runat="server" controlname="chkCouponsEnabled" suffix=":"/>
+            <asp:CheckBox runat="server" ID="chkCouponsEnabled"/>
+        </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="lblSupplierRole" runat="server" controlname="cboSupplierRole" suffix=":"/>
             <asp:DropDownList Width="200"  runat="server" ID="cboSupplierRole"/>
@@ -130,6 +134,25 @@
             <dnn:Label id="lblStoreSubject" runat="server" controlname="txtStoreSubject" suffix=":"/>
             <asp:TextBox ID="txtStoreSubject" runat="server" Columns="40" />
         </div>
+        <div class="dnnFormItem" style="white-space: nowrap;">
+            <dnn:Label id="lblSMTPSettings" runat="server" controlname="rblSMTPSettings" suffix=":"/>
+            <asp:RadioButtonList ID="rblSMTPSettings" runat="server" AutoPostBack="True" RepeatDirection="Horizontal"
+                OnSelectedIndexChanged="rblSMTPSettings_OnSelectedIndexChanged"/>
+        </div>
+        <asp:Panel runat="server" ID="pnlSMTP" Visible="False">
+            <div class="dnnFormItem">
+                <dnn:Label id="lblSMTPServer" runat="server" controlname="txtSMTPServer" suffix=":"/>
+                <asp:TextBox ID="txtSMTPServer" runat="server" />
+            </div>
+            <div class="dnnFormItem">
+                <dnn:Label id="lblSMTPUser" runat="server" controlname="txtSMTPUser" suffix=":"/>
+                <asp:TextBox ID="txtSMTPUser" runat="server" />
+            </div>
+            <div class="dnnFormItem">
+                <dnn:Label id="lblSMTPPassword" runat="server" controlname="txtSMTPPassword" suffix=":"/>
+                <asp:TextBox ID="txtSMTPPassword" runat="server" />
+            </div>
+        </asp:Panel>
     </fieldset>
 
     <h2 id="bbstore-admin-head5" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("shColors")%></a></h2>

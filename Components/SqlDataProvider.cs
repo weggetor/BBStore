@@ -32,6 +32,7 @@ using System.Xml.Serialization;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Framework.Providers;
 using DotNetNuke.Services.Exceptions;
@@ -962,6 +963,8 @@ namespace Bitboxx.DNNModules.BBStore
             CartInfo cart = (CartInfo) CBO.FillObject(dr, typeof (CartInfo));
             dr.Close();
 
+            cart.Exported = true;
+
             sqlCmd = "SELECT * FROM " + GetFullyQualifiedName("CartProduct") + " WHERE CartID = @cartId";
             dr = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, new SqlParameter("CartID", cartId));
             List<CartProductInfo> cartProducts = CBO.FillCollection<CartProductInfo>(dr);
@@ -1031,6 +1034,9 @@ namespace Bitboxx.DNNModules.BBStore
             
             DeleteCart(cartId);
             cart.CartID = cartId;
+
+            if (cart.Exported && cart.StoreGuid == PortalSettings.Current.GUID)
+                cart.StoreGuid = new Guid();
 
             // Den Kunden ggfs. Anlegen
             int customerId = GetImportRelationOwnId(portalId, "CUSTOMER",cart.CustomerID, cart.StoreGuid);
@@ -5473,6 +5479,10 @@ namespace Bitboxx.DNNModules.BBStore
 
         public override int GetImportRelationOwnId(int PortalId, string Tablename, int ForeignId, Guid storeGuid)
         {
+            // if StoreGuid is empty ('00000-00...) we return the original value
+            if (storeGuid.ToString() == new Guid().ToString())
+                return ForeignId;
+
             string selCmd = "SELECT OwnId FROM " + GetFullyQualifiedName("ImportRelation") +
                 " WHERE PortalId = @PortalId AND Tablename = @Tablename AND ForeignId = @ForeignId AND StoreGuid = @StoreGuid ";
 
@@ -5489,6 +5499,10 @@ namespace Bitboxx.DNNModules.BBStore
         
         public override int GetImportRelationForeignId(int PortalId, string Tablename, int OwnId, Guid storeGuid)
         {
+            // if StoreGuid is empty ('00000-00...) we return the original value
+            if (storeGuid.ToString() == new Guid().ToString())
+                return OwnId;
+
             string selCmd = "SELECT ForeignId FROM " + GetFullyQualifiedName("ImportRelation") +
                 " WHERE PortalId = @PortalId AND Tablename = @Tablename AND OwnId = @OwnId AND StoreGuid = @StoreGuid";
 

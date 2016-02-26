@@ -1,0 +1,9 @@
+﻿<h1>Releasenotes</h1>
+<p>
+	<h2>Version 1.0.15 vom 26.02.2016</h2>
+	<ul>
+		<li>Coupons could be enabled / disabled in Store Settings</li>
+		<li>Usage of another SMTP Server than the one from Host Settings (define in StoreSettings)
+	</ul>
+</p>
+	
