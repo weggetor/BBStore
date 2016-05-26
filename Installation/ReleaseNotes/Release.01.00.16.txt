@@ -1,0 +1,8 @@
+﻿<h1>Releasenotes</h1>
+<p>
+	<h2>Version 1.0.16 vom 26.05.2016</h2>
+	<ul>
+		<li>Removed licensing</li>
+	</ul>
+</p>
+	

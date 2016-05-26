@@ -27,6 +27,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -113,15 +114,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\BBLicense\LicenseHandler\LicenseClient\LicenseClient.cs">
-      <Link>LicenseHandler\LicenseClient.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\BBLicense\LicenseHandler\LicenseClient\LicenseDataInfo.cs">
-      <Link>LicenseHandler\LicenseDataInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\..\BBLicense\LicenseHandler\LicenseClient\LicenseHelper.cs">
-      <Link>LicenseHandler\LicenseHelper.cs</Link>
-    </Compile>
     <Compile Include="BBStoreService.svc.cs">
       <DependentUpon>BBStoreService.svc</DependentUpon>
     </Compile>
@@ -218,6 +210,7 @@
     <Compile Include="Infoclasses\ShippingModelInfo.cs" />
     <Compile Include="Infoclasses\ShippingZoneDisplayInfo.cs" />
     <Compile Include="Infoclasses\CouponInfo.cs" />
+    <Compile Include="LicenseHandler\LicenseDataInfo.cs" />
     <Compile Include="SettingsMiniCart.ascx.cs">
       <DependentUpon>SettingsMiniCart.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -701,6 +694,7 @@
     <Content Include="Images\admin_coupon_small.png" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.11.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.12.txt" />
+    <Content Include="Installation\ReleaseNotes\Release.01.00.16.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.15.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.14.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.13.txt" />

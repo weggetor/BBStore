@@ -10,7 +10,7 @@
 <div id="bbstore-panels" class="dnnForm bbstore-admin-settings dnnClear">
     <div class="dnnFormExpandContent"><a href=""><%=Localization.GetString("ExpandAll", Localization.SharedResourceFile)%></a></div>
 
-    <h2 id="bbstore-admin-head0" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("shLicense")%></a></h2>
+<!--    <h2 id="bbstore-admin-head0" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("shLicense")%></a></h2>
     <fieldset class="dnnClear">
         <div class="dnnFormItem">
             <dnn:Label id="lblInitialKey" runat="server" style="white-space:nowrap" controlname="txtInitialKey" suffix=":"/>
@@ -23,7 +23,7 @@
                 <asp:Literal runat="server" ID="ltrLicense" />
             </div>
         </div>
-    </fieldset>
+    </fieldset>-->
     
     <h2 id="bbstore-admin-head1" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("shGlobal")%></a></h2>
     <fieldset class="dnnClear">
