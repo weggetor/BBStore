@@ -295,6 +295,9 @@ namespace Bitboxx.DNNModules.BBStore
                 // Init Steps Display
                 navCart.Steps = NavList;
 
+                cmdShopping.CssClass = (string)Settings["ShoppingButtonCssClass"] ?? "";
+                cmdCheckout.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+
                 // Init empty cart display
                 LocalResourceLangInfo localResourceLang = Controller.GetLocalResourceLang(PortalId, "EMPTYCART", CurrentLanguage);
                 if (localResourceLang == null || localResourceLang.TextValue == String.Empty)

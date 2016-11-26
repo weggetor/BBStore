@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,252 +59,252 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="ControlTitle_settings.Text" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlTitle_settings.Text" xml:space="preserve">
     <value>BBStore Cart Settings</value>
   </data>
-	<data name="lblImage.Text" xml:space="preserve">
+  <data name="lblImage.Text" xml:space="preserve">
     <value>Image</value>
   </data>
-	<data name="lblItemNo.Text" xml:space="preserve">
+  <data name="lblItemNo.Text" xml:space="preserve">
     <value>ItemNo</value>
   </data>
-	<data name="lblNetTotal.Text" xml:space="preserve">
+  <data name="lblNetTotal.Text" xml:space="preserve">
     <value>NetTotal</value>
   </data>
-	<data name="lblProduct.Text" xml:space="preserve">
+  <data name="lblProduct.Text" xml:space="preserve">
     <value>Product</value>
   </data>
-	<data name="lblQuantity.Text" xml:space="preserve">
+  <data name="lblQuantity.Text" xml:space="preserve">
     <value>Quantity</value>
   </data>
-	<data name="lblShow.Help" xml:space="preserve">
+  <data name="lblShow.Help" xml:space="preserve">
     <value>Check if column should be visible in cart</value>
   </data>
-	<data name="lblShow.Text" xml:space="preserve">
+  <data name="lblShow.Text" xml:space="preserve">
     <value>Show</value>
   </data>
-	<data name="lblShowSummary.Help" xml:space="preserve">
+  <data name="lblShowSummary.Help" xml:space="preserve">
     <value>Check if you want to show up the summery below the cart</value>
   </data>
-	<data name="lblShowSummary.Text" xml:space="preserve">
+  <data name="lblShowSummary.Text" xml:space="preserve">
     <value>Show summary in cart</value>
   </data>
-	<data name="lblSubTotal.Text" xml:space="preserve">
+  <data name="lblSubTotal.Text" xml:space="preserve">
     <value>Subtotal</value>
   </data>
-	<data name="lblTaxPercent.Text" xml:space="preserve">
+  <data name="lblTaxPercent.Text" xml:space="preserve">
     <value>TaxPercent</value>
   </data>
-	<data name="lblTaxTotal.Text" xml:space="preserve">
+  <data name="lblTaxTotal.Text" xml:space="preserve">
     <value>TaxTotal</value>
   </data>
-	<data name="lblUnitCost.Text" xml:space="preserve">
+  <data name="lblUnitCost.Text" xml:space="preserve">
     <value>UnitCost</value>
   </data>
-	<data name="lblWidth.Help" xml:space="preserve">
+  <data name="lblWidth.Help" xml:space="preserve">
     <value>Enter column width in pixels</value>
   </data>
-	<data name="lblWidth.Text" xml:space="preserve">
+  <data name="lblWidth.Text" xml:space="preserve">
     <value>Width</value>
   </data>
-	<data name="hdrLayout.Text" xml:space="preserve">
+  <data name="hdrLayout.Text" xml:space="preserve">
     <value>Layout Settings</value>
   </data>
-	<data name="SelectRole.Text" xml:space="preserve">
+  <data name="SelectRole.Text" xml:space="preserve">
     <value>(Select Role)</value>
   </data>
-	<data name="rblhoppingTargetShopHome.Text" xml:space="preserve">
+  <data name="rblhoppingTargetShopHome.Text" xml:space="preserve">
     <value>Shop Homepage</value>
   </data>
-	<data name="rblhoppingTargetProduct.Text" xml:space="preserve">
+  <data name="rblhoppingTargetProduct.Text" xml:space="preserve">
     <value>last product</value>
   </data>
-	<data name="lblEnableCartUpload.Text" xml:space="preserve">
+  <data name="lblEnableCartUpload.Text" xml:space="preserve">
     <value>Enable Restore Cart</value>
   </data>
-	<data name="lblEnableCartUpload.Help" xml:space="preserve">
+  <data name="lblEnableCartUpload.Help" xml:space="preserve">
     <value>Check if the functionality for loading the shopping cart should be displayed</value>
   </data>
-	<data name="lblEnableCartDownload.Text" xml:space="preserve">
+  <data name="lblEnableCartDownload.Text" xml:space="preserve">
     <value>Enable Save Cart</value>
   </data>
-	<data name="lblEnableCartDownload.Help" xml:space="preserve">
+  <data name="lblEnableCartDownload.Help" xml:space="preserve">
     <value>Check if the functionality for saving the shopping cart should be displayed</value>
   </data>
-	<data name="lblMultipleCustomers.Text" xml:space="preserve">
+  <data name="lblMultipleCustomers.Text" xml:space="preserve">
     <value>Multiple Customers per User</value>
   </data>
-	<data name="lblMultipleCustomers.Help" xml:space="preserve">
+  <data name="lblMultipleCustomers.Help" xml:space="preserve">
     <value>Check if the logged-in user manages multiple customers (typically leave blank)</value>
   </data>
-	<data name="lblCapAddressPart.Text" xml:space="preserve">
+  <data name="lblCapAddressPart.Text" xml:space="preserve">
     <value>Address Part</value>
   </data>
-	<data name="lblCapMandatory.Text" xml:space="preserve">
+  <data name="lblCapMandatory.Text" xml:space="preserve">
     <value>Mandatory</value>
   </data>
-	<data name="lblCell.Text" xml:space="preserve">
+  <data name="lblCell.Text" xml:space="preserve">
     <value>Cell</value>
   </data>
-	<data name="lblCity.Text" xml:space="preserve">
+  <data name="lblCity.Text" xml:space="preserve">
     <value>City</value>
   </data>
-	<data name="lblCompany.Text" xml:space="preserve">
+  <data name="lblCompany.Text" xml:space="preserve">
     <value>Company</value>
   </data>
-	<data name="lblCountry.Text" xml:space="preserve">
+  <data name="lblCountry.Text" xml:space="preserve">
     <value>Country</value>
   </data>
-	<data name="lblFax.Text" xml:space="preserve">
+  <data name="lblFax.Text" xml:space="preserve">
     <value>Fax</value>
   </data>
-	<data name="lblFirstname.Text" xml:space="preserve">
+  <data name="lblFirstname.Text" xml:space="preserve">
     <value>Firstname</value>
   </data>
-	<data name="lblLastname.Text" xml:space="preserve">
+  <data name="lblLastname.Text" xml:space="preserve">
     <value>Lastname</value>
   </data>
-	<data name="lblMiddlename.Text" xml:space="preserve">
+  <data name="lblMiddlename.Text" xml:space="preserve">
     <value>Middle name</value>
   </data>
-	<data name="lblPhone.Text" xml:space="preserve">
+  <data name="lblPhone.Text" xml:space="preserve">
     <value>Phone</value>
   </data>
-	<data name="lblPostalCode.Text" xml:space="preserve">
+  <data name="lblPostalCode.Text" xml:space="preserve">
     <value>Postal Code</value>
   </data>
-	<data name="lblPrefix.Text" xml:space="preserve">
+  <data name="lblPrefix.Text" xml:space="preserve">
     <value>Prefix</value>
   </data>
-	<data name="lblRegion.Text" xml:space="preserve">
+  <data name="lblRegion.Text" xml:space="preserve">
     <value>Region</value>
   </data>
-	<data name="lblStreet.Text" xml:space="preserve">
+  <data name="lblStreet.Text" xml:space="preserve">
     <value>Street </value>
   </data>
-	<data name="lblSuburb.Text" xml:space="preserve">
+  <data name="lblSuburb.Text" xml:space="preserve">
     <value>Suburb</value>
   </data>
-	<data name="lblSuffix.Text" xml:space="preserve">
+  <data name="lblSuffix.Text" xml:space="preserve">
     <value>Suffix</value>
   </data>
-	<data name="lblAddressFields.Help" xml:space="preserve">
+  <data name="lblAddressFields.Help" xml:space="preserve">
     <value>Select which fields of the address are mandatory</value>
   </data>
-	<data name="lblAddressFields.Text" xml:space="preserve">
+  <data name="lblAddressFields.Text" xml:space="preserve">
     <value>Address fields</value>
   </data>
-	<data name="hdrAddress.Text" xml:space="preserve">
+  <data name="hdrAddress.Text" xml:space="preserve">
     <value>Address Settings</value>
   </data>
-	<data name="valAddressTemplate.Error" xml:space="preserve">
+  <data name="valAddressTemplate.Error" xml:space="preserve">
     <value>You marked one or more Address fileds as mandatory that are absent in the address template !</value>
   </data>
-	<data name="lblAddressTemplate.Text" xml:space="preserve">
+  <data name="lblAddressTemplate.Text" xml:space="preserve">
     <value>Address template</value>
   </data>
-	<data name="lblUnit.Text" xml:space="preserve">
+  <data name="lblUnit.Text" xml:space="preserve">
     <value>Unit</value>
   </data>
-	<data name="lblEmail.Text" xml:space="preserve">
+  <data name="lblEmail.Text" xml:space="preserve">
     <value>Email</value>
   </data>
-	<data name="hdrLanguage.Text" xml:space="preserve">
+  <data name="hdrLanguage.Text" xml:space="preserve">
     <value>Static text</value>
   </data>
-	<data name="lblLanguage.Text" xml:space="preserve">
+  <data name="lblLanguage.Text" xml:space="preserve">
     <value>Select Language </value>
   </data>
-	<data name="lblLanguage.Help" xml:space="preserve">
+  <data name="lblLanguage.Help" xml:space="preserve">
     <value>Select the Language you want to edit</value>
   </data>
-	<data name="lblEmptyCart.Text" xml:space="preserve">
+  <data name="lblEmptyCart.Text" xml:space="preserve">
     <value>Empty Cart Display</value>
   </data>
-	<data name="lblEmptyCart.Help" xml:space="preserve">
+  <data name="lblEmptyCart.Help" xml:space="preserve">
     <value>Please enter here the text that should be shown if the cart is empty</value>
   </data>
-	<data name="lblCartNavigationStyle.Text" xml:space="preserve">
+  <data name="lblCartNavigationStyle.Text" xml:space="preserve">
     <value>Cart Navigation Style</value>
   </data>
-	<data name="lblCartNavigationStyle.Help" xml:space="preserve">
+  <data name="lblCartNavigationStyle.Help" xml:space="preserve">
     <value>Select the style of cart navigation</value>
   </data>
-	<data name="lblShoppingTarget.Help" xml:space="preserve">
+  <data name="lblShoppingTarget.Help" xml:space="preserve">
     <value>Select the target for the "Continue Shopping"-Button</value>
   </data>
-	<data name="lblShoppingTarget.Text" xml:space="preserve">
+  <data name="lblShoppingTarget.Text" xml:space="preserve">
     <value>Target "Continue Shopping"</value>
   </data>
-	<data name="lblConfirmCart.Text" xml:space="preserve">
-		<value>Order confirmation message</value>
-	</data>
-	<data name="lblConfirmCart.Help" xml:space="preserve">
-		<value>Enter the text that you want to appear when the customer has placed an order. If wanted, use the placeholder [ORDERNO] to display the generated purchase order number</value>
-	</data>
-	<data name="lblUnits.Text" xml:space="preserve">
-		<value>Unit</value>
-	</data>
-	<data name="lblAddressTemplate.Help" xml:space="preserve">
-		<value>Design the layout in which addresses should be shown and edited. Use token replace syntax :[TOKEN:Width (in pixel)]
+  <data name="lblConfirmCart.Text" xml:space="preserve">
+    <value>Order confirmation message</value>
+  </data>
+  <data name="lblConfirmCart.Help" xml:space="preserve">
+    <value>Enter the text that you want to appear when the customer has placed an order. If wanted, use the placeholder [ORDERNO] to display the generated purchase order number</value>
+  </data>
+  <data name="lblUnits.Text" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="lblAddressTemplate.Help" xml:space="preserve">
+    <value>Design the layout in which addresses should be shown and edited. Use token replace syntax :[TOKEN:Width (in pixel)]
 Select the following tokens:
 &lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Token&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;
@@ -326,14 +326,26 @@ Select the following tokens:
 &lt;tr&gt;&lt;td&gt;FAX&lt;/td&gt;&lt;td&gt;Fax&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;EMAIL&lt;/td&gt;&lt;td&gt;Email&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;</value>
-	</data>
-	<data name="hdrTemplates.Text" xml:space="preserve">
-		<value>Templates</value>
-	</data>
-	<data name="lblTemplate.Text" xml:space="preserve">
-		<value>Mail template</value>
-	</data>
-	<data name="lblTemplate.Help" xml:space="preserve">
-		<value>Select or edit / create the template for the order email</value>
-	</data>
+  </data>
+  <data name="hdrTemplates.Text" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="lblTemplate.Text" xml:space="preserve">
+    <value>Mail template</value>
+  </data>
+  <data name="lblTemplate.Help" xml:space="preserve">
+    <value>Select or edit / create the template for the order email</value>
+  </data>
+  <data name="lblCheckoutButtonCssClass.Help" xml:space="preserve">
+    <value>Enter the CSS Classes for the checkout button</value>
+  </data>
+  <data name="lblCheckoutButtonCssClass.Text" xml:space="preserve">
+    <value>Checkout-Button class</value>
+  </data>
+  <data name="lblShoppingButtonCssClass.Help" xml:space="preserve">
+    <value>Enter the CSS Classes for the shopping button</value>
+  </data>
+  <data name="lblShoppingButtonCssClass.Text" xml:space="preserve">
+    <value>Shopping-Button class</value>
+  </data>
 </root>

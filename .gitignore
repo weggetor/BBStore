@@ -192,3 +192,7 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+/Templates/SimpleProduct
+/Templates/ProductList
+/.vs/config/applicationhost.config
+/BBStore.sln.GhostDoc.xml

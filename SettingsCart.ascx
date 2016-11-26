@@ -75,6 +75,14 @@
             <dnn:Label id="lblCartNavigationStyle" runat="server" controlname="ddlCartNavigationStyle" suffix=":"/>
             <asp:DropDownList runat="server" ID="ddlCartNavigationStyle"/>
         </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="lblShoppingButtonCssClass" runat="server" controlname="txtShoppingButtonCssClass" suffix=":"/>
+            <asp:TextBox runat="server" ID="txtShoppingButtonCssClass"/>
+        </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="lblCheckoutButtonCssClass" runat="server" controlname="txtCheckoutButtonCssClass" suffix=":"/>
+            <asp:TextBox runat="server" ID="txtCheckoutButtonCssClass"/>
+        </div>
     </fieldset>
     <h2 id="bbstore-productlist-head2" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("hdrLanguage")%></a></h2>
     <fieldset class="dnnClear">

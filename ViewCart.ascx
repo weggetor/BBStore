@@ -112,7 +112,7 @@
                         <asp:BoundField HeaderText="ItemNo" />
                         <asp:TemplateField HeaderText="Product">
                             <ItemTemplate>
-                                <span style="padding:4px;"><asp:Label ID="Label1" runat="server" Text='<%# Eval("Name") %>'></asp:Label></span>
+                                <span style="padding:4px;"><asp:Label ID="Label2" runat="server" Text='<%# Eval("Name") %>'></asp:Label></span>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="UnitCost" DataFormatString="{0:n2}" 
