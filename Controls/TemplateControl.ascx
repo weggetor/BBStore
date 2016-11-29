@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="dnn" TagName="TextEditor" Src="~/controls/TextEditor.ascx" %>
 <div class="dnnFormItem dnnClear">
     <dnn:Label id="lblCaption" runat="server" ControlName="ddlTemplate" suffix=":"/>
-    <asp:Panel runat="server" ID="pnlView" CssClass="dnnLeft">
+    <asp:Panel runat="server" ID="pnlView" style="display:inline-block;">
         <div><asp:Label runat="server" ID="lblTemplateName" /></div>
         <div><asp:DropDownList runat="server" ID="ddlTemplate" onselectedindexchanged="ddlTemplate_SelectedIndexChanged"  AutoPostBack="True" /></div>
         <div><asp:Image ID="imgThumb" runat="server" width="400" /></div>
