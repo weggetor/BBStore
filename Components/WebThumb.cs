@@ -23,7 +23,6 @@ namespace Bitboxx.DNNModules.BBStore.Components
         }
         public void MakeThumb(string html, string thumbfile)
         {
-            EventLogController ctrl = new EventLogController();
 
             string tempPath = Path.Combine(Globals.ApplicationMapPath, ModuleFolder) + "\\WebThumb\\";
 
@@ -33,8 +32,6 @@ namespace Bitboxx.DNNModules.BBStore.Components
             string tempFile = Guid.NewGuid() + ".htm";
             File.WriteAllText(tempPath + tempFile, html);
             string url = PortalAlias + "/" + ModuleFolder.Replace("\\","/") +"/WebThumb/" + tempFile;
-
-            ctrl.AddLog("Webthumb", $"tempPath={tempPath}, tempFile={tempFile}, url={url}",PortalSettings.Current,-1, EventLogController.EventLogType.ADMIN_ALERT);
 
             Process process = new Process();
             process.StartInfo.FileName = Path.Combine(tempPath, "wkhtmltoimage.exe");
