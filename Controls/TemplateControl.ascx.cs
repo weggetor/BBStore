@@ -24,13 +24,20 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bitboxx.DNNModules.BBStore.Components;
+using DotNetNuke.Common;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Framework;
 using DotNetNuke.Services.Localization;
+using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.UI.WebControls;
 
 namespace Bitboxx.DNNModules.BBStore
@@ -200,7 +207,9 @@ namespace Bitboxx.DNNModules.BBStore
 
 				Localization.LoadCultureDropDownList(ddlLanguage, CultureDropDownTypes.NativeName, ((PageBase)Page).PageCulture.Name);
 				ddlLanguage.Visible = (ddlLanguage.Items.Count > 1);
-				ddlLanguage.SelectedValue = fallbackLanguage;
+			    lblLanguage.Visible = ddlLanguage.Visible;
+
+                ddlLanguage.SelectedValue = fallbackLanguage;
 
 				LoadTemplateFile();
                 cmdEdit.Visible = (ddlTemplate.SelectedIndex > 0);
@@ -287,7 +296,9 @@ namespace Bitboxx.DNNModules.BBStore
 
 		private void ReadTemplateList()
 		{
-			string[] files = Directory.GetFiles(TemplatePath, "*.htm");
+            ddlTemplate.Items.Clear();
+
+            string[] files = Directory.GetFiles(TemplatePath, "*.htm");
 
 			// We assemble all the filenames without language codes, portal infos and file extensions
 			// and filter out all duplicates
@@ -399,39 +410,35 @@ namespace Bitboxx.DNNModules.BBStore
             if (CreateImageCallback != null)
 		        html = CreateImageCallback(txtTemplate.Text);
 
-		    if (html != string.Empty)
-		    {
-		        string baseUrl = "http://" + Request["HTTP_POST"] + "/";
-                StringBuilder sb = new StringBuilder();
-		        sb.AppendLine("<html><head>");
-		        sb.AppendLine("<style type=\"text/css\">");
-		        string cssFile = Server.MapPath("~/Portals/_default/default.css");
-                if (File.Exists(cssFile))
-                    sb.Append(File.ReadAllText(cssFile));
-		        cssFile = Server.MapPath("~/DesktopModules/BBStore/module.css");
-                if (File.Exists(cssFile))
-                    sb.Append(File.ReadAllText(cssFile));
-		        cssFile = Server.MapPath(PortalSettings.ActiveTab.SkinPath + "skin.css");
-                if (File.Exists(cssFile))
-                    sb.Append(File.ReadAllText(cssFile));
-		        cssFile = Server.MapPath(PortalSettings.HomeDirectory + "portal.css");
-                if (File.Exists(cssFile))
-                    sb.Append(File.ReadAllText(cssFile));
-                sb.AppendLine("</style>");
-		        sb.AppendLine("</head>");
-		        sb.AppendLine("<body>");
-		        sb.AppendLine("<div style=\"min-width:600px;width=600px;\">");
-		        sb.AppendLine(html);
-		        sb.AppendLine("</div>");
-                sb.AppendLine("</body></html>");
 
-		        AutoResetEvent resultEvent = new AutoResetEvent(false);
-		        IEBrowser browser = new IEBrowser(sb.ToString(), thumbFile, resultEvent);
-		        EventWaitHandle.WaitAll(new AutoResetEvent[] {resultEvent});
-		    }
-		}
+            WebClient client = new WebClient();
 
-		public string GetTemplate(string name)
+            string baseUrl = Request.Url.Scheme + "://" + Request.Url.Host;
+            string url = Globals.NavigateURL(TabId);
+            if (!url.StartsWith("http"))
+                url = baseUrl + url;
+
+
+            string page = (string)DataCache.GetCache("bbstore_producttemplate_" + TabId.ToString());
+            if (page == null)
+            {
+                page = client.DownloadString(url);
+                int bodystart = page.IndexOf("<body");
+                if (bodystart > 0)
+                    page = page.Substring(0, bodystart) + "<body><div style=\"padding:20px;\">{{PLACEHOLDER}}</div></body></html>";
+
+                DataCache.SetCache("bbstore_producttemplate_" + TabId.ToString(), page);
+            }
+
+            if (html != string.Empty)
+            {
+                html = page.Replace("{{PLACEHOLDER}}", html);
+                WebThumb thumbMaker = new WebThumb("DesktopModules\\BBStore", Request.Url.Scheme + "://" + Request.Url.Host);
+                thumbMaker.MakeThumb(html, thumbFile);
+            }
+        }
+
+        public string GetTemplate(string name)
 		{
 			string currentLanguage = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
 

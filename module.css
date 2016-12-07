@@ -19,6 +19,7 @@ COLORSUM : #A0AFEB;
 .bbstore-grid-summary, .bbstore-grid-summary td { background-color:#000084; font-weight:bold; color:White; padding:3px !important; font-size: 12px; }
 .bbstore-imagescroller ul li {list-style:none;}
 .bbstore-template  { font-family: monospace !important; font-size: small;}
+.bbstore-error { color: red;white-space: nowrap;}
 
 /* Cart Module*/
 .bbstore-cart-payment-header { border: 1px solid #999999; color: white; background-color: #A0AFEB; font-size: 130%; padding: 5px; margin: 0 5px 0 0;; cursor: pointer;display: block;  }  

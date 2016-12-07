@@ -19,10 +19,10 @@
                 <asp:Label runat="server" ID="ltrHelp" />
             </div>
         </asp:Panel>
-	    <asp:Panel runat="server" ID="pnlNewTemplate" CssClass="dnnFormItem">
+	    <asp:Panel runat="server" ID="pnlNewTemplate">
 		    <dnn:Label runat="server" id="lblName" controlname="txtName" suffix=":" />
 		    <asp:TextBox ID="txtName" runat="server" />
-		    <asp:RequiredFieldValidator ID="valNameRequired" ControlToValidate="txtName" runat="server" Resourcekey="valNameRequired.Error"/>
+		    <asp:RequiredFieldValidator ID="valNameRequired" ControlToValidate="txtName" runat="server" CssClass="bbstore-error" Resourcekey="valNameRequired.Error"/>
 	    </asp:Panel>
 	    <asp:Panel runat="server" ID="pnlEditTemplate">
             <div class="dnnClear">
@@ -43,7 +43,7 @@
 		    </div>
 	    </asp:Panel>
 	    <div class="dnnClear">
-		    <asp:Textbox id="txtTemplate" CssClass="dnnFormInput bbstore-template" textmode="MultiLine" rows="10" runat="server" />
+		    <asp:Textbox id="txtTemplate" CssClass="dnnFormInput bbstore-template" textmode="MultiLine" rows="10" runat="server" Width="100%"/>
 	        <dnn:TextEditor ID="edtTemplate" runat="server"  TextRenderMode="Raw" HtmlEncode="False" defaultmode="Rich"  choosemode="false" visible="false" />
 	    </div>
 	    <ul class="dnnActions dnnClear">

@@ -159,7 +159,7 @@
   <data name="rblMode1.Text" xml:space="preserve">
     <value>Portal</value>
   </data>
-  <data name="valNamerequired.Error" xml:space="preserve">
+  <data name="valNameRequired.Error" xml:space="preserve">
     <value>Name is required!</value>
   </data>
 </root>

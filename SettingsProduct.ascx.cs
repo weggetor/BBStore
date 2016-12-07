@@ -312,7 +312,7 @@ namespace Bitboxx.DNNModules.BBStore
 		private string CreateThumbHtml(string template)
 		{
 			StringBuilder sb = new StringBuilder(template);
-		    string imageUrl = Request.Url.Scheme + "://" + Request.Url.Host + "/bbimagehandler.ashx?placeholder=1&nocache=1";
+		    string imageUrl = Request.Url.Scheme + "://" + Request.Url.Host + "/dnnimagehandler.ashx?mode=placeholder&nocache=1";
             if (template.IndexOf("[IMAGE:") > -1)
             {
                 string imageDimText = VfpInterop.StrExtract(sb.ToString(), "[IMAGE:", "]", 1, 1);
@@ -321,17 +321,17 @@ namespace Bitboxx.DNNModules.BBStore
 
                     int imageDim = 0;
                     if (Int32.TryParse(imageDimText, out imageDim))
-                        imageUrl += string.Format("&width={0}&height={1}&text={0}", imageDim, (int) (imageDim*2/3));
+                        imageUrl += string.Format("&w={0}&h={1}&text={0}", imageDim, (int) (imageDim*2/3));
                     
                     sb.Replace("[IMAGE:" + imageDimText + "]", "<img src=\"" + imageUrl + "\" />");
                 }
             }
             else if (template.IndexOf("[IMAGE]") > -1)
             {
-                imageUrl += "&width=200&height=150&text=Unresized+Image";
+                imageUrl += "&w=200&h=150&text=Unresized+Image";
                 sb.Replace("[IMAGE]", "<img src=\"" + imageUrl + "\" />");
             }
-			sb.Replace("[IMAGELINK]", "#");
+			sb.Replace("[IMAGELINK]", imageUrl + "&w=300&h=300&text=Sample+Image");
             sb.Replace("[TITLE]", "Product Title");
 			sb.Replace("[PRODUCTSHORTDESCRIPTION]", "Product short description explains in 80 chars");
 			sb.Replace("[PRODUCTDESCRIPTION]", "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum .");

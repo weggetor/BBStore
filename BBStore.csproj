@@ -122,8 +122,8 @@
     <Compile Include="Components\BBStoreSitemapProvider.cs" />
     <Compile Include="Components\DataProvider.cs" />
     <Compile Include="Components\BBStoreController.cs" />
-    <Compile Include="Components\IEBrowser.cs" />
     <Compile Include="Components\SqlDataProvider.cs" />
+    <Compile Include="Components\WebThumb.cs" />
     <Compile Include="Controls\CartNavigationControl.ascx.cs">
       <DependentUpon>CartNavigationControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -640,6 +640,7 @@
     </Content>
     <Content Include="App_LocalResources\SettingsAdmin.ascx.resx" />
     <Content Include="App_LocalResources\EditCoupon.ascx.resx" />
+    <Content Include="Webthumb\wkhtmltoimage.exe" />
     <EmbeddedResource Include="App_LocalResources\SettingsCart.ascx.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
