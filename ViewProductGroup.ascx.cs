@@ -108,7 +108,7 @@ namespace Bitboxx.DNNModules.BBStore
 			{
 				if (ViewState["ProductGroupId"] != null)
 					return Convert.ToInt32(ViewState["ProductGroupId"]);
-				else
+                else
 					return -1;
 			}
 			set
@@ -281,7 +281,7 @@ namespace Bitboxx.DNNModules.BBStore
 					{
 						ProductGroupId = -1;
 
-						if (Settings["RootLevel"] != null)
+                        if (Settings["RootLevel"] != null)
 							ProductGroupId = Convert.ToInt32(Settings["RootLevel"]);
 
 						List<ProductFilterInfo> fi = Controller.GetProductFilter(PortalId, FilterSessionId, "ProductGroup");
@@ -308,8 +308,11 @@ namespace Bitboxx.DNNModules.BBStore
 						}
 
 					}
-				}
-				SetFilter(ProductGroupId, IncludeChilds);
+                    if (ProductGroupId == -1 && Settings["DefaultProductGroup"] != null)
+                        ProductGroupId = Convert.ToInt32(Settings["DefaultProductGroup"]);
+                }
+
+                SetFilter(ProductGroupId, IncludeChilds);
 
 				if (Settings["WrapNode"] != null)
 					treeProductGroup.NodeWrap = Convert.ToBoolean(Settings["WrapNode"]);

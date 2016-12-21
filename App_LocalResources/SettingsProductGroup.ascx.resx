@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,197 +59,203 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="ControlTitle_settings.Text" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlTitle_settings.Text" xml:space="preserve">
     <value>BBStore Product Group Settings</value>
   </data>
-	<data name="DeleteProductTemplate.Text" xml:space="preserve">
+  <data name="DeleteProductTemplate.Text" xml:space="preserve">
     <value>Are you sure to delete this product group template? Products which are using this template will return to default display !</value>
   </data>
-	<data name="lblProductGroupsInRow.Help" xml:space="preserve">
+  <data name="lblProductGroupsInRow.Help" xml:space="preserve">
     <value>Enter the number of productgroups to be shown in one row</value>
   </data>
-	<data name="lblProductGroupsInRow.Text" xml:space="preserve">
+  <data name="lblProductGroupsInRow.Text" xml:space="preserve">
     <value>Productgroups in Row</value>
   </data>
-	<data name="lnkReset.Text" xml:space="preserve">
+  <data name="lnkReset.Text" xml:space="preserve">
     <value>Reset to default</value>
   </data>
-	<data name="lblDynamicPage.Help" xml:space="preserve">
+  <data name="lblDynamicPage.Help" xml:space="preserve">
     <value>Please select the page with a BBStore product list module (normally: this page)</value>
   </data>
-	<data name="lblDynamicPage.Text" xml:space="preserve">
+  <data name="lblDynamicPage.Text" xml:space="preserve">
     <value>Page Product List Module</value>
   </data>
-	<data name="lblIncludeChilds.Help" xml:space="preserve">
+  <data name="lblIncludeChilds.Help" xml:space="preserve">
     <value>Check if products in sub groups should be included in display</value>
   </data>
-	<data name="lblIncludeChilds.Text" xml:space="preserve">
+  <data name="lblIncludeChilds.Text" xml:space="preserve">
     <value>Show Subgroup Products</value>
   </data>
-	<data name="lblShowBreadcrumb.Help" xml:space="preserve">
+  <data name="lblShowBreadcrumb.Help" xml:space="preserve">
     <value>Check if you want the "product breadcrumb path" to be shown </value>
   </data>
-	<data name="lblShowBreadcrumb.Text" xml:space="preserve">
+  <data name="lblShowBreadcrumb.Text" xml:space="preserve">
     <value>Show Breadcrumb</value>
   </data>
-	<data name="lblViewMode.Help" xml:space="preserve">
+  <data name="lblViewMode.Help" xml:space="preserve">
     <value>Select the display mode</value>
   </data>
-	<data name="lblViewMode.Text" xml:space="preserve">
+  <data name="lblViewMode.Text" xml:space="preserve">
     <value>View Mode</value>
   </data>
-	<data name="lblShowExpandCollapse.Help" xml:space="preserve">
+  <data name="lblShowExpandCollapse.Help" xml:space="preserve">
     <value>Check if you want to see + / - sign to collapse and expand nodes</value>
   </data>
-	<data name="lblShowExpandCollapse.Text" xml:space="preserve">
+  <data name="lblShowExpandCollapse.Text" xml:space="preserve">
     <value>Show Expand / Collapse</value>
   </data>
-	<data name="lblShowIcons.Help" xml:space="preserve">
+  <data name="lblShowIcons.Help" xml:space="preserve">
     <value>Check if you want to see icon beneath the group name</value>
   </data>
-	<data name="lblShowIcons.Text" xml:space="preserve">
+  <data name="lblShowIcons.Text" xml:space="preserve">
     <value>Show Icons</value>
   </data>
-	<data name="lblTreeHoverClass.Help" xml:space="preserve">
+  <data name="lblTreeHoverClass.Help" xml:space="preserve">
     <value>Enter the name of the css class for the hovered treenode</value>
   </data>
-	<data name="lblTreeHoverClass.Text" xml:space="preserve">
+  <data name="lblTreeHoverClass.Text" xml:space="preserve">
     <value>CssClass Hovered Node</value>
   </data>
-	<data name="lblTreeNormalClass.Help" xml:space="preserve">
+  <data name="lblTreeNormalClass.Help" xml:space="preserve">
     <value>Enter the name of the Css class for a normal treenode</value>
   </data>
-	<data name="lblTreeNormalClass.Text" xml:space="preserve">
+  <data name="lblTreeNormalClass.Text" xml:space="preserve">
     <value>CssClass Treenode</value>
   </data>
-	<data name="lblTreeSelectedClass.Help" xml:space="preserve">
+  <data name="lblTreeSelectedClass.Help" xml:space="preserve">
     <value>Enter the name of the css class for the selected treenode</value>
   </data>
-	<data name="lblTreeSelectedClass.Text" xml:space="preserve">
+  <data name="lblTreeSelectedClass.Text" xml:space="preserve">
     <value>CssClass Selected Node</value>
   </data>
-	<data name="lblSetTitle.Help" xml:space="preserve">
+  <data name="lblSetTitle.Help" xml:space="preserve">
     <value>Check if the selected product group should be set as module title</value>
   </data>
-	<data name="lblSetTitle.Text" xml:space="preserve">
+  <data name="lblSetTitle.Text" xml:space="preserve">
     <value>Productgroup as title</value>
   </data>
-	<data name="lblShowProductCount.Text" xml:space="preserve">
+  <data name="lblShowProductCount.Text" xml:space="preserve">
     <value>Show Product Count</value>
   </data>
-	<data name="lblShowProductCount.Help" xml:space="preserve">
+  <data name="lblShowProductCount.Help" xml:space="preserve">
     <value>Counts products per product group. Don't check if performance is poor.</value>
   </data>
-	<data name="lblShowLevels.Text" xml:space="preserve">
+  <data name="lblShowLevels.Text" xml:space="preserve">
     <value>Show Levels</value>
   </data>
-	<data name="lblShowLevels.Help" xml:space="preserve">
+  <data name="lblShowLevels.Help" xml:space="preserve">
     <value>Enter maximum amount of levels you want to show in treeview. Leave 0 if unlimited</value>
   </data>
-	<data name="lblRootLevel.Text" xml:space="preserve">
+  <data name="lblRootLevel.Text" xml:space="preserve">
     <value>Root Productgroup</value>
   </data>
-	<data name="lblRootLevel.Help" xml:space="preserve">
+  <data name="lblRootLevel.Help" xml:space="preserve">
     <value>Select the base product group for display (optional). </value>
   </data>
-	<data name="SelectOption.Text" xml:space="preserve">
+  <data name="SelectOption.Text" xml:space="preserve">
     <value>Root</value>
   </data>
-	<data name="Edit.Text" xml:space="preserve">
+  <data name="Edit.Text" xml:space="preserve">
     <value>(edit)</value>
   </data>
-	<data name="lblWrapNode.Text" xml:space="preserve">
+  <data name="lblWrapNode.Text" xml:space="preserve">
     <value>Wrap Node Text</value>
   </data>
-	<data name="lblWrapNode.Help" xml:space="preserve">
+  <data name="lblWrapNode.Help" xml:space="preserve">
     <value>Check if wrapping node text is allowed</value>
   </data>
-	<data name="lblAllGroupsImage.Help" xml:space="preserve">
+  <data name="lblAllGroupsImage.Help" xml:space="preserve">
     <value>Image to show when Upwards navigation is enabled and the main level with all main product groups should be navigated.</value>
   </data>
-	<data name="lblAllGroupsImage.Text" xml:space="preserve">
+  <data name="lblAllGroupsImage.Text" xml:space="preserve">
     <value>Mainlevel Image</value>
   </data>
-	<data name="lblShowUpNavigation.Help" xml:space="preserve">
+  <data name="lblShowUpNavigation.Help" xml:space="preserve">
     <value>Check if you want to show an additional parent productgroup while staying in a subgroup</value>
   </data>
-	<data name="lblShowUpNavigation.Text" xml:space="preserve">
+  <data name="lblShowUpNavigation.Text" xml:space="preserve">
     <value>Show parent productgroup</value>
   </data>
-	<data name="lblRootLevelFixed.Help" xml:space="preserve">
-		<value>Check if the selected Root product group should be shown always </value>
-	</data>
-	<data name="lblRootLevelFixed.Text" xml:space="preserve">
-		<value>Fix root productgroup</value>
-	</data>
-	<data name="lblShowThisNode.Text" xml:space="preserve">
-		<value>Show current product group</value>
-	</data>
-	<data name="lblShowThisNode.Help" xml:space="preserve">
-		<value>Check if you want to show the current product group</value>
-	</data>
-	<data name="lblShowSubNodes.Text" xml:space="preserve">
-		<value>Show Product Subgroups</value>
-	</data>
-	<data name="lblShowSubNodes.Help" xml:space="preserve">
-		<value>Check if you want to show the product subgroups</value>
-	</data>
+  <data name="lblRootLevelFixed.Help" xml:space="preserve">
+    <value>Check if the selected Root product group should be shown always </value>
+  </data>
+  <data name="lblRootLevelFixed.Text" xml:space="preserve">
+    <value>Fix root productgroup</value>
+  </data>
+  <data name="lblShowThisNode.Text" xml:space="preserve">
+    <value>Show current product group</value>
+  </data>
+  <data name="lblShowThisNode.Help" xml:space="preserve">
+    <value>Check if you want to show the current product group</value>
+  </data>
+  <data name="lblShowSubNodes.Text" xml:space="preserve">
+    <value>Show Product Subgroups</value>
+  </data>
+  <data name="lblShowSubNodes.Help" xml:space="preserve">
+    <value>Check if you want to show the product subgroups</value>
+  </data>
+  <data name="lblDefaultProductGroup.Help" xml:space="preserve">
+    <value>Select optional a default product group</value>
+  </data>
+  <data name="lblDefaultProductGroup.Text" xml:space="preserve">
+    <value>Default product group</value>
+  </data>
 </root>
