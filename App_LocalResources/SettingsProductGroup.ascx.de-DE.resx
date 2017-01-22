@@ -252,4 +252,10 @@
 	<data name="lblShowSubNodes.Help" xml:space="preserve">
 		<value>Ankreuzen, wenn Sie die untergeordneten Produktgruppen anzeigen wollen</value>
 	</data>
+	<data name="lblDefaultProductGroup.Help" xml:space="preserve">
+		<value>Wähle (optional) eine Standard Produktgruppe, die angezeigt wird wenn keine Produktgruppe ausgewählt ist (-1)</value>
+	</data>
+	<data name="lblDefaultProductGroup.Text" xml:space="preserve">
+		<value>Standard Produktgruppe</value>
+	</data>
 </root>

@@ -355,6 +355,42 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.DropDownList ddlCartNavigationStyle;
         
         /// <summary>
+        /// lblShoppingButtonCssClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblShoppingButtonCssClass;
+        
+        /// <summary>
+        /// txtShoppingButtonCssClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtShoppingButtonCssClass;
+        
+        /// <summary>
+        /// lblCheckoutButtonCssClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblCheckoutButtonCssClass;
+        
+        /// <summary>
+        /// txtCheckoutButtonCssClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCheckoutButtonCssClass;
+        
+        /// <summary>
         /// lngEmptyCart control.
         /// </summary>
         /// <remarks>

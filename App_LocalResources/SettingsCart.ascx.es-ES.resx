@@ -304,7 +304,7 @@
 		<value>Texto estático</value>
 	</data>
 	<data name="lblAddressTemplate.Help" xml:space="preserve">
-		<value># Diseño de la disposición en que direcciones deben mostradas y editadas. Use token replace syntax:[TOKEN:Width (in pixel)]
+		<value>Diseño de la disposición en que direcciones deben mostradas y editadas. Use token replace syntax:[TOKEN:Width (in pixel)]
 Select the following tokens:
 &lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Token&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;
@@ -335,5 +335,17 @@ Select the following tokens:
 	</data>
 	<data name="lblTemplate.Help" xml:space="preserve">
 		<value>Seleccionar, editar o crear una plantilla para correo electrónico de la orden</value>
+	</data>
+	<data name="lblCheckoutButtonCssClass.Help" xml:space="preserve">
+		<value>Entrar en las clases CSS para el botón pagar</value>
+	</data>
+	<data name="lblCheckoutButtonCssClass.Text" xml:space="preserve">
+		<value>CSS Clase de botón de pago</value>
+	</data>
+	<data name="lblShoppingButtonCssClass.Help" xml:space="preserve">
+		<value>Entrar en las clases CSS para el botón de compras</value>
+	</data>
+	<data name="lblShoppingButtonCssClass.Text" xml:space="preserve">
+		<value>Comercial button clase CSS</value>
 	</data>
 </root>

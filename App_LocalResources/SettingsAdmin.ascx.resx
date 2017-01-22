@@ -366,4 +366,47 @@
 	<data name="lblCancelTermsMandatory.Text" xml:space="preserve">
     <value>Confirm cancellation policy </value>
   </data>
+	<data name="lblCouponsEnabled.Help" xml:space="preserve">
+    <value>Check if you want to use coupons in your shop</value>
+  </data>
+	<data name="lblCouponsEnabled.Text" xml:space="preserve">
+    <value>Enable Coupons</value>
+  </data>
+	<data name="lblSMTPPassword.Help" xml:space="preserve">
+    <value>Enter the Password for the SMTP server</value>
+  </data>
+	<data name="lblSMTPPassword.Text" xml:space="preserve">
+    <value>SMTP Password</value>
+  </data>
+	<data name="lblSMTPServer.Help" xml:space="preserve">
+    <value>Enter the SMTP Server Address. You can also specify an alternate port by adding a colon and the port number (e.g. smtp.googlemail.com:587). Enter the SMTP server name only to use default port number (25)</value>
+  </data>
+	<data name="lblSMTPServer.Text" xml:space="preserve">
+    <value>SMTP server and port</value>
+  </data>
+	<data name="lblSMTPSettings.Help" xml:space="preserve">
+    <value>Choose if you want to use the system SMTP settings or if you want to enter own settings for usage in your shop</value>
+  </data>
+	<data name="lblSMTPSettings.Text" xml:space="preserve">
+    <value>SMTP Settings</value>
+  </data>
+	<data name="lblSMTPUser.Help" xml:space="preserve">
+    <value>Enter the Username for the SMTP server</value>
+  </data>
+	<data name="lblSMTPUser.Text" xml:space="preserve">
+    <value>SMTP Username</value>
+  </data>
+	<data name="SMTPSettingsHost.Text" xml:space="preserve">
+    <value>Use Host  Settings</value>
+  </data>
+	<data name="SMTPSettingsManual.Text" xml:space="preserve">
+    <value>Enter Settings</value>
+  </data>
+	<data name="lblExtendedPrice.Help" xml:space="preserve">
+    <value>if checked, only products with prices defined in additional price table matching user roles and date validities are shown. Products with no matching record in this table are not shown overall.
+If not checked, no valid record in this table results into using standard price from main product table. If a record matches, the matching price will be used.</value>
+  </data>
+	<data name="lblExtendedPrice.Text" xml:space="preserve">
+    <value>Extended Price Model</value>
+  </data>
 </root>

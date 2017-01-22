@@ -11,6 +11,7 @@ namespace Bitboxx.DNNModules.BBStore
 		public CartInfo()
 		{
 		    StoreGuid = BBStoreController.StoreGuid;
+		    Exported = false;
             CartID = new Guid();
 			SubscriberID = 0;
 			CustomerID = -1;
@@ -31,6 +32,7 @@ namespace Bitboxx.DNNModules.BBStore
 		}
 
 	    public Guid StoreGuid { get; set; }
+	    public bool Exported { get; set; }
         public Guid CartID { get; set; }
 		public int SubscriberID { get; set; }
         public int CouponId { get; set; }

@@ -336,4 +336,16 @@ Wählen Sie aus folgenden Tokens:
 	<data name="lblTemplate.Help" xml:space="preserve">
 		<value>Wählen Sie die E-Mail Vorlage für die Bestellung E-Mail aus bzw. erzeugen / bearbeiten Sie diese</value>
 	</data>
+	<data name="lblCheckoutButtonCssClass.Help" xml:space="preserve">
+		<value>Geben Sie hier die CSS Klassen für den Checkout Button ein</value>
+	</data>
+	<data name="lblCheckoutButtonCssClass.Text" xml:space="preserve">
+		<value>Checkoutbutton CSS Klasse</value>
+	</data>
+	<data name="lblShoppingButtonCssClass.Help" xml:space="preserve">
+		<value>Gebe die CSS Klasse für den Shopping Button ein</value>
+	</data>
+	<data name="lblShoppingButtonCssClass.Text" xml:space="preserve">
+		<value>Shopping Button CSS Klasse</value>
+	</data>
 </root>

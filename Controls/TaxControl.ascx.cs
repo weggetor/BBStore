@@ -30,9 +30,15 @@ namespace Bitboxx.DNNModules.BBStore
             set 
             {
                 if (value == "gross")
+                {
                     rdbBrutto.Checked = true;
+                    rdbNetto.Checked = false;
+                }
                 else
+                {
                     rdbNetto.Checked = true;
+                    rdbBrutto.Checked = false;
+                }
             }
         }
         

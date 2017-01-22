@@ -34,6 +34,10 @@
 	        <dnn:Label id="lblRootLevelFixed" runat="server" controlname="chkRootLevelFixed" suffix=":"/>
             <asp:CheckBox ID="chkRootLevelFixed" runat="server" />
         </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="lblDefaultProductGroup" runat="server" controlname="cboDefaultProductGroup" suffix=":" />
+		    <asp:DropDownList ID="cboDefaultProductGroup" runat="server" />
+	    </div>
 	    <asp:Panel ID="pnlShowLevels" runat="server" CssClass="dnnFormItem">
 	        <dnn:Label id="lblShowLevels" runat="server" controlname="txtShowLevels" suffix=":"/>
 	        <asp:TextBox ID="txtShowLevels" runat="server" Columns="2"/>

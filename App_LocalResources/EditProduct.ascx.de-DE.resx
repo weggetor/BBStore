@@ -304,4 +304,76 @@ Rabatte können definiert werden über ein &amp;quot;&lt;strong&gt;@&lt;/strong&
 	<data name="lblShippingModel.Help" xml:space="preserve">
 		<value>Wählen Sie hier das Versandmodell für diesen Artikel aus</value>
 	</data>
+	<data name="cmdCancelEditPrice.Text" xml:space="preserve">
+		<value>Abbrechen</value>
+	</data>
+	<data name="cmdSaveEditPrice.Text" xml:space="preserve">
+		<value>Speichern</value>
+	</data>
+	<data name="lblPriceEndDate.Help" xml:space="preserve">
+		<value>Wähle ein Datum bis zu dem dieser Preis gültig ist</value>
+	</data>
+	<data name="lblPriceEndDate.Text" xml:space="preserve">
+		<value>Gültigkeitsende</value>
+	</data>
+	<data name="lblPriceOriginalUnitCost.Help" xml:space="preserve">
+		<value>Wenn der Artikel einen Sonderangebotspreis hat, schreibe hier den normalen Preis hinein und den Sonderangebotspreis in Einzelpreis. Andernfalls setze diesen Wert auf 0.00</value>
+	</data>
+	<data name="lblPriceOriginalUnitCost.Text" xml:space="preserve">
+		<value>Normalpreis</value>
+	</data>
+	<data name="lblPriceRoleId.Help" xml:space="preserve">
+		<value>Wähle die Benutzergruppe, für die dieser preis gilt. Wenn mehrere Rollen zum Benutzer passen wird der geringste Preis gewählt.</value>
+	</data>
+	<data name="lblPriceRoleId.Text" xml:space="preserve">
+		<value>Benutzerrolle</value>
+	</data>
+	<data name="lblPriceStartdate.Help" xml:space="preserve">
+		<value>Wähle ein Datum ab dem dieser preis gültig ist</value>
+	</data>
+	<data name="lblPriceStartdate.Text" xml:space="preserve">
+		<value>Gültigkeitsbeginn</value>
+	</data>
+	<data name="lblPriceTaxPercent.Help" xml:space="preserve">
+		<value>Füge hier den Umsatzsteuersatz in Prozent mit max. 1 Nachkommastelle ein</value>
+	</data>
+	<data name="lblPriceTaxPercent.Text" xml:space="preserve">
+		<value>MWSt. %</value>
+	</data>
+	<data name="lblPriceUnitCost.Help" xml:space="preserve">
+		<value>Füge den normalen Preis (brutto oder netto) ein. Wird ggfs. von der Preistabelle überschrieben.</value>
+	</data>
+	<data name="lblPriceUnitCost.Text" xml:space="preserve">
+		<value>Aktueller Preis</value>
+	</data>
+	<data name="New.Text" xml:space="preserve">
+		<value>Neu</value>
+	</data>
+	<data name="pnlPrice.Text" xml:space="preserve">
+		<value>Preise</value>
+	</data>
+	<data name="SelectRole.Text" xml:space="preserve">
+		<value>(Benutzerrolle wählen)</value>
+	</data>
+	<data name="EndDate.Header" xml:space="preserve">
+		<value>Gültigkeitsende</value>
+	</data>
+	<data name="OriginalUnitCost.Header" xml:space="preserve">
+		<value>Originalpreis</value>
+	</data>
+	<data name="ProductPriceId.Header" xml:space="preserve">
+		<value>ID</value>
+	</data>
+	<data name="Startdate.Header" xml:space="preserve">
+		<value>Gültigkeitsstart</value>
+	</data>
+	<data name="TaxPercent.Header" xml:space="preserve">
+		<value>MWSt. %</value>
+	</data>
+	<data name="UnitCost.Header" xml:space="preserve">
+		<value>Preis</value>
+	</data>
+	<data name="UserRole.Header" xml:space="preserve">
+		<value>Rolle</value>
+	</data>
 </root>

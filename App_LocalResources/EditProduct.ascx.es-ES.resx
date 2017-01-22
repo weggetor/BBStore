@@ -286,4 +286,76 @@ Sin embargo, es un &lt;strong&gt;^&lt;/strong&gt; insertado antes del nombre del
 	<data name="lblShippingModel.Help" xml:space="preserve">
 		<value>Seleccione el modelo correspondiente de envío del producto</value>
 	</data>
+	<data name="cmdCancelEditPrice.Text" xml:space="preserve">
+		<value>Cancelar</value>
+	</data>
+	<data name="cmdSaveEditPrice.Text" xml:space="preserve">
+		<value>Guardar</value>
+	</data>
+	<data name="lblPriceEndDate.Help" xml:space="preserve">
+		<value>Seleccione una fecha hasta que este precio es válido</value>
+	</data>
+	<data name="lblPriceEndDate.Text" xml:space="preserve">
+		<value>Fecha de finalización</value>
+	</data>
+	<data name="lblPriceOriginalUnitCost.Help" xml:space="preserve">
+		<value>Si este producto tiene una especial oferta precio, introduzca el precio normal aquí y precio especial en 'Precio unitario', todo lo contrario establece este valor en 0.00.</value>
+	</data>
+	<data name="lblPriceOriginalUnitCost.Text" xml:space="preserve">
+		<value>Precio original</value>
+	</data>
+	<data name="lblPriceRoleId.Help" xml:space="preserve">
+		<value>Seleccione el rol de usuario correspondiente para el precio. Si múltiples funciones de uso coincide con el usuario, el precio más bajo gana</value>
+	</data>
+	<data name="lblPriceRoleId.Text" xml:space="preserve">
+		<value>Rol de usuario</value>
+	</data>
+	<data name="lblPriceStartdate.Help" xml:space="preserve">
+		<value>Seleccione una fecha en donde este precio es válido</value>
+	</data>
+	<data name="lblPriceStartdate.Text" xml:space="preserve">
+		<value>Fecha de inicio</value>
+	</data>
+	<data name="lblPriceTaxPercent.Help" xml:space="preserve">
+		<value>Entrar con valor de dígito decimal hasta 1 por ciento del impuesto</value>
+	</data>
+	<data name="lblPriceTaxPercent.Text" xml:space="preserve">
+		<value>Porcentaje de impuesto</value>
+	</data>
+	<data name="lblPriceUnitCost.Help" xml:space="preserve">
+		<value>Introduce el coste unitario en red o grande.</value>
+	</data>
+	<data name="lblPriceUnitCost.Text" xml:space="preserve">
+		<value>Precio unitario</value>
+	</data>
+	<data name="New.Text" xml:space="preserve">
+		<value>Añadir</value>
+	</data>
+	<data name="pnlPrice.Text" xml:space="preserve">
+		<value>Precio</value>
+	</data>
+	<data name="SelectRole.Text" xml:space="preserve">
+		<value>(Seleccione papel)</value>
+	</data>
+	<data name="EndDate.Header" xml:space="preserve">
+		<value>Fecha de finalización</value>
+	</data>
+	<data name="OriginalUnitCost.Header" xml:space="preserve">
+		<value>Precio original</value>
+	</data>
+	<data name="ProductPriceId.Header" xml:space="preserve">
+		<value>ID</value>
+	</data>
+	<data name="Startdate.Header" xml:space="preserve">
+		<value>Fecha de inicio</value>
+	</data>
+	<data name="TaxPercent.Header" xml:space="preserve">
+		<value>Impuesto %</value>
+	</data>
+	<data name="UnitCost.Header" xml:space="preserve">
+		<value>Precio</value>
+	</data>
+	<data name="UserRole.Header" xml:space="preserve">
+		<value>Papel</value>
+	</data>
 </root>

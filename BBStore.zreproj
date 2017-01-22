@@ -1,26 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
 <project>
   <configuration createBackupFiles="False" hideEmptyRows="False" hideTranslatedRows="False" useSpellChecker="True" neutralLanguageCode="en-us" languagesToDisplay="">
-    <globalSetting name="Filter-ResourceEditorGrid">&lt;XtraSerializer version="1.0" application="View"&gt;
-  &lt;property name="#LayoutVersion" /&gt;
-  &lt;property name="ActiveFilterString" /&gt;
+    <globalSetting name="Filter-ResourceEditorGrid">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;XtraSerializer version="1.0" application="View"&gt;
+  &lt;property name="#LayoutVersion"&gt;&lt;/property&gt;
+  &lt;property name="ActiveFilterString"&gt;&lt;/property&gt;
 &lt;/XtraSerializer&gt;</globalSetting>
-    <globalSetting name="Sort-ResourceEditorGrid">&lt;XtraSerializer version="1.0" application="View"&gt;
-  &lt;property name="#LayoutVersion" /&gt;
-  &lt;property name="SortInfo"&gt;~Xtra#Base64AAEAAAD/////AQAAAAAAAAAMAgAAAF1EZXZFeHByZXNzLlh0cmFHcmlkLnYxMy4xLCBWZXJzaW9uPTEzLjEuOC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI4OGQxNzU0ZDcwMGU0OWEFAQAAADhEZXZFeHByZXNzLlh0cmFHcmlkLkNvbHVtbnMuR3JpZENvbHVtblNvcnRJbmZvQ29sbGVjdGlvbgQAAAAKZ3JvdXBDb3VudAVjbG9uZQ9jbG9uZUdyb3VwQ291bnQTQ29sbGVjdGlvbkJhc2UrbGlzdAADAAMIsgFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW0RldkV4cHJlc3MuWHRyYUdyaWQuQ29sdW1ucy5HcmlkQ29sdW1uU29ydEluZm8sIERldkV4cHJlc3MuWHRyYUdyaWQudjEzLjEsIFZlcnNpb249MTMuMS44LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YV1dCBxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AgAAAAAAAAAJAwAAAAAAAAAJBAAAAAQDAAAAsgFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW0RldkV4cHJlc3MuWHRyYUdyaWQuQ29sdW1ucy5HcmlkQ29sdW1uU29ydEluZm8sIERldkV4cHJlc3MuWHRyYUdyaWQudjEzLjEsIFZlcnNpb249MTMuMS44LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YV1dAwAAAAZfaXRlbXMFX3NpemUIX3ZlcnNpb24EAAAwRGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mb1tdAgAAAAgICQUAAAAAAAAAAAAAAAQEAAAAHFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QDAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgUAAAgICQYAAAABAAAABAAAAAcFAAAAAAEAAAAAAAAABC5EZXZFeHByZXNzLlh0cmFHcmlkLkNvbHVtbnMuR3JpZENvbHVtblNvcnRJbmZvAgAAABAGAAAABAAAAAkHAAAADQMMCAAAABlEZXZFeHByZXNzLlh0cmFHcmlkLnYxMy4xBQcAAAAuRGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mbwIAAAAJU29ydE9yZGVyCkNvbHVtbk5hbWUAAQgIAAAAAQAAAAYJAAAAB2NvbE5hbWUL&lt;/property&gt;
+    <globalSetting name="Sort-ResourceEditorGrid">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;XtraSerializer version="1.0" application="View"&gt;
+  &lt;property name="#LayoutVersion"&gt;&lt;/property&gt;
+  &lt;property name="SortInfo"&gt;~Xtra#Base64AAEAAAD/////AQAAAAAAAAAMAgAAAF1EZXZFeHByZXNzLlh0cmFHcmlkLnYxNS4yLCBWZXJzaW9uPTE1LjIuNC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI4OGQxNzU0ZDcwMGU0OWEFAQAAADhEZXZFeHByZXNzLlh0cmFHcmlkLkNvbHVtbnMuR3JpZENvbHVtblNvcnRJbmZvQ29sbGVjdGlvbgQAAAAKZ3JvdXBDb3VudAVjbG9uZQ9jbG9uZUdyb3VwQ291bnQTQ29sbGVjdGlvbkJhc2UrbGlzdAADAAMIsgFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW0RldkV4cHJlc3MuWHRyYUdyaWQuQ29sdW1ucy5HcmlkQ29sdW1uU29ydEluZm8sIERldkV4cHJlc3MuWHRyYUdyaWQudjE1LjIsIFZlcnNpb249MTUuMi40LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YV1dCBxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AgAAAAAAAAAJAwAAAAAAAAAJBAAAAAQDAAAAsgFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW0RldkV4cHJlc3MuWHRyYUdyaWQuQ29sdW1ucy5HcmlkQ29sdW1uU29ydEluZm8sIERldkV4cHJlc3MuWHRyYUdyaWQudjE1LjIsIFZlcnNpb249MTUuMi40LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YV1dAwAAAAZfaXRlbXMFX3NpemUIX3ZlcnNpb24EAAAwRGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mb1tdAgAAAAgICQUAAAAAAAAAAAAAAAQEAAAAHFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QDAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgUAAAgICQYAAAABAAAABAAAAAcFAAAAAAEAAAAAAAAABC5EZXZFeHByZXNzLlh0cmFHcmlkLkNvbHVtbnMuR3JpZENvbHVtblNvcnRJbmZvAgAAABAGAAAABAAAAAkHAAAADQMMCAAAABlEZXZFeHByZXNzLlh0cmFHcmlkLnYxNS4yBQcAAAAuRGV2RXhwcmVzcy5YdHJhR3JpZC5Db2x1bW5zLkdyaWRDb2x1bW5Tb3J0SW5mbwIAAAAJU29ydE9yZGVyCkNvbHVtbk5hbWUAAQgIAAAAAQAAAAYJAAAAB2NvbE5hbWUL&lt;/property&gt;
 &lt;/XtraSerializer&gt;</globalSetting>
-    <globalSetting name="projectMruItems">&lt;?xml version='1.0' encoding='utf-8'?&gt;&lt;items&gt;&lt;item type="2" checksum="3624199977" /&gt;&lt;/items&gt;</globalSetting>
+    <globalSetting name="projectMruItems">&lt;?xml version='1.0' encoding='utf-8'?&gt;&lt;items&gt;&lt;item type="2" checksum="1524781484" /&gt;&lt;/items&gt;</globalSetting>
     <globalSetting name="CreateNewFileForm.prefixTextBox.Text">####</globalSetting>
     <globalSetting name="CreateNewFileForm.prefixCheckBox.Checked">False</globalSetting>
     <globalSetting name="CreateNewFileForm.referenceLanguageComboBox.SelectedIndex">0</globalSetting>
-    <globalSetting name="CreateNewFileForm.newLanguageComboBox.SelectedIndex">71</globalSetting>
+    <globalSetting name="CreateNewFileForm.newLanguageComboBox.SelectedIndex">718</globalSetting>
     <globalSetting name="CreateNewFileForm.copyTextsCheckBox.Checked">True</globalSetting>
     <globalSetting name="CreateNewFileForm.automaticallyTranslateCheckBox.Checked">True</globalSetting>
     <globalSetting name="autoTranslateForm.prefixTextBox.Text">#</globalSetting>
-    <globalSetting name="autoTranslateForm.prefixCheckBox.Checked">True</globalSetting>
+    <globalSetting name="autoTranslateForm.prefixCheckBox.Checked">False</globalSetting>
     <globalSetting name="autoTranslateForm.referenceLanguageComboBoxEdit.SelectedIndex">0</globalSetting>
-    <globalSetting name="autoTranslateForm.languagesToTranslateCheckListBox">
-    </globalSetting>
+    <globalSetting name="autoTranslateForm.languagesToTranslateCheckListBox">1</globalSetting>
     <globalSetting name="AddNewFileGroupForm.destinationLanguagesListBox">0;1;2</globalSetting>
     <globalSetting name="AddNewFileGroupForm.extensionComboBoxEdit">0</globalSetting>
     <globalSetting name="AddNewFileGroupForm.baseFolderTextEdit.Text">C:\Inetpub\wwwroot\bbstore\DesktopModules\BBStore\App_LocalResources</globalSetting>
@@ -74,21 +75,23 @@ Viele Grüße</globalSetting>
     </userSetting>
     <userSetting name="Torsten@TW-WIN8-DEVWEB.RecentFiles">C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.de-DE.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.es-ES.resx</userSetting>
     <userSetting name="Torsten@TW-WIN8-DEVWEB.filesInitialDir">C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources</userSetting>
+    <userSetting name="Torsten@TW-WIN10-DEVWEB.FindText">Template</userSetting>
+    <userSetting name="Torsten@TW-WIN10-DEVWEB.RecentFiles">C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditProduct.ascx.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditProduct.ascx.de-DE.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditProduct.ascx.es-ES.resx</userSetting>
     <description>
     </description>
   </configuration>
   <fileGroups>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="202" ignoreDuringExportAndImport="False" uniqueID="8cf61a22-9371-4a61-8221-c8781a666624">
+      <file filePath="App_LocalResources\EditCoupon.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditCoupon.ascx.resx" uniqueID="7cd32026-d7ac-48e8-adfe-8f5188c9223a" />
+      <file filePath="App_LocalResources\EditCoupon.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditCoupon.ascx.de-DE.resx" uniqueID="a573eb48-9ade-46b3-8434-5d43894300dd" />
+      <file filePath="App_LocalResources\EditCoupon.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditCoupon.ascx.es-ES.resx" uniqueID="04a84eaf-aeff-4a88-9058-7bba1cf75d58" />
+      <remarks>
+      </remarks>
+    </fileGroup>
     <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="203" ignoreDuringExportAndImport="False" uniqueID="f41babc4-9339-47ae-b468-17df9efa7ae7">
       <file filePath="App_LocalResources\EditFeatureList.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditFeatureList.ascx.resx" uniqueID="cd69937f-db33-490f-b914-024d1591ec68" />
       <file filePath="App_LocalResources\EditFeatureList.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditFeatureList.ascx.es-ES.resx" uniqueID="47072d99-75b5-4056-bf93-40d20cfe1106" />
       <file filePath="App_LocalResources\editfeaturelist.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\editfeaturelist.ascx.de-DE.resx" uniqueID="305cc778-c2ef-43a3-b1f2-1f99848f192c" />
-      <remarks>
-      </remarks>
-    </fileGroup>
-    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="275" ignoreDuringExportAndImport="False" uniqueID="2fbfb8c0-3047-4026-8714-affe9acbc90e">
-      <file filePath="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.resx" uniqueID="2f3be204-1f3b-475e-8acb-bd39eabbeae1" />
-      <file filePath="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.de-DE.resx" uniqueID="06f68e18-08de-4e4d-b11c-2725b54fff96" />
-      <file filePath="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.es-ES.resx" uniqueID="13fd2c8d-968f-4542-a8ae-22dfd8b4c958" />
       <remarks>
       </remarks>
     </fileGroup>
@@ -192,6 +195,13 @@ Viele Grüße</globalSetting>
       <file filePath="App_LocalResources\ViewAdmin.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdmin.ascx.resx" uniqueID="379a7aae-9de7-400b-87bf-a91e2d15b80a" />
       <file filePath="App_LocalResources\ViewAdmin.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdmin.ascx.de-DE.resx" uniqueID="3fcd7137-c53c-49f0-9ade-53241ecd05d3" />
       <file filePath="App_LocalResources\ViewAdmin.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdmin.ascx.es-ES.resx" uniqueID="e98dccae-1025-43a9-82e1-e58c55fc8b4f" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="247" ignoreDuringExportAndImport="False" uniqueID="6f9431d0-6275-498c-b9fd-fdb7af1b503c">
+      <file filePath="App_LocalResources\ViewAdminCoupon.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.resx" uniqueID="f9213f01-142d-4d3c-8daf-015f732e8b23" />
+      <file filePath="App_LocalResources\ViewAdminCoupon.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.de-DE.resx" uniqueID="9c0a1d33-6dd7-4258-b9a1-663a0aa216c5" />
+      <file filePath="App_LocalResources\ViewAdminCoupon.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.es-ES.resx" uniqueID="b2fd4d9c-e98d-473f-8558-b0e44397ef71" />
       <remarks>
       </remarks>
     </fileGroup>
@@ -343,6 +353,7 @@ Viele Grüße</globalSetting>
     <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="269" ignoreDuringExportAndImport="False" uniqueID="13f299bf-bc33-456b-9c2b-7bd65dceee28">
       <file filePath="Controls\App_LocalResources\TemplateControl.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\TemplateControl.ascx.resx" uniqueID="16ae3732-81a6-49d6-b73d-b1a380ffe14c" />
       <file filePath="Controls\App_LocalResources\TemplateControl.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\TemplateControl.ascx.de-DE.resx" uniqueID="be9ea348-7b5b-4a31-bb98-9e3d55d38465" />
+      <file filePath="Controls\App_LocalResources\TemplateControl.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Controls\App_LocalResources\TemplateControl.ascx.es-ES.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
       <remarks>
       </remarks>
     </fileGroup>
@@ -381,17 +392,10 @@ Viele Grüße</globalSetting>
       <remarks>
       </remarks>
     </fileGroup>
-    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="202" ignoreDuringExportAndImport="False" uniqueID="00000000-0000-0000-0000-000000000000">
-      <file filePath="App_LocalResources\EditCoupon.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditCoupon.ascx.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
-      <file filePath="App_LocalResources\EditCoupon.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditCoupon.ascx.de-DE.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
-      <file filePath="App_LocalResources\EditCoupon.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\EditCoupon.ascx.es-ES.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
-      <remarks>
-      </remarks>
-    </fileGroup>
-    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="247" ignoreDuringExportAndImport="False" uniqueID="00000000-0000-0000-0000-000000000000">
-      <file filePath="App_LocalResources\ViewAdminCoupon.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
-      <file filePath="App_LocalResources\ViewAdminCoupon.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.de-DE.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
-      <file filePath="App_LocalResources\ViewAdminCoupon.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.es-ES.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+    <fileGroup name="" projectFolderUniqueID="00000000-0000-0000-0000-000000000000" orderPosition="275" ignoreDuringExportAndImport="False" uniqueID="2fbfb8c0-3047-4026-8714-affe9acbc90e">
+      <file filePath="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.resx" uniqueID="2f3be204-1f3b-475e-8acb-bd39eabbeae1" />
+      <file filePath="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.de-DE.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.de-DE.resx" uniqueID="06f68e18-08de-4e4d-b11c-2725b54fff96" />
+      <file filePath="Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.es-ES.resx" absoluteFilePath="C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\Providers\Payment\App_LocalResources\PaymentProviderCC.ascx.es-ES.resx" uniqueID="13fd2c8d-968f-4542-a8ae-22dfd8b4c958" />
       <remarks>
       </remarks>
     </fileGroup>

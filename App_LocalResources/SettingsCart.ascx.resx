@@ -295,16 +295,16 @@
     <value>Target "Continue Shopping"</value>
   </data>
 	<data name="lblConfirmCart.Text" xml:space="preserve">
-		<value>Order confirmation message</value>
-	</data>
+    <value>Order confirmation message</value>
+  </data>
 	<data name="lblConfirmCart.Help" xml:space="preserve">
-		<value>Enter the text that you want to appear when the customer has placed an order. If wanted, use the placeholder [ORDERNO] to display the generated purchase order number</value>
-	</data>
+    <value>Enter the text that you want to appear when the customer has placed an order. If wanted, use the placeholder [ORDERNO] to display the generated purchase order number</value>
+  </data>
 	<data name="lblUnits.Text" xml:space="preserve">
-		<value>Unit</value>
-	</data>
+    <value>Unit</value>
+  </data>
 	<data name="lblAddressTemplate.Help" xml:space="preserve">
-		<value>Design the layout in which addresses should be shown and edited. Use token replace syntax :[TOKEN:Width (in pixel)]
+    <value>Design the layout in which addresses should be shown and edited. Use token replace syntax :[TOKEN:Width (in pixel)]
 Select the following tokens:
 &lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Token&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;
@@ -326,14 +326,26 @@ Select the following tokens:
 &lt;tr&gt;&lt;td&gt;FAX&lt;/td&gt;&lt;td&gt;Fax&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;EMAIL&lt;/td&gt;&lt;td&gt;Email&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;</value>
-	</data>
+  </data>
 	<data name="hdrTemplates.Text" xml:space="preserve">
-		<value>Templates</value>
-	</data>
+    <value>Templates</value>
+  </data>
 	<data name="lblTemplate.Text" xml:space="preserve">
-		<value>Mail template</value>
-	</data>
+    <value>Mail template</value>
+  </data>
 	<data name="lblTemplate.Help" xml:space="preserve">
-		<value>Select or edit / create the template for the order email</value>
-	</data>
+    <value>Select or edit / create the template for the order email</value>
+  </data>
+	<data name="lblCheckoutButtonCssClass.Help" xml:space="preserve">
+    <value>Enter the CSS Classes for the checkout button</value>
+  </data>
+	<data name="lblCheckoutButtonCssClass.Text" xml:space="preserve">
+    <value>Checkout-Button class</value>
+  </data>
+	<data name="lblShoppingButtonCssClass.Help" xml:space="preserve">
+    <value>Enter the CSS Classes for the shopping button</value>
+  </data>
+	<data name="lblShoppingButtonCssClass.Text" xml:space="preserve">
+    <value>Shopping-Button class</value>
+  </data>
 </root>

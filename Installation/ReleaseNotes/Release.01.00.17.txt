@@ -1,0 +1,12 @@
+﻿<h1>Releasenotes</h1>
+<p>
+	<h2>Version 1.0.17 on 2017/1/22</h2>
+	<ul>
+		<li>CssClasses for Cart-Buttons, Bugfix double 'Label1'</li>
+		<li>Fixed display of TemplateControl in Settings</li>
+		<li>Template editor / thumbnail creation re-done</li>
+		<li>Default Product Group added to ProductGroup Settings</li>
+		<li>Added Price table to product. Now its possible to add prices depending on the Role a user is in. If multiple roles match, the lowest price wins.</li>
+	</ul>
+</p>
+	

@@ -299,7 +299,8 @@
             $(MSBuildProjectDirectory)\**\*.js;
             $(MSBuildProjectDirectory)\**\*.template;
             $(MSBuildProjectDirectory)\**\*.htm;
-            $(MSBuildProjectDirectory)\**\*.htp;">
+            $(MSBuildProjectDirectory)\**\*.htp;
+            $(MSBuildProjectDirectory)\WebThumb\*.exe;">
 			<Output TaskParameter="Include" ItemName="resources" />
 		</CreateItem>
 		<!-- Include module png as IconFile in resources zip -->

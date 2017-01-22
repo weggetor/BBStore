@@ -76,12 +76,10 @@ namespace Bitboxx.DNNModules.BBStore
 
         // SimpleProduct methods
 		public abstract IDataReader GetSimpleProducts(int PortalId);
-		public abstract IDataReader GetSimpleProducts(int PortalId, string Language);
-        public abstract IDataReader GetSimpleProducts(int PortalId, string Language, string Sort);
-        public abstract IDataReader GetSimpleProducts(int PortalId, string Language, string Sort, string Where);
-		public abstract IDataReader GetSimpleProducts(int PortalId, string Language, string Sort, string Where, int Top);
+        public abstract IDataReader GetSimpleProductsStandardPrice(int PortalId, string Language, string Sort, string Where);
+        public abstract IDataReader GetSimpleProducts(int PortalId, string Language, string Sort, string Where, int Top, int userId, bool extendedPrice);
 		public abstract IDataReader GetSimpleProductByProductId(int PortalId, int ProductId);
-        public abstract IDataReader GetSimpleProductByProductId(int PortalId, int ProductId, string Language);
+        public abstract IDataReader GetSimpleProductByProductId(int PortalId, int ProductId, string Language, int userId, bool extendedPrice);
         public abstract IDataReader GetSimpleProductByModuleId(int PortalId, int ModuleId);
         public abstract IDataReader GetSimpleProductByModuleId(int PortalId, int ModuleId, string Language);
         public abstract int NewSimpleProduct(SimpleProductInfo SimpleProduct);
@@ -126,6 +124,14 @@ namespace Bitboxx.DNNModules.BBStore
 	    public abstract int SaveCustomer(CustomerInfo Customer);
         public abstract void DeleteCustomer(int CustomerId);
 
+        // ProductPrice methods
+        public abstract IDataReader GetProductPrices(int PortalId);
+        public abstract IDataReader GetProductPricesByProductId(int productId);
+        public abstract IDataReader GetProductPriceById(int ProductPriceId);
+        public abstract int NewProductPrice(ProductPriceInfo ProductPrice);
+        public abstract void UpdateProductPrice(ProductPriceInfo ProductPrice);
+        public abstract void DeleteProductPrice(int ProductPriceId);
+
         // CustomerAddress methods
         public abstract IDataReader GetCustomerAddress(int CustomerAddressId);
         public abstract IDataReader GetCustomerAddresses(int CustomerId);
@@ -146,10 +152,10 @@ namespace Bitboxx.DNNModules.BBStore
 	    public abstract void UpdateCartCustomerPaymentProviderId(Guid CartId, int CustomerPaymentProviderId);
         public abstract void UpdateCartCouponId(Guid cartId, int couponId);
     	public abstract string SerializeCart(Guid cartId);
-		public abstract CartInfo DeserializeCart(int portalId, int userId, Guid cartId, string cartXml);
+        public abstract CartInfo DeserializeCart(int portalId, int userId, Guid cartId, string cartXml, bool extendedPrice);
 
         // CartAddress methods
-		public abstract int GetCartAddressId(Guid cartid, string kzAddressType);
+        public abstract int GetCartAddressId(Guid cartid, string kzAddressType);
 		public abstract IDataReader GetCartAddressByTypeId(Guid cartid, int subscriberAddressTypeId);
 	    public abstract IDataReader GetCartAddressesByAddressId(Guid cartid, int customerAddressId);
 	    public abstract void UpdateCartAddressType(Guid cartId, int portalId, int subscriberId, int customerAddressId, string kzAdressType, bool set);

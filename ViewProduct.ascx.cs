@@ -111,6 +111,18 @@ namespace Bitboxx.DNNModules.BBStore
             }
         }
 
+        public Hashtable StoreSettings
+        {
+            get
+            {
+                if (_storeSettings == null)
+                {
+                    _storeSettings = Controller.GetStoreSettings(PortalId);
+                }
+                return _storeSettings;
+            }
+        }
+
         private BBStoreController _controller;
         private List<OptionListInfo> ProductOptions = new List<OptionListInfo>();
         private ModuleInfo CartModule;
@@ -137,6 +149,7 @@ namespace Bitboxx.DNNModules.BBStore
         private bool _hasCartModule = true;
         private bool _hasContactModule = true;
         private bool showNetPrice = true;
+        private Hashtable _storeSettings = null;
             
         
         #region "Event Handlers"
@@ -200,9 +213,10 @@ namespace Bitboxx.DNNModules.BBStore
             // Now we retrieve the SimpleProduct
             if (productId > -1)
             {
-				SimpleProduct = Controller.GetSimpleProductByProductId(PortalId, productId, CurrentLanguage);
+                bool extendedPrice = Convert.ToBoolean(StoreSettings["ExtendedPrice"]);
+                SimpleProduct = Controller.GetSimpleProductByProductId(PortalId, productId, CurrentLanguage,UserId, extendedPrice);
                 if (SimpleProduct == null)
-                    SimpleProduct = Controller.GetSimpleProductByProductId(PortalId, productId, DefaultLanguage);
+                    SimpleProduct = Controller.GetSimpleProductByProductId(PortalId, productId, DefaultLanguage,UserId, extendedPrice);
                 if (SimpleProduct == null)
                     IsConfigured = false;
             }

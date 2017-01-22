@@ -253,8 +253,11 @@ namespace Bitboxx.DNNModules.BBStore
                         ddlCartNavigationStyle.SelectedValue = (string) ModuleSettings["CartNavigationStyle"];
                     else
                         ddlCartNavigationStyle.SelectedIndex = 0;
-                    
-					Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
+
+                    txtShoppingButtonCssClass.Text = (string) ModuleSettings["ShoppingButtonCssClass"] ?? "";
+                    txtCheckoutButtonCssClass.Text = (string) ModuleSettings["CheckoutButtonCssClass"] ?? "";
+
+                    Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
                 	bool showNetPrice = ((string) storeSettings["ShowNetpriceInCart"] == "0");
 
 
@@ -365,8 +368,10 @@ namespace Bitboxx.DNNModules.BBStore
 				objModules.UpdateModuleSetting(ModuleId, "EnableCartDownload", chkEnableCartDownload.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "MultipleCustomers", chkMultipleCustomers.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "CartNavigationStyle", ddlCartNavigationStyle.SelectedValue);
+                objModules.UpdateModuleSetting(ModuleId, "ShoppingButtonCssClass", txtShoppingButtonCssClass.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "CheckoutButtonCssClass", txtCheckoutButtonCssClass.Text.Trim());
 
-				objModules.UpdateModuleSetting(ModuleId, "MandCompany", chkMandCompany.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "MandCompany", chkMandCompany.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "MandPrefix", chkMandPrefix.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "MandFirstname", chkMandFirstname.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "MandMiddlename", chkMandMiddlename.Checked.ToString());

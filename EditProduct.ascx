@@ -3,11 +3,13 @@
 <%@ Register TagPrefix="bb" TagName="TaxControl" Src="Controls/TaxControl.ascx" %>
 <%@ Register TagPrefix="bb" TagName="FeatureGridControl" Src="Controls/FeatureGridControl.ascx" %>
 <%@ Register TagPrefix="bb" TagName="LanguageEditor" Src="Controls/LanguageEditorControl.ascx" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <%@ Register TagPrefix="dnn" TagName="UrlControl" Src="~/controls/urlcontrol.ascx" %>  
 <div class="dnnForm bbstore-product-edit dnnClear" id="bbstore-editproduct">
     <ul class="dnnAdminTabNav">
         <li><a href="#pnlProduct"><%=LocalizeString("pnlProduct") %></a></li>
         <li><a href="#pnlLanguage"><%=LocalizeString("pnlLanguage") %></a></li>
+        <li><a href="#pnlPrice"><%=LocalizeString("pnlPrice") %></a></li>
         <li><a href="#pnlProductGroup"><%=LocalizeString("pnlProductGroup") %></a></li>
         <li><a href="#pnlProductGroupFeature"><%=LocalizeString("pnlProductGroupFeatures") %></a></li>
     </ul>
@@ -74,6 +76,102 @@
     </div>
     <div id="pnlLanguage">
         <bb:LanguageEditor ID="lngSimpleProducts" runat="server" InternalType="Bitboxx.DNNModules.BBStore.SimpleProductLangInfo" />
+    </div>
+    <div id="pnlPrice">
+        <asp:Panel runat="server" ID="pnlPriceList">
+            <asp:GridView ID="grdPriceList" runat="server" 
+	            AutoGenerateColumns="False" 
+	            DataKeyNames="ProductPriceId" 
+	            AllowPaging="False" 
+	            AllowSorting="False" 
+	            CellPadding="2"
+	            GridLines="None" 
+	            Width="100%"
+	            ShowFooter="True" 
+	            EnableModelValidation="True" 
+	            onrowcommand="grdPriceList_RowCommand" 
+	            onrowdatabound="grdPriceList_RowDataBound" 
+	            onrowcreated="grdPriceList_RowCreated" 
+	            onrowdeleting="grdPriceList_RowDeleting"	>
+	            <Columns>
+		            <asp:TemplateField ShowHeader="False">
+			            <ItemTemplate>
+				            <asp:ImageButton ID="imgDelete" runat="server" CausesValidation="false" CommandName="Delete"  CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ImageUrl="~/images/Delete.gif" />
+				            <asp:LinkButton ID="cmdSelect" runat="server" CausesValidation="false" CommandName="Select"></asp:LinkButton>
+			            </ItemTemplate>
+			            <FooterTemplate>
+				            <asp:ImageButton ID="imgNew" runat="server" ImageAlign="AbsMiddle" CausesValidation="false" CommandName="Insert" ImageUrl="~/images/Add.gif" />
+				            <asp:LinkButton ID="cmdNew" CommandName="Insert" CssClass="CommandButton" ResourceKey="New" runat="server"></asp:LinkButton>
+			            </FooterTemplate>
+		            </asp:TemplateField>
+		            <asp:BoundField DataField="ProductPriceId" HeaderText="ProductPriceId" SortExpression="ProductPriceId" />
+		            <asp:BoundField DataField="UnitCost" HeaderText="UnitCost"  SortExpression="UnitCost" DataFormatString="{0:n2}" >
+			            <ItemStyle HorizontalAlign="Right" />
+		            </asp:BoundField>
+		            <asp:BoundField DataField="OriginalUnitCost" HeaderText="OriginalUnitCost"  SortExpression="OriginalUnitCost" DataFormatString="{0:n2}" >
+			            <ItemStyle HorizontalAlign="Right" />
+		            </asp:BoundField>
+                    <asp:BoundField DataField="TaxPercent" HeaderText="TaxPercent"  SortExpression="TaxPercent" DataFormatString="{0:n1}" >
+			            <ItemStyle HorizontalAlign="Right" />
+		            </asp:BoundField>
+		            <asp:BoundField DataField="UserRole" HeaderText="UserRole" SortExpression="UserRole" />
+	                <asp:BoundField DataField="Startdate" HeaderText="Startdate"  SortExpression="Startdate" />
+                    <asp:BoundField DataField="EndDate" HeaderText="EndDate"  SortExpression="Enddate" />
+	            </Columns>
+	            <RowStyle CssClass="bbstore-admin-editgrid-row" />
+	            <SelectedRowStyle CssClass="bbstore-admin-editgrid-selectedrow" />
+	            <AlternatingRowStyle CssClass="bbstore-admin-editgrid-alternaterow" />
+	            <EditRowStyle CssClass="bbstore-admin-editgrid-selectedrow" />
+	            <FooterStyle CssClass="bbstore-admin-editgrid-footer" />
+	            <HeaderStyle CssClass="bbstore-admin-editgrid-header" />
+	            <PagerStyle CssClass="bbstore-admin-editgrid-pager" />
+	            <EmptyDataTemplate>
+		            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+			            <tr>
+				            <td valign="middle" class="bbstore-admin-editgrid-footer">
+					            <asp:ImageButton ID="imgNew" runat="server" ImageAlign="AbsMiddle" CausesValidation="false" CommandName="Insert" ImageUrl="~/images/Add.gif" />
+					            <asp:LinkButton ID="cmdNew" CommandName="Insert" CssClass="CommandButton" ResourceKey="New" runat="server"></asp:LinkButton>
+				            </td>
+			            </tr>
+		            </table>
+	            </EmptyDataTemplate>
+            </asp:GridView>
+        </asp:Panel>
+        <asp:Panel runat="server" ID="pnlPriceEdit" Visible="False">
+            <fieldset>
+		        <asp:HiddenField ID="hidProductPriceId" runat="server" />
+                <div class="dnnFormItem">
+                    <dnn:Label ID="lblPriceTaxPercent" runat="server" ControlName="txtPriceTaxPercent" Suffix=":" />
+                    <asp:TextBox ID="txtPriceTaxPercent" runat="server" Columns="5" />
+                    <asp:CompareValidator ID="valComPriceTaxPercent" runat="server" ControlToValidate="txtPriceTaxPercent" Resourcekey="ValidatorTaxPercent.Error"
+                                          Type="Double" Operator="DataTypeCheck" CultureInvariantValues="true" />
+                </div>
+                <div class="dnnFormItem">
+                    <dnn:Label ID="lblPriceUnitCost" runat="server" ControlName="taxPriceUnitCost" Suffix=":"/>
+                    <bb:TaxControl ID="taxPriceUnitCost" runat="server" Orientation="Horizontal" ShortCaps="false" />
+                </div>
+                <div class="dnnFormItem">
+                    <dnn:Label ID="lblPriceOriginalUnitCost" runat="server" ControlName="taxPriceOriginalUnitCost" Suffix=":" />
+                    <bb:TaxControl ID="taxPriceOriginalUnitCost" runat="server" Orientation="Horizontal" ShortCaps="false" />
+                </div>
+		        <div class="dnnFormItem">
+			        <dnn:Label ID="lblPriceRoleId" runat="server" ControlName="ddlPriceRoleId" Suffix=":"/>
+			        <asp:DropDownList ID="ddlPriceRoleId" runat="server" />
+		        </div>
+		        <div class="dnnFormItem">
+			        <dnn:Label ID="lblPriceStartdate" runat="server" ControlName="dtpPriceStartdate" Suffix=":"/>
+			        <dnn:DnnDatePicker ID="dtpPriceStartdate" runat="server" /> 
+		        </div>
+		        <div class="dnnFormItem">
+			        <dnn:Label ID="lblPriceEndDate" runat="server" ControlName="dtpPriceEndDate" Suffix=":"/>
+			        <dnn:DnnDatePicker ID="dtpPriceEndDate" runat="server" /> 
+		        </div>
+            </fieldset>
+            <ul class="dnnActions dnnClear" style="margin-left:20%">
+                <li><asp:LinkButton runat="server" ID="cmdSaveEditPrice" CssClass="dnnPrimaryAction" ResourceKey="cmdSaveEditPrice.Text" OnClick="cmdSaveEditPrice_OnClick"/></li>
+                <li><asp:LinkButton runat="server" ID="cmdCancelEditPrice" CssClass="dnnSecondaryAction" ResourceKey="cmdCancelEditPrice.Text" OnClick="cmdCancelEditPrice_OnClick"/></li>
+            </ul>
+        </asp:Panel>
     </div>
     <div id="pnlProductGroup">
         <div class="dnnFormMessage dnnFormInfo">

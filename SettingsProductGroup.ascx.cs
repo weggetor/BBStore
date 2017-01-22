@@ -72,6 +72,14 @@ namespace Bitboxx.DNNModules.BBStore
 				cboRootLevel.DataTextField = "ProductGroupName";
 				cboRootLevel.DataValueField = "ProductGroupId";
 				cboRootLevel.DataBind();
+
+                cboDefaultProductGroup.Items.Add(new ListItem(Localization.GetString("SelectOption.Text", this.LocalResourceFile), "-1"));
+                cboDefaultProductGroup.AppendDataBoundItems = true;
+                cboDefaultProductGroup.DataSource = pgl;
+                cboDefaultProductGroup.DataTextField = "ProductGroupName";
+                cboDefaultProductGroup.DataValueField = "ProductGroupId";
+                cboDefaultProductGroup.DataBind();
+
             }
             tplTemplate.CreateImageCallback = CreateThumbHtml;
             base.OnLoad(e);
@@ -123,8 +131,11 @@ namespace Bitboxx.DNNModules.BBStore
 
 					if (ModuleSettings["RootLevelFixed"] != null)
 						chkRootLevelFixed.Checked = Convert.ToBoolean(Settings["RootLevelFixed"]);
-					
-					if (ModuleSettings["ShowLevels"] != null)
+
+                    if (ModuleSettings["DefaultProductGroup"] != null)
+                        cboDefaultProductGroup.SelectedValue = (string)ModuleSettings["DefaultProductGroup"];
+
+                    if (ModuleSettings["ShowLevels"] != null)
 						txtShowLevels.Text = (string)ModuleSettings["ShowLevels"];
 					else
 						txtShowLevels.Text = "0";
@@ -175,7 +186,8 @@ namespace Bitboxx.DNNModules.BBStore
                 objModules.UpdateModuleSetting(ModuleId, "ShowIcons", chkShowIcons.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "RootLevel", cboRootLevel.SelectedValue);
 				objModules.UpdateModuleSetting(ModuleId, "RootLevelFixed", chkRootLevelFixed.Checked.ToString());
-				objModules.UpdateModuleSetting(ModuleId, "ShowLevels", txtShowLevels.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "DefaultProductGroup", cboDefaultProductGroup.SelectedValue);
+                objModules.UpdateModuleSetting(ModuleId, "ShowLevels", txtShowLevels.Text.Trim());
 				objModules.UpdateModuleSetting(ModuleId, "AllGroupsImage", BBStoreHelper.GetRelativeFilePath(AllGroupsImageSelector.Url));
 				objModules.UpdateModuleSetting(ModuleId, "ShowUpNavigation", chkShowUpNavigation.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "ShowThisNode", chkShowThisNode.Checked.ToString());

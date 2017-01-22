@@ -101,7 +101,8 @@ namespace Bitboxx.DNNModules.BBStore
 		}
 		public List<SimpleProductInfo> Products
 		{
-			get { return Controller.GetSimpleProducts(PortalId, CurrentLanguage, ProductSort, ProductFilter); }
+            //TODO: Hier unabhängig von User + extendedPrice Daten ermitteln !
+            get { return Controller.GetSimpleProductsStandardPrice(PortalId, CurrentLanguage, ProductSort, ProductFilter); }
 		}
 		protected string CurrentLanguage
 		{

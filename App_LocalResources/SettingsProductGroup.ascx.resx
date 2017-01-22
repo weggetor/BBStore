@@ -235,21 +235,27 @@
     <value>Show parent productgroup</value>
   </data>
 	<data name="lblRootLevelFixed.Help" xml:space="preserve">
-		<value>Check if the selected Root product group should be shown always </value>
-	</data>
+    <value>Check if the selected Root product group should be shown always </value>
+  </data>
 	<data name="lblRootLevelFixed.Text" xml:space="preserve">
-		<value>Fix root productgroup</value>
-	</data>
+    <value>Fix root productgroup</value>
+  </data>
 	<data name="lblShowThisNode.Text" xml:space="preserve">
-		<value>Show current product group</value>
-	</data>
+    <value>Show current product group</value>
+  </data>
 	<data name="lblShowThisNode.Help" xml:space="preserve">
-		<value>Check if you want to show the current product group</value>
-	</data>
+    <value>Check if you want to show the current product group</value>
+  </data>
 	<data name="lblShowSubNodes.Text" xml:space="preserve">
-		<value>Show Product Subgroups</value>
-	</data>
+    <value>Show Product Subgroups</value>
+  </data>
 	<data name="lblShowSubNodes.Help" xml:space="preserve">
-		<value>Check if you want to show the product subgroups</value>
-	</data>
+    <value>Check if you want to show the product subgroups</value>
+  </data>
+	<data name="lblDefaultProductGroup.Help" xml:space="preserve">
+    <value>Select optional a default product group</value>
+  </data>
+	<data name="lblDefaultProductGroup.Text" xml:space="preserve">
+    <value>Default product group</value>
+  </data>
 </root>

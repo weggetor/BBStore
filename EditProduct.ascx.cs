@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DotNetNuke.Common;
@@ -85,6 +86,14 @@ namespace Bitboxx.DNNModules.BBStore
             get { return this.PortalSettings.DefaultLanguage; }
         }
 
+        public IEnumerable<ProductPriceInfo> ProductPrices
+        {
+            get
+            {
+                return Controller.GetProductPricesByProductId(ProductId);
+            }
+        }
+
         #endregion
 
         #region "Event Handlers"
@@ -101,6 +110,21 @@ namespace Bitboxx.DNNModules.BBStore
                 this.LocalResourceFile = this.LocalResourceFile + FileName + ".ascx.resx";
         }
 
+        protected override void Render(HtmlTextWriter writer)
+        {
+            if (grdPriceList.Rows.Count > 0)
+            {
+                foreach (GridViewRow row in grdPriceList.Rows)
+                {
+                    if (row.RowType == DataControlRowType.DataRow)
+                    {
+                        row.Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grdPriceList, "Select$" + row.RowIndex, true));
+                    }
+                }
+            }
+            base.Render(writer);
+        }
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             try
@@ -109,6 +133,9 @@ namespace Bitboxx.DNNModules.BBStore
 
                 taxUnitCost.PercentControl = txtTaxPercent;
                 taxOriginalUnitCost.PercentControl = txtTaxPercent;
+
+                taxPriceUnitCost.PercentControl = txtPriceTaxPercent;
+                taxPriceOriginalUnitCost.PercentControl = txtPriceTaxPercent;
 
                 LocaleController lc = new LocaleController();
                 Dictionary<string, Locale> loc = lc.GetLocales(PortalId);
@@ -253,6 +280,28 @@ namespace Bitboxx.DNNModules.BBStore
                     newNode.ShowCheckBox = false;
                     treeProductGroup.Nodes.Add(newNode);
                     //newNode.Expanded = false;
+
+
+                    // Product Price
+                    Localization.LocalizeGridView(ref grdPriceList, LocalResourceFile);
+                    grdPriceList.DataSource = ProductPrices;
+                    grdPriceList.DataBind();
+
+                    RoleController roleController1 = new RoleController();
+                    //RoleInfo role = roleController.GetRole(Convert.ToInt32(storeSettings["SupplierRole"]), PortalId);
+                    ArrayList aRoles = roleController1.GetPortalRoles(PortalId);
+                    ListItemCollection roles = new ListItemCollection();
+                    foreach (RoleInfo role in aRoles)
+                    {
+                        roles.Add(new ListItem(role.RoleName, role.RoleID.ToString()));
+                    }
+                    string selText1 = Localization.GetString("SelectRole.Text", this.LocalResourceFile);
+                    roles.Insert(0, new ListItem(selText1, "-1"));
+                    ddlPriceRoleId.DataSource = roles;
+                    ddlPriceRoleId.DataValueField = "Value";
+                    ddlPriceRoleId.DataTextField = "Text";
+                    ddlPriceRoleId.DataBind();
+
                 }
                 if (HasProductFeatureModule)
                 {
@@ -455,5 +504,121 @@ namespace Bitboxx.DNNModules.BBStore
         }
 
         #endregion
+
+        protected void grdPriceList_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                switch (e.CommandName)
+                {
+                    case "Select":
+                        int index = Convert.ToInt32(e.CommandArgument);
+                        int productPriceId = (int)grdPriceList.DataKeys[index].Value;
+
+                        ProductPriceInfo price = Controller.GetProductPriceById(productPriceId);
+
+                        hidProductPriceId.Value = productPriceId.ToString();
+                        txtPriceTaxPercent.Text = price.TaxPercent.ToString();
+                        taxPriceUnitCost.Value = price.UnitCost;
+                        taxPriceUnitCost.Mode = "net";
+                        taxPriceOriginalUnitCost.Value = price.OriginalUnitCost;
+                        taxPriceOriginalUnitCost.Mode = "net";
+                        dtpPriceStartdate.SelectedDate = price.Startdate;
+                        dtpPriceEndDate.SelectedDate = price.EndDate;
+                        ddlPriceRoleId.SelectedValue = price.RoleId.ToString();
+
+                        pnlPriceEdit.Visible = true;
+                        pnlPriceList.Visible = false;
+                        break;
+
+                    case "Insert":
+
+                        hidProductPriceId.Value = "-1";
+                        txtPriceTaxPercent.Text = 0.0m.ToString();
+                        taxPriceUnitCost.Value = 0.00m; ;
+                        taxPriceUnitCost.Mode = "net";
+                        taxPriceOriginalUnitCost.Value = 0.00m;
+                        taxPriceOriginalUnitCost.Mode = "net";
+                        dtpPriceStartdate.SelectedDate = DateTime.Now;
+                        dtpPriceEndDate.SelectedDate = null;
+                        ddlPriceRoleId.SelectedValue = "-1";
+
+                        pnlPriceEdit.Visible = true;
+                        pnlPriceList.Visible = false;
+                        break;
+                }
+            }
+            catch (Exception exc)
+            {
+                //Module failed to load 
+                Exceptions.ProcessModuleLoadException(this, exc);
+            }
+        }
+
+        protected void grdPriceList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.cursor='pointer';";
+            }
+        }
+
+        protected void grdPriceList_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                int m = e.Row.Cells.Count;
+                for (int i = m - 1; i >= 1; i--)
+                {
+                    e.Row.Cells.RemoveAt(i);
+                }
+                e.Row.Cells[0].ColumnSpan = m;
+            }
+        }
+
+        protected void grdPriceList_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            var dataKey = grdPriceList.DataKeys[e.RowIndex];
+            if (dataKey != null)
+            {
+                int productPriceId = (int)dataKey.Value;
+                Controller.DeleteProductPrice(productPriceId);
+            }
+            grdPriceList.DataSource = ProductPrices;
+            grdPriceList.DataBind();
+        }
+
+        protected void cmdCancelEditPrice_OnClick(object sender, EventArgs e)
+        {
+            pnlPriceList.Visible = true;
+            pnlPriceEdit.Visible = false;
+        }
+
+        protected void cmdSaveEditPrice_OnClick(object sender, EventArgs e)
+        {
+            ProductPriceInfo price = new ProductPriceInfo();
+            price.UnitCost = taxPriceUnitCost.Value;
+            price.OriginalUnitCost = taxPriceOriginalUnitCost.Value;
+            price.TaxPercent = Convert.ToDecimal(txtTaxPercent.Text.Trim());
+            price.Startdate = dtpPriceStartdate.SelectedDate;
+            price.EndDate = dtpPriceEndDate.SelectedDate;
+            price.RoleId = Convert.ToInt32(ddlPriceRoleId.SelectedValue);
+            price.SimpleProductId = ProductId;
+
+            int productPriceId = Convert.ToInt32(hidProductPriceId.Value);
+            if (productPriceId < 0)
+                Controller.NewProductPrice(price);
+            else
+            {
+                price.ProductPriceId = productPriceId;
+                Controller.UpdateProductPrice(price);
+            }
+
+            grdPriceList.DataSource = ProductPrices;
+            grdPriceList.DataBind();
+
+            pnlPriceList.Visible = true;
+            pnlPriceEdit.Visible = false;
+        }
     }
 }

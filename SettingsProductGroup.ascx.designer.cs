@@ -121,6 +121,24 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.CheckBox chkRootLevelFixed;
         
         /// <summary>
+        /// lblDefaultProductGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblDefaultProductGroup;
+        
+        /// <summary>
+        /// cboDefaultProductGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cboDefaultProductGroup;
+        
+        /// <summary>
         /// pnlShowLevels control.
         /// </summary>
         /// <remarks>
