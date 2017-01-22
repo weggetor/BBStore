@@ -274,6 +274,177 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::Bitboxx.DNNModules.BBStore.LanguageEditorControl lngSimpleProducts;
         
         /// <summary>
+        /// pnlPriceList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlPriceList;
+        
+        /// <summary>
+        /// grdPriceList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdPriceList;
+        
+        /// <summary>
+        /// pnlPriceEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlPriceEdit;
+        
+        /// <summary>
+        /// hidProductPriceId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidProductPriceId;
+        
+        /// <summary>
+        /// lblPriceTaxPercent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblPriceTaxPercent;
+        
+        /// <summary>
+        /// txtPriceTaxPercent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPriceTaxPercent;
+        
+        /// <summary>
+        /// valComPriceTaxPercent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator valComPriceTaxPercent;
+        
+        /// <summary>
+        /// lblPriceUnitCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblPriceUnitCost;
+        
+        /// <summary>
+        /// taxPriceUnitCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Bitboxx.DNNModules.BBStore.TaxControl taxPriceUnitCost;
+        
+        /// <summary>
+        /// lblPriceOriginalUnitCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblPriceOriginalUnitCost;
+        
+        /// <summary>
+        /// taxPriceOriginalUnitCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Bitboxx.DNNModules.BBStore.TaxControl taxPriceOriginalUnitCost;
+        
+        /// <summary>
+        /// lblPriceRoleId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblPriceRoleId;
+        
+        /// <summary>
+        /// ddlPriceRoleId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPriceRoleId;
+        
+        /// <summary>
+        /// lblPriceStartdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblPriceStartdate;
+        
+        /// <summary>
+        /// dtpPriceStartdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DotNetNuke.Web.UI.WebControls.DnnDatePicker dtpPriceStartdate;
+        
+        /// <summary>
+        /// lblPriceEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblPriceEndDate;
+        
+        /// <summary>
+        /// dtpPriceEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DotNetNuke.Web.UI.WebControls.DnnDatePicker dtpPriceEndDate;
+        
+        /// <summary>
+        /// cmdSaveEditPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton cmdSaveEditPrice;
+        
+        /// <summary>
+        /// cmdCancelEditPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton cmdCancelEditPrice;
+        
+        /// <summary>
         /// treeProductGroup control.
         /// </summary>
         /// <remarks>

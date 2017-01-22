@@ -118,40 +118,40 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="cmdCancelEdit.Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelar</value>
   </data>
 	<data name="cmdEdit.Text" xml:space="preserve">
-    <value>Edit</value>
+    <value>Editar</value>
   </data>
 	<data name="cmdNew.Text" xml:space="preserve">
-    <value>New</value>
+    <value>Nuevo</value>
   </data>
 	<data name="cmdSave.Text" xml:space="preserve">
-    <value>Save</value>
+    <value>Guardar</value>
   </data>
 	<data name="lblFileCap.Text" xml:space="preserve">
-    <value>File</value>
+    <value>Archivo</value>
   </data>
 	<data name="lblHelp.Help" xml:space="preserve">
-    <value>Information about the usable placeholders for this template</value>
+    <value>Información sobre los marcadores de posición utilizables para esta plantilla</value>
   </data>
 	<data name="lblHelp.Text" xml:space="preserve">
-    <value>Help</value>
+    <value>Ayuda</value>
   </data>
 	<data name="lblLanguage.Text" xml:space="preserve">
-    <value>Select Language</value>
+    <value>Seleccionar idioma</value>
   </data>
 	<data name="lblMode.Text" xml:space="preserve">
-    <value>Select Mode</value>
+    <value>Seleccionar el modo de</value>
   </data>
 	<data name="lblName.Text" xml:space="preserve">
-    <value>Name</value>
+    <value>Nombre</value>
   </data>
 	<data name="lblTemplate.Help" xml:space="preserve">
-    <value>Select the appropriate template for display</value>
+    <value>Seleccione la plantilla adecuada para la exhibición</value>
   </data>
 	<data name="lblTemplate.Text" xml:space="preserve">
-    <value>Template</value>
+    <value>Plantilla</value>
   </data>
 	<data name="rblMode0.Text" xml:space="preserve">
     <value>Host</value>
@@ -160,6 +160,6 @@
     <value>Portal</value>
   </data>
 	<data name="valNameRequired.Error" xml:space="preserve">
-    <value>Name is required!</value>
+    <value>Nombre es requerido.</value>
   </data>
 </root>

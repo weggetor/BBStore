@@ -210,7 +210,7 @@ You can specify the difference in price by an additional letter. Use "&lt;strong
     <value>Enter the tax value in percent with max. 1 decimal digit</value>
   </data>
 	<data name="lblUnitCost.Help" xml:space="preserve">
-    <value>Enter the Unit cost in net or gross. Entering in one textbox and leaving this fills the other textbox with the corresponding value depending on the defined tax percent</value>
+    <value>Enter the Unit cost in net or gross. </value>
   </data>
 	<data name="Dynamic.Message" xml:space="preserve">
     <value>Dynamic modules could not be edited. Please select a product first</value>
@@ -258,48 +258,120 @@ You can specify the difference in price by an additional letter. Use "&lt;strong
     <value>Refresh</value>
   </data>
 	<data name="lblSupplier.Text" xml:space="preserve">
-		<value>Supplier</value>
-	</data>
+    <value>Supplier</value>
+  </data>
 	<data name="lblSupplier.Help" xml:space="preserve">
-		<value>Enter the supplier of the product</value>
-	</data>
+    <value>Enter the supplier of the product</value>
+  </data>
 	<data name="SelectSupplier.Text" xml:space="preserve">
-		<value>(Select supplier)</value>
-	</data>
+    <value>(Select supplier)</value>
+  </data>
 	<data name="lblUnit.Text" xml:space="preserve">
-		<value>Unit</value>
-	</data>
+    <value>Unit</value>
+  </data>
 	<data name="lblUnit.Help" xml:space="preserve">
-		<value>Select the appropriate Unit for your product</value>
-	</data>
+    <value>Select the appropriate Unit for your product</value>
+  </data>
 	<data name="SelectUnit.Text" xml:space="preserve">
-		<value>(Select Unit)</value>
-	</data>
+    <value>(Select Unit)</value>
+  </data>
 	<data name="pnlProduct.Text" xml:space="preserve">
-		<value>Product</value>
-	</data>
+    <value>Product</value>
+  </data>
 	<data name="pnlProductGroup.Text" xml:space="preserve">
-		<value>ProductGroups</value>
-	</data>
+    <value>ProductGroups</value>
+  </data>
 	<data name="pnlProductGroupFeatures.Text" xml:space="preserve">
-		<value>Features</value>
-	</data>
+    <value>Features</value>
+  </data>
 	<data name="pnlLanguage.Text" xml:space="preserve">
-		<value>Text</value>
-	</data>
+    <value>Text</value>
+  </data>
 	<data name="cmdRefresh.Text" xml:space="preserve">
-		<value>Refresh images</value>
-	</data>
+    <value>Refresh images</value>
+  </data>
 	<data name="lblWeight.Help" xml:space="preserve">
-		<value>Enter the weight of 1 product</value>
-	</data>
+    <value>Enter the weight of 1 product</value>
+  </data>
 	<data name="lblWeight.Text" xml:space="preserve">
-		<value>Weight</value>
-	</data>
+    <value>Weight</value>
+  </data>
 	<data name="lblShippingModel.Text" xml:space="preserve">
-		<value>Shipping Model</value>
-	</data>
+    <value>Shipping Model</value>
+  </data>
 	<data name="lblShippingModel.Help" xml:space="preserve">
-		<value>Select the corresponding shipping model for the product</value>
-	</data>
+    <value>Select the corresponding shipping model for the product</value>
+  </data>
+	<data name="cmdCancelEditPrice.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+	<data name="cmdSaveEditPrice.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+	<data name="lblPriceEndDate.Help" xml:space="preserve">
+    <value>Select a date until this price is valid</value>
+  </data>
+	<data name="lblPriceEndDate.Text" xml:space="preserve">
+    <value>End date</value>
+  </data>
+	<data name="lblPriceOriginalUnitCost.Help" xml:space="preserve">
+    <value>If this product has a special offer price, enter the normal price here and special price in "Unit Price", otherwise set this value to 0.00.</value>
+  </data>
+	<data name="lblPriceOriginalUnitCost.Text" xml:space="preserve">
+    <value>Original Price</value>
+  </data>
+	<data name="lblPriceRoleId.Help" xml:space="preserve">
+    <value>Select the corresponding user role for the price. If multiple use roles match to the user, the lowest price wins</value>
+  </data>
+	<data name="lblPriceRoleId.Text" xml:space="preserve">
+    <value>Userrole</value>
+  </data>
+	<data name="lblPriceStartdate.Help" xml:space="preserve">
+    <value>Select a date from where this price is valid</value>
+  </data>
+	<data name="lblPriceStartdate.Text" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+	<data name="lblPriceTaxPercent.Help" xml:space="preserve">
+    <value>Enter the tax value in percent with max. 1 decimal digit</value>
+  </data>
+	<data name="lblPriceTaxPercent.Text" xml:space="preserve">
+    <value>Tax %</value>
+  </data>
+	<data name="lblPriceUnitCost.Help" xml:space="preserve">
+    <value>Enter the Unit cost in net or gross.</value>
+  </data>
+	<data name="lblPriceUnitCost.Text" xml:space="preserve">
+    <value>Unit Price</value>
+  </data>
+	<data name="New.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+	<data name="pnlPrice.Text" xml:space="preserve">
+    <value>Price</value>
+  </data>
+	<data name="SelectRole.Text" xml:space="preserve">
+    <value>(Select Role)</value>
+  </data>
+	<data name="EndDate.Header" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+	<data name="OriginalUnitCost.Header" xml:space="preserve">
+    <value>Original price</value>
+  </data>
+	<data name="ProductPriceId.Header" xml:space="preserve">
+    <value>ID</value>
+  </data>
+	<data name="Startdate.Header" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+	<data name="TaxPercent.Header" xml:space="preserve">
+    <value>Tax %</value>
+  </data>
+	<data name="UnitCost.Header" xml:space="preserve">
+    <value>Price</value>
+  </data>
+	<data name="UserRole.Header" xml:space="preserve">
+    <value>Role</value>
+  </data>
 </root>

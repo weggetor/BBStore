@@ -402,4 +402,11 @@
 	<data name="SMTPSettingsManual.Text" xml:space="preserve">
 		<value>Einstellungen eintragen</value>
 	</data>
+	<data name="lblExtendedPrice.Help" xml:space="preserve">
+		<value>Wenn angehakt: Nur Produkte mit Preisen aus der zusätzlichen Preistabelle, bei denen auch der Gültigkeitszeitraum sowie die zugeordnete Benutzerrolle zum angemeldeten Benutzer passen werden angezeigt. Wird kein entsprechender Datensatz gefunden wird dieser Artikel nicht angezeigt. 
+Wenn nicht angehakt und kein entsprechender Datensatz in der Preistabelle vorhanden, wird in diesem Fall der Preis aus der Produkttabelle verwendet. Der Artikel wird in jedem Fall angezeigt.</value>
+	</data>
+	<data name="lblExtendedPrice.Text" xml:space="preserve">
+		<value>Erweitertes Preismodell</value>
+	</data>
 </root>

@@ -161,6 +161,10 @@ IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}CustomerPay
 	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart]  DROP CONSTRAINT [FK_{objectQualifier}CustomerPaymentProvider_Cart]
 go
 
+IF EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Product_Price' and type='F')
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductPrice] DROP CONSTRAINT [FK_{objectQualifier}Product_Price]
+go
+
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider]') and OBJECTPROPERTY(id, N'IsTable') = 1)
 	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_CustomerPaymentProvider]
 go
@@ -483,6 +487,10 @@ go
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductShippingModel]') and OBJECTPROPERTY(id, N'IsTable') = 1)
 	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductShippingModel]
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ProductPrice]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	DROP TABLE {databaseOwner}[{objectQualifier}BBStore_ProductPrice]
 go
 
 /************************************************************/

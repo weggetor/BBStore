@@ -205,6 +205,7 @@
       <DependentUpon>EditCoupon.ascx</DependentUpon>
     </Compile>
     <Compile Include="Infoclasses\ModuleKindEnum.cs" />
+    <Compile Include="Infoclasses\ProductPriceInfo.cs" />
     <Compile Include="Infoclasses\ProductShippingModelInfo.cs" />
     <Compile Include="Infoclasses\ShippingCostInfo.cs" />
     <Compile Include="Infoclasses\ShippingModelInfo.cs" />
@@ -640,6 +641,7 @@
     </Content>
     <Content Include="App_LocalResources\SettingsAdmin.ascx.resx" />
     <Content Include="App_LocalResources\EditCoupon.ascx.resx" />
+    <Content Include="Installation\ReleaseNotes\Release.01.00.17.txt" />
     <Content Include="Webthumb\wkhtmltoimage.exe" />
     <EmbeddedResource Include="App_LocalResources\SettingsCart.ascx.resx">
       <SubType>Designer</SubType>
@@ -833,6 +835,7 @@
     </Content>
     <Content Include="Installation\01.00.13.SqlDataProvider" />
     <Content Include="Installation\01.00.14 .SqlDataProvider" />
+    <Content Include="Installation\01.00.17.SqlDataProvider" />
     <None Include="Installation\Uninstall.SqlDataProvider" />
     <Content Include="Templates\ProductList\tokens.de-DE.htp" />
     <Content Include="Templates\ProductList\tokens.htp" />

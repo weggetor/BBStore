@@ -77,6 +77,7 @@ namespace Bitboxx.DNNModules.BBStore
 		private SimpleProductInfo SimpleProduct;
 		private List<SimpleProductInfo> _products;
 	    private int _productsPerPage = 25;
+	    private Hashtable _storeSettings = null;
 		#endregion
 
 		#region Properties
@@ -274,10 +275,12 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			get
 			{
-				if (_products == null)
-					_products = Controller.GetSimpleProducts(PortalId, CurrentLanguage, SortExpression, WhereExpression, TopN);
+			    if (_products == null)
+			    {
+			        bool extendedPrice = Convert.ToBoolean(StoreSettings["ExtendedPrice"]);
+                    _products = Controller.GetSimpleProducts(PortalId, CurrentLanguage, SortExpression, WhereExpression, TopN, UserId, extendedPrice);
+                }
 				return _products;
-			
 			}
 		}
         
@@ -320,6 +323,18 @@ namespace Bitboxx.DNNModules.BBStore
 				return (user.IsInRole("Administrators") && IsEditable);
 			}
 		}
+
+	    public Hashtable StoreSettings
+	    {
+	        get
+	        {
+	            if (_storeSettings == null)
+	            {
+	                _storeSettings = Controller.GetStoreSettings(PortalId);
+                }
+	            return _storeSettings;
+	        }
+	    }
 		
 		#endregion
 
@@ -703,10 +718,7 @@ namespace Bitboxx.DNNModules.BBStore
 					if (lblTitle != null)
 						lblTitle.Text = SimpleProduct.Name;
 
-					Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
-					
-					bool showNetPrice = (storeSettings.Count > 0) && ((string) storeSettings["ShowNetpriceInCart"] == "0");
-					
+					bool showNetPrice = (StoreSettings.Count > 0) && ((string) StoreSettings["ShowNetpriceInCart"] == "0");
 
 					decimal unitCost = SimpleProduct.UnitCost;
 					decimal originalUnitCost = SimpleProduct.OriginalUnitCost;

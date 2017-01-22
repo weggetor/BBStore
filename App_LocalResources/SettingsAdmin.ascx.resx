@@ -402,4 +402,11 @@
 	<data name="SMTPSettingsManual.Text" xml:space="preserve">
     <value>Enter Settings</value>
   </data>
+	<data name="lblExtendedPrice.Help" xml:space="preserve">
+    <value>if checked, only products with prices defined in additional price table matching user roles and date validities are shown. Products with no matching record in this table are not shown overall.
+If not checked, no valid record in this table results into using standard price from main product table. If a record matches, the matching price will be used.</value>
+  </data>
+	<data name="lblExtendedPrice.Text" xml:space="preserve">
+    <value>Extended Price Model</value>
+  </data>
 </root>

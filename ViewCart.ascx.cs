@@ -725,7 +725,8 @@ namespace Bitboxx.DNNModules.BBStore
                 System.Text.UTF8Encoding enc = new UTF8Encoding();
                 string xml = enc.GetString(fileData);
 
-                CartInfo cart = Controller.DeserializeCart(PortalId, UserId, CartId, xml);
+                bool extendedPrice = Convert.ToBoolean(StoreSettings["ExtendedPrice"]);
+                CartInfo cart = Controller.DeserializeCart(PortalId, UserId, CartId, xml, extendedPrice);
                 //CustomerId = cart.CustomerID;
             }
             pnlEmptyCart.Visible = false;

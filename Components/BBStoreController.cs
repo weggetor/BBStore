@@ -144,29 +144,22 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProducts(PortalId));
         }
-        public List<SimpleProductInfo> GetSimpleProducts(int PortalId, string Language)
+
+        public List<SimpleProductInfo> GetSimpleProductsStandardPrice(int PortalId, string Language, string Sort, string Where)
         {
-            return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProducts(PortalId,Language));
+            return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProductsStandardPrice(PortalId, Language, Sort, Where));
         }
-        public List<SimpleProductInfo> GetSimpleProducts(int PortalId, string Language, string Sort)
+        public List<SimpleProductInfo> GetSimpleProducts(int PortalId, string Language, string Sort, string Where, int Top, int userId, bool extendedPrice)
         {
-            return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProducts(PortalId, Language, Sort));
-        }
-        public List<SimpleProductInfo> GetSimpleProducts(int PortalId, string Language, string Sort, string Where)
-        {
-            return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProducts(PortalId, Language, Sort, Where));
-        }
-        public List<SimpleProductInfo> GetSimpleProducts(int PortalId, string Language, string Sort, string Where, int Top)
-        {
-            return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProducts(PortalId, Language, Sort, Where, Top));
+            return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProducts(PortalId, Language, Sort, Where, Top, userId, extendedPrice));
         }
         public SimpleProductInfo GetSimpleProductByProductId(int PortalId, int ProductId)
         {
             return (SimpleProductInfo)CBO.FillObject(DataProvider.Instance().GetSimpleProductByProductId(PortalId, ProductId), typeof(SimpleProductInfo));
         }
-        public SimpleProductInfo GetSimpleProductByProductId(int PortalId, int ProductId, string Language)
+        public SimpleProductInfo GetSimpleProductByProductId(int PortalId, int ProductId, string Language, int userId, bool extendedPrice)
         {
-            return (SimpleProductInfo)CBO.FillObject(DataProvider.Instance().GetSimpleProductByProductId(PortalId, ProductId, Language), typeof(SimpleProductInfo));
+            return (SimpleProductInfo)CBO.FillObject(DataProvider.Instance().GetSimpleProductByProductId(PortalId, ProductId, Language, userId, extendedPrice), typeof(SimpleProductInfo));
         }
         public SimpleProductInfo GetSimpleProductByModuleId(int PortalId, int ModuleId)
         {
@@ -273,7 +266,32 @@ namespace Bitboxx.DNNModules.BBStore
             DataProvider.Instance().DeleteSimpleProductLang(SimpleProductId, Language);
         }
 
-        
+        // ProductPrice methods
+        public ProductPriceInfo GetProductPriceById(int ProductPriceId)
+        {
+            return (ProductPriceInfo)CBO.FillObject(DataProvider.Instance().GetProductPriceById(ProductPriceId), typeof(ProductPriceInfo));
+        }
+        public List<ProductPriceInfo> GetProductPrices(int PortalId)
+        {
+            return CBO.FillCollection<ProductPriceInfo>(DataProvider.Instance().GetProductPrices(PortalId));
+        }
+        public List<ProductPriceInfo> GetProductPricesByProductId(int productId)
+        {
+            return CBO.FillCollection<ProductPriceInfo>(DataProvider.Instance().GetProductPricesByProductId(productId));
+        }
+        public int NewProductPrice(ProductPriceInfo ProductPrice)
+        {
+            return DataProvider.Instance().NewProductPrice(ProductPrice);
+        }
+        public void UpdateProductPrice(ProductPriceInfo ProductPrice)
+        {
+            DataProvider.Instance().UpdateProductPrice(ProductPrice);
+        }
+        public void DeleteProductPrice(int ProductPriceId)
+        {
+            DataProvider.Instance().DeleteProductPrice(ProductPriceId);
+        }
+
         // Customer methods
         public List<CustomerInfo> GetCustomersByUserId(int portalId, int userId)
         {
@@ -375,9 +393,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return DataProvider.Instance().SerializeCart(cartId);
         }
-        public CartInfo DeserializeCart(int portalId, int userId, Guid cartId, string cartXml)
+        public CartInfo DeserializeCart(int portalId, int userId, Guid cartId, string cartXml, bool extendedPrice)
         {
-            return DataProvider.Instance().DeserializeCart(portalId, userId, cartId, cartXml);
+            return DataProvider.Instance().DeserializeCart(portalId, userId, cartId, cartXml, extendedPrice);
         }
 
         // CartAddress methods

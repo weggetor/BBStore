@@ -183,6 +183,8 @@ namespace Bitboxx.DNNModules.BBStore
                     else
                         opgShowNetpriceInCart.SelectedIndex = 1;
 
+                    if (ModuleSettings["ExtendedPrice"] != null)
+                        chkExtendedPrice.Checked = Convert.ToBoolean(ModuleSettings["ExtendedPrice"]);
 
                     if (ModuleSettings["TermsUrl"] != null)
                         urlSelectTerms.Url = (string)ModuleSettings["TermsUrl"];
@@ -232,7 +234,8 @@ namespace Bitboxx.DNNModules.BBStore
 
                 objModules.UpdateModuleSetting(ModuleId, "InitialKey", txtInitialKey.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "ShowNetpriceInCart", opgShowNetpriceInCart.SelectedValue);
-				objModules.UpdateModuleSetting(ModuleId, "TermsUrl", urlSelectTerms.Url);
+                objModules.UpdateModuleSetting(ModuleId, "ExtendedPrice", chkExtendedPrice.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "TermsUrl", urlSelectTerms.Url);
 				objModules.UpdateModuleSetting(ModuleId, "TermsMandatory", chkTermsMandatory.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "CancelTermsMandatory", chkCancelTermsMandatory.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "CancelTerms", txtCancelTerms.Text.Trim());

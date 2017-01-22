@@ -141,18 +141,91 @@ namespace Bitboxx.DNNModules.BBStore
         #region "Public Methods"
 
         // SimpleProduct methods
-        public override IDataReader GetSimpleProducts(int PortalId, string Language, string Sort, string Where, int Top)
+        public override IDataReader GetSimpleProducts(int PortalId, string Language, string Sort, string Where, int Top, int userId, bool extendedPrice)
         {
-            string selCmd = "SELECT ";
+            string selCmd = "DECLARE @Today dateTime = GetDate();" +
+                            "" +
+                            "WITH ProductPrices AS" +
+                            " (SELECT SimpleProductID," +
+                            "   UnitCost," +
+                            "   OriginalUnitCost," +
+                            "   TaxPercent," +
+                            "   DENSE_RANK() OVER(PARTITION BY SimpleProductId ORDER BY UnitCost) AS costRank" +
+                            " FROM  " + Prefix + "ProductPrice" +
+                            " WHERE (RoleID is Null OR RoleID IN (SELECT RoleID FROM UserRoles WHERE UserID = " + userId.ToString() + "))" +
+                            "   AND ISNull(StartDate, @Today) <= @Today" +
+                            "   AND IsNull(EndDate, @Today) > DateAdd(d, -1, @Today)" +
+                            ") ";
+
+
+            selCmd += "SELECT ";
             if (Top > 0)
-                selCmd += "TOP " + Top.ToString();
-            selCmd += " SimpleProduct.SimpleProductId, SimpleProduct.SubscriberId,SimpleProduct.SupplierId, " +
-                      " SimpleProduct.PortalId,SimpleProduct.Image, SimpleProduct.UnitCost, SimpleProduct.OriginalUnitCost," +
-                      " SimpleProduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
-                      " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
-                      " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,SimpleProduct.Disabled,SimpleProduct.NoCart," +
-                      " SimpleProduct.Weight,"+
-                      " Lang.ShortDescription,Lang.ProductDescription, Lang.Attributes, Lang.Name,";
+                selCmd += "TOP " + Top.ToString() + " ";
+            selCmd += "SimpleProduct.SimpleProductId," +
+                      "SimpleProduct.SubscriberId," +
+                      "SimpleProduct.SupplierId, " +
+                      "SimpleProduct.PortalId," +
+                      "SimpleProduct.Image,";
+
+            if (extendedPrice)
+            {
+                selCmd += "ProductPrices.UnitCost," +
+                          "ProductPrices.OriginalUnitCost," +
+                          "ProductPrices.TaxPercent,";
+            }
+            else
+            {
+                selCmd += "IsNull(ProductPrices.UnitCost, SimpleProduct.UnitCost) AS UnitCost," +
+                          "IsNull(ProductPrices.OriginalUnitCost, SimpleProduct.OriginalUnitCost) AS OriginalUnitCost," +
+                          "IsNull(ProductPrices.TaxPercent, SimpleProduct.TaxPercent) AS TaxPercent,";
+            }
+            selCmd += "SimpleProduct.HideCost," +
+                      "SimpleProduct.UnitId," +
+                      "SimpleProduct.ItemNo," +
+                      "SimpleProduct.CreatedOnDate," +
+                      "SimpleProduct.CreatedByUserId," +
+                      "SimpleProduct.LastModifiedOnDate," +
+                      "SimpleProduct.LastModifiedByUserId," +
+                      "SimpleProduct.Disabled," +
+                      "SimpleProduct.NoCart," +
+                      "SimpleProduct.Weight," +
+                      "Lang.ShortDescription," +
+                      "Lang.ProductDescription," +
+                      "Lang.Attributes," +
+                      "Lang.Name,";
+            if (Sort.ToLower() == "random")
+                selCmd += " CAST(1001 * RAND(CHECKSUM(NEWID())) AS INTEGER) AS 'SortNo'";
+            else
+                selCmd += " 0 AS 'SortNo'";
+
+            selCmd += " FROM " + Prefix + "SimpleProduct SimpleProduct" +
+                      " INNER JOIN " + Prefix + "SimpleProductLang Lang ON SimpleProduct.SimpleProductId = Lang.SimpleProductId" +
+                      (extendedPrice ? " INNER JOIN ": " LEFT OUTER JOIN ") +
+                      " ProductPrices ON SimpleProduct.SimpleProductId = ProductPrices.SimpleProductID AND ProductPrices.CostRank = 1" +
+                      " WHERE SimpleProduct.PortalId = " + PortalId.ToString() +
+                      " AND Lang.Language = '" + Language + "'" +
+                      (Where != String.Empty ? " AND " + Where : "");
+
+            if (Sort != String.Empty)
+            {
+                if (Sort.ToLower() == "random")
+                    selCmd += " ORDER BY SortNo";
+                else
+                    selCmd += " ORDER BY " + Sort;
+            }
+
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
+        }
+        public override IDataReader GetSimpleProductsStandardPrice(int PortalId, string Language, string Sort, string Where)
+        {
+            string selCmd = "SELECT " +
+                            " SimpleProduct.SimpleProductId, SimpleProduct.SubscriberId,SimpleProduct.SupplierId, " +
+                            " SimpleProduct.PortalId,SimpleProduct.Image, SimpleProduct.UnitCost, SimpleProduct.OriginalUnitCost," +
+                            " SimpleProduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
+                            " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
+                            " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,SimpleProduct.Disabled,SimpleProduct.NoCart," +
+                            " SimpleProduct.Weight," +
+                            " Lang.ShortDescription,Lang.ProductDescription, Lang.Attributes, Lang.Name,";
             if (Sort.ToLower() == "random")
                 selCmd += " CAST(1001 * RAND(CHECKSUM(NEWID())) AS INTEGER) AS 'SortNo'";
             else
@@ -174,18 +247,7 @@ namespace Bitboxx.DNNModules.BBStore
 
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
-        public override IDataReader GetSimpleProducts(int PortalId, string Language, string Sort, string Where)
-        {
-            return GetSimpleProducts(PortalId, Language, Sort, Where, 0);
-        }
-        public override IDataReader GetSimpleProducts(int PortalId, string Language, string Sort)
-        {
-            return GetSimpleProducts(PortalId, Language, Sort, "", 0);
-        }
-        public override IDataReader GetSimpleProducts(int PortalId, string Language)
-        {
-            return GetSimpleProducts(PortalId, Language, "", "", 0);
-        }
+
         public override IDataReader GetSimpleProducts(int PortalId)
         {
             string selCmd = "SELECT SimpleProduct.SimpleProductId, SimpleProduct.SubscriberId,SimpleProduct.SupplierId, " +
@@ -210,21 +272,61 @@ namespace Bitboxx.DNNModules.BBStore
 
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
-        public override IDataReader GetSimpleProductByProductId(int PortalId, int ProductId, string Language)
+        public override IDataReader GetSimpleProductByProductId(int PortalId, int ProductId, string Language, int userId, bool extendedPrice)
         {
-            string selCmd = "SELECT SimpleProduct.SimpleProductId, SimpleProduct.SubscriberId,SimpleProduct.SupplierId, " +
-                " SimpleProduct.PortalId,SimpleProduct.Image, SimpleProduct.UnitCost, SimpleProduct.OriginalUnitCost,"+
-                " Simpleproduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
-                " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
-                " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,SimpleProduct.Disabled,SimpleProduct.NoCart," +
-                " SimpleProduct.Weight," +
-                " Lang.ShortDescription,Lang.ProductDescription, Lang.Attributes, Lang.Name," +
-                " 0 AS 'SortNo'" +
-                " FROM " + Prefix + "SimpleProduct SimpleProduct" +
-                " INNER JOIN " + Prefix + "SimpleProductLang Lang ON SimpleProduct.SimpleProductId = Lang.SimpleProductId" +
-                " WHERE SimpleProduct.PortalId = " + PortalId.ToString() +
-                " AND SimpleProduct.SimpleProductId = " + ProductId.ToString() +
-                " AND Lang.Language = '" + Language + "'";
+            string selCmd = "DECLARE @Today dateTime = GetDate();" +
+                "" +
+                "WITH ProductPrices AS" +
+                " (SELECT SimpleProductID," +
+                "   UnitCost," +
+                "   OriginalUnitCost," +
+                "   TaxPercent," +
+                "   DENSE_RANK() OVER(PARTITION BY SimpleProductId ORDER BY UnitCost) AS costRank" +
+                " FROM  " + Prefix + "ProductPrice" +
+                " WHERE (RoleID is Null OR RoleID IN (SELECT RoleID FROM UserRoles WHERE UserID = " + userId.ToString() + "))" +
+                "   AND ISNull(StartDate, @Today) <= @Today" +
+                "   AND IsNull(EndDate, @Today) > DateAdd(d, -1, @Today)" +
+                ") ";
+
+            selCmd += "SELECT " +
+                      "SimpleProduct.SimpleProductId," +
+                      "SimpleProduct.SubscriberId," +
+                      "SimpleProduct.SupplierId," +
+                      "SimpleProduct.PortalId," +
+                      "SimpleProduct.Image,";
+            if (extendedPrice)
+            {
+                selCmd += "ProductPrices.UnitCost," +
+                          "ProductPrices.OriginalUnitCost," +
+                          "ProductPrices.TaxPercent,";
+            }
+            else
+            {
+                selCmd += "IsNull(ProductPrices.UnitCost, SimpleProduct.UnitCost) AS UnitCost," +
+                          "IsNull(ProductPrices.OriginalUnitCost, SimpleProduct.OriginalUnitCost) AS OriginalUnitCost," +
+                          "IsNull(ProductPrices.TaxPercent, SimpleProduct.TaxPercent) AS TaxPercent,";
+            }
+            selCmd += "Simpleproduct.HideCost," +
+                      "SimpleProduct.UnitId," +
+                      "SimpleProduct.ItemNo," +
+                      "SimpleProduct.CreatedOnDate," +
+                      "SimpleProduct.CreatedByUserId," +
+                      "SimpleProduct.LastModifiedOnDate," +
+                      "SimpleProduct.LastModifiedByUserId," +
+                      "SimpleProduct.Disabled,SimpleProduct.NoCart," +
+                      "SimpleProduct.Weight," +
+                      "Lang.ShortDescription," +
+                      "Lang.ProductDescription," +
+                      "Lang.Attributes," +
+                      "Lang.Name," +
+                      "0 AS 'SortNo'" +
+                      " FROM " + Prefix + "SimpleProduct SimpleProduct" +
+                      " INNER JOIN " + Prefix + "SimpleProductLang Lang ON SimpleProduct.SimpleProductId = Lang.SimpleProductId" +
+                      (extendedPrice ? " INNER JOIN " : " LEFT OUTER JOIN ") +
+                      " ProductPrices ON SimpleProduct.SimpleProductId = ProductPrices.SimpleProductID AND ProductPrices.CostRank = 1" +
+                      " WHERE SimpleProduct.PortalId = " + PortalId.ToString() +
+                      " AND SimpleProduct.SimpleProductId = " + ProductId.ToString() +
+                      " AND Lang.Language = '" + Language + "'";
 
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
@@ -591,6 +693,90 @@ namespace Bitboxx.DNNModules.BBStore
                  "WHERE SimpleProductId = " + SimpleProductId.ToString();
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd);
         }
+
+        // ProductPrice methods
+        public override IDataReader GetProductPrices(int PortalId)
+        {
+            string selCmd = "SELECT pp.*,r.RoleName AS UserRole" +
+                " FROM " + GetFullyQualifiedName("ProductPrice") + " pp" +
+                " INNER JOIN Roles r ON pp.RoleId = r.RoleId" +
+                " WHERE SimpleProductId IN (SELECT SimpleProductId FROM " + GetFullyQualifiedName("SimpleProduct") + " WHERE PortalId = @PortalId)" +
+                " ORDER BY ProductPriceId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
+        }
+
+        public override IDataReader GetProductPricesByProductId(int productId)
+        {
+            string selCmd = "SELECT pp.*,r.RoleName AS UserRole" +
+                " FROM " + GetFullyQualifiedName("ProductPrice") + " pp" +
+                " INNER JOIN Roles r ON pp.RoleId = r.RoleId" +
+                " WHERE SimpleProductId = @ProductId" +
+                " ORDER BY StartDate DESC, UnitCost ASC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("ProductId", productId));
+        }
+
+        public override IDataReader GetProductPriceById(int ProductPriceId)
+        {
+            string selCmd = "SELECT pp.*,r.RoleName AS UserRole" +
+                            " FROM " + GetFullyQualifiedName("ProductPrice") + " pp" +
+                            " INNER JOIN Roles r ON pp.RoleId = r.RoleId" +
+                            " WHERE ProductPriceId = @ProductPriceId";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("ProductPriceId", ProductPriceId));
+        }
+        public override int NewProductPrice(ProductPriceInfo ProductPrice)
+        {
+            string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("ProductPrice") +
+                " (SimpleProductId,UnitCost,OriginalUnitCost,TaxPercent,RoleId,Startdate,EndDate)" +
+                " VALUES " +
+                " (@SimpleProductId,@UnitCost,@OriginalUnitCost,@TaxPercent,@RoleId,@Startdate,@EndDate) SELECT CAST(scope_identity() AS INTEGER);";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("ProductPriceId", ProductPrice.ProductPriceId),
+                                           new SqlParameter("SimpleProductId", ProductPrice.SimpleProductId),
+                                           new SqlParameter("UnitCost", ProductPrice.UnitCost),
+                                           new SqlParameter("OriginalUnitCost", ProductPrice.OriginalUnitCost),
+                                           new SqlParameter("TaxPercent", ProductPrice.TaxPercent),
+                                           new SqlParameter("RoleId", ProductPrice.RoleId),
+                                           new SqlParameter("Startdate", ProductPrice.Startdate),
+                                           new SqlParameter("EndDate", ProductPrice.EndDate)
+                                       };
+
+            return (int)SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
+        }
+        public override void UpdateProductPrice(ProductPriceInfo ProductPrice)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("ProductPrice") + " SET " +
+                " SimpleProductId = @SimpleProductId," +
+                " UnitCost = @UnitCost," +
+                " OriginalUnitCost = @OriginalUnitCost," +
+                " TaxPercent = @TaxPercent," +
+                " RoleId = @RoleId," +
+                " Startdate = @Startdate," +
+                " EndDate = @EndDate" +
+                " WHERE ProductPriceId = @ProductPriceId";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("ProductPriceId", ProductPrice.ProductPriceId),
+                                           new SqlParameter("SimpleProductId", ProductPrice.SimpleProductId),
+                                           new SqlParameter("UnitCost", ProductPrice.UnitCost),
+                                           new SqlParameter("OriginalUnitCost", ProductPrice.OriginalUnitCost),
+                                           new SqlParameter("TaxPercent", ProductPrice.TaxPercent),
+                                           new SqlParameter("RoleId", ProductPrice.RoleId),
+                                           new SqlParameter("Startdate", ProductPrice.Startdate),
+                                           new SqlParameter("EndDate", ProductPrice.EndDate)
+                                       };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
+        public override void DeleteProductPrice(int ProductPriceId)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("ProductPrice") +
+                " WHERE ProductPriceId = @ProductPriceId";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("ProductPriceId", ProductPriceId));
+        }
+
 
         // Customer methods
         public override IDataReader GetCustomerById(int CustomerId)
@@ -1015,7 +1201,7 @@ namespace Bitboxx.DNNModules.BBStore
             byte[] utf8EncodedData = stream.ToArray();
             return enc.GetString(utf8EncodedData);
         }
-        public override CartInfo DeserializeCart(int portalId, int userId,Guid cartId, string cartXml)
+        public override CartInfo DeserializeCart(int portalId, int userId,Guid cartId, string cartXml, bool extendedPrice)
         {
             CartInfo cart = new CartInfo();
             try
@@ -1107,7 +1293,7 @@ namespace Bitboxx.DNNModules.BBStore
 
                 if (productId > 0)
                 {
-                    IDataReader dr = GetSimpleProductByProductId(portalId, productId, System.Threading.Thread.CurrentThread.CurrentCulture.Name);
+                    IDataReader dr = GetSimpleProductByProductId(portalId, productId, System.Threading.Thread.CurrentThread.CurrentCulture.Name, userId, extendedPrice);
                     SimpleProductInfo product = (SimpleProductInfo)CBO.FillObject(dr, typeof(SimpleProductInfo));
                     if (product != null)
                     {

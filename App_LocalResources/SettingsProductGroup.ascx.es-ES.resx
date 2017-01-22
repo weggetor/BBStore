@@ -252,4 +252,10 @@
 	<data name="lblShowSubNodes.Help" xml:space="preserve">
 		<value>Marque si desea mostrar los grupos de producto infantil</value>
 	</data>
+	<data name="lblDefaultProductGroup.Help" xml:space="preserve">
+		<value>Opcional Seleccione un grupo de producto predeterminado</value>
+	</data>
+	<data name="lblDefaultProductGroup.Text" xml:space="preserve">
+		<value>Grupo de producto predeterminado</value>
+	</data>
 </root>

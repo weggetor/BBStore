@@ -146,7 +146,7 @@ namespace Bitboxx.DNNModules.BBStore
 		protected override void OnPreRender(EventArgs e)
 		{
 			base.OnPreRender(e);
-			List<SimpleProductInfo> products = _controller.GetSimpleProducts(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort, Where);
+            List<SimpleProductInfo> products = _controller.GetSimpleProductsStandardPrice(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort, Where);
 			GridView1.DataSource = products;
 			GridView1.DataBind();
 
@@ -176,7 +176,7 @@ namespace Bitboxx.DNNModules.BBStore
                     }
 					else
 					{
-						SimpleProductInfo pi = _controller.GetSimpleProductByProductId(PortalId, ProductId, CurrentLanguage);
+						SimpleProductInfo pi = _controller.GetSimpleProductByProductId(PortalId, ProductId, CurrentLanguage, UserId, false);
 					    if (pi != null)
 					        lblSelected.Text = "(" + ProductId.ToString() + ") " + pi.ItemNo + " " + pi.Name;
 					    else
@@ -295,14 +295,14 @@ namespace Bitboxx.DNNModules.BBStore
 			Sort = e.SortExpression;
 			_pageIndex = 0;
 			GridView1.PageIndex = _pageIndex;
-			GridView1.DataSource = _controller.GetSimpleProducts(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort);
+            GridView1.DataSource = _controller.GetSimpleProductsStandardPrice(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort,"");
 			GridView1.DataBind();
 		}
 		protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			_pageIndex = e.NewPageIndex;
 			GridView1.PageIndex = _pageIndex;
-			GridView1.DataSource = _controller.GetSimpleProducts(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort);
+            GridView1.DataSource = _controller.GetSimpleProductsStandardPrice(PortalId, Thread.CurrentThread.CurrentCulture.Name, Sort,"");
 			GridView1.DataBind();
 		}
 

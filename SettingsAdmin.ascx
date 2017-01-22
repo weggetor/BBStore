@@ -35,6 +35,10 @@
             </asp:RadioButtonList>
         </div>
         <div class="dnnFormItem">
+            <dnn:Label id="lblExtendedPrice" runat="server" controlname="chkExtendedPrice" suffix=":"/>
+            <asp:CheckBox ID="chkExtendedPrice" runat="server" />
+        </div>
+        <div class="dnnFormItem">
             <dnn:Label id="lblOrderMask" runat="server" controlname="txtOrderMask" suffix=":"/>
             <asp:TextBox ID="txtOrderMask" runat="server" />
         </div>

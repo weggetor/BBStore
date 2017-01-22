@@ -401,4 +401,12 @@
 	<data name="SMTPSettingsManual.Text" xml:space="preserve">
 		<value>Acceder a los ajustes</value>
 	</data>
+	<data name="lblExtendedPrice.Help" xml:space="preserve">
+		<value>Si está marcada, sólo productos con precios definición en tabla de precio adicional juego de roles de usuario y se muestra la validez de la fecha. Productos con no. coincidencia de registro en esta tabla no se muestran general.
+
+Si no, ningún registro válido en esta tabla resulta en utilizar el precio estándar de la tabla principal. Si coincide con un registro, se utilizará el precio correspondiente.</value>
+	</data>
+	<data name="lblExtendedPrice.Text" xml:space="preserve">
+		<value>Precio modelo extendido</value>
+	</data>
 </root>
