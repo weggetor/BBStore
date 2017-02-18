@@ -142,11 +142,15 @@ namespace Bitboxx.DNNModules.BBStore
                                     propertyInfo.SetValue(fg, text, null);
                                 else
                                 {
-                                    string newValue = "###" + fg.Language + " " + text;
-                                    int maxLength = GetAttribute(propertyInfo).MaxLength;
-                                    if (newValue.Length > maxLength)
-                                        newValue = newValue.Substring(0, maxLength);
-                                    propertyInfo.SetValue(fg,newValue, null);
+                                    if (!String.IsNullOrEmpty(text))
+                                    {
+                                        string newValue = "###" + fg.Language + " " + text;
+
+                                        int maxLength = GetAttribute(propertyInfo).MaxLength;
+                                        if (newValue.Length > maxLength)
+                                            newValue = newValue.Substring(0, maxLength);
+                                        propertyInfo.SetValue(fg, newValue, null);
+                                    }
                                 }
                             }
                         }

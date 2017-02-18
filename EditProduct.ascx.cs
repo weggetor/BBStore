@@ -140,11 +140,14 @@ namespace Bitboxx.DNNModules.BBStore
                 LocaleController lc = new LocaleController();
                 Dictionary<string, Locale> loc = lc.GetLocales(PortalId);
 
+                //TODO: Panels ausblenden wenn kein Modul verwendet
+
                 ModuleController objModules = new ModuleController();
                 if (objModules.GetModuleByDefinition(PortalId, "BBStore Product Groups") == null)
                     HasProductGroupModule = false;
-                // if (objModules.GetModuleByDefinition(PortalId, "BBStore Product Features") == null)
-                //	TODO:HasProductFeatureModule = false;
+
+                if (objModules.GetModuleByDefinition(PortalId, "BBStore Product Features") == null)
+                    HasProductFeatureModule = false;
 
                 Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
                 if (storeSettings != null)
@@ -599,7 +602,7 @@ namespace Bitboxx.DNNModules.BBStore
             ProductPriceInfo price = new ProductPriceInfo();
             price.UnitCost = taxPriceUnitCost.Value;
             price.OriginalUnitCost = taxPriceOriginalUnitCost.Value;
-            price.TaxPercent = Convert.ToDecimal(txtTaxPercent.Text.Trim());
+            price.TaxPercent = Convert.ToDecimal(txtPriceTaxPercent.Text.Trim());
             price.Startdate = dtpPriceStartdate.SelectedDate;
             price.EndDate = dtpPriceEndDate.SelectedDate;
             price.RoleId = Convert.ToInt32(ddlPriceRoleId.SelectedValue);

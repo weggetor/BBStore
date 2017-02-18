@@ -2241,7 +2241,7 @@ namespace Bitboxx.DNNModules.BBStore
 
         public LicenseDataInfo GetLicense(int portalId, bool forceUpdate)
         {
-            IPAddress hostIp = Dns.GetHostAddresses(PortalSettings.Current.PortalAlias.HTTPAlias)[0];
+            //IPAddress hostIp = Dns.GetHostAddresses(PortalSettings.Current.PortalAlias.HTTPAlias)[0];
             return new LicenseDataInfo("bitboxx.net", "BB", -1, 255, 1, null);
         }
 
