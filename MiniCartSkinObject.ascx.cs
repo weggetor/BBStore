@@ -54,12 +54,18 @@ namespace Bitboxx.DNNModules.BBStore
 			{
 				List<CartProductInfo> myProducts = _controller.GetCartProducts(CartId);
 
-				string template = _itemTemplate;
+                ModuleController objModules = new ModuleController();
+                ModuleInfo cartModule = objModules.GetModuleByDefinition(PortalSettings.PortalId, "BBStore Cart");
 
-				ModuleController objModules = new ModuleController();
-				ModuleInfo cartModule = objModules.GetModuleByDefinition(PortalSettings.PortalId, "BBStore Cart");
+                Hashtable storeSettings = _controller.GetStoreSettings(PortalSettings.PortalId);
 
-				Hashtable storeSettings = _controller.GetStoreSettings(PortalSettings.PortalId);
+                string template = _itemTemplate;
+
+			    if (!String.IsNullOrEmpty((string) storeSettings["MiniCartTemplate"]))
+			        template = (string) storeSettings["MiniCartTemplate"];
+
+			    bool hideIfEmpty = Convert.ToBoolean(storeSettings["HideMiniCartIfEmpty"] ?? "false");
+				
 				bool showNetPrice = (storeSettings["ShowNetpriceInCart"].ToString() == "0");
 				decimal total = myCart.OrderTotal + myCart.AdditionalTotal;
 				
@@ -72,13 +78,17 @@ namespace Bitboxx.DNNModules.BBStore
 					productCount += cp.Quantity;
 				}
 
-                template = template.Replace("[PRODUCTS]", productCount.ToString("f0"));
-                template = template.Replace("[TOTAL]", total.ToString("f2"));
-                template = template.Replace("[CURRENCY]", myCart.Currency);
-                template = template.Replace("[CARTLINK]", (cartModule == null ? "" : Globals.NavigateURL(cartModule.TabID)));
-                template = template.Replace("[CHECKOUTLINK]", (cartModule == null ? "" : Globals.NavigateURL(cartModule.TabID, "", "action=checkout")));
-
-				ltrMiniCart.Text = template;
+			    if (hideIfEmpty && total <= 0)
+			        template = "";
+			    else
+			    {
+			        template = template.Replace("[PRODUCTS]", productCount.ToString("f0"));
+			        template = template.Replace("[TOTAL]", total.ToString("f2"));
+			        template = template.Replace("[CURRENCY]", myCart.Currency);
+			        template = template.Replace("[CARTLINK]", (cartModule == null ? "" : Globals.NavigateURL(cartModule.TabID)));
+			        template = template.Replace("[CHECKOUTLINK]", (cartModule == null ? "" : Globals.NavigateURL(cartModule.TabID, "", "action=checkout")));
+			    }
+			    ltrMiniCart.Text = template;
 				
 			}
 		}

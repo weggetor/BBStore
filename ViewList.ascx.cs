@@ -335,17 +335,32 @@ namespace Bitboxx.DNNModules.BBStore
 	            return _storeSettings;
 	        }
 	    }
+
+	    public bool UseBootstrap
+	    {
+	        get { return SelectView == 2; }
+	    }
+
+	    public int SelectView
+	    {
+	        get { return (Convert.ToInt32(Settings["SelectView"] ?? "0")); }
+	    }
 		
 		#endregion
 
 		#region Event Handlers
 		protected void Page_Init(object sender, System.EventArgs e)
 		{
-			if (Settings["ProductsInRow"] != null && Settings["ProductsPerPage"] != null)
+		    lstProducts.Visible = SelectView == 0;
+		    lstProductsBS3.Visible = SelectView == 1;
+		    lstProductsSimple.Visible = SelectView == 2;
+
+            if (Settings["ProductsInRow"] != null && Settings["ProductsPerPage"] != null)
 			{
 				IsConfigured = true;
 				lstProducts.GroupItemCount = Int32.Parse((string)Settings["ProductsInRow"]);
-			}
+                lstProductsBS3.GroupItemCount = Int32.Parse((string)Settings["ProductsInRow"]);
+            }
 			else
 			{
 				string message = Localization.GetString("Configure.Message", this.LocalResourceFile);
@@ -370,7 +385,6 @@ namespace Bitboxx.DNNModules.BBStore
 				fi.PortalId = PortalId;
 				Controller.NewProductFilter(fi);
 			}
-
 		}
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
@@ -404,10 +418,26 @@ namespace Bitboxx.DNNModules.BBStore
 					ddlSortBox.SelectedValue = SortExpression;
 					Pager.PageSize = ProductsPerPage;
 
-					lstProducts.DataSource = Products;
-					lstProducts.DataBind();
-
-				}
+				    switch (SelectView)
+				    {
+                        case 0:
+                            lstProducts.DataSource = Products;
+                            lstProducts.DataBind();
+				            break;
+                        case 1:
+                            lstProductsBS3.DataSource = Products;
+                            lstProductsBS3.DataBind();
+				            break;
+                        case 2:
+                            ltrSimpleHeader.Text = (string)Settings["SimpleHeader"];
+                            ltrSimpleFooter.Text = (string)Settings["SimpleFooter"];
+				            foreach (SimpleProductInfo product in Products)
+				            {
+				                phSimpleItems.Controls.Add(RenderItem(product));
+				            }
+				            break;
+				    }
+                }
 			}
 			catch (Exception exc)
 			{
@@ -539,30 +569,57 @@ namespace Bitboxx.DNNModules.BBStore
 
         protected override void Render(HtmlTextWriter writer)
 		{
-			foreach (ListViewDataItem dataItem in lstProducts.Items)
-			{
-				if (dataItem.ItemType == ListViewItemType.DataItem)
-				{
-					Button btn = dataItem.FindControl("cmdSelect") as Button;
-					string script = Page.ClientScript.GetPostBackClientHyperlink(btn, "", true);
-					Panel p = dataItem.FindControl("pnlItem") as Panel;
-					p.Attributes.Add("onclick", script);
-				}
-			}
-			base.Render(writer);
+            switch (SelectView)
+            {
+                case 0:
+                    foreach (ListViewDataItem dataItem in lstProducts.Items)
+                    {
+                        if (dataItem.ItemType == ListViewItemType.DataItem)
+                        {
+                            Button btn = dataItem.FindControl("cmdSelect") as Button;
+                            string script = Page.ClientScript.GetPostBackClientHyperlink(btn, "", true);
+                            Panel p = dataItem.FindControl("pnlItem") as Panel;
+                            p.Attributes.Add("onclick", script);
+                        }
+                    }
+                    break;
+                case 1:
+                    foreach (ListViewDataItem dataItem in lstProductsBS3.Items)
+                    {
+                        if (dataItem.ItemType == ListViewItemType.DataItem)
+                        {
+                            Button btn = dataItem.FindControl("cmdSelect") as Button;
+                            string script = Page.ClientScript.GetPostBackClientHyperlink(btn, "", true);
+                            Panel p = dataItem.FindControl("pnlItem") as Panel;
+                            p.Attributes.Add("onclick", script);
+                        }
+                    }
+                    break;
+            }
+            base.Render(writer);
 		}
 
 		protected void Pager_PreRender(object sender, EventArgs e)
 		{
-			lstProducts.DataSource = Products;
-			lstProducts.DataBind();
-		}
+            switch (SelectView)
+            {
+                case 0:
+                    lstProducts.DataSource = Products;
+                    lstProducts.DataBind();
+                    break;
+                case 1:
+                    lstProductsBS3.DataSource = Products;
+                    lstProductsBS3.DataBind();
+                    break;
+            }
+        }
 
 		protected void ddlSort_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			DropDownList ddl = sender as DropDownList;
 			lstProducts.Sort(ddl.SelectedValue,SortDirection.Ascending);
-			Pager.SetPageProperties(0, Pager.PageSize, true);
+            lstProductsBS3.Sort(ddl.SelectedValue, SortDirection.Ascending);
+            Pager.SetPageProperties(0, Pager.PageSize, true);
             Response.Redirect(Globals.NavigateURL(TabId));
 		}
 		
@@ -575,7 +632,8 @@ namespace Bitboxx.DNNModules.BBStore
 				ProductsPerPage = size;
 				Pager.PageSize = size;
 				lstProducts.Sort(ddlSortBox.SelectedValue, SortDirection.Ascending);
-				Pager.SetPageProperties(0, Pager.PageSize, true);
+                lstProductsBS3.Sort(ddlSortBox.SelectedValue, SortDirection.Ascending);
+                Pager.SetPageProperties(0, Pager.PageSize, true);
 			}
 		}
 
@@ -584,207 +642,32 @@ namespace Bitboxx.DNNModules.BBStore
 
 			if (IsConfigured)
 			{
-				string Template;
-				int imageWidth = 200;
 				ListView lv = sender as ListView;
 				ListViewDataItem item = e.Item as ListViewDataItem;
-				SimpleProduct = item.DataItem as SimpleProductInfo;
-				if (SimpleProduct != null)
+                SimpleProductInfo product = item.DataItem as SimpleProductInfo;
+
+				if (product != null)
 				{
 					Panel pnl = e.Item.FindControl("pnlItem") as Panel;
 					pnl.Attributes["onmouseover"] = "this.style.cursor='pointer';";
 					
 					PlaceHolder ph = e.Item.FindControl("productPlaceholder") as PlaceHolder;
 
-				    TemplateControl tp = LoadControl("controls/TemplateControl.ascx") as TemplateControl;
-				    tp.Key = "ProductList";
-                    Template = tp.GetTemplate((string)Settings["Template"]);
-					
-					//Template = ProductTemplate;
-					Template = Template.Replace("[ITEMNO]", "<asp:Label ID=\"lblItemNo\" runat=\"server\" />");
-					Template = Template.Replace("[PRODUCTSHORTDESCRIPTION]", "<asp:Label ID=\"lblShortDescription\" runat=\"server\" />");
-					Template = Template.Replace("[PRODUCTDESCRIPTION]", "<asp:Literal ID=\"ltrProductDescription\" Mode=\"PassThrough\" runat=\"server\" />");
-					Template = Template.Replace("[PRICE]", "<asp:Label ID=\"lblPrice\" runat=\"server\" />");
-					Template = Template.Replace("[ORIGINALPRICE]", "<asp:Label ID=\"lblOriginalPrice\" runat=\"server\" />");
-				    
-                    int linkCnt = 0;
-				    while (Template.Contains("[LINK]"))
-				    {
-				        linkCnt ++;
-                        Template = Template.ReplaceFirst("[LINK]", "<asp:Literal ID=\"ltrLink" + linkCnt.ToString() + "\" runat=\"server\" />");
-				    }
-                    
-					if (Template.IndexOf("[IMAGE") > -1)
-					{
-						if (Template.IndexOf("[IMAGE:") > -1)
-						{
-							string width = Template.Substring(Template.IndexOf("[IMAGE:") + 7);
-							width = width.Substring(0, width.IndexOf("]"));
-							if (Int32.TryParse(width, out imageWidth) == false)
-								imageWidth = 200;
-							Template = Template.Replace("[IMAGE:" + width + "]", "<asp:PlaceHolder ID=\"phimgProduct\" runat=\"server\" />");
-						}
-						else
-							Template = Template.Replace("[IMAGE]", "<asp:PlaceHolder ID=\"phimgProduct\" runat=\"server\" />");
-					}
-					while (Template.IndexOf("[RESOURCE:") > -1)
-					{
-						string resKey = Template.Substring(Template.IndexOf("[RESOURCE:") + 10);
-						resKey = resKey.Substring(0, resKey.IndexOf("]"));
-						Template = Template.Replace("[RESOURCE:"+resKey+"]",
-							Localization.GetString(resKey,this.LocalResourceFile));
-					}
-
-					if (Template.IndexOf("[FEATURE:") > -1)
-					{
-						while (Template.IndexOf("[FEATURE:") > -1)
-						{
-							string token = Template.Substring(Template.IndexOf("[FEATURE:") + 9);
-							token = token.Substring(0, token.IndexOf("]"));
-							string prop = token.Substring(token.IndexOf(".") + 1);
-							token = token.Substring(0, token.IndexOf(".")).ToUpper();
-
-							string value = "";
-							FeatureGridValueInfo fgv = Controller.GetFeatureGridValueByProductAndToken(PortalId, SimpleProduct.SimpleProductId, CurrentLanguage, token);
-							if (fgv != null)
-							{
-								PropertyInfo p = fgv.GetType().GetProperty(prop);
-								if (p != null && p.CanRead)
-									value = p.GetValue(fgv, null).ToString();
-							}
-							Template = Template.Replace("[FEATURE:" + token + "." + prop + "]", value);
-						}
-					}
-					Template = Template.Replace("[CURRENCY]", "<asp:Label ID=\"lblCurrency\" runat=\"server\" />");
-					Template = Template.Replace("[TAX]", "<asp:Label ID=\"lblTax\" runat=\"server\"/>");
-                    Template = Template.Replace("[UNIT]", "<asp:Label ID=\"lblUnit\" runat=\"server\"/>");
-					Template = Template.Replace("[TITLE]", "<asp:Label ID=\"lblTitle\" runat=\"server\" />");
-				    Template = Template.Replace("[IMAGEURL]", SimpleProduct.Image);
-
-					Control ctrl = ParseControl(Template);
-					lblItemNo = FindControlRecursive(ctrl, "lblItemNo") as Label;
-					if (lblItemNo != null)
-						lblItemNo.Text = SimpleProduct.ItemNo;
-					lblShortDescription = FindControlRecursive(ctrl, "lblShortDescription") as Label;
-					if (lblShortDescription != null)
-						lblShortDescription.Text = SimpleProduct.ShortDescription;
-					ltrProductDescription = FindControlRecursive(ctrl, "ltrProductDescription") as Literal;
-					if (ltrProductDescription != null)
-						ltrProductDescription.Text = SimpleProduct.ProductDescription;
-
-                    lblCurrency = FindControlRecursive(ctrl, "lblCurrency") as Label;
-                    lblMandatory = FindControlRecursive(ctrl, "lblMandatory") as Label;
-					lblPrice = FindControlRecursive(ctrl, "lblPrice") as Label;
-					lblOriginalPrice = FindControlRecursive(ctrl, "lblOriginalPrice") as Label;
-					lblTax = FindControlRecursive(ctrl, "lblTax") as Label;
-                    lblUnit = FindControlRecursive(ctrl, "lblUnit") as Label;
-
-
-				    for (int i = 1; i < linkCnt+1; i++)
-				    {
-                        Literal ltrLink = FindControlRecursive(ctrl, "ltrLink"+i.ToString()) as Literal;
-                        if (ltrLink != null)
-                        {
-                            int productModuleTabId = Convert.ToInt32(Settings["ProductModulePage"] ?? TabId.ToString());
-                            ltrLink.Text = Globals.NavigateURL(productModuleTabId, "", "productid=" + SimpleProduct.SimpleProductId.ToString());
-                        }
-				    }
-                    
- 
-					PlaceHolder phimgProduct = FindControlRecursive(ctrl, "phimgProduct") as PlaceHolder;
-					if (phimgProduct != null && SimpleProduct.Image != null)
-					{
-						string fileName =
-							PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
-							SimpleProduct.Image.Replace('/', '\\');
-						
-						imgProduct = new GeneratedImage();
-						imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
-						if (imageWidth > 0)
-							imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
-						imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
-						// TODO: Watermark
-						//if (false)
-						//{
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkText", Value = Localization.GetString("Sold.Text", this.LocalResourceFile) });
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontFamily", Value = "Verdana" });
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontColor", Value = "Red" });
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
-						//}
-						phimgProduct.Controls.Add(imgProduct);
-					}
-
-					lblTitle = FindControlRecursive(ctrl, "lblTitle") as Label;
-					if (lblTitle != null)
-						lblTitle.Text = SimpleProduct.Name;
-
-					bool showNetPrice = (StoreSettings.Count > 0) && ((string) StoreSettings["ShowNetpriceInCart"] == "0");
-
-					decimal unitCost = SimpleProduct.UnitCost;
-					decimal originalUnitCost = SimpleProduct.OriginalUnitCost;
-					decimal taxPercent = SimpleProduct.TaxPercent;
-
-					decimal price = 0.00m;
-					decimal originalPrice = 0.00m;
-					string tax = "";
-
-					if (showNetPrice)
-					{
-						price = unitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m);
-						originalPrice = originalUnitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m);
-						tax = Localization.GetString("ExcludeTax.Text", this.LocalResourceFile);
-					}
-					else
-					{
-						price = decimal.Round((unitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m)) * (100 + taxPercent) / 100, 2);
-						originalPrice = decimal.Round((originalUnitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m)) * (100 + taxPercent) / 100, 2);
-						tax = Localization.GetString("IncludeTax.Text", this.LocalResourceFile);
-					}
-
-					if (lblPrice != null)
-					{
-						if (SimpleProduct.HideCost)
-							lblPrice.Text = Localization.GetString("AskOffer.Text", this.LocalResourceFile);
-						else
-							lblPrice.Text = String.Format("{0:n2}", price);
-					}
-
-					if (lblOriginalPrice != null)
-					{
-						if (originalPrice > price && !SimpleProduct.HideCost)
-							lblOriginalPrice.Text = String.Format("{0:n2} {1}", originalPrice, Currency);
-						else
-							lblOriginalPrice.Visible = false;
-					}
-
-					if (lblTax != null)
-					{
-						lblTax.Text = String.Format(tax, taxPercent);
-						lblTax.Visible = (taxPercent > 0.00m && SimpleProduct.HideCost == false);
-					}
-
-                    if (lblUnit != null && SimpleProduct.UnitId > -1)
-                    {
-                        UnitInfo unit = Controller.GetUnit(SimpleProduct.UnitId, CurrentLanguage);
-                        lblUnit.Text = unit.Symbol;
-                    }
-
-					if (lblCurrency != null)
-					{
-						lblCurrency.Text = Currency;
-						lblCurrency.Visible = (SimpleProduct.HideCost == false);
-					}
-					ph.Controls.Add(ctrl);
+				    var ctrl = RenderItem(product);
+				    ph.Controls.Add(ctrl);
 				}
 			}
 			else
 			{
 				Pager.Visible = false;
 				lstProducts.Visible = false;
+                lstProductsBS3.Visible = false;
+			    lstProductsSimple.Visible = false;
 			}
 
 		}
-		protected void lstProducts_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
+
+	    protected void lstProducts_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
 		{
 			LinkButton btn = sender as LinkButton;
 
@@ -798,13 +681,37 @@ namespace Bitboxx.DNNModules.BBStore
 
 			Response.Redirect(Globals.NavigateURL(TabId, "", param.ToArray()));
 		}
-		protected void lstProducts_Sorting(object sender, ListViewSortEventArgs e)
+
+        protected void lstProductsBS3_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
+        {
+            LinkButton btn = sender as LinkButton;
+
+            int TabId = Convert.ToInt32(Settings["ProductModulePage"]);
+            int productId = (int)lstProductsBS3.DataKeys[e.NewSelectedIndex].Value;
+
+            List<string> param = new List<string>();
+            if (Request["productgroup"] != null)
+                param.Add("productgroup=" + Request["productgroup"]);
+            param.Add("productid=" + productId.ToString());
+
+            Response.Redirect(Globals.NavigateURL(TabId, "", param.ToArray()));
+        }
+
+        protected void lstProducts_Sorting(object sender, ListViewSortEventArgs e)
 		{
 			SortExpression = e.SortExpression;
 			lstProducts.DataSource = Products;
 			lstProducts.DataBind();
 		}
-		protected void lnkShowAll_Click(object sender, EventArgs e)
+
+        protected void lstProductsBS3_Sorting(object sender, ListViewSortEventArgs e)
+        {
+            SortExpression = e.SortExpression;
+            lstProductsBS3.DataSource = Products;
+            lstProductsBS3.DataBind();
+        }
+
+        protected void lnkShowAll_Click(object sender, EventArgs e)
 		{
 			if (Settings["StaticFilterId"] != null && Convert.ToInt32(Settings["StaticFilterId"]) > -1)
 			{
@@ -819,10 +726,165 @@ namespace Bitboxx.DNNModules.BBStore
 			int TabId = Convert.ToInt32(Settings["ProductListModulePage"]);
 			Response.Redirect(Globals.NavigateURL(TabId));
 		}
-		#endregion
+        #endregion
 
-		#region Helper Methods
-		private Control FindControlRecursive(Control rootControl, string controlID)
+        #region Helper Methods
+
+        private Control RenderItem(SimpleProductInfo product)
+        {
+            bool showNetPrice = (StoreSettings.Count > 0) && ((string)StoreSettings["ShowNetpriceInCart"] == "0");
+
+            decimal unitCost = product.UnitCost;
+            decimal originalUnitCost = product.OriginalUnitCost;
+            decimal taxPercent = product.TaxPercent;
+
+            decimal price = 0.00m;
+            decimal originalPrice = 0.00m;
+            string tax = "";
+
+            if (showNetPrice)
+            {
+                price = unitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m);
+                originalPrice = originalUnitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m);
+                tax = Localization.GetString("ExcludeTax.Text", this.LocalResourceFile);
+            }
+            else
+            {
+                price = decimal.Round((unitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m)) * (100 + taxPercent) / 100, 2);
+                originalPrice = decimal.Round((originalUnitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m)) * (100 + taxPercent) / 100, 2);
+                tax = Localization.GetString("IncludeTax.Text", this.LocalResourceFile);
+            }
+
+            string template;
+            int imageWidth = 200;
+
+            TemplateControl tp = LoadControl("controls/TemplateControl.ascx") as TemplateControl;
+            tp.Key = "ProductList";
+            template = tp.GetTemplate((string)Settings["Template"]);
+
+            //Template = ProductTemplate;
+
+            template = template.Replace("[ITEMNO]", product.ItemNo);
+            template = template.Replace("[PRODUCTSHORTDESCRIPTION]", product.ShortDescription);
+            template = template.Replace("[PRODUCTDESCRIPTION]", product.ProductDescription);
+            template = template.Replace("[TITLE]", product.Name);
+            template = template.Replace("[IMAGEURL]", product.Image);
+
+            if (product.HideCost)
+                template = template.Replace("[PRICE]",Localization.GetString("AskOffer.Text", this.LocalResourceFile));
+            else
+                template = template.Replace("[PRICE]", String.Format("{0:n2}", price));
+
+            if (originalPrice > price && !product.HideCost)
+                template = template.Replace("[ORIGINALPRICE]", String.Format("{0:n2} {1}", originalPrice, Currency));
+            else
+                template = template.Replace("[ORIGINALPRICE]", "");
+
+            if (!product.HideCost)
+                template = template.Replace("[CURRENCY]", Currency);
+            else
+                template = template.Replace("[CURRENCY]", "");
+
+
+            if (taxPercent > 0.00m && !product.HideCost)
+                template = template.Replace("[TAX]", String.Format(tax, taxPercent));
+            else
+                template = template.Replace("[TAX]", "");
+
+            if (product.UnitId > -1)
+            {
+                UnitInfo unit = Controller.GetUnit(product.UnitId, CurrentLanguage);
+                template = template.Replace("[UNIT]", unit.Symbol);
+            }
+            else
+                template = template.Replace("[UNIT]", "");
+
+
+            int linkCnt = 0;
+            while (template.Contains("[LINK]"))
+            {
+                linkCnt++;
+                template = template.ReplaceFirst("[LINK]", "<asp:Literal ID=\"ltrLink" + linkCnt.ToString() + "\" runat=\"server\" />");
+            }
+
+            if (template.IndexOf("[IMAGE") > -1)
+            {
+                if (template.IndexOf("[IMAGE:") > -1)
+                {
+                    string width = template.Substring(template.IndexOf("[IMAGE:") + 7);
+                    width = width.Substring(0, width.IndexOf("]"));
+                    if (Int32.TryParse(width, out imageWidth) == false)
+                        imageWidth = 200;
+                    template = template.Replace("[IMAGE:" + width + "]", "<asp:PlaceHolder ID=\"phimgProduct\" runat=\"server\" />");
+                }
+                else
+                    template = template.Replace("[IMAGE]", "<asp:PlaceHolder ID=\"phimgProduct\" runat=\"server\" />");
+            }
+            while (template.IndexOf("[RESOURCE:") > -1)
+            {
+                string resKey = template.Substring(template.IndexOf("[RESOURCE:") + 10);
+                resKey = resKey.Substring(0, resKey.IndexOf("]"));
+                template = template.Replace("[RESOURCE:" + resKey + "]", Localization.GetString(resKey, this.LocalResourceFile));
+            }
+
+            
+            while (template.IndexOf("[FEATURE:") > -1)
+            {
+                string token = template.Substring(template.IndexOf("[FEATURE:") + 9);
+                token = token.Substring(0, token.IndexOf("]"));
+                string prop = token.Substring(token.IndexOf(".") + 1);
+                token = token.Substring(0, token.IndexOf(".")).ToUpper();
+
+                string value = "";
+                FeatureGridValueInfo fgv = Controller.GetFeatureGridValueByProductAndToken(PortalId, product.SimpleProductId, CurrentLanguage, token);
+                if (fgv != null)
+                {
+                    PropertyInfo p = fgv.GetType().GetProperty(prop);
+                    if (p != null && p.CanRead)
+                        value = p.GetValue(fgv, null).ToString();
+                }
+                template = template.Replace("[FEATURE:" + token + "." + prop + "]", value);
+            }
+
+            Control ctrl = ParseControl(template);
+            
+            for (int i = 1; i < linkCnt + 1; i++)
+            {
+                Literal ltrLink = FindControlRecursive(ctrl, "ltrLink" + i.ToString()) as Literal;
+                if (ltrLink != null)
+                {
+                    int productModuleTabId = Convert.ToInt32(Settings["ProductModulePage"] ?? TabId.ToString());
+                    ltrLink.Text = Globals.NavigateURL(productModuleTabId, "", "productid=" + product.SimpleProductId.ToString());
+                }
+            }
+
+            PlaceHolder phimgProduct = FindControlRecursive(ctrl, "phimgProduct") as PlaceHolder;
+            if (phimgProduct != null && product.Image != null)
+            {
+                string fileName =
+                    PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
+                    product.Image.Replace('/', '\\');
+
+                imgProduct = new GeneratedImage();
+                imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
+                if (imageWidth > 0)
+                    imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
+                imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
+                // TODO: Watermark
+                //if (false)
+                //{
+                //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkText", Value = Localization.GetString("Sold.Text", this.LocalResourceFile) });
+                //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontFamily", Value = "Verdana" });
+                //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontColor", Value = "Red" });
+                //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
+                //}
+                phimgProduct.Controls.Add(imgProduct);
+            }
+           
+            return ctrl;
+        }
+
+        private Control FindControlRecursive(Control rootControl, string controlID)
 		{
 			if (rootControl.ID == controlID)
 				return rootControl;
@@ -847,7 +909,25 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			return (100 / lstProducts.GroupItemCount).ToString();
 		}
-		#endregion
 
-	 }
+	    protected string GetCols()
+	    {
+	        int gic = lstProductsBS3.GroupItemCount;
+
+	        if (gic <= 1)
+	            return "12";
+            else if (gic == 2)
+                return "6";
+            else if (gic == 3)
+                return "4";
+            else if (gic == 4)
+                return "3";
+            else if (gic >= 5 && gic <= 11)
+                return "2";
+	        return "1";
+	    }
+
+	    #endregion
+
+	}
 }

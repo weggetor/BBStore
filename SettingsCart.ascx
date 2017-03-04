@@ -67,6 +67,10 @@
 	        <dnn:Label id="lblEnableCartDownload" runat="server" controlname="chkEnableCartDownload" suffix=":"/>
             <asp:CheckBox ID="chkEnableCartDownload" runat="server" />
         </div>
+        <div class="dnnFormItem">
+	        <dnn:Label id="lblEnableCartDelete" runat="server" controlname="chkEnableCartDelete" suffix=":"/>
+            <asp:CheckBox ID="chkEnableCartDelete" runat="server" />
+        </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="lblMultipleCustomers" runat="server" controlname="chkMultipleCustomers" suffix=":"/>
             <asp:CheckBox ID="chkMultipleCustomers" runat="server" />
@@ -82,6 +86,14 @@
         <div class="dnnFormItem">
             <dnn:Label id="lblCheckoutButtonCssClass" runat="server" controlname="txtCheckoutButtonCssClass" suffix=":"/>
             <asp:TextBox runat="server" ID="txtCheckoutButtonCssClass"/>
+        </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="lblUploadButtonsCssClass" runat="server" controlname="txtUploadButtonsCssClass" suffix=":"/>
+            <asp:TextBox runat="server" ID="txtUploadButtonsCssClass"/>
+        </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="lblOrderButtonCssClass" runat="server" controlname="txtOrderButtonCssClass" suffix=":"/>
+            <asp:TextBox runat="server" ID="txtOrderButtonCssClass"/>
         </div>
     </fieldset>
     <h2 id="bbstore-productlist-head2" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("hdrLanguage")%></a></h2>
@@ -176,6 +188,13 @@
     <h2 id="bbstore-productlist-head4" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("hdrTemplates")%></a></h2>
     <fieldset class="dnnClear">
         <bb:TemplateControl ID="tplTemplate" runat="server" Key="Order" ViewMode="View" EditorControl="TextEditor" />
+    </fieldset>
+    <h2 id="bbstore-productlist-head5" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("hdrMoreSettings")%></a></h2>
+    <fieldset class="dnnClear">
+        <div class="dnnFormItem">
+            <dnn:Label id="lblPurgeInterval" runat="server" controlname="txtPurgeInterval" suffix=":"/>
+            <asp:TextBox runat="server" ID="txtPurgeInterval" style="width: 100px;" MaxLength="4"/>
+        </div>
     </fieldset>
 </div> 
 

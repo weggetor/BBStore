@@ -348,4 +348,31 @@ Select the following tokens:
 	<data name="lblShoppingButtonCssClass.Text" xml:space="preserve">
     <value>Shopping-Button class</value>
   </data>
+	<data name="lblEnableCartDelete.Help" xml:space="preserve">
+    <value>Check if a "Delete cart" button should be shown</value>
+  </data>
+	<data name="lblEnableCartDelete.Text" xml:space="preserve">
+    <value>Enable Delete cart</value>
+  </data>
+	<data name="lblUploadButtonsCssClass.Help" xml:space="preserve">
+    <value>Enter the CSS Classes for the upload cart/ download cart / delete cart  buttons</value>
+  </data>
+	<data name="lblUploadButtonsCssClass.Text" xml:space="preserve">
+    <value>Cart buttons CSS class</value>
+  </data>
+	<data name="lblOrderButtonCssClass.Help" xml:space="preserve">
+    <value>Enter the CSS Classes for the order button</value>
+  </data>
+	<data name="lblOrderButtonCssClass.Text" xml:space="preserve">
+    <value>Order Button css class</value>
+  </data>
+	<data name="hdrMoreSettings.Text" xml:space="preserve">
+    <value>More Settings</value>
+  </data>
+	<data name="lblPurgeInterval.Help" xml:space="preserve">
+    <value>Enter the amount of days a cart should be hold until automatic deletion. Enter zero for never purging</value>
+  </data>
+	<data name="lblPurgeInterval.Text" xml:space="preserve">
+    <value>Cart Purge Interval</value>
+  </data>
 </root>

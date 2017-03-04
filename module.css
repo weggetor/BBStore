@@ -22,6 +22,8 @@ COLORSUM : #A0AFEB;
 .bbstore-error { color: red;white-space: nowrap;}
 
 /* Cart Module*/
+.bbstore-cart .deleterow { font-size: xx-small;text-align: center;}
+.bbstore-cart-option { font-size: xx-small;}
 .bbstore-cart-payment-header { border: 1px solid #999999; color: white; background-color: #A0AFEB; font-size: 130%; padding: 5px; margin: 0 5px 0 0;; cursor: pointer;display: block;  }  
 .bbstore-cart-payment-selectedheader { border: 1px solid #999999; color: white; background-color: #000084; font-size: 130%; padding: 5px; margin: 0 5px 0 0 ; cursor: pointer; display: block; } 
 .bbstore-cart-payment-content { background: linear-gradient(#FFFFFF, #EEEEEE ) repeat scroll 0 0 #EEEEEE; border: 1px solid #999999; padding: 10px; }
@@ -55,6 +57,14 @@ COLORSUM : #A0AFEB;
 .bbstore-product-cartbox { background-color:#DCDCDC; padding: 5px 25px 5px 25px !important; }
 .bbstore-product-price-mm {color: #000; text-shadow: 0 -2px #FFF, 2px 0 #FFF, 0 2px #FFF, -2px 0 #FFF, -2px -2px #FFF, 2px 2px #FFF, -2px 2px #FFF,2px -2px #FFF,3px 4px 3px #000; font-size:  46px; font-family: Avantgarde, Impact, Verdana, Arial, Sanserif; font-style: italic; }
 .bbstore-product-discountenabled .bbstore-product-price-mm  { color: #3cb371;}
+.bbstore-product-option {}
+.bbstore-product-option-header { font-weight: bold; padding-top: 10px;}
+.bbstore-product-option-label {}
+.bbstore-product-option-dropdown {}
+.bbstore-product-option-textbox {}
+.bbstore-product-option-decription {}
+.bbstore-product-option-error { color: red;}
+
 
 /* ProductGroup Module */
 .bbstore-productgroup-tree td { padding-left: 5px!important}

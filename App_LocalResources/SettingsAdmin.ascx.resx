@@ -409,4 +409,19 @@ If not checked, no valid record in this table results into using standard price 
 	<data name="lblExtendedPrice.Text" xml:space="preserve">
     <value>Extended Price Model</value>
   </data>
+	<data name="lblMiniCartTemplate.Help" xml:space="preserve">
+    <value>Enter the template for the Minicart. Available placeholders are: [PRODUCTS],[TOTAL],[CURRENCY],[CARTLINK],[CHECKOUTLINK]</value>
+  </data>
+	<data name="lblMiniCartTemplate.Text" xml:space="preserve">
+    <value>Minicart Template</value>
+  </data>
+	<data name="shMiniCart.Text" xml:space="preserve">
+    <value>Minicart Skinobject Settings</value>
+  </data>
+	<data name="lblHideMiniCartIfEmpty.Help" xml:space="preserve">
+    <value>Check if minicart should not be shown if cart is empty</value>
+  </data>
+	<data name="lblHideMiniCartIfEmpty.Text" xml:space="preserve">
+    <value>Hide empty Minicart</value>
+  </data>
 </root>

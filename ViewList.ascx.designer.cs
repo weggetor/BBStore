@@ -94,6 +94,51 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.ListView lstProducts;
         
         /// <summary>
+        /// lstProductsBS3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lstProductsBS3;
+        
+        /// <summary>
+        /// lstProductsSimple control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel lstProductsSimple;
+        
+        /// <summary>
+        /// ltrSimpleHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltrSimpleHeader;
+        
+        /// <summary>
+        /// phSimpleItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phSimpleItems;
+        
+        /// <summary>
+        /// ltrSimpleFooter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltrSimpleFooter;
+        
+        /// <summary>
         /// pnlListFooter control.
         /// </summary>
         /// <remarks>

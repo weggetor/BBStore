@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -48,8 +49,10 @@ namespace Bitboxx.DNNModules.BBStore
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			// Is he logged in ?
-			if (!Request.IsAuthenticated)
+            cmdAdrUse.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+
+            // Is he logged in ?
+            if (!Request.IsAuthenticated)
 			{
 				// Attention ! returnUrl must be relative path (cross-site-scripting denying)
 				string returnUrl = HttpContext.Current.Request.RawUrl;
@@ -321,9 +324,19 @@ namespace Bitboxx.DNNModules.BBStore
 			int customerAdressId = Convert.ToInt32(strAddressId);
 
             BBStoreImportController importController = new BBStoreImportController();
-            importController.DeleteCustomerAddress(PortalId,customerAdressId);
-		
-            Response.Redirect(Globals.NavigateURL(TabId, "", "action=checkout"));
+		    try
+		    {
+		        importController.DeleteCustomerAddress(PortalId, customerAdressId);
+		        Response.Redirect(Globals.NavigateURL(TabId, "", "action=checkout"));
+		    }
+		    catch (SqlException sex)
+		    {
+                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("DeleteCustomerAddress.Error", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+            }
+		    catch (Exception ex)
+		    {
+                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, ex.Message, ModuleMessage.ModuleMessageType.RedError);
+		    }
 		}
 
 		protected void cmdAdrNew_Click(object sender, EventArgs e)

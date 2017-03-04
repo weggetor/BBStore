@@ -288,4 +288,37 @@
 	<data name="hdrData.Text" xml:space="preserve">
 		<value>Selección de datos</value>
 	</data>
+	<data name="lblBootstrap3.Help" xml:space="preserve">
+		<value>Compruebe si desea utilizar bootstrap 3 de una tabla de filas y cols en su lugar (necesita 3 bootstrap de la piel)</value>
+	</data>
+	<data name="lblBootstrap3.Text" xml:space="preserve">
+		<value>Bootstrap3 de uso</value>
+	</data>
+	<data name="lblSelectView.Help" xml:space="preserve">
+		<value>Seleccione el tipo de salida de generación: generar declaraciones de tabla con filas y celdas / bootstrap 3 columnas de generar / generar llano lista de elementos sin filas y cols</value>
+	</data>
+	<data name="lblSelectView.Text" xml:space="preserve">
+		<value>Seleccione Ver</value>
+	</data>
+	<data name="lblSimpleFooter.Help" xml:space="preserve">
+		<value>Entrar código html para poner fin a la lista (por ejemplo,&lt;/ul&gt;)</value>
+	</data>
+	<data name="lblSimpleFooter.Text" xml:space="preserve">
+		<value>Final de la lista</value>
+	</data>
+	<data name="lblSimpleHeader.Help" xml:space="preserve">
+		<value>Entrar código html para poner en marcha la lista (por ejemplo &lt;ul&gt;)</value>
+	</data>
+	<data name="lblSimpleHeader.Text" xml:space="preserve">
+		<value>Inicio de lista </value>
+	</data>
+	<data name="rblView0.Text" xml:space="preserve">
+		<value>Tabla</value>
+	</data>
+	<data name="rblView1.Text" xml:space="preserve">
+		<value>Manos a la obra 3</value>
+	</data>
+	<data name="rblView2.Text" xml:space="preserve">
+		<value>Simple</value>
+	</data>
 </root>

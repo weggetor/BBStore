@@ -256,36 +256,69 @@
     <value>None,TopLeft,TopCenter,TopRight,BottomLeft,BottomCenter,BottomRight</value>
   </data>
 	<data name="lblTitleBreadcrumb.Text" xml:space="preserve">
-		<value>Breadcrumb Title</value>
-	</data>
+    <value>Breadcrumb Title</value>
+  </data>
 	<data name="lblTitleBreadcrumb.Help" xml:space="preserve">
-		<value>Show title as breadcrumb links (needs 'ProductGroup as title')</value>
-	</data>
+    <value>Show title as breadcrumb links (needs 'ProductGroup as title')</value>
+  </data>
 	<data name="lblEmptyList.Text" xml:space="preserve">
-		<value>Empty List</value>
-	</data>
+    <value>Empty List</value>
+  </data>
 	<data name="lblEmptyList.Help" xml:space="preserve">
-		<value>Enter a Text to show if no products found (HTML allowed)</value>
-	</data>
+    <value>Enter a Text to show if no products found (HTML allowed)</value>
+  </data>
 	<data name="lblLanguage.Text" xml:space="preserve">
-		<value>Select Language</value>
-	</data>
+    <value>Select Language</value>
+  </data>
 	<data name="hdrGlobal.Text" xml:space="preserve">
-		<value>Global Settings</value>
-	</data>
+    <value>Global Settings</value>
+  </data>
 	<data name="hdrTemplates.Text" xml:space="preserve">
-		<value>Templates	</value>
-	</data>
+    <value>Templates	</value>
+  </data>
 	<data name="hdrLanguage.Text" xml:space="preserve">
-		<value>Static Text</value>
-	</data>
+    <value>Static Text</value>
+  </data>
 	<data name="hdrData.Text" xml:space="preserve">
-		<value>Data Selection</value>
-	</data>
+    <value>Data Selection</value>
+  </data>
 	<data name="lblHideEmptyModule.Text" xml:space="preserve">
-		<value>Hide empty module</value>
-	</data>
+    <value>Hide empty module</value>
+  </data>
 	<data name="lblHideEmptyModule.Help" xml:space="preserve">
-		<value>Check if the module should not be displayed if there are no data corresponding to the selection</value>
-	</data>
+    <value>Check if the module should not be displayed if there are no data corresponding to the selection</value>
+  </data>
+	<data name="lblBootstrap3.Help" xml:space="preserve">
+    <value>Check if you want to use Bootstrap 3 rows and cols instead of a table (needs Bootstrap 3 Skin)</value>
+  </data>
+	<data name="lblBootstrap3.Text" xml:space="preserve">
+    <value>Use Bootstrap3</value>
+  </data>
+	<data name="lblSelectView.Help" xml:space="preserve">
+    <value>Select the type of output generation: Generate table statements with rows and cells / Generate Bootstrap 3 columns / Generate plain list of items without any cols and rows</value>
+  </data>
+	<data name="lblSelectView.Text" xml:space="preserve">
+    <value>Select View</value>
+  </data>
+	<data name="lblSimpleFooter.Help" xml:space="preserve">
+    <value>Enter html code for ending the list (e.g."&lt;/ul&gt;")</value>
+  </data>
+	<data name="lblSimpleFooter.Text" xml:space="preserve">
+    <value>List End</value>
+  </data>
+	<data name="lblSimpleHeader.Help" xml:space="preserve">
+    <value>Enter html code for starting the list (e.g."&lt;ul&gt;")</value>
+  </data>
+	<data name="lblSimpleHeader.Text" xml:space="preserve">
+    <value>List Start </value>
+  </data>
+	<data name="rblView0.Text" xml:space="preserve">
+    <value>Table</value>
+  </data>
+	<data name="rblView1.Text" xml:space="preserve">
+    <value>Bootstrap 3</value>
+  </data>
+	<data name="rblView2.Text" xml:space="preserve">
+    <value>Simple</value>
+  </data>
 </root>

@@ -441,4 +441,13 @@
 	<data name="lblCoupon.Text" xml:space="preserve">
     <value>If you have a coupon enter code here:</value>
   </data>
+	<data name="cmdDeleteRow.Text" xml:space="preserve">
+    <value>remove</value>
+  </data>
+	<data name="ShippingText.Text" xml:space="preserve">
+    <value>Shipping and Handling</value>
+  </data>
+	<data name="DeleteCustomerAddress.Error" xml:space="preserve">
+    <value>Could not delete the address because it is used in another cart</value>
+  </data>
 </root>

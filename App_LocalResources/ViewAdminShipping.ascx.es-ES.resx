@@ -117,31 +117,16 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="lblShippingCost.Text" xml:space="preserve">
-    <value>Gastos de envío nacional</value>
-  </data>
-	<data name="lblShippingCostInt.Text" xml:space="preserve">
-    <value>Gastos de envío internacional</value>
-  </data>
-	<data name="lblShippingFree.Text" xml:space="preserve">
-    <value>Envío gratuito de nacional</value>
-  </data>
-	<data name="lblShippingFreeInt.Text" xml:space="preserve">
-    <value>Envío gratuito internacional</value>
-  </data>
-	<data name="lblShippingTax.Text" xml:space="preserve">
-    <value>Impuestos de envío</value>
-  </data>
-	<data name="lblShippingType.Text" xml:space="preserve">
-    <value>Texto de envío nacional</value>
-  </data>
-	<data name="lblShippingTypeInt.Text" xml:space="preserve">
-    <value>Texto de envío internacional</value>
-  </data>
 	<data name="cmdUpdate.Text" xml:space="preserve">
 		<value>Actualización</value>
 	</data>
 	<data name="cmdCancel.Text" xml:space="preserve">
 		<value>Cancelar</value>
+	</data>
+	<data name="lblAddZeroShipping.Help" xml:space="preserve">
+		<value>Añadir una posición incluso si la cantidad es coste de envío 0,00 </value>
+	</data>
+	<data name="lblAddZeroShipping.Text" xml:space="preserve">
+		<value>Siempre añadir gastos de envío</value>
 	</data>
 </root>

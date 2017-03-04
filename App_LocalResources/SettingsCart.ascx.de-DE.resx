@@ -348,4 +348,31 @@ Wählen Sie aus folgenden Tokens:
 	<data name="lblShoppingButtonCssClass.Text" xml:space="preserve">
 		<value>Shopping Button CSS Klasse</value>
 	</data>
+	<data name="lblEnableCartDelete.Help" xml:space="preserve">
+		<value>Ankreuzen, wenn ein "Warenkorb löschen"-Button angezeigt werden soll</value>
+	</data>
+	<data name="lblEnableCartDelete.Text" xml:space="preserve">
+		<value>Warenkorb löschen erlauben</value>
+	</data>
+	<data name="lblUploadButtonsCssClass.Help" xml:space="preserve">
+		<value>Geben sie die CSS Klassen für den Warenkorb hochladen / Warenkorb herunterladen / Warenkorb löschen Buttons ein</value>
+	</data>
+	<data name="lblUploadButtonsCssClass.Text" xml:space="preserve">
+		<value>Warenkorb Buttons CSS Klasse</value>
+	</data>
+	<data name="lblOrderButtonCssClass.Help" xml:space="preserve">
+		<value>Geben Sie hier die CSS-Klassen für den Bestellbutton eine</value>
+	</data>
+	<data name="lblOrderButtonCssClass.Text" xml:space="preserve">
+		<value>Bestell-Button CSS Klasse</value>
+	</data>
+	<data name="hdrMoreSettings.Text" xml:space="preserve">
+		<value>Mehr Einstellungen</value>
+	</data>
+	<data name="lblPurgeInterval.Help" xml:space="preserve">
+		<value>Geben Sie hier die Anzahl Tage ein die ein Warenkorb aufbewahrt werden soll bevor er gelöscht wird. Bei 0 wird nicht gelöscht</value>
+	</data>
+	<data name="lblPurgeInterval.Text" xml:space="preserve">
+		<value>Warenkorb Löschinterval</value>
+	</data>
 </root>

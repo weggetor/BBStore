@@ -3,7 +3,7 @@
 <asp:ListView ID="ProductOptionListView" runat="server" onitemdatabound="ProductOptionListView_ItemDataBound">
     <LayoutTemplate>
         <div>
-            <table cellpadding="1" cellspacing="0" class="grdTotal">
+            <table cellpadding="1" cellspacing="0" class="bbstore-product-option-grid">
                 <span id="itemPlaceholder" runat="server" />
             </table>
         </div>

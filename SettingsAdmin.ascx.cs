@@ -216,6 +216,9 @@ namespace Bitboxx.DNNModules.BBStore
 					else
 						txtItemsPerPage.Text = "5,!10,25,50,100";
 
+                    txtMiniCartTemplate.Text = (string) ModuleSettings["MiniCartTemplate"] ?? "";
+                    chkHideMiniCartIfEmpty.Checked = Convert.ToBoolean(ModuleSettings["HideMiniCartIfEmpty"] ?? "true");
+
                     RefreshLicense(false);
                 }
                 ReadCss();
@@ -262,6 +265,8 @@ namespace Bitboxx.DNNModules.BBStore
                 objModules.UpdateModuleSetting(ModuleId, "OrderMask", txtOrderMask.Text.Trim());
 				objModules.UpdateModuleSetting(ModuleId, "ItemsPerPage", txtItemsPerPage.Text.Trim());
 				objModules.UpdateModuleSetting(ModuleId, "SupplierRole", cboSupplierRole.SelectedValue);
+                objModules.UpdateModuleSetting(ModuleId, "MiniCartTemplate", txtMiniCartTemplate.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "HideMiniCartIfEmpty", chkHideMiniCartIfEmpty.Checked.ToString());
 
                 UpdateCss();
             }

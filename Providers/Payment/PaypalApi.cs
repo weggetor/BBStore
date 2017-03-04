@@ -66,6 +66,10 @@ namespace Bitboxx.DNNModules.BBStore.Providers.Payment
 
         private static string SendRequest(string postData)
         {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            ServicePointManager.DefaultConnectionLimit = 9999;
+
             string url = UseSandbox ? SandboxUrl : LiveUrl;
 
             HttpWebRequest myHttpWebRequest = null; //Declare an HTTP-specific implementation of the WebRequest class.

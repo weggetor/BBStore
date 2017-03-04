@@ -13,130 +13,22 @@ namespace Bitboxx.DNNModules.BBStore {
     public partial class ViewAdminShipping {
         
         /// <summary>
-        /// lblShippingTax control.
+        /// lblAddZeroShipping control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UserControl lblShippingTax;
+        protected global::System.Web.UI.UserControl lblAddZeroShipping;
         
         /// <summary>
-        /// txtShippingTax control.
+        /// chkAddZeroShipping control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtShippingTax;
-        
-        /// <summary>
-        /// lblShippingCost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UserControl lblShippingCost;
-        
-        /// <summary>
-        /// txtShippingCost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Bitboxx.DNNModules.BBStore.TaxControl txtShippingCost;
-        
-        /// <summary>
-        /// lblShippingType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UserControl lblShippingType;
-        
-        /// <summary>
-        /// txtShippingType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtShippingType;
-        
-        /// <summary>
-        /// lblShippingFree control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UserControl lblShippingFree;
-        
-        /// <summary>
-        /// txtShippingFree control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Bitboxx.DNNModules.BBStore.TaxControl txtShippingFree;
-        
-        /// <summary>
-        /// lblShippingCostInt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UserControl lblShippingCostInt;
-        
-        /// <summary>
-        /// txtShippingCostInt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Bitboxx.DNNModules.BBStore.TaxControl txtShippingCostInt;
-        
-        /// <summary>
-        /// lblShippingTypeInt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UserControl lblShippingTypeInt;
-        
-        /// <summary>
-        /// txtShippingTypeInt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtShippingTypeInt;
-        
-        /// <summary>
-        /// lblShippingFreeInt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UserControl lblShippingFreeInt;
-        
-        /// <summary>
-        /// txtShippingFreeInt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Bitboxx.DNNModules.BBStore.TaxControl txtShippingFreeInt;
+        protected global::System.Web.UI.WebControls.CheckBox chkAddZeroShipping;
         
         /// <summary>
         /// cmdUpdate control.

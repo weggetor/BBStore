@@ -196,6 +196,19 @@
 		    <asp:TextBox ID="txtItemsPerPage" runat="server" Columns="20" />
 		</div>
     </fieldset>
+    
+    <h2 id="bbstore-admin-head7" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("shMiniCart")%></a></h2>
+    <fieldset class="dnnClear">
+		<div class="dnnFormItem">
+		    <dnn:Label id="lblMiniCartTemplate" runat="server" controlname="txtMiniCartTemplate" suffix=":"/>
+		    <asp:TextBox ID="txtMiniCartTemplate" runat="server" Columns="20" Rows="8"  TextMode="MultiLine"/>
+		</div>
+        <div class="dnnFormItem">
+		    <dnn:Label id="lblHideMiniCartIfEmpty" runat="server" controlname="chkHideMiniCartIfEmpty" suffix=":"/>
+		    <asp:CheckBox ID="chkHideMiniCartIfEmpty" runat="server" />
+		</div>
+    </fieldset>
+
 </div>
 <script type="text/javascript">
     jQuery(function ($) {

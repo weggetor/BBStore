@@ -77,14 +77,14 @@ namespace Bitboxx.DNNModules.BBStore
 				foreach (ListViewItem lvi in ProductOptionListView.Items)
 				{
 					Label lblOption = (Label)lvi.FindControl("lblOption");
-					DropDownList cboOptionValue = (DropDownList)lvi.FindControl("cboOptionValue");
-					TextBox txtOptionvalue = (TextBox)lvi.FindControl("txtOptionvalue");
-					TextBox txtOptionDescription = (TextBox)lvi.FindControl("txtOptionDescription");
+                    DropDownList cboOptionValue = (DropDownList)lvi.FindControl("cboOptionValue");
+                    TextBox txtOptionvalue = (TextBox)lvi.FindControl("txtOptionvalue");
+                    TextBox txtOptionDescription = (TextBox)lvi.FindControl("txtOptionDescription");
                     TextBox txtDimen1 = lvi.FindControl("txtDimen1") as TextBox;
                     TextBox txtDimen2 = lvi.FindControl("txtDimen2") as TextBox;
-					FileUpload upOptionImage = (FileUpload)lvi.FindControl("upOptionImage");
-					
-					string optionName = lblOption.Text;
+                    FileUpload upOptionImage = (FileUpload)lvi.FindControl("upOptionImage");
+
+                    string optionName = lblOption.Text;
 					string optionValue = "";
 					decimal optionPrice = 0.00m;
 					byte[] optionImage = null;
@@ -296,7 +296,9 @@ namespace Bitboxx.DNNModules.BBStore
 		protected void ProductOptionListView_ItemDataBound(object sender, ListViewItemEventArgs e)
 		{
 			Label lblOption = (Label)e.Item.FindControl("lblOption");
-		    PlaceHolder phOptionValue = e.Item.FindControl("phOptionValue") as PlaceHolder;
+		    lblOption.CssClass = "bbstore-product-option-label";
+
+            PlaceHolder phOptionValue = e.Item.FindControl("phOptionValue") as PlaceHolder;
 			
 			Label lblMandatory = (Label)e.Item.FindControl("lblMandatory");
 			Literal ltrCRLF = (Literal)e.Item.FindControl("ltrCRLF");
@@ -326,7 +328,8 @@ namespace Bitboxx.DNNModules.BBStore
 		                case "dropdown":
                         case "colorbox":
 		                    DropDownList cboOptionValue = new DropDownList();
-		                    cboOptionValue.ID = "cboOptionValue";
+		                    cboOptionValue.CssClass = "bbstore-product-option-dropdown";
+                            cboOptionValue.ID = "cboOptionValue";
 		                    cboOptionValue.Items.Clear();
 		                    cboOptionValue.Items.Add(new ListItem(Localization.GetString("SelectOption.Text", ProductModule.LocalResourceFile), ""));
                             if (control == "colorbox")
@@ -388,7 +391,8 @@ namespace Bitboxx.DNNModules.BBStore
 
 		                case "textbox":
 		                    TextBox txtOptionValue = new TextBox();
-		                    txtOptionValue.ID = "txtOptionValue";
+		                    txtOptionValue.CssClass = "bbstore-product-option-textbox";
+                            txtOptionValue.ID = "txtOptionValue";
                             
                             OptionListInfo lit = options[0];
 		                    if (lit.OptionValue != String.Empty)
@@ -420,8 +424,7 @@ namespace Bitboxx.DNNModules.BBStore
 		                    break;
 
                         case "header":
-                            lblOption.Style.Add("font-weight", "bold");
-		                    lblOption.Style.Add("padding-top", "10px");
+		                    lblOption.CssClass = "bbstore-product-option-header";
 		                    ltrCRLF.Visible = true;
 		                    break;
 
@@ -439,6 +442,7 @@ namespace Bitboxx.DNNModules.BBStore
 
                             HtmlTableCell cell = new HtmlTableCell();
                             Label lblDimen1 = new Label();
+                            lblDimen1.CssClass = "bbstore-product-option-label";
                             lblDimen1.ID = "lblDimen1";
                             lblDimen1.Text = areaProps.Dimension1Name + " (" + areaProps.Dimension1Unit +")";
                             cell.Controls.Add(lblDimen1);
@@ -447,7 +451,8 @@ namespace Bitboxx.DNNModules.BBStore
                             cell = new HtmlTableCell();
                             TextBox txtDimen1 = new TextBox();
                             txtDimen1.ID = "txtDimen1";
-		                    txtDimen1.Width = 50;
+		                    txtDimen1.CssClass = "bbstore-product-option-textbox";
+                            txtDimen1.Width = 50;
 		                    //txtDimen1.AutoPostBack = true;
 		                    txtDimen1.CausesValidation = true;
                             cell.Controls.Add(txtDimen1);
@@ -456,18 +461,19 @@ namespace Bitboxx.DNNModules.BBStore
                             cell = new HtmlTableCell();
                             RangeValidator valDimen1Range = new RangeValidator();
 		                    valDimen1Range.ID = "valDimen1Range";
+                            valDimen1Range.CssClass = "bbstore-product-option-error";
                             valDimen1Range.Display = ValidatorDisplay.Dynamic;
                             valDimen1Range.Type = ValidationDataType.Double;
 		                    valDimen1Range.MinimumValue = ((double)areaProps.Dimension1Min).ToString();
                             valDimen1Range.MaximumValue = ((double)areaProps.Dimension1Max).ToString();
 		                    valDimen1Range.ControlToValidate = "txtDimen1";
 		                    valDimen1Range.ErrorMessage = " (" + areaProps.Dimension1Min.ToString() + ".." + areaProps.Dimension1Max.ToString()+")";
-                            valDimen1Range.Style.Add("color","red");
                             cell.Controls.Add(valDimen1Range);
                             rowDimen1.Controls.Add(cell);
 
                             cell = new HtmlTableCell();
                             Label lblDimen2 = new Label();
+		                    lblDimen2.CssClass = "bbstore-product-option-label";
                             lblDimen2.ID = "lblDimen2";
                             lblDimen2.Text = areaProps.Dimension2Name + " (" + areaProps.Dimension2Unit + ")";
                             cell.Controls.Add(lblDimen2);
@@ -475,6 +481,7 @@ namespace Bitboxx.DNNModules.BBStore
 
                             cell = new HtmlTableCell();
                             TextBox txtDimen2 = new TextBox();
+                            txtDimen1.CssClass = "bbstore-product-option-textbox";
                             txtDimen2.ID = "txtDimen2";
 		                    txtDimen2.Width = 50;
                             txtDimen2.AutoPostBack = true;
@@ -484,14 +491,14 @@ namespace Bitboxx.DNNModules.BBStore
 
                             cell = new HtmlTableCell();
                             RangeValidator valDimen2Range = new RangeValidator();
-		                    valDimen2Range.ID = "valDimen2Range";
+                            valDimen2Range.CssClass = "bbstore-product-option-error";
+                            valDimen2Range.ID = "valDimen2Range";
                             valDimen2Range.Display = ValidatorDisplay.Dynamic;
                             valDimen2Range.Type = ValidationDataType.Double;
                             valDimen2Range.MinimumValue = ((double)areaProps.Dimension2Min).ToString();
                             valDimen2Range.MaximumValue = ((double)areaProps.Dimension2Max).ToString();
                             valDimen2Range.ControlToValidate = "txtDimen2";
                             valDimen2Range.ErrorMessage = " (" + areaProps.Dimension2Min.ToString() + ".." + areaProps.Dimension2Max.ToString() + ")";
-                            valDimen2Range.Style.Add("color", "red");
                             cell.Controls.Add(valDimen2Range);
                             rowDimen2.Controls.Add(cell);
 

@@ -117,31 +117,16 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="lblShippingCost.Text" xml:space="preserve">
-    <value>Shipping Cost National</value>
-  </data>
-	<data name="lblShippingCostInt.Text" xml:space="preserve">
-    <value>Shipping Cost International</value>
-  </data>
-	<data name="lblShippingFree.Text" xml:space="preserve">
-    <value>Free Shipping National</value>
-  </data>
-	<data name="lblShippingFreeInt.Text" xml:space="preserve">
-    <value>Free Shipping International</value>
-  </data>
-	<data name="lblShippingTax.Text" xml:space="preserve">
-    <value>Shipping Tax</value>
-  </data>
-	<data name="lblShippingType.Text" xml:space="preserve">
-    <value>Shipping Text National</value>
-  </data>
-	<data name="lblShippingTypeInt.Text" xml:space="preserve">
-    <value>Shipping Text International</value>
-  </data>
 	<data name="cmdUpdate.Text" xml:space="preserve">
-		<value>Update</value>
-	</data>
+    <value>Update</value>
+  </data>
 	<data name="cmdCancel.Text" xml:space="preserve">
-		<value>Cancel</value>
-	</data>
+    <value>Cancel</value>
+  </data>
+	<data name="lblAddZeroShipping.Help" xml:space="preserve">
+    <value>Add a shipping cost position even if it the amount is 0.00 </value>
+  </data>
+	<data name="lblAddZeroShipping.Text" xml:space="preserve">
+    <value>Add always shipping cost</value>
+  </data>
 </root>

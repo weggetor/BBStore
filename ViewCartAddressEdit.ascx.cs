@@ -10,6 +10,8 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Lists;
 using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Profile;
+using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Localization;
 
 namespace Bitboxx.DNNModules.BBStore
@@ -60,8 +62,11 @@ namespace Bitboxx.DNNModules.BBStore
 		
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			// Is he logged in ?
-			if (!Request.IsAuthenticated)
+            cmdAdrEditCancel.CssClass= (string)Settings["ShoppingButtonCssClass"] ?? "";
+            cmdAdrEditSave.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+
+            // Is he logged in ?
+            if (!Request.IsAuthenticated)
 			{
 				// Attention ! returnUrl must be relative path (cross-site-scripting denying)
 				string returnUrl = HttpContext.Current.Request.RawUrl;
@@ -121,21 +126,21 @@ namespace Bitboxx.DNNModules.BBStore
 		                if (CustomerAddress != null && CustomerAddress.CustomerId == this.MainControl.CustomerId)
 		                {
 		                    if (txtAdrEditCompany != null) txtAdrEditCompany.Text = CustomerAddress.Company.Trim();
-                            if (txtAdrEditPrefix != null) txtAdrEditPrefix.Text = CustomerAddress.Prefix.Trim();
-                            if (txtAdrEditFirstname != null) txtAdrEditFirstname.Text = CustomerAddress.Firstname.Trim();
-                            if (txtAdrEditMiddlename != null) txtAdrEditMiddlename.Text = CustomerAddress.Middlename.Trim();
-                            if (txtAdrEditLastname != null) txtAdrEditLastname.Text = CustomerAddress.Lastname.Trim();
-                            if (txtAdrEditSuffix != null) txtAdrEditSuffix.Text = CustomerAddress.Suffix.Trim();
-                            if (txtAdrEditUnit != null) txtAdrEditUnit.Text = CustomerAddress.Unit.Trim();
-                            if (txtAdrEditStreet != null) txtAdrEditStreet.Text = CustomerAddress.Street.Trim();
-                            if (txtAdrEditRegion != null) txtAdrEditRegion.Text = CustomerAddress.Region.Trim();
-                            if (txtAdrEditPostalCode != null) txtAdrEditPostalCode.Text = CustomerAddress.PostalCode.Trim();
-                            if (txtAdrEditCity != null) txtAdrEditCity.Text = CustomerAddress.City.Trim();
-                            if (txtAdrEditSuburb != null) txtAdrEditSuburb.Text = CustomerAddress.Suburb.Trim();
-                            if (txtAdrEditPhone != null) txtAdrEditPhone.Text = CustomerAddress.Telephone.Trim();
-                            if (txtAdrEditFax != null) txtAdrEditFax.Text = CustomerAddress.Fax.Trim();
-                            if (txtAdrEditCell != null) txtAdrEditCell.Text = CustomerAddress.Cell.Trim();
-                            if (txtAdrEditEmail != null) txtAdrEditEmail.Text = CustomerAddress.Email.Trim();
+		                    if (txtAdrEditPrefix != null) txtAdrEditPrefix.Text = CustomerAddress.Prefix.Trim();
+		                    if (txtAdrEditFirstname != null) txtAdrEditFirstname.Text = CustomerAddress.Firstname.Trim();
+		                    if (txtAdrEditMiddlename != null) txtAdrEditMiddlename.Text = CustomerAddress.Middlename.Trim();
+		                    if (txtAdrEditLastname != null) txtAdrEditLastname.Text = CustomerAddress.Lastname.Trim();
+		                    if (txtAdrEditSuffix != null) txtAdrEditSuffix.Text = CustomerAddress.Suffix.Trim();
+		                    if (txtAdrEditUnit != null) txtAdrEditUnit.Text = CustomerAddress.Unit.Trim();
+		                    if (txtAdrEditStreet != null) txtAdrEditStreet.Text = CustomerAddress.Street.Trim();
+		                    if (txtAdrEditRegion != null) txtAdrEditRegion.Text = CustomerAddress.Region.Trim();
+		                    if (txtAdrEditPostalCode != null) txtAdrEditPostalCode.Text = CustomerAddress.PostalCode.Trim();
+		                    if (txtAdrEditCity != null) txtAdrEditCity.Text = CustomerAddress.City.Trim();
+		                    if (txtAdrEditSuburb != null) txtAdrEditSuburb.Text = CustomerAddress.Suburb.Trim();
+		                    if (txtAdrEditPhone != null) txtAdrEditPhone.Text = CustomerAddress.Telephone.Trim();
+		                    if (txtAdrEditFax != null) txtAdrEditFax.Text = CustomerAddress.Fax.Trim();
+		                    if (txtAdrEditCell != null) txtAdrEditCell.Text = CustomerAddress.Cell.Trim();
+		                    if (txtAdrEditEmail != null) txtAdrEditEmail.Text = CustomerAddress.Email.Trim();
 		                    selectedCountryCode = CustomerAddress.CountryCode;
 		                }
 		                else

@@ -444,4 +444,13 @@
 	<data name="lblCoupon.Text" xml:space="preserve">
 		<value>Wenn Sie einen Gutschein haben können Sie den Code hier eingeben:</value>
 	</data>
+	<data name="cmdDeleteRow.Text" xml:space="preserve">
+		<value>entfernen</value>
+	</data>
+	<data name="ShippingText.Text" xml:space="preserve">
+		<value>Verpackung und Versand</value>
+	</data>
+	<data name="DeleteCustomerAddress.Error" xml:space="preserve">
+		<value>Kann die Adresse nicht löschen da sie noch in einem anderen Warenkorb verwendet wird</value>
+	</data>
 </root>

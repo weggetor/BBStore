@@ -65,6 +65,7 @@
                                 <asp:HiddenField ID="HiddenCartProductId" runat="server" Value='<%# Eval("CartProductId") %>' />
                                 <asp:TextBox ID="txtQuantity" runat="server" Text='<%# String.Format("{0:G}",Convert.ToDouble(Eval("Quantity"))) %>' 
                                     ontextchanged="txtQuantity_TextChanged" AutoPostBack="True"></asp:TextBox><asp:Label ID="lblQuantity" runat="server" Text='<%# String.Format("{0:G}",Convert.ToDouble(Eval("Quantity"))) %>' Visible="false"/>
+                                <asp:LinkButton runat="server" ID="cmdDeleteRow" ResourceKey="cmdDeleteRow" OnClick="cmdDeleteRow_OnClick" CssClass="deleterow"></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField> 
                         <asp:BoundField DataField="Unit" HeaderText="Unit" SortExpression="Unit" />               
@@ -73,7 +74,7 @@
                             <ItemTemplate>
                                 <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>'/>
                                 <asp:HyperLink ID="lnkName" runat="server" Text='<%# Eval("Name") %>' NavigateUrl='<%# Eval("ProductUrl") %>'/>
-                                <br /><asp:Label ID="lblOption" runat="server" style="font-size:x-small"/>
+                                <br /><asp:Label ID="lblOption" runat="server" CssClass="bbstore-cart-option"/>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="UnitCost" HeaderText="UnitCost" SortExpression="UnitCost" DataFormatString="{0:n2}" >

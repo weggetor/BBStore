@@ -142,17 +142,19 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract void UpdateCustomerAddress(CustomerAddressInfo CustomerAddress);
         public abstract void DeleteCustomerAddress(int CustomerAdressId);
 
-        // Cart methods
+        #region Cart methods
         public abstract IDataReader GetCart(Guid CartId);
         public abstract void NewCart(int PortalId, CartInfo Cart);
         public abstract void UpdateCart(int PortalId, CartInfo Cart);
         public abstract void DeleteCart(Guid CartId);
+        public abstract void PurgeCarts(int portalId, int days);
         public abstract IDataReader GetCartTax(int PortalId, Guid CartId);
         public abstract void UpdateCartCustomerId(Guid CartId, int CustomerId);
 	    public abstract void UpdateCartCustomerPaymentProviderId(Guid CartId, int CustomerPaymentProviderId);
         public abstract void UpdateCartCouponId(Guid cartId, int couponId);
     	public abstract string SerializeCart(Guid cartId);
         public abstract CartInfo DeserializeCart(int portalId, int userId, Guid cartId, string cartXml, bool extendedPrice);
+        #endregion
 
         // CartAddress methods
         public abstract int GetCartAddressId(Guid cartid, string kzAddressType);
@@ -162,8 +164,9 @@ namespace Bitboxx.DNNModules.BBStore
 		public abstract void UpdateCartAddressType(Guid cartId, int portalId, int subscriberId, int customerAddressId, int subscriberAddressId, bool set);
 	    public abstract void NewCartAddress(CartAddressInfo cartAddress);
 	    public abstract bool CheckCartAddresses(Guid CartId, int portalId, int subscriberId);
-        
-		// CartAdditionalCost methods
+        public abstract IDataReader GetCartAddresses(Guid CartId);
+
+        // CartAdditionalCost methods
         public abstract IDataReader GetCartAdditionalCost(int CartAdditionalCostId);
         public abstract IDataReader GetCartAdditionalCosts(Guid CartId);
         public abstract int NewCartAdditionalCost(CartAdditionalCostInfo CartAdditionalCost);
