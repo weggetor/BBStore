@@ -297,6 +297,11 @@ namespace Bitboxx.DNNModules.BBStore
 
                 cmdShopping.CssClass = (string)Settings["ShoppingButtonCssClass"] ?? "";
                 cmdCheckout.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+                cmdDeleteCart.CssClass = (string)Settings["UploadButtonsCssClass"] ?? "";
+                cmdLoadCart.CssClass = (string)Settings["UploadButtonsCssClass"] ?? "";
+                cmdSaveCart.CssClass = (string)Settings["UploadButtonsCssClass"] ?? "";
+                cmdFinish.CssClass = (string)Settings["OrderButtonCssClass"] ?? "";
+                
 
                 // Init empty cart display
                 LocalResourceLangInfo localResourceLang = Controller.GetLocalResourceLang(PortalId, "EMPTYCART", CurrentLanguage);
@@ -346,13 +351,17 @@ namespace Bitboxx.DNNModules.BBStore
 
                 if (_isConfigured)
                 {
-                    // Could we up- or download the cart ?
+                    // Could we up- , download or delete the cart ?
+                    
                     if (Settings["EnableCartUpload"] != null &&
-                        (Convert.ToBoolean(Settings["EnableCartUpload"]) || Convert.ToBoolean(Settings["EnableCartDownload"])))
+                        (Convert.ToBoolean(Settings["EnableCartUpload"]) || 
+                         Convert.ToBoolean(Settings["EnableCartDownload"]) ||
+                         Convert.ToBoolean(Settings["EnableCartDelete"])))
                     {
                         pnlCartUpDownload.Visible = true;
                         cmdLoadCart.Visible = Convert.ToBoolean(Settings["EnableCartUpload"]);
                         cmdSaveCart.Visible = Convert.ToBoolean(Settings["EnableCartDownload"]);
+                        cmdDeleteCart.Visible = Convert.ToBoolean(Settings["EnableCartDelete"]);
 
                     }
                     // First lets retrieve our cart from database
@@ -585,6 +594,21 @@ namespace Bitboxx.DNNModules.BBStore
                 }
             }
         }
+
+        protected void cmdDeleteRow_OnClick(object sender, EventArgs e)
+        {
+            LinkButton thisButton = (LinkButton) sender;
+            GridViewRow thisGridViewRow = (GridViewRow) thisButton.Parent.Parent;
+
+
+            HiddenField hid = (HiddenField) thisGridViewRow.FindControl("HiddenCartProductId");
+            int cartProductId = 0;
+            if (int.TryParse(hid.Value, out cartProductId))
+            {
+                Controller.DeleteCartProduct(cartProductId);
+            }
+        }
+
         protected void cmdShopping_Click(object sender, EventArgs e)
         {
             int shoppingTarget = Settings["ShoppingTarget"] == null ? 1 : Convert.ToInt32(Settings["ShoppingTarget"]);
@@ -710,7 +734,7 @@ namespace Bitboxx.DNNModules.BBStore
 
             pnlEmptyCart.Visible = true;
             pnlFullCart.Visible = false;
-            pnlCartUpDownload.Visible = true;
+            pnlCartUpDownload.Visible = cmdDeleteCart.Visible || cmdUploadCart.Visible || cmdSaveCart.Visible;
             pnlUploadCart.Visible = false;
         }
 
@@ -828,8 +852,10 @@ namespace Bitboxx.DNNModules.BBStore
                 }
                 Label lblQuantity = e.Row.FindControl("lblQuantity") as Label;
                 TextBox txtQuantity = e.Row.FindControl("txtQuantity") as TextBox;
+                LinkButton cmdDeleteRow = e.Row.FindControl("cmdDeleteRow") as LinkButton;
                 lblQuantity.Visible = !IsChangeable;
                 txtQuantity.Visible = IsChangeable;
+                cmdDeleteRow.Visible = IsChangeable;
             }
         }
 
@@ -1274,7 +1300,11 @@ namespace Bitboxx.DNNModules.BBStore
                 List<ShippingCostInfo> shippingCosts = Controller.GetShippingCostsByModelId(shippingModelId);
                 string shippingCountry = "";
                 string shippingCountryCode = (string)StoreSettings["VendorCountry"];
-                if ((from s in shippingCosts where s.ShippingZoneID != -1 select s).Any())
+
+                bool costwithZoneId = (from s in shippingCosts where s.ShippingZoneID == shippingZoneId select s).Any();
+                bool costwithoutZoneId = (from s in shippingCosts where s.ShippingZoneID == -1 select s).Any();
+
+                if (costwithoutZoneId)
                 {
                     // Retrieve shippingZoneId for Delivery address
                     CustomerAddressInfo shippingAddress = Controller.GetCustomerAddress(ShippingAddressId);
@@ -1301,12 +1331,13 @@ namespace Bitboxx.DNNModules.BBStore
                         }
                     }
                 }
-                if (shippingZoneId > -1)
+
+                
+                if (shippingZoneId > -1 || costwithoutZoneId)
                 {
                     // Do we have ShippingCosts with the shippingZoneId
-                    if ((from s in shippingCosts where s.ShippingZoneID == shippingZoneId select s).Any())
-                        shippingCosts =
-                            (from s in shippingCosts where s.ShippingZoneID == shippingZoneId select s).ToList();
+                    if (costwithZoneId)
+                        shippingCosts = (from s in shippingCosts where s.ShippingZoneID == shippingZoneId select s).ToList();
                     else
                         shippingCosts = (from s in shippingCosts where s.ShippingZoneID == -1 select s).ToList();
 
@@ -1343,7 +1374,7 @@ namespace Bitboxx.DNNModules.BBStore
                             shippingSum += theOne.ShippingPrice;
                         }
                     }
-                    if (shippingSum > 0)
+                    if (shippingSum > 0 || Convert.ToBoolean(StoreSettings["AddZeroShipping"] ?? "false"))
                     {
                         ShippingZoneDisplayInfo zone = Controller.GetShippingZoneById(shippingZoneId, CurrentLanguage);
                         CartAdditionalCostInfo addCost = new CartAdditionalCostInfo();
@@ -1351,12 +1382,19 @@ namespace Bitboxx.DNNModules.BBStore
                         addCost.Area = "SHIPPING";
                         addCost.Quantity = 1.0m;
                         addCost.TaxPercent = shippingTaxPercent;
-                        addCost.Name = zone.OrderText;
-                        if (zone.ExemptionLimit > sumCost || zone.ExemptionLimit < 0)
+                        if (zone == null)
+                        {
+                            addCost.Name = LocalizeString("ShippingText.Text");
                             addCost.UnitCost = shippingSum;
+                        }
                         else
-                            addCost.UnitCost = 0m;
-                        
+                        {
+                            addCost.Name = zone.OrderText;
+                            if (zone.ExemptionLimit > sumCost || zone.ExemptionLimit < 0)
+                                addCost.UnitCost = shippingSum;
+                            else
+                                addCost.UnitCost = 0m;
+                        }
                         Controller.NewCartAdditionalCost(addCost);
                     }
                 }
@@ -1934,13 +1972,20 @@ namespace Bitboxx.DNNModules.BBStore
 
         public string GetNextAction()
         {
-
+            
             if (Cart == null)
                 return "cart";
             if (Settings["MultipleCustomers"] != null && Convert.ToBoolean(Settings["MultipleCustomers"]) && CustomerId == -1)
                 return "customer";
             // if not IsAuthenticated, it leads first to login and after Login automatically to checkout
-            if (!Controller.CheckCartAddresses(CartId, PortalId, 0) || !Request.IsAuthenticated)
+            if (!Request.IsAuthenticated)
+                return "checkout";
+            // ValidCardAddresses: Are all cart adresses valid (mandatory fields are set)
+            int invalidCustomerAddressId = Controller.GetInvalidValidCartAddress(CartId, PortalId);
+            if (invalidCustomerAddressId > -1)
+                return "adredit&adrid=" + invalidCustomerAddressId.ToString();
+            // CheckCartAddresses: Is for all mandatory Adresstypes an adress present ?
+            if (!Controller.CheckCartAddresses(CartId, PortalId, 0))
                 return "checkout";
             if (Cart.CustomerPaymentProviderID < 0 && !SkipPayment)
                 return "payment";
@@ -2002,5 +2047,7 @@ namespace Bitboxx.DNNModules.BBStore
                 return actions;
             }
         }
+
+        
     }
 }

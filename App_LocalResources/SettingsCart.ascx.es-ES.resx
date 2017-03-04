@@ -328,7 +328,7 @@ Select the following tokens:
 &lt;/table&gt;</value>
 	</data>
 	<data name="hdrTemplates.Text" xml:space="preserve">
-		<value> Plantillas</value>
+		<value>Plantillas</value>
 	</data>
 	<data name="lblTemplate.Text" xml:space="preserve">
 		<value>Plantilla de correo</value>
@@ -347,5 +347,32 @@ Select the following tokens:
 	</data>
 	<data name="lblShoppingButtonCssClass.Text" xml:space="preserve">
 		<value>Comercial button clase CSS</value>
+	</data>
+	<data name="lblEnableCartDelete.Help" xml:space="preserve">
+		<value>Compruebe si se debe mostrar un botón de "Eliminar carrito"</value>
+	</data>
+	<data name="lblEnableCartDelete.Text" xml:space="preserve">
+		<value>Habilitar borrar carrito</value>
+	</data>
+	<data name="lblUploadButtonsCssClass.Help" xml:space="preserve">
+		<value>Entrar en las clases CSS para la cesta de carga / carro de descarga / eliminar botones de carro</value>
+	</data>
+	<data name="lblUploadButtonsCssClass.Text" xml:space="preserve">
+		<value>Botones del carro de la clase CSS</value>
+	</data>
+	<data name="lblOrderButtonCssClass.Help" xml:space="preserve">
+		<value>Entrar en las clases CSS para el botón de orden</value>
+	</data>
+	<data name="lblOrderButtonCssClass.Text" xml:space="preserve">
+		<value>Clase de orden botón css</value>
+	</data>
+	<data name="hdrMoreSettings.Text" xml:space="preserve">
+		<value>Más configuraciones</value>
+	</data>
+	<data name="lblPurgeInterval.Help" xml:space="preserve">
+		<value>Anote la cantidad de días que un carro se debe mantener hasta eliminación automática. Introduzca cero para nunca estaba pura</value>
+	</data>
+	<data name="lblPurgeInterval.Text" xml:space="preserve">
+		<value>Intervalo de la purga de carro</value>
 	</data>
 </root>

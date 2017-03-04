@@ -409,4 +409,19 @@ Wenn nicht angehakt und kein entsprechender Datensatz in der Preistabelle vorhan
 	<data name="lblExtendedPrice.Text" xml:space="preserve">
 		<value>Erweitertes Preismodell</value>
 	</data>
+	<data name="lblMiniCartTemplate.Help" xml:space="preserve">
+		<value>Geben Sie die Vorlage für den Minicart ein. Verfügbare Platzhalter sind: [PRODUCTS],[TOTAL],[CURRENCY],[CARTLINK],[CHECKOUTLINK]</value>
+	</data>
+	<data name="lblMiniCartTemplate.Text" xml:space="preserve">
+		<value>Minicart Vorlage</value>
+	</data>
+	<data name="shMiniCart.Text" xml:space="preserve">
+		<value>Minicart Skinobjekt Einstellungen</value>
+	</data>
+	<data name="lblHideMiniCartIfEmpty.Help" xml:space="preserve">
+		<value>Ankreuzen wenn der Minicart verborgen werden soll wenn kein Artikel im Warenkorb ist</value>
+	</data>
+	<data name="lblHideMiniCartIfEmpty.Text" xml:space="preserve">
+		<value>Leeren Minicart verstecken</value>
+	</data>
 </root>

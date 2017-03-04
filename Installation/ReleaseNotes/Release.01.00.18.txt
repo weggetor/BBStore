@@ -1,0 +1,22 @@
+﻿<h1>Releasenotes</h1>
+<p>
+	<h2>Version 1.0.18 on 2017/3/04</h2>
+	<ul>
+		<li>Paypal connect with TLS1.2</li>
+		<li>Minicart template in store settings</li>
+		<li>Hide Minicart skin object when cart is empty</li>
+		<li>set css classes for Productoptions elements </li>
+		<li>delete not used carts by new scheduler task (configurable interval in store settings)</li>
+		<li>Check if mandatory adress fields are all filled in before proceeding to payment in checkout process</li>
+		<li>removed obsolete fields in Admin Shipping</li>
+		<li>Added rendering options in product list for bootstrap 3 divs and plain generation (like ul / li)</li>
+		<li>Productlist item-rendering for most tokens without introducing servercontrols (makes double usage of tokens possible)</li>
+		<li>configurable css classes for all cart buttons</li>
+		<li>select first payment option by default (if nothing else selected before)</li>
+		<li>Extend Shipping model to allow adding 0.00 Shipping row in cart</li>
+		<li>Added remove item link in cart product row</li>
+		<li>"Empty cart" button now independant showable from upload / download cart buttons visibility</li>
+		<li>Missing translations for product details only replacing with "#### languagecode:" if original text is also filled</li>
+	</ul>
+</p>
+	

@@ -77,7 +77,8 @@ namespace Bitboxx.DNNModules.BBStore
 		/// ----------------------------------------------------------------------------- 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			try
+            cmdConfirm.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+            try
 			{
 			    DotNetNuke.Framework.jQuery.RequestUIRegistration();
 

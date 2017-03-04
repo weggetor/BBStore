@@ -4,34 +4,8 @@
 <div class="dnnForm bbstore-admin-shipping dnnClear">
      <fieldset>
         <div class="dnnFormItem">
-            <dnn:Label id="lblShippingTax" runat="server" controlname="txtShippingTax" suffix=":" />
-            <asp:TextBox ID="txtShippingTax"  Columns="5" runat="server" />
-        </div>
-         <p>&nbsp;</p>
-        <div class="dnnFormItem">
-            <dnn:Label id="lblShippingCost" runat="server" controlname="txtShippingCost" suffix=":" />
-            <bb:TaxControl ID="txtShippingCost" runat="server" Orientation="Horizontal" ShortCaps="false" />
-        </div>
-        <div class="dnnFormItem">
-            <dnn:Label id="lblShippingType" runat="server" controlname="txtShippingType" suffix=":" />
-            <asp:TextBox ID="txtShippingType" Columns="30" runat="server" />
-        </div>
-        <div class="dnnFormItem">
-            <dnn:Label id="lblShippingFree" runat="server" controlname="txtShippingFree" suffix=":" />
-            <bb:TaxControl ID="txtShippingFree" runat="server" Orientation="Horizontal" ShortCaps="false" />
-        </div>
-        <p>&nbsp;</p>
-        <div class="dnnFormItem">
-            <dnn:Label id="lblShippingCostInt" runat="server" controlname="txtShippingCostInt" suffix=":" />
-            <bb:TaxControl ID="txtShippingCostInt" runat="server" Orientation="Horizontal" ShortCaps="false" />
-        </div>
-        <div class="dnnFormItem">
-            <dnn:Label id="lblShippingTypeInt" runat="server" controlname="txtShippingTypeInt" suffix=":" />
-     	    <asp:TextBox ID="txtShippingTypeInt" Columns="30" runat="server"/>
-        </div>
-        <div class="dnnFormItem">        	
-            <dnn:Label id="lblShippingFreeInt" runat="server" controlname="txtShippingFreeInt" suffix=":" />
-            <bb:TaxControl ID="txtShippingFreeInt" runat="server" Orientation="Horizontal" ShortCaps="false" />
+            <dnn:Label id="lblAddZeroShipping" runat="server" controlname="chkAddZeroShipping" suffix=":" />
+            <asp:Checkbox ID="chkAddZeroShipping" runat="server" />
         </div>
     </fieldset>
 

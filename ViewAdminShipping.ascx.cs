@@ -120,83 +120,7 @@ namespace Bitboxx.DNNModules.BBStore
                 if (!IsPostBack)
                 {
                     Hashtable settings = Controller.GetStoreSettings(PortalId);
-                    bool showNetPrice = ((string)settings["ShowNetpriceInCart"] == "0");
-
-                    // Update 1.09 -> 1.0.10 , Settings from cart -> admin
-                    if (settings["ShippingType"] == null)
-                    {
-                        ModuleController moduleController = new ModuleController();
-                        ModuleInfo cartModule = moduleController.GetModuleByDefinition(PortalId, "BBStore Cart");
-                        if (cartModule != null)
-                            settings = moduleController.GetModuleSettings(cartModule.ModuleID);
-                    }
-
-                    if (settings["ShippingTax"] != null)
-                        txtShippingTax.Text = (string)settings["ShippingTax"];
-                    else
-                        txtShippingTax.Text = 0.0m.ToString((System.Globalization.CultureInfo.InvariantCulture));
-                    decimal shippingTax = 0.0m;
-                    Decimal.TryParse(txtShippingTax.Text.Replace(",", "."), System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out shippingTax);
-
-                    // National Shipping
-                    txtShippingCost.PercentControl = txtShippingTax;
-                    txtShippingCost.Mode = (showNetPrice ? "net" : "gross");
-                    txtShippingFree.PercentControl = txtShippingTax;
-                    txtShippingFree.Mode = (showNetPrice ? "net" : "gross");
-
-                    if (settings["ShippingCost"] != null)
-                    {
-                        string strShippingCost = ((string)settings["ShippingCost"]).Replace(",", ".");
-                        decimal shippingCost = 0.0000m;
-                        Decimal.TryParse(strShippingCost, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out shippingCost);
-                        txtShippingCost.Value = shippingCost;
-                    }
-                    else
-                        txtShippingCost.Value = 0.0000m;
-
-                    if (settings["ShippingFree"] != null)
-                    {
-                        string strShippingFree = ((string)settings["ShippingFree"]).Replace(",", ".");
-                        decimal shippingFree = 0.0000m;
-                        Decimal.TryParse(strShippingFree, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out shippingFree);
-                        txtShippingFree.Value = shippingFree;
-                    }
-                    else
-                        txtShippingFree.Value = 0.0000m;
-
-                    if (settings["ShippingType"] != null)
-                        txtShippingType.Text = (string)settings["ShippingType"];
-
-                    // International
-
-                    txtShippingCostInt.PercentControl = txtShippingTax;
-                    txtShippingCostInt.Mode = (showNetPrice ? "net" : "gross");
-                    txtShippingFreeInt.PercentControl = txtShippingTax;
-                    txtShippingFreeInt.Mode = (showNetPrice ? "net" : "gross");
-
-                    if (settings["ShippingCostInt"] != null)
-                    {
-                        string strShippingCostInt = ((string)settings["ShippingCostInt"]).Replace(",", ".");
-                        decimal shippingCostInt = 0.0000m;
-                        Decimal.TryParse(strShippingCostInt, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out shippingCostInt);
-                        txtShippingCostInt.Value = shippingCostInt;
-                    }
-                    else
-                        txtShippingCostInt.Value = 0.0000m;
-
-                    if (settings["ShippingFreeInt"] != null)
-                    {
-                        string strShippingFreeInt = ((string)settings["ShippingFreeInt"]).Replace(",", ".");
-                        decimal shippingFreeInt = 0.0000m;
-                        Decimal.TryParse(strShippingFreeInt, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out shippingFreeInt);
-                        txtShippingFreeInt.Value = shippingFreeInt;
-                    }
-                    else
-                        txtShippingFreeInt.Value = 0.0000m;
-
-                    if (settings["ShippingTypeInt"] != null)
-                        txtShippingTypeInt.Text = (string)settings["ShippingTypeInt"];
-
+                    chkAddZeroShipping.Checked = Convert.ToBoolean(settings["AddZeroShipping"] ?? "false");
                 }
             }
             catch (Exception exc)
@@ -211,15 +135,8 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 ModuleController objModules = new ModuleController();
 
-                objModules.UpdateModuleSetting(ModuleId, "ShippingTax", txtShippingTax.Text.Trim());
-                objModules.UpdateModuleSetting(ModuleId, "ShippingCost", txtShippingCost.NetPrice.ToString());
-                objModules.UpdateModuleSetting(ModuleId, "ShippingFree", txtShippingFree.NetPrice.ToString());
-                objModules.UpdateModuleSetting(ModuleId, "ShippingType", txtShippingType.Text.Trim());
-                objModules.UpdateModuleSetting(ModuleId, "ShippingCostInt", txtShippingCostInt.NetPrice.ToString());
-                objModules.UpdateModuleSetting(ModuleId, "ShippingFreeInt", txtShippingFreeInt.NetPrice.ToString());
-                objModules.UpdateModuleSetting(ModuleId, "ShippingTypeInt", txtShippingTypeInt.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "AddZeroShipping", chkAddZeroShipping.Checked.ToString());
             }
-
             catch (Exception exc)
             {
                 //Module failed to load 

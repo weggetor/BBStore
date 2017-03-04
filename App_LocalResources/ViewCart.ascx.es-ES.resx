@@ -441,4 +441,13 @@
 	<data name="lblCoupon.Text" xml:space="preserve">
 		<value># Si tiene un cupón de introducir aquí el código:</value>
 	</data>
+	<data name="cmdDeleteRow.Text" xml:space="preserve">
+		<value>quitar</value>
+	</data>
+	<data name="ShippingText.Text" xml:space="preserve">
+		<value>Gastos de envío</value>
+	</data>
+	<data name="DeleteCustomerAddress.Error" xml:space="preserve">
+		<value>No se puede eliminar la dirección ya que se utiliza en otro carro</value>
+	</data>
 </root>

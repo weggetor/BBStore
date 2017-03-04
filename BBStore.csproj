@@ -119,6 +119,7 @@
     </Compile>
     <Compile Include="Components\BBStoreHelper.cs" />
     <Compile Include="Components\BBStoreImportController.cs" />
+    <Compile Include="Components\BBStoreScheduler.cs" />
     <Compile Include="Components\BBStoreSitemapProvider.cs" />
     <Compile Include="Components\DataProvider.cs" />
     <Compile Include="Components\BBStoreController.cs" />

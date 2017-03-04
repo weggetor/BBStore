@@ -39,7 +39,7 @@
             if (ui.oldHeader) {
                 $(ui.oldHeader).attr("class", "bbstore-cart-payment-header");
             }
-            if (ui.newContent && $(ui.newContent).find("img").attr("src").contains("Paypal.png")) {
+            if (ui.newContent && $(ui.newContent).find("img").attr("src").indexOf("Paypal.png") > -1) {
                 $("#<%=cmdConfirm.ClientID%>").hide();
                 $("#<%=cmdPaypal.ClientID%>").show();
             } else {
@@ -72,6 +72,10 @@
         }
         if ((typeof paneIndex != 'undefined'))
             $("#jaccordion").accordion("option", "active", paneIndex);
+        else {
+            $("#jaccordion").accordion("option", "active", 0);
+        }
         $("#<%=cmdPaypal.ClientID%>").hide();
     });
+    
 </script>

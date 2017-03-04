@@ -1092,6 +1092,17 @@ namespace Bitboxx.DNNModules.BBStore
             string delCmd = "DELETE FROM " + Prefix + "Cart WHERE CartId = '" + CartId.ToString() + "'";
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd);
         }
+
+        public override void PurgeCarts(int portalId, int days)
+        {
+            string delCmd = "DELETE FROM " + Prefix + "Cart WHERE PortalId = @PortalId AND  DATEADD(dd, @days, CreatedOnDate) < getdate()";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                        {
+                                            new SqlParameter("PortalId", portalId),
+                                            new SqlParameter("days", days)
+                                        };
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, sqlParams);
+        }
         public override IDataReader GetCartTax(int PortalId, Guid CartId)
         {
             string selCmd = "SELECT TaxPercent, SUM(TaxTotal) AS TaxTotal FROM " +
@@ -1502,7 +1513,22 @@ namespace Bitboxx.DNNModules.BBStore
 
             return ((int) SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, sqlCmd, sqlParams) == 0);
         }
-        
+
+        public override IDataReader GetCartAddresses(Guid cartId)
+        {
+            string sqlCmd = "SELECT DISTINCT c.*" +
+                            " FROM " + GetFullyQualifiedName("CartAddress") + " c" +
+                            " INNER JOIN " + GetFullyQualifiedName("SubscriberAddressType") + " s ON c.SubscriberAddressTypeId = s.SubscriberAddressTypeId" +
+                            " WHERE c.CartId = @CartId AND s.Mandatory = 1";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                {
+                    new SqlParameter("CartId", cartId)
+                };
+
+
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
         // CartAdditionalCost methods
         public override IDataReader GetCartAdditionalCost(int CartAdditionalCostId)
         {

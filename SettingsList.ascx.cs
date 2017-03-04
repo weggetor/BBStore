@@ -158,6 +158,11 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 if (!IsPostBack)
                 {
+                    rblSelectView.SelectedValue = (string) ModuleSettings["SelectView"] ?? "0";
+                    rblSelectView_SelectedIndexChanged(this,null);
+
+                    txtSimpleHeader.Text = (string)ModuleSettings["SimpleHeader"] ?? "";
+                    txtSimpleFooter.Text = (string)ModuleSettings["SimpleFooter"] ?? "";
 
                     if (ModuleSettings["ProductsInRow"] != null)
                         txtProductsInRow.Text = (string)ModuleSettings["ProductsInRow"];
@@ -274,6 +279,9 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 ModuleController objModules = new ModuleController();
 
+                objModules.UpdateModuleSetting(ModuleId, "SelectView", rblSelectView.SelectedValue);
+                objModules.UpdateModuleSetting(ModuleId, "SimpleHeader", txtSimpleHeader.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "SimpleFooter", txtSimpleFooter.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "ProductsInRow", txtProductsInRow.Text.Trim());
 				objModules.UpdateModuleSetting(ModuleId, "ProductsPerPage", txtProductsPerPage.Text.Trim());
 				objModules.UpdateModuleSetting(ModuleId, "TopN", txtTopN.Text.Trim());
@@ -450,6 +458,11 @@ namespace Bitboxx.DNNModules.BBStore
 			cboStaticFilter.DataValueField = "value";
 			cboStaticFilter.DataBind();
 		}
+
+        protected void rblSelectView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pnlSimple.Visible = (rblSelectView.SelectedValue == "2");
+        }
     }
 }
 

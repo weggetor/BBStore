@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Users;
+using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
 
@@ -93,7 +94,15 @@ namespace Bitboxx.DNNModules.BBStore
 					BindData();
 					break;
 				case "Delete":
-					Controller.DeleteCustomer(customerId);
+			        try
+			        {
+                        Controller.DeleteCustomer(customerId);
+                    }
+			        catch (Exception ex)
+			        {
+                        DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, ex.Message, ModuleMessage.ModuleMessageType.RedError);
+			        }
+                    
 					InEditMode = false;
 					BindData();
 					break;

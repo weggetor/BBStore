@@ -13,6 +13,69 @@ namespace Bitboxx.DNNModules.BBStore {
     public partial class SettingsList {
         
         /// <summary>
+        /// lblSelectView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblSelectView;
+        
+        /// <summary>
+        /// rblSelectView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rblSelectView;
+        
+        /// <summary>
+        /// pnlSimple control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSimple;
+        
+        /// <summary>
+        /// lblSimpleHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblSimpleHeader;
+        
+        /// <summary>
+        /// txtSimpleHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSimpleHeader;
+        
+        /// <summary>
+        /// lblSimpleFooter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblSimpleFooter;
+        
+        /// <summary>
+        /// txtSimpleFooter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSimpleFooter;
+        
+        /// <summary>
         /// lblProductsInRow control.
         /// </summary>
         /// <remarks>

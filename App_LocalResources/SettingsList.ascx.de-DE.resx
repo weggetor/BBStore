@@ -288,4 +288,37 @@
 	<data name="lblHideEmptyModule.Help" xml:space="preserve">
 		<value>Ankreuzen, wenn das Modul nicht angezeigt werden soll wenn keine der Selektion entsprechenden Daten vorhanden sind</value>
 	</data>
+	<data name="lblBootstrap3.Help" xml:space="preserve">
+		<value>Ankreuzen wenn statt einer Tabelle Bootstrap 3 DIVs verwendet werden sollen</value>
+	</data>
+	<data name="lblBootstrap3.Text" xml:space="preserve">
+		<value>Bootstrap 3 verwenden</value>
+	</data>
+	<data name="lblSelectView.Help" xml:space="preserve">
+		<value>Wählen Sie den Typ der Ausgabegenerierung: Ausgabe von Tabelle mit Zeilen und Spalten / Ausgabe von Bootstrap 3 divs (row + col-md-x) / Ausgabe ohne divs, nur Header + Items + Footer</value>
+	</data>
+	<data name="lblSelectView.Text" xml:space="preserve">
+		<value>Anzeigeart </value>
+	</data>
+	<data name="lblSimpleFooter.Help" xml:space="preserve">
+		<value>Geben Sie hier den HTML Code für das Listenende ein (z.B. &lt;/ul&gt;)</value>
+	</data>
+	<data name="lblSimpleFooter.Text" xml:space="preserve">
+		<value>Listenende</value>
+	</data>
+	<data name="lblSimpleHeader.Help" xml:space="preserve">
+		<value>Geben Sie hier den HTML Code für den Listenstart ein (z.B. &lt;ul&gt;)</value>
+	</data>
+	<data name="lblSimpleHeader.Text" xml:space="preserve">
+		<value>Listenstart</value>
+	</data>
+	<data name="rblView0.Text" xml:space="preserve">
+		<value>Tabelle</value>
+	</data>
+	<data name="rblView1.Text" xml:space="preserve">
+		<value>Bootstrap 3</value>
+	</data>
+	<data name="rblView2.Text" xml:space="preserve">
+		<value>Einfach</value>
+	</data>
 </root>

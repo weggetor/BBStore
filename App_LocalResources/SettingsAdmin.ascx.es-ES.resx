@@ -409,4 +409,19 @@ Si no, ningún registro válido en esta tabla resulta en utilizar el precio est�
 	<data name="lblExtendedPrice.Text" xml:space="preserve">
 		<value>Precio modelo extendido</value>
 	</data>
+	<data name="lblMiniCartTemplate.Help" xml:space="preserve">
+		<value>Entrar en la plantilla para el minicarro. Lugares disponibles son: [PRODUCTS],[TOTAL],[CURRENCY],[CARTLINK],[CHECKOUTLINK]</value>
+	</data>
+	<data name="lblMiniCartTemplate.Text" xml:space="preserve">
+		<value>Plantilla de minicarro</value>
+	</data>
+	<data name="shMiniCart.Text" xml:space="preserve">
+		<value>Configuración del minicarro</value>
+	</data>
+	<data name="lblHideMiniCartIfEmpty.Help" xml:space="preserve">
+		<value>Compruebe si minicarro no se indicarán si el carro está vacío</value>
+	</data>
+	<data name="lblHideMiniCartIfEmpty.Text" xml:space="preserve">
+		<value>Ocultar el vacío minicarro</value>
+	</data>
 </root>

@@ -9,6 +9,24 @@
     <h2 id="bbstore-productlist-head1" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("hdrGlobal")%></a></h2>
     <fieldset class="dnnClear">
         <div class="dnnFormItem">
+            <dnn:Label id="lblSelectView" runat="server" controlname="rblSelectView" suffix=":"/>
+            <asp:RadioButtonList ID="rblSelectView" runat="server"  CssClass="dnnFormRadioButtons" RepeatDirection="Horizontal" onselectedindexchanged="rblSelectView_SelectedIndexChanged" AutoPostBack="True">
+			    <asp:ListItem resourcekey="rblView0" Value="0" />
+			    <asp:ListItem resourcekey="rblView1" Value="1" />
+			    <asp:ListItem resourcekey="rblView2" Value="2" />
+    		</asp:RadioButtonList>
+        </div>
+        <asp:Panel ID="pnlSimple" runat="server">
+            <div class="dnnFormItem">
+                <dnn:Label id="lblSimpleHeader" runat="server" controlname="txtSimpleHeader" suffix=":"/>
+                <asp:TextBox ID="txtSimpleHeader" runat="server" TextMode="MultiLine" Rows="3" />
+            </div>
+            <div class="dnnFormItem">
+                <dnn:Label id="lblSimpleFooter" runat="server" controlname="txtSimpleFooter" suffix=":"/>
+                <asp:TextBox ID="txtSimpleFooter" runat="server" TextMode="MultiLine" Rows="3" />
+            </div>
+        </asp:Panel>
+        <div class="dnnFormItem">
             <dnn:Label id="lblProductsInRow" runat="server" controlname="txtProductsInRow" suffix=":"/>
             <asp:TextBox ID="txtProductsInRow" runat="server" Columns="3" />
         </div>

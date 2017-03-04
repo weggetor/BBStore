@@ -117,31 +117,16 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="lblShippingCost.Text" xml:space="preserve">
-    <value>Versandkosten Inland</value>
-  </data>
-	<data name="lblShippingCostInt.Text" xml:space="preserve">
-    <value>Versandkosten International</value>
-  </data>
-	<data name="lblShippingFree.Text" xml:space="preserve">
-    <value>Versandkostenfrei ab (Inland)</value>
-  </data>
-	<data name="lblShippingFreeInt.Text" xml:space="preserve">
-    <value>Versandkostenfrei ab (International)</value>
-  </data>
-	<data name="lblShippingTax.Text" xml:space="preserve">
-    <value>MwSt. Versand</value>
-  </data>
-	<data name="lblShippingType.Text" xml:space="preserve">
-    <value>Versand-Text (Inland)</value>
-  </data>
-	<data name="lblShippingTypeInt.Text" xml:space="preserve">
-    <value>Versand-Text (International)</value>
-  </data>
 	<data name="cmdUpdate.Text" xml:space="preserve">
 		<value>Aktualisieren</value>
 	</data>
 	<data name="cmdCancel.Text" xml:space="preserve">
 		<value>Abbrechen</value>
+	</data>
+	<data name="lblAddZeroShipping.Help" xml:space="preserve">
+		<value>Auch eine 0.00 Versandkosten Position zufügen</value>
+	</data>
+	<data name="lblAddZeroShipping.Text" xml:space="preserve">
+		<value>Immer Versandkosten zufügen</value>
 	</data>
 </root>

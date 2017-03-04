@@ -319,6 +319,24 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.CheckBox chkEnableCartDownload;
         
         /// <summary>
+        /// lblEnableCartDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblEnableCartDelete;
+        
+        /// <summary>
+        /// chkEnableCartDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkEnableCartDelete;
+        
+        /// <summary>
         /// lblMultipleCustomers control.
         /// </summary>
         /// <remarks>
@@ -389,6 +407,42 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCheckoutButtonCssClass;
+        
+        /// <summary>
+        /// lblUploadButtonsCssClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblUploadButtonsCssClass;
+        
+        /// <summary>
+        /// txtUploadButtonsCssClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUploadButtonsCssClass;
+        
+        /// <summary>
+        /// lblOrderButtonCssClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblOrderButtonCssClass;
+        
+        /// <summary>
+        /// txtOrderButtonCssClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOrderButtonCssClass;
         
         /// <summary>
         /// lngEmptyCart control.
@@ -794,5 +848,23 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Bitboxx.DNNModules.BBStore.TemplateControl tplTemplate;
+        
+        /// <summary>
+        /// lblPurgeInterval control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblPurgeInterval;
+        
+        /// <summary>
+        /// txtPurgeInterval control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPurgeInterval;
     }
 }

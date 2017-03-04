@@ -41,6 +41,35 @@
             </td>
         </ItemTemplate>
     </asp:ListView>
+
+    <asp:ListView ID="lstProductsBS3" runat="server" GroupItemCount="1" 
+        onitemcreated="lstProducts_ItemCreated" 
+        onselectedindexchanging="lstProductsBS3_SelectedIndexChanging"
+        DataKeyNames="SimpleProductId" onsorting="lstProductsBS3_Sorting">
+        <Layouttemplate>
+            <div class="row" runat="server" ID="groupPlaceholder"></div>
+        </Layouttemplate>
+        <GroupTemplate>
+            <div class="row">
+                <div id="itemPlaceholder" runat="server"/>
+            </div>
+        </GroupTemplate>
+        <ItemTemplate>
+            <div id="newsDiv" runat="server" class='<%# "col-md-" + GetCols() %>'>
+                <asp:Panel ID="pnlItem" runat="server">
+				    <asp:Button ID="cmdSelect" CommandName="Select" runat="server" Visible="false" />
+				    <asp:PlaceHolder ID="productPlaceHolder" runat="server" />
+			    </asp:Panel>
+            </div>
+        </ItemTemplate>
+    </asp:ListView>
+    
+    <asp:Panel runat="server" ID="lstProductsSimple">
+        <asp:Literal runat="server" ID="ltrSimpleHeader"/>
+        <asp:PlaceHolder runat="server" ID="phSimpleItems"/>
+        <asp:Literal runat="server" ID="ltrSimpleFooter"/>
+    </asp:Panel>
+
     <asp:Panel ID="pnlListFooter" runat="server">
 	    <div class="bbstore-grid-headerrow" style="margin-top:2px; padding:5px 2px 0px 5px">
 		    <asp:DataPager ID="Pager" runat="server" PageSize="6" 

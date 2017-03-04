@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Resources;
 using System.Web.UI.WebControls;
+using DotNetNuke.Services.Scheduling;
 
 namespace Bitboxx.DNNModules.BBStore
 {
@@ -154,6 +155,9 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 if (!IsPostBack)
                 {
+                    // Add scheduler task if not exists
+                    AddBBStoreScheduler();
+
                     if (ModuleSettings["ColVisibleImage"] != null)
                         chkColVisibleImage.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleImage"]);
                     else
@@ -239,10 +243,15 @@ namespace Bitboxx.DNNModules.BBStore
 					else
 						chkEnableCartUpload.Checked = false;
 
-					if (ModuleSettings["EnableCartDownload"] != null)
-						chkEnableCartDownload.Checked = Convert.ToBoolean(ModuleSettings["EnableCartDownload"]);
+                    if (ModuleSettings["EnableCartDownload"] != null)
+                        chkEnableCartDownload.Checked = Convert.ToBoolean(ModuleSettings["EnableCartDownload"]);
+                    else
+                        chkEnableCartDownload.Checked = false;
+
+                    if (ModuleSettings["EnableCartDelete"] != null)
+						chkEnableCartDelete.Checked = Convert.ToBoolean(ModuleSettings["EnableCartDelete"]);
 					else
-						chkEnableCartDownload.Checked = false;
+                        chkEnableCartDelete.Checked = false;
 
 					if (ModuleSettings["MultipleCustomers"] != null)
 						chkMultipleCustomers.Checked = Convert.ToBoolean(ModuleSettings["MultipleCustomers"]);
@@ -256,6 +265,9 @@ namespace Bitboxx.DNNModules.BBStore
 
                     txtShoppingButtonCssClass.Text = (string) ModuleSettings["ShoppingButtonCssClass"] ?? "";
                     txtCheckoutButtonCssClass.Text = (string) ModuleSettings["CheckoutButtonCssClass"] ?? "";
+                    txtUploadButtonsCssClass.Text = (string)ModuleSettings["UploadButtonsCssClass"] ?? "";
+                    txtOrderButtonCssClass.Text = (string)ModuleSettings["OrderButtonCssClass"] ?? "";
+                    txtPurgeInterval.Text = (string)(ModuleSettings["PurgeInterval"] ?? "0");
 
                     Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
                 	bool showNetPrice = ((string) storeSettings["ShowNetpriceInCart"] == "0");
@@ -366,10 +378,14 @@ namespace Bitboxx.DNNModules.BBStore
 				objModules.UpdateModuleSetting(ModuleId, "ShoppingTarget", rblShoppingTarget.SelectedValue);
 				objModules.UpdateModuleSetting(ModuleId, "EnableCartUpload", chkEnableCartUpload.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "EnableCartDownload", chkEnableCartDownload.Checked.ToString());
-				objModules.UpdateModuleSetting(ModuleId, "MultipleCustomers", chkMultipleCustomers.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "EnableCartDelete", chkEnableCartDelete.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "MultipleCustomers", chkMultipleCustomers.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "CartNavigationStyle", ddlCartNavigationStyle.SelectedValue);
                 objModules.UpdateModuleSetting(ModuleId, "ShoppingButtonCssClass", txtShoppingButtonCssClass.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "CheckoutButtonCssClass", txtCheckoutButtonCssClass.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "UploadButtonsCssClass", txtUploadButtonsCssClass.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "OrderButtonCssClass", txtOrderButtonCssClass.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "PurgeInterval", txtPurgeInterval.Text.Trim());
 
                 objModules.UpdateModuleSetting(ModuleId, "MandCompany", chkMandCompany.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "MandPrefix", chkMandPrefix.Checked.ToString());
@@ -461,7 +477,40 @@ namespace Bitboxx.DNNModules.BBStore
 
 		}
 
-        
+        private void AddBBStoreScheduler()
+        {
+            ArrayList scheduleItems = SchedulingProvider.Instance().GetSchedule();
+
+            ScheduleItem scheduleItem = null;
+
+            // find schedule item with matching TypeFullName
+            foreach (object item in scheduleItems)
+            {
+                if (((ScheduleItem)item).TypeFullName == "Bitboxx.DNNModules.BBStore.Components.BBStoreScheduler, Bitboxx.DNNModules.BBStore")
+                {
+                    scheduleItem = (ScheduleItem)item;
+                    break;
+                }
+            }
+            // If we have no scheduler Task we create one!
+            if (scheduleItem == null)
+            {
+                scheduleItem = new ScheduleItem();
+                scheduleItem.FriendlyName = "BBStore Maintenance Schedule";
+                scheduleItem.TypeFullName = "Bitboxx.DNNModules.BBStore.Components.BBStoreScheduler, Bitboxx.DNNModules.BBStore";
+                scheduleItem.TimeLapse = 6; // execution frequency 
+                scheduleItem.TimeLapseMeasurement = "h"; // "s" for seconds, "m" for minutes, "h" for hours, "d" for days
+                scheduleItem.RetryTimeLapse = 10; // retry frequency
+                scheduleItem.RetryTimeLapseMeasurement = "m"; // "s" for seconds, "m" for minutes, "h" for hours, "d" for days
+                scheduleItem.RetainHistoryNum = 14;
+                scheduleItem.AttachToEvent = "None"; //for instance "APPLICATION_START" or "None"
+                scheduleItem.CatchUpEnabled = false;
+                scheduleItem.Enabled = true;
+                scheduleItem.ObjectDependencies = ""; //for example "SiteLog,Users,UsersOnline"
+                scheduleItem.Servers = ""; // (Optional)
+                scheduleItem.ScheduleID = SchedulingProvider.Instance().AddSchedule(scheduleItem);
+            }
+        }
 
     }
 }
