@@ -285,118 +285,118 @@ namespace Bitboxx.DNNModules.BBStore
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditCompany.Text", this.LocalResourceFile) + (mandCompany ? mandChar : "");
 						input = input + "<asp:Textbox runat=\"server\" ID=\"txtAdrEditCompany\" EnableViewState=\"True\" MaxLength=\"50\" Style=\"width:" + width + "px;min-width:10px\" " + (mandCompany ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-						validator = validator + (mandCompany ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valCompany\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditCompany\" />" : "");
+						validator = validator + (mandCompany ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valCompany\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valCompany\" ControlToValidate=\"txtAdrEditCompany\" />" : "");
 					}
 
 					if (paraName == "PREFIX")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditPrefix.Text", this.LocalResourceFile) + (mandPrefix ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditPrefix\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"20\" Style=\"width:" + width + "px;min-width:10px\" " + (mandPrefix ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandPrefix ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valPrefix\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditPrefix\" />" : "");
+                        validator = validator + (mandPrefix ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valPrefix\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valPrefix\" ControlToValidate=\"txtAdrEditPrefix\" />" : "");
 
 					}
 					if (paraName == "FIRSTNAME")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditFirstname.Text", this.LocalResourceFile) + (mandFirstname ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditFirstname\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"50\" Style=\"width:" + width + "px;min-width:10px\" " + (mandFirstname ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandFirstname ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valFirstname\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditFirstname\" />" : "");
+                        validator = validator + (mandFirstname ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valFirstname\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valFirstname\" ControlToValidate=\"txtAdrEditFirstname\" />" : "");
 
 					}
 					if (paraName == "MIDDLENAME")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditMiddlename.Text", this.LocalResourceFile) + (mandMiddlename ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditMiddlename\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"50\" Style=\"width:" + width + "px;min-width:10px\" " + (mandMiddlename ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandMiddlename ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valMiddlename\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditMiddlename\" />" : "");
+                        validator = validator + (mandMiddlename ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valMiddlename\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valMiddlename\" ControlToValidate=\"txtAdrEditMiddlename\" />" : "");
 
 					}
 					if (paraName == "LASTNAME")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditLastname.Text", this.LocalResourceFile) + (mandLastname ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditLastname\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"50\" Style=\"width:" + width + "px;min-width:10px\" " + (mandLastname ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandLastname ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valLastname\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditLastname\" />" : "");
+                        validator = validator + (mandLastname ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valLastname\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valLastname\" ControlToValidate=\"txtAdrEditLastname\" />" : "");
 
 					}
 					if (paraName == "SUFFIX")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditSuffix.Text", this.LocalResourceFile) + (mandSuffix ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditSuffix\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"50\" Style=\"width:" + width + "px;min-width:10px\" " + (mandSuffix ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandSuffix ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valSuffix\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditSuffix\" />" : "");
+                        validator = validator + (mandSuffix ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valSuffix\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valSuffix\" ControlToValidate=\"txtAdrEditSuffix\" />" : "");
 
 					}
 					if (paraName == "STREET")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditStreet.Text", this.LocalResourceFile) + (mandStreet ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditStreet\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"100\" Style=\"width:" + width + "px;min-width:10px\" " + (mandStreet ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandStreet ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valStreet\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditStreet\" />" : "");
+                        validator = validator + (mandStreet ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valStreet\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valStreet\" ControlToValidate=\"txtAdrEditStreet\" />" : "");
 
 					}
 					if (paraName == "UNIT")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditUnit.Text", this.LocalResourceFile) + (mandUnit ? mandChar : "");
                         input = input + "<asp:TextBox ID=\"txtAdrEditUnit\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"50\" Style=\"width:" + width + "px;min-width:10px\" " + (mandUnit ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandUnit ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valUnit\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditUnit\" />" : "");
+                        validator = validator + (mandUnit ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valUnit\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valUnit\" ControlToValidate=\"txtAdrEditUnit\" />" : "");
 
 					}
 					if (paraName == "REGION")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditRegion.Text", this.LocalResourceFile) + (mandRegion ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditRegion\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"50\" Style=\"width:" + width + "px;min-width:10px\" " + (mandRegion ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandRegion ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valRegion\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditRegion\" />" : "");
+                        validator = validator + (mandRegion ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valRegion\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valRegion\" ControlToValidate=\"txtAdrEditRegion\" />" : "");
 
 					}
 					if (paraName == "POSTALCODE")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditPostalCode.Text", this.LocalResourceFile) + (mandPostalCode ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditPostalCode\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"10\" Style=\"width:" + width + "px;min-width:10px\" " + (mandPostalCode ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandPostalCode ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valPostalCode\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditPostalCode\" />" : "");
+                        validator = validator + (mandPostalCode ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valPostalCode\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valPostalCode\" ControlToValidate=\"txtAdrEditPostalCode\" />" : "");
 
 					}
 					if (paraName == "CITY")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditCity.Text", this.LocalResourceFile) + (mandCity ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditCity\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"100\" Style=\"width:" + width + "px;min-width:10px\" " + (mandCity ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandCity ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valCity\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditCity\" />" : "");
+                        validator = validator + (mandCity ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valCity\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valCity\" ControlToValidate=\"txtAdrEditCity\" />" : "");
 					}
 					if (paraName == "SUBURB")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditSuburb.Text", this.LocalResourceFile) + (mandSuburb ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditSuburb\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"100\" Style=\"width:" + width + "px;min-width:10px\" " + (mandSuburb ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandSuburb ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valSuburb\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditSuburb\" />" : "");
+                        validator = validator + (mandSuburb ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valSuburb\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valSuburb\" ControlToValidate=\"txtAdrEditSuburb\" />" : "");
 
 					}
 					if (paraName == "COUNTRY")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditCountry.Text", this.LocalResourceFile) + (mandCountry ? mandChar : "");
                         input = input + "<asp:DropDownList id=\"ddlCountry\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"100\" Style=\"width:" + width + "px;min-width:10px\" " + (mandCountry ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandCountry ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valCountry\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"ddlCountry\" />" : "");
+                        validator = validator + (mandCountry ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valCountry\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valCountry\" ControlToValidate=\"ddlCountry\" />" : "");
 
 					}
 					if (paraName == "PHONE")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditPhone.Text", this.LocalResourceFile) + (mandPhone ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditPhone\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"20\" Style=\"width:" + width + "px;min-width:10px\" " + (mandPhone ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandPhone ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valPhone\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditPhone\" />" : "");
+                        validator = validator + (mandPhone ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valPhone\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valPhone\" ControlToValidate=\"txtAdrEditPhone\" />" : "");
 
 					}
 					if (paraName == "CELL")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditCell.Text", this.LocalResourceFile) + (mandCell ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditCell\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"20\" Style=\"width:" + width + "px;min-width:10px\" " + (mandCell ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandCell ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valCell\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditFax\" />" : "");
+                        validator = validator + (mandCell ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valCell\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valCell\" ControlToValidate=\"txtAdrEditFax\" />" : "");
 
 					}
 					if (paraName == "FAX")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditFax.Text", this.LocalResourceFile) + (mandFax ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditFax\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"20\" Style=\"width:" + width + "px;min-width:10px\" " + (mandFax ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandFax ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valFax\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditCell\" />" : "");
+                        validator = validator + (mandFax ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valFax\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valFax\" ControlToValidate=\"txtAdrEditCell\" />" : "");
 
 					}
 					if (paraName == "EMAIL")
 					{
 						caption = caption + (String.IsNullOrEmpty(caption) ? "" : " / ") + Localization.GetString("lblAdrEditEmail.Text", this.LocalResourceFile) + (mandEmail ? mandChar : "");
                         input = input + "<asp:TextBox id=\"txtAdrEditEmail\" runat=\"server\" EnableViewState=\"True\" MaxLength=\"120\" Style=\"width:" + width + "px;min-width:10px\" " + (mandEmail ? "CssClass=\"dnnFormRequired\"" : "") + " />";
-                        validator = validator + (mandEmail ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valEmail\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" Text=\"&#171;\" ControlToValidate=\"txtAdrEditEmail\" />" : "");
+                        validator = validator + (mandEmail ? "<asp:RequiredFieldValidator runat=\"server\" ID=\"valEmail\" CssClass=\"dnnFormMessage dnnFormError\" Display=\"Dynamic\" style=\"left:inherit\" ResourceKey=\"valEmail\" ControlToValidate=\"txtAdrEditEmail\" />" : "");
 
 					}
 				}

@@ -72,8 +72,8 @@
                         <asp:BoundField DataField="ItemNo" HeaderText="ItemNo" SortExpression="ItemNo" />
                         <asp:TemplateField HeaderText="Product">
                             <ItemTemplate>
-                                <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>'/>
-                                <asp:HyperLink ID="lnkName" runat="server" Text='<%# Eval("Name") %>' NavigateUrl='<%# Eval("ProductUrl") %>'/>
+                                <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>' CssClass="bbstore-cart-name"/>
+                                <asp:HyperLink ID="lnkName" runat="server" Text='<%# Eval("Name") %>' NavigateUrl='<%# Eval("ProductUrl") %>' CssClass="bbstore-cart-name"/>
                                 <br /><asp:Label ID="lblOption" runat="server" CssClass="bbstore-cart-option"/>
                             </ItemTemplate>
                         </asp:TemplateField>

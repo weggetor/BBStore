@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="Bitboxx.DNNModules.BBStore.ViewAdminUnitList" AutoEventWireup="true" CodeBehind="ViewAdminUnitList.ascx.cs" %>
-<div class="bbstore-admin-unitlist dnnClear">
+<div class="bbstore-admin bbstore-admin-unitlist dnnClear">
     <table style="width:100%" class="bbstore-admin-editgrid-search">
 	    <tr>
 		    <td width="99%" align="right"><asp:Label ID="lblPageSize" runat="server" ResourceKey="lblPageSize.Text" /></td>

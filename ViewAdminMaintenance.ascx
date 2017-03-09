@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewAdminMaintenance.ascx.cs" Inherits="Bitboxx.DNNModules.BBStore.ViewAdminMaintenance" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
-<div class="dnnForm bbstore-admin-maintenance dnnClear">
+<div class="dnnForm bbstore-admin bbstore-admin-maintenance dnnClear">
     <div class="bbSection">
 		<h3><asp:Label id="lblCheckCap" ResourceKey="lblCheck.Text" runat="server"/></h3>
         <asp:Label runat="server" ID="lblCheck" ResourceKey="lblCheck.Help" CssClass="dnnFormMessage dnnFormInfo"/>

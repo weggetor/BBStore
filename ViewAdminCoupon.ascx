@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="Bitboxx.DNNModules.BBStore.ViewAdminCoupon" AutoEventWireup="true" CodeBehind="ViewAdminCoupon.ascx.cs" %>
-<div class="bbstore-admin-coupon dnnClear">
+<div class="bbstore-admin bbstore-admin-coupon dnnClear">
     <table style="width:100%" class="bbstore-admin-editgrid-search">
 	    <tr>
 		    <td width="99%" align="right"><asp:Label ID="lblPageSize" runat="server" ResourceKey="lblPageSize.Text" /></td>

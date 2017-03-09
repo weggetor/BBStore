@@ -328,14 +328,19 @@ namespace Bitboxx.DNNModules.BBStore
 		                case "dropdown":
                         case "colorbox":
 		                    DropDownList cboOptionValue = new DropDownList();
-		                    cboOptionValue.CssClass = "bbstore-product-option-dropdown";
                             cboOptionValue.ID = "cboOptionValue";
 		                    cboOptionValue.Items.Clear();
 		                    cboOptionValue.Items.Add(new ListItem(Localization.GetString("SelectOption.Text", ProductModule.LocalResourceFile), ""));
-                            if (control == "colorbox")
-                                cboOptionValue.Items[0].Attributes.Add("style","background-color:#FFFFFF");
+		                    if (control == "colorbox")
+		                    {
+                                cboOptionValue.CssClass = "bbstore-product-option-colorbox";
+                                cboOptionValue.Items[0].Attributes.Add("style", "background-color:#FFFFFF");
+                            }
+                            else
+                                cboOptionValue.CssClass = "bbstore-product-option-dropdown";
 
-		                    foreach (OptionListInfo lid in options)
+
+                            foreach (OptionListInfo lid in options)
 		                    {
 		                        if (lid.OptionValue != String.Empty)
 		                        {
@@ -344,7 +349,7 @@ namespace Bitboxx.DNNModules.BBStore
 		                            string optionColor = "";
 		                            if (control == "colorbox")
 		                            {
-		                                optionColor = VfpInterop.StrExtract(optionDisplayvalue, "(", ")",1,1);
+                                        optionColor = VfpInterop.StrExtract(optionDisplayvalue, "(", ")",1,1);
 		                                optionDisplayvalue = optionDisplayvalue.Substring(0, optionDisplayvalue.IndexOf("(")).Trim();
 		                                lid.OptionValue = optionDisplayvalue;
 		                            }

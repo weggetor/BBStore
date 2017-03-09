@@ -7,7 +7,7 @@
 <%@ Register TagPrefix="bb" TagName="TabSelectControl" Src="Controls/TabSelectControl.ascx" %>
 <%@ Register TagPrefix="bb" TagName="SelectFolderControl" Src="Controls/SelectFolderControl.ascx" %>   
 <%@ Register TagPrefix="bb" TagName="ColorPicker" Src="Controls/ColorPickerControl.ascx" %>
-<div id="bbstore-panels" class="dnnForm bbstore-admin-settings dnnClear">
+<div id="bbstore-panels" class="dnnForm bbstore-admin bbstore-admin-settings dnnClear">
     <div class="dnnFormExpandContent"><a href=""><%=Localization.GetString("ExpandAll", Localization.SharedResourceFile)%></a></div>
 
 <!--    <h2 id="bbstore-admin-head0" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("shLicense")%></a></h2>

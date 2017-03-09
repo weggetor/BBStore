@@ -1,5 +1,5 @@
 <%@ Control Language="C#" Inherits="Bitboxx.DNNModules.BBStore.ViewAdminOrderList" AutoEventWireup="true" CodeBehind="ViewAdminOrderList.ascx.cs" %>
-<div class="bbstore-admin-orderlist dnnClear">
+<div class="bbstore-admin bbstore-admin-orderlist dnnClear">
     <table style="width:100%" class="bbstore-admin-editgrid-search">
         <tr>
             <td><asp:Label ID="lblFilterCap" runat="server" ResourceKey="lblFilterCap.Text" /></td>

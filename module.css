@@ -79,6 +79,9 @@ COLORSUM : #A0AFEB;
 .bbstore-admin .dnnFormMessage { display: block;}
 .bbstore-admin .dnnFormItem input[type="text"],.bbstore-admin-view .dnnFormItem textarea {min-width:0; width: auto;}
 .bbstore-admin .bbFormInput { background-color: #d6d6d6;}
+.bbstore-admin .dnnHelpText,
+.bbstore-admin .dnnHelpText p {color:white!important;}
+.bbstore-admin .dnnTooltip .dnnFormHelpContent {width:500px;}
 
 
 /* Admin modules editgrid */

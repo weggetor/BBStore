@@ -193,8 +193,9 @@ Fügen Sie dem Änderungswert ein "#" hinzu, so wird diese Preisänderung in der
 &lt;br /&gt;
 Sie können die Preisdifferenz durch einen zusätzlichen Buchstaben auch noch genauer qualifizieren. Verwenden Sie &amp;quot;&lt;strong&gt;N&lt;/strong&gt;&amp;quot; für netto (Standard), &amp;quot;&lt;strong&gt;B&lt;/strong&gt;&amp;quot; für Brutto und &amp;quot;&lt;strong&gt;%&lt;/strong&gt;&amp;quot; für eine prozentuale Abweichung (z.B.: &lt;i&gt;Farbe:Grün[-1.50B],Blau[10%],Gelb[+1.2345N]&lt;/i&gt;). Wenn Sie einen Faktor gewählt haben wird der zusätzliche Buchstabe ignoriert!&lt;br /&gt;
 &lt;br /&gt;
-Rabatte können definiert werden über ein &amp;quot;&lt;strong&gt;@&lt;/strong&gt;&amp;quot;-Zeichen, gefolgt von Namen, einem &amp;quot;&lt;strong&gt;:&lt;/strong&gt;&amp;quot; und dann (wiederum als kommaseparierte Liste) die jeweilige Anzahl mit Ihrer Preisabweichung (analog zu den Attributen)&amp;nbsp; (z.B.: &lt;i&gt;@Rabatt:5[-10%],10[-20%]&lt;/i&gt;&amp;nbsp; würde bedeuten das ein Mengenrabatt von 10% ab 5 bestellten Artikeln vergeben wird sowie 20% ab dem 10.ten )&lt;/p&gt;
-</value>
+Rabatte können definiert werden über ein &amp;quot;&lt;strong&gt;@&lt;/strong&gt;&amp;quot;-Zeichen, gefolgt von Namen, einem &amp;quot;&lt;strong&gt;:&lt;/strong&gt;&amp;quot; und dann (wiederum als kommaseparierte Liste) die jeweilige Anzahl mit Ihrer Preisabweichung (analog zu den Attributen)&amp;nbsp; (z.B.: &lt;i&gt;@Rabatt:5[-10%],10[-20%]&lt;/i&gt;&amp;nbsp; würde bedeuten das ein Mengenrabatt von 10% ab 5 bestellten Artikeln vergeben wird sowie 20% ab dem 10.ten )
+&lt;br/&gt;
+Zusätzliche Steuerelemente: Man kann ein "|" am Ende der Zeile hinzufügen . Danach fügt man ein "&lt;I&gt;" ein um die Möglichkeit zum Hochladen einer Datei einzufügen oder ein "&lt;D&gt;" für das Hinzufügen einer Beschreibungs-Textbox. Durch hinzufügen von "&lt;CONTROL colorbox &gt;" nach der "|" wird eine Farbauswahlbox erstellt. In diesem Fall müssen alle Optionen einen Farbwert in Klammern nach dem Optionsnamen haben (z. B. Farbe: rot (#FF0000), grün (#00FF00), blau (#0000FF) |&lt;CONTROL colorbox &gt;)&lt;/p&gt;</value>
   </data>
 	<data name="lblProductDescription.Help" xml:space="preserve">
     <value>Geben Sie hier mit Hilfe des HTML-Editors eine ansprechende Artikelbeschreibung mit beliebig vielen Bildern ihres Artikels ein</value>
