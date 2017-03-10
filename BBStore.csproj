@@ -835,8 +835,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Installation\01.00.13.SqlDataProvider" />
-    <Content Include="Installation\01.00.14 .SqlDataProvider" />
+    <Content Include="Installation\01.00.14.SqlDataProvider" />
     <Content Include="Installation\01.00.17.SqlDataProvider" />
+    <Content Include="Installation\01.00.18.SqlDataProvider" />
     <None Include="Installation\Uninstall.SqlDataProvider" />
     <Content Include="Templates\ProductList\tokens.de-DE.htp" />
     <Content Include="Templates\ProductList\tokens.htp" />

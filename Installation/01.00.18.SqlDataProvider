@@ -1,0 +1,58 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_SimpleProductLang]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	declare @default sysname, @sql nvarchar(max)
+
+	select @default = name 
+	from sys.default_constraints 
+	where parent_object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_SimpleProductLang]')
+	AND type = 'D'
+	AND parent_column_id = (
+		select column_id 
+		from sys.columns 
+		where object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_SimpleProductLang]')
+		and name = 'ShortDescription'
+		)
+
+	set @sql = N'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProductLang] DROP CONSTRAINT ' + @default
+	exec sp_executesql @sql
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProductLang] ALTER COLUMN ShortDescription NVARCHAR(MAX) NOT NULL
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_SimpleProductLang] ADD DEFAULT ('') FOR ShortDescription
+END
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_ShippingArea]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	declare @default sysname, @sql nvarchar(max)
+
+	select @default = name 
+	from sys.default_constraints 
+	where parent_object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_ShippingArea]')
+	AND type = 'D'
+	AND parent_column_id = (
+		select column_id 
+		from sys.columns 
+		where object_id = object_id('{databaseOwner}[{objectQualifier}BBStore_ShippingArea]')
+		and name = 'CountryCodeISO2'
+		)
+
+	set @sql = N'ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingArea] DROP CONSTRAINT ' + @default
+	exec sp_executesql @sql
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingArea] ALTER COLUMN  CountryCodeISO2 NVARCHAR(500) COLLATE Latin1_General_CI_AS NOT NULL
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ShippingArea] ADD DEFAULT ('') FOR CountryCodeISO2
+END
+go
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

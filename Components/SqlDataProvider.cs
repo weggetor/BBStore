@@ -5293,11 +5293,19 @@ namespace Bitboxx.DNNModules.BBStore
         public override int GetShippingZoneIdByAddress(int modelId, string countryCodeISO2, int postalCode)
         {
             int shippingZoneId = -1;
-            string sqlCmd = "SELECT ShippingZoneId" +
-                            " FROM " + GetFullyQualifiedName("ShippingZone") + 
+            string sqlCmd = " WITH tmpShippingArea AS (SELECT A.ShippingAreaID, A.ShippingZoneID,PostalCodeMin, PostalCodeMax," +
+                            " Split.a.value('.', 'VARCHAR(100)') AS CountryCodeISO2" +
+                            " FROM" +
+                            "(" +
+                            "     SELECT ShippingZoneID, ShippingAreaID, PostalCodeMin, PostalCodeMax," +
+                            "       CAST('<M>' + REPLACE(CountryCodeISO2, ',', '</M><M>') + '</M>' AS XML) AS CountryCodeISO2" +
+                            "     FROM " + GetFullyQualifiedName("ShippingArea") +
+                            ") AS A CROSS APPLY CountryCodeISO2.nodes('/M') AS Split(a)) " +
+                            "SELECT ShippingZoneId" +
+                            " FROM " + GetFullyQualifiedName("ShippingZone") +
                             " WHERE ShippingModelId = @ShippingModelId" +
                             " AND ShippingZoneId IN " +
-                            "   (SELECT ShippingZoneId FROM " + GetFullyQualifiedName("ShippingArea") + " WHERE {0})";
+                            "   (SELECT ShippingZoneId FROM tmpShippingArea WHERE {0})";
 
             SqlParameter[] sqlParams = new SqlParameter[]
                                            {
@@ -5310,7 +5318,7 @@ namespace Bitboxx.DNNModules.BBStore
             object result = null;
             if (postalCode > -1)
             {
-                where = "CountryCodeISO2 = @CountryCodeISO2 AND PostalCodeMin < @PostalCode AND PostalCodeMax > @PostalCode";
+                where = "CountryCodeISO2 = @CountryCodeISO2 AND PostalCodeMin <= @PostalCode AND PostalCodeMax >= @PostalCode";
                 result = SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, String.Format(sqlCmd, where), sqlParams);
                 if (result != null && result != DBNull.Value)
                 {

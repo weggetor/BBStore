@@ -292,6 +292,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             try
             {
+                ErrorText = "";
                 // Init Steps Display
                 navCart.Steps = NavList;
 
@@ -1301,10 +1302,8 @@ namespace Bitboxx.DNNModules.BBStore
                 string shippingCountry = "";
                 string shippingCountryCode = (string)StoreSettings["VendorCountry"];
 
-                bool costwithZoneId = (from s in shippingCosts where s.ShippingZoneID == shippingZoneId select s).Any();
                 bool costwithoutZoneId = (from s in shippingCosts where s.ShippingZoneID == -1 select s).Any();
-
-                if (costwithoutZoneId)
+                if (! costwithoutZoneId)
                 {
                     // Retrieve shippingZoneId for Delivery address
                     CustomerAddressInfo shippingAddress = Controller.GetCustomerAddress(ShippingAddressId);
@@ -1336,6 +1335,8 @@ namespace Bitboxx.DNNModules.BBStore
                 if (shippingZoneId > -1 || costwithoutZoneId)
                 {
                     // Do we have ShippingCosts with the shippingZoneId
+                    bool costwithZoneId = (from s in shippingCosts where s.ShippingZoneID == shippingZoneId select s).Any();
+
                     if (costwithZoneId)
                         shippingCosts = (from s in shippingCosts where s.ShippingZoneID == shippingZoneId select s).ToList();
                     else
@@ -1374,7 +1375,8 @@ namespace Bitboxx.DNNModules.BBStore
                             shippingSum += theOne.ShippingPrice;
                         }
                     }
-                    if (shippingSum > 0 || Convert.ToBoolean(StoreSettings["AddZeroShipping"] ?? "false"))
+                    bool addZeroShipping = Convert.ToBoolean(StoreSettings["AddZeroShipping"] ?? "false");
+                    if (shippingSum > 0 || addZeroShipping)
                     {
                         ShippingZoneDisplayInfo zone = Controller.GetShippingZoneById(shippingZoneId, CurrentLanguage);
                         CartAdditionalCostInfo addCost = new CartAdditionalCostInfo();
@@ -1392,7 +1394,7 @@ namespace Bitboxx.DNNModules.BBStore
                             addCost.Name = zone.OrderText;
                             if (zone.ExemptionLimit > sumCost || zone.ExemptionLimit < 0)
                                 addCost.UnitCost = shippingSum;
-                            else
+                            else if (addZeroShipping)
                                 addCost.UnitCost = 0m;
                         }
                         Controller.NewCartAdditionalCost(addCost);
