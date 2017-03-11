@@ -62,7 +62,12 @@ namespace Bitboxx.DNNModules.BBStore
 		public int ProductId
 		{
 			set { _ProductId = value; }
-			get { return _ProductId; }
+		    get
+		    {
+		        if (_ProductId == 0 && !String.IsNullOrEmpty(Request["ProductId"]))
+		            _ProductId = Convert.ToInt32(Request["ProductId"]);
+                return _ProductId;
+		    }
 		}
 		public int ProductGroupId
 		{

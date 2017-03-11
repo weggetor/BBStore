@@ -67,7 +67,6 @@ namespace Bitboxx.DNNModules.BBStore
 		private bool IsConfigured = false;
 		private bool SetTitle = false;
         private bool IsVisible = true;
-		private ProductGroupInfo productGroup;
 		private Image imgIcon;
 		private int productGroupsInRow = 1;
 	    private string _template = "";
@@ -525,112 +524,13 @@ namespace Bitboxx.DNNModules.BBStore
 
 			if (IsConfigured)
 			{
-				int imageWidth = 200;
+				
 				ListView lv = sender as ListView;
 				ListViewDataItem item = e.Item as ListViewDataItem;
-				productGroup = item.DataItem as ProductGroupInfo;
+				ProductGroupInfo productGroup = item.DataItem as ProductGroupInfo;
 				if (productGroup != null)
 				{
-				    string template = Template;
-                    template = template.Replace("[PRODUCTGROUPNAME]", "<asp:Label ID=\"lblProductGroupName\" runat=\"server\" />");
-                    template = template.Replace("[PRODUCTGROUPSHORTDESCRIPTION]", "<asp:Label ID=\"lblProductGroupShortDescription\" runat=\"server\" />");
-                    template = template.Replace("[PRODUCTGROUPDESCRIPTION]", "<asp:Label ID=\"lblProductGroupDescription\" runat=\"server\" />");
-                    if (template.IndexOf("[IMAGE") > -1)
-					{
-                        if (template.IndexOf("[IMAGE:") > -1)
-						{
-							string width;
-                            width = template.Substring(template.IndexOf("[IMAGE:") + 7);
-							width = width.Substring(0, width.IndexOf("]"));
-							if (Int32.TryParse(width, out imageWidth) == false)
-								imageWidth = 200;
-                            template = template.Replace("[IMAGE:" + width + "]", "<asp:PlaceHolder ID=\"phimgProductGroup\" runat=\"server\" />");
-						}
-						else
-                            template = template.Replace("[IMAGE]", "<asp:PlaceHolder ID=\"phimgProductGroupOri\" runat=\"server\" />");
-					}
-                    while (template.IndexOf("[RESOURCE:") > -1)
-					{
-                        string resKey = template.Substring(template.IndexOf("[RESOURCE:") + 10);
-						resKey = resKey.Substring(0, resKey.IndexOf("]"));
-                        template = template.Replace("[RESOURCE:" + resKey + "]",
-							Localization.GetString(resKey, this.LocalResourceFile));
-					}
-                    template = template.Replace("[ICON]", "<asp:Image ID=\"imgIcon\" runat=\"server\" />");
-                    template = template.Replace("[PRODUCTCOUNT]", "<asp:Label ID=\"lblProductCount\" runat=\"server\" />");
-                    
-                    int linkCnt = 0;
-                    while (template.Contains("[LINK]"))
-                    {
-                        linkCnt++;
-                        template = template.ReplaceFirst("[LINK]", "<asp:Literal ID=\"ltrLink" + linkCnt.ToString() + "\" runat=\"server\" />");
-                    }
-
-                    Control ctrl = ParseControl(template);
-					lblProductGroupName = FindControlRecursive(ctrl, "lblProductGroupName") as Label;
-					if (lblProductGroupName != null)
-						lblProductGroupName.Text = productGroup.ProductGroupName;
-
-					Label lblProductGroupShortDescription = FindControlRecursive(ctrl, "lblProductGroupShortDescription") as Label;
-					if (lblProductGroupShortDescription != null)
-						lblProductGroupShortDescription.Text = productGroup.ProductGroupShortDescription;
-
-					Label lblProductGroupDescription = FindControlRecursive(ctrl, "lblProductGroupDescription") as Label;
-					if (lblProductGroupDescription != null)
-						lblProductGroupDescription.Text = productGroup.ProductGroupDescription;
-
-					PlaceHolder phimgProductGroup = FindControlRecursive(ctrl, "phimgProductGroup") as PlaceHolder;
-					if (phimgProductGroup != null && productGroup.Image != null)
-					{
-						string fileName =
-							PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
-							productGroup.Image.Replace('/', '\\');
-
-						imgProductGroup = new GeneratedImage();
-						imgProductGroup.ImageHandlerUrl = "~/BBImageHandler.ashx";
-						if (imageWidth > 0)
-							imgProductGroup.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
-						imgProductGroup.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
-						// TODO: Watermark
-						//if (false)
-						//{
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkText", Value = Localization.GetString("Sold.Text", this.LocalResourceFile) });
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontFamily", Value = "Verdana" });
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontColor", Value = "Red" });
-						//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
-						//}
-						phimgProductGroup.Controls.Add(imgProductGroup);
-					}
-					
-					PlaceHolder phimgProductGroupOri = FindControlRecursive(ctrl, "phimgProductGroupOri") as PlaceHolder;
-					if (phimgProductGroupOri != null && productGroup.Image != null)
-					{
-						Image imgProductGroupOri = new Image();
-						imgProductGroupOri.ImageUrl = PortalSettings.HomeDirectory + productGroup.Image;
-						phimgProductGroupOri.Controls.Add(imgProductGroupOri);
-					}
-
-					imgIcon = FindControlRecursive(ctrl, "imgIcon") as Image;
-					if (imgIcon != null)
-						imgIcon.ImageUrl = productGroup.Icon;
-					lblProductCount = FindControlRecursive(ctrl, "lblProductCount") as Label;
-					if (lblProductCount != null)
-						lblProductCount.Text = productGroup.ProductCount.ToString();
-
-				    for (int i = 1; i < linkCnt+1; i++)
-				    {
-				        Literal ltrLink = FindControlRecursive(ctrl, "ltrLink"+ i.ToString()) as Literal;
-				        if (ltrLink != null)
-				        {
-				            if (productGroup.ProductListTabId != -1)
-				                ltrLink.Text = Globals.NavigateURL(productGroup.ProductListTabId, "", "productgroup=" + productGroup.ProductGroupId.ToString());
-				            else
-				            {
-				                int dynamicTab = Convert.ToInt32(Settings["DynamicPage"] ?? TabId.ToString());
-				                ltrLink.Text = Globals.NavigateURL(dynamicTab, "", "productgroup=" + productGroup.ProductGroupId.ToString());
-				            }
-				        }
-				    }
+				    var ctrl = RenderItem(productGroup);
 
 				    PlaceHolder ph = e.Item.FindControl("productGroupPlaceholder") as PlaceHolder;
 					ph.Controls.Add(ctrl);
@@ -642,7 +542,104 @@ namespace Bitboxx.DNNModules.BBStore
 			}
 
 		}
-		protected void treeProductGroup_TreeNodePopulate(object sender, TreeNodeEventArgs e)
+
+	    private Control RenderItem(ProductGroupInfo productGroup)
+	    {
+            int imageWidth = 200;
+            string template = Template;
+	        template = template.Replace("[PRODUCTGROUPNAME]", productGroup.ProductGroupName);
+	        template = template.Replace("[PRODUCTGROUPSHORTDESCRIPTION]", productGroup.ProductGroupShortDescription);
+	        template = template.Replace("[PRODUCTGROUPDESCRIPTION]", productGroup.ProductGroupDescription);
+
+            template = template.Replace("[IMAGE]", "<img src=\"" + PortalSettings.HomeDirectory + productGroup.Image + "\" alt=\"" + productGroup.ProductGroupName + "\" />");
+
+            int imageCnt = 0;
+	        Queue<int> imageWidths = new Queue<int>();
+	        while (template.Contains("[IMAGE:"))
+	        {
+	            imageCnt++;
+
+	            string width = template.Substring(template.IndexOf("[IMAGE:") + 7);
+	            width = width.Substring(0, width.IndexOf("]"));
+	            if (Int32.TryParse(width, out imageWidth) == false)
+	                imageWidth = 200;
+	            imageWidths.Enqueue(imageWidth);
+
+                template = template.ReplaceFirst("[IMAGE:" + width + "]", "<asp:PlaceHolder ID=\"phimgProductGroup" + imageCnt.ToString() + "\" runat=\"server\" />");
+	        }
+
+	        while (template.IndexOf("[RESOURCE:") > -1)
+	        {
+	            string resKey = template.Substring(template.IndexOf("[RESOURCE:") + 10);
+	            resKey = resKey.Substring(0, resKey.IndexOf("]"));
+	            template = template.Replace("[RESOURCE:" + resKey + "]",
+	                Localization.GetString(resKey, this.LocalResourceFile));
+	        }
+	        template = template.Replace("[ICON]", "<asp:Image ID=\"imgIcon\" runat=\"server\" />");
+	        template = template.Replace("[PRODUCTCOUNT]", "<asp:Label ID=\"lblProductCount\" runat=\"server\" />");
+
+	        int linkCnt = 0;
+	        while (template.Contains("[LINK]"))
+	        {
+	            linkCnt++;
+	            template = template.ReplaceFirst("[LINK]", "<asp:Literal ID=\"ltrLink" + linkCnt.ToString() + "\" runat=\"server\" />");
+	        }
+
+	        Control ctrl = ParseControl(template);
+
+	        imageCnt = 1;
+            PlaceHolder phimgProductGroup = FindControlRecursive(ctrl, "phimgProductGroup" + imageCnt.ToString()) as PlaceHolder;
+	        while (phimgProductGroup != null && productGroup.Image != null)
+	        {
+	            string fileName =
+	                PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
+	                productGroup.Image.Replace('/', '\\');
+
+	            imgProductGroup = new GeneratedImage();
+	            imgProductGroup.ImageHandlerUrl = "~/BBImageHandler.ashx";
+	            imageWidth = imageWidths.Dequeue();
+                if (imageWidth > 0)
+	                imgProductGroup.Parameters.Add(new ImageParameter() {Name = "Width", Value = imageWidth.ToString()});
+	            imgProductGroup.Parameters.Add(new ImageParameter() {Name = "File", Value = fileName});
+	            // TODO: Watermark
+	            //if (false)
+	            //{
+	            //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkText", Value = Localization.GetString("Sold.Text", this.LocalResourceFile) });
+	            //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontFamily", Value = "Verdana" });
+	            //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontColor", Value = "Red" });
+	            //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
+	            //}
+	            phimgProductGroup.Controls.Add(imgProductGroup);
+
+                imageCnt++;
+                phimgProductGroup = FindControlRecursive(ctrl, "phimgProduct" + imageCnt.ToString()) as PlaceHolder;
+            }
+
+	        imgIcon = FindControlRecursive(ctrl, "imgIcon") as Image;
+	        if (imgIcon != null)
+	            imgIcon.ImageUrl = productGroup.Icon;
+	        lblProductCount = FindControlRecursive(ctrl, "lblProductCount") as Label;
+	        if (lblProductCount != null)
+	            lblProductCount.Text = productGroup.ProductCount.ToString();
+
+	        for (int i = 1; i < linkCnt + 1; i++)
+	        {
+	            Literal ltrLink = FindControlRecursive(ctrl, "ltrLink" + i.ToString()) as Literal;
+	            if (ltrLink != null)
+	            {
+	                if (productGroup.ProductListTabId != -1)
+	                    ltrLink.Text = Globals.NavigateURL(productGroup.ProductListTabId, "", "productgroup=" + productGroup.ProductGroupId.ToString());
+	                else
+	                {
+	                    int dynamicTab = Convert.ToInt32(Settings["DynamicPage"] ?? TabId.ToString());
+	                    ltrLink.Text = Globals.NavigateURL(dynamicTab, "", "productgroup=" + productGroup.ProductGroupId.ToString());
+	                }
+	            }
+	        }
+	        return ctrl;
+	    }
+
+	    protected void treeProductGroup_TreeNodePopulate(object sender, TreeNodeEventArgs e)
 		{
 			// http://quickstarts.asp.net/QuickStartv20/aspnet/doc/ctrlref/navigation/treeview.aspx
 			TreeNode parent = e.Node;

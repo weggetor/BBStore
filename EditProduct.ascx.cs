@@ -466,20 +466,20 @@ namespace Bitboxx.DNNModules.BBStore
 
             Controller = new BBStoreController();
             DataTable selectedProductGroups = Controller.GetProductsInGroupByProduct(ProductId);
-            List<ProductGroupInfo> products = Controller.GetProductSubGroupsByNode(PortalId, CurrentLanguage, ProductGroupId, false, false, true);
-            foreach (ProductGroupInfo p in products)
+            List<ProductGroupInfo> productGroups = Controller.GetProductSubGroupsByNode(PortalId, CurrentLanguage, ProductGroupId, false, false, true);
+            foreach (ProductGroupInfo productGroup in productGroups)
             {
-                TreeNode newNode = new TreeNode(p.ProductGroupName, "_" + p.ProductGroupId.ToString());
-                DataRow[] zosn = selectedProductGroups.Select("ProductgroupId = " + p.ProductGroupId.ToString());
+                TreeNode newNode = new TreeNode(productGroup.ProductGroupName, "_" + productGroup.ProductGroupId.ToString());
+                DataRow[] zosn = selectedProductGroups.Select("ProductgroupId = " + productGroup.ProductGroupId.ToString());
                 if (zosn.Length > 0)
                     newNode.Checked = true;
                 newNode.SelectAction = TreeNodeSelectAction.Expand;
                 newNode.PopulateOnDemand = true;
-                //newNode.ImageUrl = FileNameToImgSrc(p.Icon);
-
+                newNode.Expand();
                 parent.ChildNodes.Add(newNode);
             }
         }
+
 
         protected void treeProductGroup_TreeNodeCheckChanged(object sender, TreeNodeEventArgs e)
         {

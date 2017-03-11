@@ -186,4 +186,55 @@
 [POSTALCODE:50] [CITY:150] - [SUBURB:100]
 [COUNTRY:300]</value>
 	</data>
+	<data name="valCell.Text" xml:space="preserve">
+		<value>Mobilfunknummer ist erforderlich</value>
+	</data>
+	<data name="valCity.Text" xml:space="preserve">
+		<value>Stadt ist erforderlich</value>
+	</data>
+	<data name="valCompany.Text" xml:space="preserve">
+		<value>Firma ist erforderlich</value>
+	</data>
+	<data name="valCountry.Text" xml:space="preserve">
+		<value>Land ist erforderlich</value>
+	</data>
+	<data name="valEmail.Text" xml:space="preserve">
+		<value>E-Mail ist erforderlich</value>
+	</data>
+	<data name="valFax.Text" xml:space="preserve">
+		<value>Fax ist erforderlich</value>
+	</data>
+	<data name="valFirstname.Text" xml:space="preserve">
+		<value>Vorname ist erforderlich</value>
+	</data>
+	<data name="valLastname.Text" xml:space="preserve">
+		<value>Nachname ist erforderlich</value>
+	</data>
+	<data name="valMiddlename.Text" xml:space="preserve">
+		<value>Mittelname ist erforderlich</value>
+	</data>
+	<data name="valPhone.Text" xml:space="preserve">
+		<value>Telefon ist erforderlich</value>
+	</data>
+	<data name="valPostalCode.Text" xml:space="preserve">
+		<value>PLZ ist erforderlich</value>
+	</data>
+	<data name="valPrefix.Text" xml:space="preserve">
+		<value>Prefix ist erforderlich</value>
+	</data>
+	<data name="valRegion.Text" xml:space="preserve">
+		<value>Region ist erforderlich</value>
+	</data>
+	<data name="valStreet.Text" xml:space="preserve">
+		<value>Strasse</value>
+	</data>
+	<data name="valSuburb.Text" xml:space="preserve">
+		<value>Ortsteil ist erforderlich</value>
+	</data>
+	<data name="valSuffix.Text" xml:space="preserve">
+		<value>Suffix ist erforderlich</value>
+	</data>
+	<data name="valUnit.Text" xml:space="preserve">
+		<value>Hausnummer ist erforderlich</value>
+	</data>
 </root>

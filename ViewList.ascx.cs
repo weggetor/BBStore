@@ -755,14 +755,11 @@ namespace Bitboxx.DNNModules.BBStore
                 tax = Localization.GetString("IncludeTax.Text", this.LocalResourceFile);
             }
 
-            string template;
             int imageWidth = 200;
 
             TemplateControl tp = LoadControl("controls/TemplateControl.ascx") as TemplateControl;
             tp.Key = "ProductList";
-            template = tp.GetTemplate((string)Settings["Template"]);
-
-            //Template = ProductTemplate;
+            string template = tp.GetTemplate((string)Settings["Template"]);
 
             template = template.Replace("[ITEMNO]", product.ItemNo);
             template = template.Replace("[PRODUCTSHORTDESCRIPTION]", product.ShortDescription);
@@ -807,19 +804,40 @@ namespace Bitboxx.DNNModules.BBStore
                 template = template.ReplaceFirst("[LINK]", "<asp:Literal ID=\"ltrLink" + linkCnt.ToString() + "\" runat=\"server\" />");
             }
 
-            if (template.IndexOf("[IMAGE") > -1)
+            template = template.Replace("[IMAGE]", "<img src=\"" + PortalSettings.HomeDirectory + product.Image + "\" alt=\"" + product.Name + "\" />");
+
+            while (template.IndexOf("[IMAGELINK") > -1)
             {
-                if (template.IndexOf("[IMAGE:") > -1)
+                string imageUrlHandler = Page.ResolveUrl("~\\BBImagehandler.ashx") + "?&Mode=FitSquare&File=" + HttpUtility.UrlEncode(PortalSettings.HomeDirectoryMapPath + product.Image);
+                string imageUrl = PortalSettings.HomeDirectory + product.Image;
+
+                if (template.IndexOf("[IMAGELINK:") > -1)
                 {
-                    string width = template.Substring(template.IndexOf("[IMAGE:") + 7);
+                    string width;
+                    width = template.Substring(template.IndexOf("[IMAGELINK:") + 11);
                     width = width.Substring(0, width.IndexOf("]"));
                     if (Int32.TryParse(width, out imageWidth) == false)
                         imageWidth = 200;
-                    template = template.Replace("[IMAGE:" + width + "]", "<asp:PlaceHolder ID=\"phimgProduct\" runat=\"server\" />");
+                    template = template.ReplaceFirst("[IMAGELINK:" + width + "]", imageUrlHandler + "&Width=" + imageWidth.ToString());
                 }
                 else
-                    template = template.Replace("[IMAGE]", "<asp:PlaceHolder ID=\"phimgProduct\" runat=\"server\" />");
+                    template = template.ReplaceFirst("[IMAGELINK]", imageUrl);
             }
+
+            int imageCnt = 0;
+            Queue<int> imageWidths = new Queue<int>();
+            while (template.Contains("[IMAGE:"))
+            {
+                imageCnt++;
+                
+                string width = template.Substring(template.IndexOf("[IMAGE:") + 7);
+                width = width.Substring(0, width.IndexOf("]"));
+                if (Int32.TryParse(width, out imageWidth) == false)
+                    imageWidth = 200;
+                imageWidths.Enqueue(imageWidth);
+                template = template.ReplaceFirst("[IMAGE:" + width + "]", "<asp:PlaceHolder ID=\"phimgProduct"+  imageCnt.ToString() + "\" runat=\"server\" />");
+            }
+
             while (template.IndexOf("[RESOURCE:") > -1)
             {
                 string resKey = template.Substring(template.IndexOf("[RESOURCE:") + 10);
@@ -858,8 +876,9 @@ namespace Bitboxx.DNNModules.BBStore
                 }
             }
 
-            PlaceHolder phimgProduct = FindControlRecursive(ctrl, "phimgProduct") as PlaceHolder;
-            if (phimgProduct != null && product.Image != null)
+            imageCnt = 1;
+            PlaceHolder phimgProduct = FindControlRecursive(ctrl, "phimgProduct" + imageCnt.ToString()) as PlaceHolder;
+            while (phimgProduct != null && product.Image != null)
             {
                 string fileName =
                     PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
@@ -867,6 +886,7 @@ namespace Bitboxx.DNNModules.BBStore
 
                 imgProduct = new GeneratedImage();
                 imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
+                imageWidth = imageWidths.Dequeue();
                 if (imageWidth > 0)
                     imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
                 imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
@@ -879,6 +899,9 @@ namespace Bitboxx.DNNModules.BBStore
                 //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
                 //}
                 phimgProduct.Controls.Add(imgProduct);
+
+                imageCnt++;
+                phimgProduct = FindControlRecursive(ctrl, "phimgProduct" + imageCnt.ToString()) as PlaceHolder;
             }
            
             return ctrl;

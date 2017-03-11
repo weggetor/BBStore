@@ -22,6 +22,10 @@
 		    <dnn:Label ID="lblOpenCartOnAdd" runat="server" ControlName="chkOpenCartOnAdd" Suffix=":"/>
             <asp:CheckBox runat="server" ID="chkOpenCartOnAdd" />
         </div>
+        <div class="dnnFormItem">
+		    <dnn:Label ID="lblSetModuleTitle" runat="server" ControlName="chkSetModuleTitle" Suffix=":"/>
+            <asp:CheckBox runat="server" ID="chkSetModuleTitle" />
+        </div>
     </fieldset>
     <h2 id="bbstore-product-head2" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("hdrTemplates")%></a></h2>
     <fieldset class="dnnClear">

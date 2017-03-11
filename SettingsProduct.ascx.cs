@@ -202,6 +202,8 @@ namespace Bitboxx.DNNModules.BBStore
 		}
         public override void LoadSettings()
         {
+            chkSetModuleTitle.Checked = Convert.ToBoolean(ModuleSettings["SetModuleTitle"] ?? "true");
+
             if (ModuleSettings["ProductId"] != null)
                 ProductId = Convert.ToInt32(ModuleSettings["ProductId"]);
             else
@@ -231,7 +233,8 @@ namespace Bitboxx.DNNModules.BBStore
 			try
 			{
 				ModuleController objModules = new ModuleController();
-				objModules.UpdateModuleSetting(ModuleId, "OpenCartOnAdd", chkOpenCartOnAdd.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "SetModuleTitle", chkSetModuleTitle.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "OpenCartOnAdd", chkOpenCartOnAdd.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "ContactModulePage", urlContactModulePage.Url);
                 objModules.UpdateModuleSetting(ModuleId, "ListModulePage", urlListModulePage.Url);
                 objModules.UpdateModuleSetting(ModuleId, "ProductId", ProductId.ToString());

@@ -186,4 +186,55 @@
 	<data name="cmdUpdate.Text" xml:space="preserve">
 		<value>Actualización</value>
 	</data>
+	<data name="valCell.Text" xml:space="preserve">
+		<value>La célula es obligatoria</value>
+	</data>
+	<data name="valCity.Text" xml:space="preserve">
+		<value>La ciudad es obligatoria</value>
+	</data>
+	<data name="valCompany.Text" xml:space="preserve">
+		<value>Empresa es obligatoria</value>
+	</data>
+	<data name="valCountry.Text" xml:space="preserve">
+		<value>País es obligatorio</value>
+	</data>
+	<data name="valEmail.Text" xml:space="preserve">
+		<value>Correo electrónico es obligatorio</value>
+	</data>
+	<data name="valFax.Text" xml:space="preserve">
+		<value>Fax es obligatorio</value>
+	</data>
+	<data name="valFirstname.Text" xml:space="preserve">
+		<value>Nombre es obligatorio</value>
+	</data>
+	<data name="valLastname.Text" xml:space="preserve">
+		<value>Apellido es obligatorio</value>
+	</data>
+	<data name="valMiddlename.Text" xml:space="preserve">
+		<value>MiddleName es obligatorio</value>
+	</data>
+	<data name="valPhone.Text" xml:space="preserve">
+		<value>Teléfono es obligatorio</value>
+	</data>
+	<data name="valPostalCode.Text" xml:space="preserve">
+		<value>Código postal es obligatorio</value>
+	</data>
+	<data name="valPrefix.Text" xml:space="preserve">
+		<value>Prefijo es obligatorio</value>
+	</data>
+	<data name="valRegion.Text" xml:space="preserve">
+		<value>Región es obligatoria</value>
+	</data>
+	<data name="valStreet.Text" xml:space="preserve">
+		<value>La calle es obligatoria</value>
+	</data>
+	<data name="valSuburb.Text" xml:space="preserve">
+		<value>Es obligatorio</value>
+	</data>
+	<data name="valSuffix.Text" xml:space="preserve">
+		<value>Sufijo es obligatorio</value>
+	</data>
+	<data name="valUnit.Text" xml:space="preserve">
+		<value>Unidad es obligatoria</value>
+	</data>
 </root>

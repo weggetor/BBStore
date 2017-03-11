@@ -177,7 +177,7 @@
         <div class="dnnFormMessage dnnFormInfo">
             <%=LocalizeString("lblProductGroup") %>
         </div>
-         <asp:TreeView ID="treeProductGroup" ShowCheckBoxes="All"  Width="250"
+        <asp:TreeView ID="treeProductGroup" ShowCheckBoxes="All"  Width="250"
                       ExpandDepth="1" runat="server"  
                       ontreenodepopulate="treeProductGroup_TreeNodePopulate"/>
     </div>

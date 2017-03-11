@@ -166,7 +166,7 @@
     <value>Vorlagen-Name</value>
   </data>
 	<data name="lblShowNetPrice.Help" xml:space="preserve">
-    <value>Zeige den Preis wie im BBSTore Warenkorb-Modul definiert oder ohne oder mit MWSt an</value>
+    <value>Zeige den Preis wie im BBStore Warenkorb-Modul definiert oder ohne oder mit MWSt an</value>
   </data>
 	<data name="lblShowNetPrice.Text" xml:space="preserve">
     <value>Preis mit / ohne MwSt.</value>
@@ -227,5 +227,11 @@
 	</data>
 	<data name="lblListModulePage.Help" xml:space="preserve">
 		<value>Wählen Sie die Seite die automatisch angezeigt werden soll wenn kein aktuelles Produkt ausgewählt wurde</value>
+	</data>
+	<data name="lblSetModuleTitle.Text" xml:space="preserve">
+		<value>Modultitel setzen</value>
+	</data>
+	<data name="lblSetModuleTitle.Help" xml:space="preserve">
+		<value>Ankreuzen, wenn der Modultitel durch den Produktnamen ersetzt werden soll</value>
 	</data>
 </root>

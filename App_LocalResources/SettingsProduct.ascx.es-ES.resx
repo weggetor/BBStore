@@ -228,4 +228,10 @@
 	<data name="lblListModulePage.Help" xml:space="preserve">
 		<value>Seleccione la página que se muestra automáticamente si no se ha seleccionado ningún producto</value>
 	</data>
+	<data name="lblSetModuleTitle.Text" xml:space="preserve">
+		<value>Módulo title set</value>
+	</data>
+	<data name="lblSetModuleTitle.Help" xml:space="preserve">
+		<value>Compruebe si desea establecer el título del módulo como nombre del producto</value>
+	</data>
 </root>
