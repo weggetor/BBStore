@@ -16,8 +16,8 @@
 		        <td><asp:Label ID="lblProduct" runat="server" Resourcekey="lblProduct.Text"/></td>
 		        <td><asp:Label ID="lblUnitCost" runat="server" Resourcekey="lblUnitCost.Text"/></td>
 		        <td><asp:Label ID="lblNetTotal" runat="server" Resourcekey="lblNetTotal.Text"/></td>
-	            <td><asp:Label ID="lblTaxTotal" runat="server" Resourcekey="lblTaxTotal.Text"/></td>
 	            <td><asp:Label ID="lblTaxPercent" runat="server" Resourcekey="lblTaxPercent.Text"/></td>
+	            <td><asp:Label ID="lblTaxTotal" runat="server" Resourcekey="lblTaxTotal.Text"/></td>
 		        <td><asp:Label ID="lblSubTotal" runat="server" Resourcekey="lblSubTotal.Text"/></td>
 	        </tr>
 	        <tr class="dnnGridAltItem">
@@ -49,6 +49,10 @@
         </table>
 
         <div class="dnnFormItem">
+            <dnn:Label id="lblShowSubTotal" runat="server" controlname="chkShowSubTotal" suffix=":"/>
+            <asp:CheckBox ID="chkShowSubTotal" runat="server" />
+        </div>
+        <div class="dnnFormItem">
             <dnn:Label id="lblShowSummary" runat="server" controlname="chkShowSummary" suffix=":"/>
             <asp:CheckBox ID="chkShowSummary" runat="server" />
         </div>
@@ -70,6 +74,14 @@
         <div class="dnnFormItem">
 	        <dnn:Label id="lblEnableCartDelete" runat="server" controlname="chkEnableCartDelete" suffix=":"/>
             <asp:CheckBox ID="chkEnableCartDelete" runat="server" />
+        </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="lblEnableCartAttachment" runat="server" controlname="chkEnableCartAttachment" suffix=":"/>
+            <asp:CheckBox ID="chkEnableCartAttachment" runat="server" />
+        </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="lblEnableCartComment" runat="server" controlname="chkEnableCartComment" suffix=":"/>
+            <asp:CheckBox ID="chkEnableCartComment" runat="server" />
         </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="lblMultipleCustomers" runat="server" controlname="chkMultipleCustomers" suffix=":"/>

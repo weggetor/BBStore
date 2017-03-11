@@ -375,4 +375,22 @@ Select the following tokens:
 	<data name="lblPurgeInterval.Text" xml:space="preserve">
     <value>Cart Purge Interval</value>
   </data>
+	<data name="lblShowSubTotal.Text" xml:space="preserve">
+		<value>Show subtotal in cart</value>
+	</data>
+	<data name="lblShowSubTotal.Help" xml:space="preserve">
+		<value>Check if you want to show up the subtotalbelow the cart</value>
+	</data>
+	<data name="lblEnableCartAttachment.Text" xml:space="preserve">
+		<value>Show Upload Attachment</value>
+	</data>
+	<data name="lblEnableCartAttachment.Help" xml:space="preserve">
+		<value>Check if the possibilty to upload a file should be shown in cart</value>
+	</data>
+	<data name="lblEnableCartComment.Text" xml:space="preserve">
+		<value>Show Comment</value>
+	</data>
+	<data name="lblEnableCartComment.Help" xml:space="preserve">
+		<value>Check if comments to the order should be possible</value>
+	</data>
 </root>

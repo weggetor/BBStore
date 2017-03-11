@@ -76,15 +76,6 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.Label lblNetTotal;
         
         /// <summary>
-        /// lblTaxTotal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaxTotal;
-        
-        /// <summary>
         /// lblTaxPercent control.
         /// </summary>
         /// <remarks>
@@ -92,6 +83,15 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTaxPercent;
+        
+        /// <summary>
+        /// lblTaxTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTaxTotal;
         
         /// <summary>
         /// lblSubTotal control.
@@ -247,6 +247,24 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.TextBox txtColWidthPercent;
         
         /// <summary>
+        /// lblShowSubTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblShowSubTotal;
+        
+        /// <summary>
+        /// chkShowSubTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkShowSubTotal;
+        
+        /// <summary>
         /// lblShowSummary control.
         /// </summary>
         /// <remarks>
@@ -335,6 +353,42 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkEnableCartDelete;
+        
+        /// <summary>
+        /// lblEnableCartAttachment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblEnableCartAttachment;
+        
+        /// <summary>
+        /// chkEnableCartAttachment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkEnableCartAttachment;
+        
+        /// <summary>
+        /// lblEnableCartComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblEnableCartComment;
+        
+        /// <summary>
+        /// chkEnableCartComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkEnableCartComment;
         
         /// <summary>
         /// lblMultipleCustomers control.

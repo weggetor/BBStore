@@ -1572,9 +1572,9 @@ namespace Bitboxx.DNNModules.BBStore
         #endregion
 
         #region ShippingModel
-        public ShippingModelInfo GetShippingModel(int portalId)
+        public ShippingModelInfo GetShippingModel(int shippingModelId)
         {
-            return (ShippingModelInfo)CBO.FillObject(DataProvider.Instance().GetShippingModel(portalId),typeof(ShippingModelInfo));
+            return (ShippingModelInfo)CBO.FillObject(DataProvider.Instance().GetShippingModel(shippingModelId),typeof(ShippingModelInfo));
         }
         public List<ShippingModelInfo> GetShippingModels(int portalId)
         {

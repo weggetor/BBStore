@@ -53,7 +53,7 @@
         </asp:CheckBoxList>
     </asp:View>
     <asp:View ID="Summary" runat="server">
-        <table style="border: 0; border-collapse: collapse;">
+        <table class="bbstore-cart-payment-table">
             <tr>
                 <td><b><asp:Label ID="lblCCTypeCapSummary" runat="server" /></b></td>
                 <td><asp:Label ID="lblCCTypeSummary" runat="server" /></td>

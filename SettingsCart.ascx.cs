@@ -158,105 +158,30 @@ namespace Bitboxx.DNNModules.BBStore
                     // Add scheduler task if not exists
                     AddBBStoreScheduler();
 
-                    if (ModuleSettings["ColVisibleImage"] != null)
-                        chkColVisibleImage.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleImage"]);
-                    else
-                        chkColVisibleImage.Checked = true;
+                    chkColVisibleImage.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleImage"] ?? "true");
+                    txtColWidthImage.Text = (string)ModuleSettings["ColWidthImage"] ?? "80";
+                    txtColWidthQuantity.Text = (string)ModuleSettings["ColWidthQuantity"] ?? "50";
+                    txtColWidthUnit.Text = (string)ModuleSettings["ColWidthUnit"] ?? "20";
+                    chkColVisibleUnit.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleUnit"] ?? "false");
+                    chkColVisibleItemNo.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleItemNo"] ?? "false");
+                    txtColWidthItemNo.Text = (string)ModuleSettings["ColWidthItemNo"] ?? "70";
+                    chkColVisibleTaxPercent.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleTaxPercent"] ?? "true");
+                    txtColWidthPercent.Text = (string)ModuleSettings["ColWidthPercent"] ?? "50";
+                    chkColVisibleUnitCost.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleUnitCost"] ?? "true");
+                    chkColVisibleNetTotal.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleNetTotal"] ?? "true");
+                    chkColVisibleTaxTotal.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleTaxTotal"] ?? "true");
+                    chkColVisibleSubTotal.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleSubTotal"]?? "true");
+                    txtColWidthAmount.Text = (string)ModuleSettings["ColWidthAmount"] ?? "60";
 
-                    if (ModuleSettings["ColWidthImage"] != null)
-                        txtColWidthImage.Text = (string)ModuleSettings["ColWidthImage"];
-                    else
-                        txtColWidthImage.Text = "80";
-
-                    if (ModuleSettings["ColWidthQuantity"] != null)
-                        txtColWidthQuantity.Text = (string)ModuleSettings["ColWidthQuantity"];
-                    else
-                        txtColWidthQuantity.Text = "50";
-
-                    if (ModuleSettings["ColWidthUnit"] != null)
-                        txtColWidthUnit.Text = (string)ModuleSettings["ColWidthUnit"];
-                    else
-                        txtColWidthUnit.Text = "20";
-
-                    if (ModuleSettings["ColVisibleUnit"] != null)
-                        chkColVisibleUnit.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleUnit"]);
-                    else
-                        chkColVisibleUnit.Checked = false;
-
-                    if (ModuleSettings["ColVisibleItemNo"] != null)
-                        chkColVisibleItemNo.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleItemNo"]);
-                    else
-                        chkColVisibleItemNo.Checked = false;
-
-                    if (ModuleSettings["ColWidthItemNo"] != null)
-                        txtColWidthItemNo.Text = (string)ModuleSettings["ColWidthItemNo"];
-                    else
-                        txtColWidthItemNo.Text = "70";
-
-                    if (ModuleSettings["ColVisibleTaxPercent"] != null)
-                        chkColVisibleTaxPercent.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleTaxPercent"]);
-                    else
-                        chkColVisibleTaxPercent.Checked = true;
-
-                    if (ModuleSettings["ColWidthPercent"] != null)
-                        txtColWidthPercent.Text = (string)ModuleSettings["ColWidthPercent"];
-                    else
-                        txtColWidthPercent.Text = "50";
-
-                    if (ModuleSettings["ColVisibleUnitCost"] != null)
-                        chkColVisibleUnitCost.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleUnitCost"]);
-                    else
-                        chkColVisibleUnitCost.Checked = true;
-
-                    if (ModuleSettings["ColVisibleNetTotal"] != null)
-                        chkColVisibleNetTotal.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleNetTotal"]);
-                    else
-                        chkColVisibleNetTotal.Checked = true;
- 
-                    if (ModuleSettings["ColVisibleTaxTotal"] != null)
-                        chkColVisibleTaxTotal.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleTaxTotal"]);
-                    else
-                        chkColVisibleTaxTotal.Checked = true;
-
-                    if (ModuleSettings["ColVisibleSubTotal"] != null)
-                        chkColVisibleSubTotal.Checked = Convert.ToBoolean(ModuleSettings["ColVisibleSubTotal"]);
-                    else
-                        chkColVisibleSubTotal.Checked = true;
-
-                    if (ModuleSettings["ColWidthAmount"] != null)
-                        txtColWidthAmount.Text = (string)ModuleSettings["ColWidthAmount"];
-                    else
-                        txtColWidthAmount.Text = "60";
-
-                    if (ModuleSettings["ShowSummary"] != null)
-                        chkShowSummary.Checked = Convert.ToBoolean(ModuleSettings["ShowSummary"]);
-                    else
-                        chkShowSummary.Checked = true;
-
-					if (ModuleSettings["ShoppingTarget"] != null)
-						rblShoppingTarget.SelectedValue = (string)ModuleSettings["ShoppingTarget"];
-					else
-                		rblShoppingTarget.SelectedValue = "1";
-
-					if (ModuleSettings["EnableCartUpload"] != null)
-						chkEnableCartUpload.Checked = Convert.ToBoolean(ModuleSettings["EnableCartUpload"]);
-					else
-						chkEnableCartUpload.Checked = false;
-
-                    if (ModuleSettings["EnableCartDownload"] != null)
-                        chkEnableCartDownload.Checked = Convert.ToBoolean(ModuleSettings["EnableCartDownload"]);
-                    else
-                        chkEnableCartDownload.Checked = false;
-
-                    if (ModuleSettings["EnableCartDelete"] != null)
-						chkEnableCartDelete.Checked = Convert.ToBoolean(ModuleSettings["EnableCartDelete"]);
-					else
-                        chkEnableCartDelete.Checked = false;
-
-					if (ModuleSettings["MultipleCustomers"] != null)
-						chkMultipleCustomers.Checked = Convert.ToBoolean(ModuleSettings["MultipleCustomers"]);
-					else
-						chkMultipleCustomers.Checked = false;
+                    chkShowSubTotal.Checked = Convert.ToBoolean(ModuleSettings["ShowSubTotal"] ?? "true");
+                    chkShowSummary.Checked = Convert.ToBoolean(ModuleSettings["ShowSummary"] ?? "true");
+					rblShoppingTarget.SelectedValue = (string)ModuleSettings["ShoppingTarget"] ?? "1";
+                    chkEnableCartUpload.Checked = Convert.ToBoolean(ModuleSettings["EnableCartUpload"] ?? "false");
+                    chkEnableCartDownload.Checked = Convert.ToBoolean(ModuleSettings["EnableCartDownload"] ?? "false");
+					chkEnableCartDelete.Checked = Convert.ToBoolean(ModuleSettings["EnableCartDelete"] ?? "false");
+                    chkEnableCartAttachment.Checked = Convert.ToBoolean(ModuleSettings["EnableCartAttachment"] ?? "false");
+                    chkEnableCartComment.Checked = Convert.ToBoolean(ModuleSettings["EnableCartComment"] ?? "false");
+					chkMultipleCustomers.Checked = Convert.ToBoolean(ModuleSettings["MultipleCustomers"] ?? "false");
 
                     if (ModuleSettings["CartNavigationStyle"] != null)
                         ddlCartNavigationStyle.SelectedValue = (string) ModuleSettings["CartNavigationStyle"];
@@ -272,78 +197,26 @@ namespace Bitboxx.DNNModules.BBStore
                     Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
                 	bool showNetPrice = ((string) storeSettings["ShowNetpriceInCart"] == "0");
 
-
 					// Address Settings
-					chkMandCompany.Checked = false;
-					if (ModuleSettings["MandCompany"] != null)
-						chkMandCompany.Checked = Convert.ToBoolean(ModuleSettings["MandCompany"]);
+    				chkMandCompany.Checked = Convert.ToBoolean(ModuleSettings["MandCompany"] ?? "false");
+    				chkMandPrefix.Checked = Convert.ToBoolean(ModuleSettings["MandPrefix"] ?? "false");
+					chkMandFirstname.Checked = Convert.ToBoolean(ModuleSettings["MandFirstname"] ?? "false");
+					chkMandMiddlename.Checked = Convert.ToBoolean(ModuleSettings["MandMiddlename"] ?? "false");
+					chkMandLastname.Checked = Convert.ToBoolean(ModuleSettings["MandLastname"] ?? "false");
+					chkMandSuffix.Checked = Convert.ToBoolean(ModuleSettings["MandSuffix"] ?? "false");
+					chkMandStreet.Checked = Convert.ToBoolean(ModuleSettings["MandStreet"] ?? "false");
+					chkMandUnit.Checked = Convert.ToBoolean(ModuleSettings["MandUnit"] ?? "false");
+					chkMandPostalCode.Checked = Convert.ToBoolean(ModuleSettings["MandPostalCode"] ?? "false");
+					chkMandCity.Checked = Convert.ToBoolean(ModuleSettings["MandCity"] ?? "false");
+					chkMandSuburb.Checked = Convert.ToBoolean(ModuleSettings["MandSuburb"] ?? "false");
+					chkMandRegion.Checked = Convert.ToBoolean(ModuleSettings["MandRegion"] ?? "false");
+					chkMandCountry.Checked = Convert.ToBoolean(ModuleSettings["MandCountry"] ?? "false");
+					chkMandPhone.Checked = Convert.ToBoolean(ModuleSettings["MandPhone"] ?? "false");
+					chkMandCell.Checked = Convert.ToBoolean(ModuleSettings["MandCell"] ?? "false");
+					chkMandFax.Checked = Convert.ToBoolean(ModuleSettings["MandFax"] ?? "false");
+					chkMandEmail.Checked = Convert.ToBoolean(ModuleSettings["MandEmail"] ?? "false");
 
-					chkMandPrefix.Checked = false;
-					if (ModuleSettings["MandPrefix"] != null)
-						chkMandPrefix.Checked = Convert.ToBoolean(ModuleSettings["MandPrefix"]);
-
-					chkMandFirstname.Checked = false;
-					if (ModuleSettings["MandFirstname"] != null)
-						chkMandFirstname.Checked = Convert.ToBoolean(ModuleSettings["MandFirstname"]);
-
-					chkMandMiddlename.Checked = false;
-					if (ModuleSettings["MandMiddlename"] != null)
-						chkMandMiddlename.Checked = Convert.ToBoolean(ModuleSettings["MandMiddlename"]);
-
-					chkMandLastname.Checked = false;
-					if (ModuleSettings["MandLastname"] != null)
-						chkMandLastname.Checked = Convert.ToBoolean(ModuleSettings["MandLastname"]);
-
-					chkMandSuffix.Checked = false;
-					if (ModuleSettings["MandSuffix"] != null)
-						chkMandSuffix.Checked = Convert.ToBoolean(ModuleSettings["MandSuffix"]);
-
-					chkMandStreet.Checked = false;
-					if (ModuleSettings["MandStreet"] != null)
-						chkMandStreet.Checked = Convert.ToBoolean(ModuleSettings["MandStreet"]);
-
-					chkMandUnit.Checked = false;
-					if (ModuleSettings["MandUnit"] != null)
-						chkMandUnit.Checked = Convert.ToBoolean(ModuleSettings["MandUnit"]);
-
-					chkMandPostalCode.Checked = false;
-					if (ModuleSettings["MandPostalCode"] != null)
-						chkMandPostalCode.Checked = Convert.ToBoolean(ModuleSettings["MandPostalCode"]);
-
-					chkMandCity.Checked = false;
-					if (ModuleSettings["MandCity"] != null)
-						chkMandCity.Checked = Convert.ToBoolean(ModuleSettings["MandCity"]);
-
-					chkMandSuburb.Checked = false;
-					if (ModuleSettings["MandSuburb"] != null)
-						chkMandSuburb.Checked = Convert.ToBoolean(ModuleSettings["MandSuburb"]);
-
-					chkMandRegion.Checked = false;
-					if (ModuleSettings["MandRegion"] != null)
-						chkMandRegion.Checked = Convert.ToBoolean(ModuleSettings["MandRegion"]);
-
-					chkMandCountry.Checked = false;
-					if (ModuleSettings["MandCountry"] != null)
-						chkMandCountry.Checked = Convert.ToBoolean(ModuleSettings["MandCountry"]);
-
-					chkMandPhone.Checked = false;
-					if (ModuleSettings["MandPhone"] != null)
-						chkMandPhone.Checked = Convert.ToBoolean(ModuleSettings["MandPhone"]);
-
-					chkMandCell.Checked = false;
-					if (ModuleSettings["MandCell"] != null)
-						chkMandCell.Checked = Convert.ToBoolean(ModuleSettings["MandCell"]);
-
-					chkMandFax.Checked = false;
-					if (ModuleSettings["MandFax"] != null)
-						chkMandFax.Checked = Convert.ToBoolean(ModuleSettings["MandFax"]);
-
-					chkMandEmail.Checked = false;
-					if (ModuleSettings["MandEmail"] != null)
-						chkMandEmail.Checked = Convert.ToBoolean(ModuleSettings["MandEmail"]);
-
-                    if (ModuleSettings["Template"] != null) 
-                        tplTemplate.Value = (string)ModuleSettings["Template"];
+                    tplTemplate.Value = (string)ModuleSettings["Template"] ?? "";
 
                     txtAddressTemplate.Text = Localization.GetString("AddressTemplate.Text", this.LocalResourceFile.Replace("SettingsCart", "ViewCart"));
                 }
@@ -374,11 +247,15 @@ namespace Bitboxx.DNNModules.BBStore
                 objModules.UpdateModuleSetting(ModuleId, "ColVisibleSubTotal", chkColVisibleSubTotal.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "ColVisibleUnit", chkColVisibleUnit.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "ColWidthAmount", txtColWidthAmount.Text.Trim());
+
                 objModules.UpdateModuleSetting(ModuleId, "ShowSummary", chkShowSummary.Checked.ToString());
-				objModules.UpdateModuleSetting(ModuleId, "ShoppingTarget", rblShoppingTarget.SelectedValue);
+                objModules.UpdateModuleSetting(ModuleId, "ShowSubTotal", chkShowSubTotal.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "ShoppingTarget", rblShoppingTarget.SelectedValue);
 				objModules.UpdateModuleSetting(ModuleId, "EnableCartUpload", chkEnableCartUpload.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "EnableCartDownload", chkEnableCartDownload.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "EnableCartDelete", chkEnableCartDelete.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "EnableCartAttachment", chkEnableCartAttachment.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "EnableCartComment", chkEnableCartComment.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "MultipleCustomers", chkMultipleCustomers.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "CartNavigationStyle", ddlCartNavigationStyle.SelectedValue);
                 objModules.UpdateModuleSetting(ModuleId, "ShoppingButtonCssClass", txtShoppingButtonCssClass.Text.Trim());

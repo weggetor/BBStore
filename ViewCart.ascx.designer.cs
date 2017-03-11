@@ -310,6 +310,15 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.Label lblCancelTerms;
         
         /// <summary>
+        /// pnlRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnlRemarks;
+        
+        /// <summary>
         /// lblRemarks control.
         /// </summary>
         /// <remarks>
@@ -326,6 +335,15 @@ namespace Bitboxx.DNNModules.BBStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        
+        /// <summary>
+        /// pnlAttachment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnlAttachment;
         
         /// <summary>
         /// lblAttachment control.

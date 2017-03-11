@@ -62,7 +62,7 @@
 		</table>
     </asp:View>
     <asp:View ID="Summary" runat="server">
-        <table style="padding:5px; ">
+        <table class="bbstore-cart-payment-table">
             <tr>
                 <td><b><asp:Label ID="lblAccountNameCapSummary" runat="server" /></b></td>
                 <td><asp:Label ID="lblAccountNameSummary" runat="server" /></td>

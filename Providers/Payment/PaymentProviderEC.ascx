@@ -57,7 +57,7 @@
         <h3><asp:Label ID="lblTitle" runat="server" Text="Title" /></h3>
     </asp:View>
     <asp:View ID="Summary" runat="server">
-        <table style="border: 0; border-collapse: collapse;">
+        <table class="bbstore-cart-payment-table">
             <tr>
                 <td><b><asp:Label ID="lblAccountNameSummary" runat="server" /></b></td>
                 <td><asp:Label ID="lblAccountName" runat="server" /></td>

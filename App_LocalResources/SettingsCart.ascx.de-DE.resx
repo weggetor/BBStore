@@ -375,4 +375,22 @@ Wählen Sie aus folgenden Tokens:
 	<data name="lblPurgeInterval.Text" xml:space="preserve">
 		<value>Warenkorb Löschinterval</value>
 	</data>
+	<data name="lblShowSubTotal.Text" xml:space="preserve">
+		<value>Zwischensumme anzeigen</value>
+	</data>
+	<data name="lblShowSubTotal.Help" xml:space="preserve">
+		<value>Ankreuzen, wenn die Zwischensumme im Warenkorb angezeigt werden soll</value>
+	</data>
+	<data name="lblEnableCartAttachment.Text" xml:space="preserve">
+		<value>Anlage hochladen erlauben</value>
+	</data>
+	<data name="lblEnableCartAttachment.Help" xml:space="preserve">
+		<value>Ankreuzen wenn die Möglichkeit zum anfügen einer Datei an die Bestellung bestehen soll</value>
+	</data>
+	<data name="lblEnableCartComment.Text" xml:space="preserve">
+		<value>Kommentare erlauben</value>
+	</data>
+	<data name="lblEnableCartComment.Help" xml:space="preserve">
+		<value>Ankreuzen wenn zusätzliche Kommentare zur Bestellung möglich sein sollen</value>
+	</data>
 </root>

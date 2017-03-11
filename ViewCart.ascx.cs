@@ -297,11 +297,15 @@ namespace Bitboxx.DNNModules.BBStore
                 navCart.Steps = NavList;
 
                 cmdShopping.CssClass = (string)Settings["ShoppingButtonCssClass"] ?? "";
+                cmdShopping2.CssClass = (string)Settings["ShoppingButtonCssClass"] ?? "";
+                cmdShopping3.CssClass = (string)Settings["ShoppingButtonCssClass"] ?? "";
                 cmdCheckout.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
                 cmdDeleteCart.CssClass = (string)Settings["UploadButtonsCssClass"] ?? "";
                 cmdLoadCart.CssClass = (string)Settings["UploadButtonsCssClass"] ?? "";
                 cmdSaveCart.CssClass = (string)Settings["UploadButtonsCssClass"] ?? "";
                 cmdFinish.CssClass = (string)Settings["OrderButtonCssClass"] ?? "";
+                cmdCoupon.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+                cmdUploadCart.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
                 
 
                 // Init empty cart display
@@ -865,93 +869,94 @@ namespace Bitboxx.DNNModules.BBStore
         #region Methods
         private void ShowCart()
         {
-            int ColWidthAmount = Convert.ToInt32(Settings["ColWidthAmount"]);
-            int ColWidthPercent = Convert.ToInt32(Settings["ColWidthPercent"]);
-            int ColWidthImage = Convert.ToInt32(Settings["ColWidthImage"]);
-            int ColWidthQuantity = Convert.ToInt32(Settings["ColWidthQuantity"]);
-            int ColWidthItemNo = Convert.ToInt32(Settings["ColWidthItemNo"]);
-            int ColWidthUnit = Convert.ToInt32(Settings["ColWidthUnit"]);
-            bool ColVisibleImage = Convert.ToBoolean(Settings["ColVisibleImage"]);
-            bool ColVisibleItemNo = Convert.ToBoolean(Settings["ColVisibleItemNo"]);
-            bool ColVisibleUnit = Convert.ToBoolean(Settings["ColVisibleUnit"]);
-            bool ColVisibleUnitCost = Convert.ToBoolean(Settings["ColVisibleUnitCost"]);
-            bool ColVisibleNetTotal = Convert.ToBoolean(Settings["ColVisibleNetTotal"]);
-            bool ColVisibleTaxPercent = Convert.ToBoolean(Settings["ColVisibleTaxPercent"]);
-            bool ColVisibleTaxTotal = Convert.ToBoolean(Settings["ColVisibleTaxTotal"]);
-            bool ColVisibleSubTotal = Convert.ToBoolean(Settings["ColVisibleSubTotal"]);
-            bool ShowSummary = Convert.ToBoolean(Settings["ShowSummary"]);
+            int colWidthAmount = Convert.ToInt32(Settings["ColWidthAmount"]);
+            int colWidthPercent = Convert.ToInt32(Settings["ColWidthPercent"]);
+            int colWidthImage = Convert.ToInt32(Settings["ColWidthImage"]);
+            int colWidthQuantity = Convert.ToInt32(Settings["ColWidthQuantity"]);
+            int colWidthItemNo = Convert.ToInt32(Settings["ColWidthItemNo"]);
+            int colWidthUnit = Convert.ToInt32(Settings["ColWidthUnit"]);
+            bool colVisibleImage = Convert.ToBoolean(Settings["ColVisibleImage"]);
+            bool colVisibleItemNo = Convert.ToBoolean(Settings["ColVisibleItemNo"]);
+            bool colVisibleUnit = Convert.ToBoolean(Settings["ColVisibleUnit"]);
+            bool colVisibleUnitCost = Convert.ToBoolean(Settings["ColVisibleUnitCost"]);
+            bool colVisibleNetTotal = Convert.ToBoolean(Settings["ColVisibleNetTotal"]);
+            bool colVisibleTaxPercent = Convert.ToBoolean(Settings["ColVisibleTaxPercent"]);
+            bool colVisibleTaxTotal = Convert.ToBoolean(Settings["ColVisibleTaxTotal"]);
+            bool colVisibleSubTotal = Convert.ToBoolean(Settings["ColVisibleSubTotal"]);
+            bool showSummary = Convert.ToBoolean(Settings["ShowSummary"]);
+            bool showSubTotal = Convert.ToBoolean(Settings["ShowSubTotal"]);
 
 
             grdCartProducts.Style.Add("width", "100%");
             grdCartProducts.Columns[0].Visible = false; // CartProductId
             grdCartProducts.Columns[1].Visible = false; // CartId
             grdCartProducts.Columns[2].Visible = false; // ProductId
-            grdCartProducts.Columns[3].Visible = ColVisibleImage; // Image
+            grdCartProducts.Columns[3].Visible = colVisibleImage; // Image
             grdCartProducts.Columns[4].Visible = true; // Quantity
-            grdCartProducts.Columns[5].Visible = ColVisibleUnit; // Unit
-            grdCartProducts.Columns[6].Visible = ColVisibleItemNo; // ItemNo
+            grdCartProducts.Columns[5].Visible = colVisibleUnit; // Unit
+            grdCartProducts.Columns[6].Visible = colVisibleItemNo; // ItemNo
             grdCartProducts.Columns[7].Visible = true; // Product
-            grdCartProducts.Columns[8].Visible = ColVisibleUnitCost; // UnitCost
-            grdCartProducts.Columns[9].Visible = ColVisibleNetTotal; // NetTotal
-            grdCartProducts.Columns[10].Visible = ColVisibleTaxPercent; // TaxPercent
-            grdCartProducts.Columns[11].Visible = ColVisibleTaxTotal; // TaxTotal
-            grdCartProducts.Columns[12].Visible = ColVisibleSubTotal; // SubTotal
-            grdCartProducts.Columns[3].ItemStyle.Width = ColWidthImage;
-            grdCartProducts.Columns[4].ItemStyle.Width = ColWidthQuantity;
-            grdCartProducts.Columns[4].ControlStyle.Width = ColWidthQuantity - 4;
-            grdCartProducts.Columns[5].ItemStyle.Width = ColWidthUnit;
-            grdCartProducts.Columns[6].ItemStyle.Width = ColWidthItemNo;
-            grdCartProducts.Columns[8].ItemStyle.Width = ColWidthAmount;
-            grdCartProducts.Columns[9].ItemStyle.Width = ColWidthAmount;
-            grdCartProducts.Columns[10].ItemStyle.Width = ColWidthPercent;
-            grdCartProducts.Columns[11].ItemStyle.Width = ColWidthAmount;
-            grdCartProducts.Columns[12].ItemStyle.Width = ColWidthAmount;
+            grdCartProducts.Columns[8].Visible = colVisibleUnitCost; // UnitCost
+            grdCartProducts.Columns[9].Visible = colVisibleNetTotal; // NetTotal
+            grdCartProducts.Columns[10].Visible = colVisibleTaxPercent; // TaxPercent
+            grdCartProducts.Columns[11].Visible = colVisibleTaxTotal; // TaxTotal
+            grdCartProducts.Columns[12].Visible = colVisibleSubTotal; // SubTotal
+            grdCartProducts.Columns[3].ItemStyle.Width = colWidthImage;
+            grdCartProducts.Columns[4].ItemStyle.Width = colWidthQuantity;
+            grdCartProducts.Columns[4].ControlStyle.Width = colWidthQuantity - 4;
+            grdCartProducts.Columns[5].ItemStyle.Width = colWidthUnit;
+            grdCartProducts.Columns[6].ItemStyle.Width = colWidthItemNo;
+            grdCartProducts.Columns[8].ItemStyle.Width = colWidthAmount;
+            grdCartProducts.Columns[9].ItemStyle.Width = colWidthAmount;
+            grdCartProducts.Columns[10].ItemStyle.Width = colWidthPercent;
+            grdCartProducts.Columns[11].ItemStyle.Width = colWidthAmount;
+            grdCartProducts.Columns[12].ItemStyle.Width = colWidthAmount;
             Localization.LocalizeGridView(ref grdCartProducts, this.LocalResourceFile);
 
             grdAdditionalCosts.Style.Add("width", "100%");
             grdAdditionalCosts.Style.Add("border-top-style", "solid");
             grdAdditionalCosts.Columns[0].Visible = false; // CartAdditionalCostId
             grdAdditionalCosts.Columns[1].Visible = false; // CartId
-            grdAdditionalCosts.Columns[2].Visible = ColVisibleImage; // Image
+            grdAdditionalCosts.Columns[2].Visible = colVisibleImage; // Image
             grdAdditionalCosts.Columns[3].Visible = true; // Quantity
-            grdAdditionalCosts.Columns[4].Visible = ColVisibleUnit; // Unit
-            grdAdditionalCosts.Columns[5].Visible = ColVisibleItemNo; // ItemNo
+            grdAdditionalCosts.Columns[4].Visible = colVisibleUnit; // Unit
+            grdAdditionalCosts.Columns[5].Visible = colVisibleItemNo; // ItemNo
             grdAdditionalCosts.Columns[6].Visible = true; // Product
-            grdAdditionalCosts.Columns[7].Visible = ColVisibleUnitCost; // UnitCost
-            grdAdditionalCosts.Columns[8].Visible = ColVisibleNetTotal; // NetTotal
-            grdAdditionalCosts.Columns[9].Visible = ColVisibleTaxPercent; // TaxPercent
-            grdAdditionalCosts.Columns[10].Visible = ColVisibleTaxTotal; // TaxTotal
-            grdAdditionalCosts.Columns[11].Visible = ColVisibleSubTotal; // SubTotal
-            grdAdditionalCosts.Columns[2].ItemStyle.Width = ColWidthImage; // Image
-            grdAdditionalCosts.Columns[3].ItemStyle.Width = ColWidthQuantity; // Quantity
-            grdAdditionalCosts.Columns[4].ItemStyle.Width = ColWidthUnit; // Unit
-            grdAdditionalCosts.Columns[5].ItemStyle.Width = ColWidthItemNo; // ItemNo
-            grdAdditionalCosts.Columns[7].ItemStyle.Width = ColWidthAmount; // UnitCost
-            grdAdditionalCosts.Columns[8].ItemStyle.Width = ColWidthAmount; // NetTotal
-            grdAdditionalCosts.Columns[9].ItemStyle.Width = ColWidthPercent; // TaxPercent
-            grdAdditionalCosts.Columns[10].ItemStyle.Width = ColWidthAmount; // TaxTotal
-            grdAdditionalCosts.Columns[11].ItemStyle.Width = ColWidthAmount; // SubTotal
+            grdAdditionalCosts.Columns[7].Visible = colVisibleUnitCost; // UnitCost
+            grdAdditionalCosts.Columns[8].Visible = colVisibleNetTotal; // NetTotal
+            grdAdditionalCosts.Columns[9].Visible = colVisibleTaxPercent; // TaxPercent
+            grdAdditionalCosts.Columns[10].Visible = colVisibleTaxTotal; // TaxTotal
+            grdAdditionalCosts.Columns[11].Visible = colVisibleSubTotal; // SubTotal
+            grdAdditionalCosts.Columns[2].ItemStyle.Width = colWidthImage; // Image
+            grdAdditionalCosts.Columns[3].ItemStyle.Width = colWidthQuantity; // Quantity
+            grdAdditionalCosts.Columns[4].ItemStyle.Width = colWidthUnit; // Unit
+            grdAdditionalCosts.Columns[5].ItemStyle.Width = colWidthItemNo; // ItemNo
+            grdAdditionalCosts.Columns[7].ItemStyle.Width = colWidthAmount; // UnitCost
+            grdAdditionalCosts.Columns[8].ItemStyle.Width = colWidthAmount; // NetTotal
+            grdAdditionalCosts.Columns[9].ItemStyle.Width = colWidthPercent; // TaxPercent
+            grdAdditionalCosts.Columns[10].ItemStyle.Width = colWidthAmount; // TaxTotal
+            grdAdditionalCosts.Columns[11].ItemStyle.Width = colWidthAmount; // SubTotal
 
 
-            grdSubTotal.Visible = ShowSummary;
+            grdSubTotal.Visible = showSubTotal;
             grdSubTotal.Style.Add("width", "100%");
             grdSubTotal.Style.Add("border-top-style", "double");
             grdSubTotal.Style.Add("border-bottom-style", "solid");
             grdSubTotal.Columns[0].Visible = true; // Description
-            grdSubTotal.Columns[1].Visible = ColVisibleUnitCost; // UnitCost
-            grdSubTotal.Columns[2].Visible = ColVisibleNetTotal; // NetTotal
-            grdSubTotal.Columns[3].Visible = ColVisibleTaxPercent; // TaxPercent
-            grdSubTotal.Columns[4].Visible = ColVisibleTaxTotal; // TaxTotal
-            grdSubTotal.Columns[5].Visible = ColVisibleSubTotal; // SubTotal
-            grdSubTotal.Columns[1].ItemStyle.Width = ColWidthAmount; // UnitCost
-            grdSubTotal.Columns[2].ItemStyle.Width = ColWidthAmount; // NetTotal
-            grdSubTotal.Columns[3].ItemStyle.Width = ColWidthPercent; // TaxPercent
-            grdSubTotal.Columns[4].ItemStyle.Width = ColWidthAmount; // TaxTotal
-            grdSubTotal.Columns[5].ItemStyle.Width = ColWidthAmount; // SubTotal
+            grdSubTotal.Columns[1].Visible = colVisibleUnitCost; // UnitCost
+            grdSubTotal.Columns[2].Visible = colVisibleNetTotal; // NetTotal
+            grdSubTotal.Columns[3].Visible = colVisibleTaxPercent; // TaxPercent
+            grdSubTotal.Columns[4].Visible = colVisibleTaxTotal; // TaxTotal
+            grdSubTotal.Columns[5].Visible = colVisibleSubTotal; // SubTotal
+            grdSubTotal.Columns[1].ItemStyle.Width = colWidthAmount; // UnitCost
+            grdSubTotal.Columns[2].ItemStyle.Width = colWidthAmount; // NetTotal
+            grdSubTotal.Columns[3].ItemStyle.Width = colWidthPercent; // TaxPercent
+            grdSubTotal.Columns[4].ItemStyle.Width = colWidthAmount; // TaxTotal
+            grdSubTotal.Columns[5].ItemStyle.Width = colWidthAmount; // SubTotal
 
-            grdSummary.Visible = ShowSummary;
+            grdSummary.Visible = showSummary;
             grdSummary.Style.Add("width", "100%");
-            grdSummary.Columns[1].ItemStyle.Width = ColWidthAmount;
+            grdSummary.Columns[1].ItemStyle.Width = colWidthAmount;
         }
         private void BindCart()
         {
@@ -1007,12 +1012,7 @@ namespace Bitboxx.DNNModules.BBStore
                 TaxTotal += cap.TaxTotal;
                 SubTotal += cap.SubTotal;
             }
-            //SubTotal = decimal.Round(NetTotal + TaxTotal,2);
-            //NetTotal = decimal.Round(NetTotal, 2);
-            //TaxTotal = SubTotal - NetTotal;
 
-
-            //if (NetTotal > 0)
             if (myProducts.Count > 0)
             {
                 string TotalText = Localization.GetString("Total.Text", this.LocalResourceFile);
@@ -1097,6 +1097,8 @@ namespace Bitboxx.DNNModules.BBStore
             pnlConfirm2.Visible = true;
             pnlCoupon.Visible = Cart.CouponId <= 0 && Convert.ToBoolean(StoreSettings["CouponsEnabled"] ?? "false");
             pnlCheckout.Visible = false;
+            pnlAttachment.Visible = Convert.ToBoolean(Settings["EnableCartAttachment"]);
+            pnlRemarks.Visible = Convert.ToBoolean(Settings["EnableCartComment"]);
 
             List<CustomerAddressInfo> cartAddresses = Controller.GetCustomerAddressesByCart(CartId, CurrentLanguage);
             lstCustomerAddresses.DataSource = cartAddresses;
@@ -1284,8 +1286,10 @@ namespace Bitboxx.DNNModules.BBStore
                 if (shippingModelId == -1)
                     continue;
 
+                ShippingModelInfo shippingModel = Controller.GetShippingModel(shippingModelId);
                 int shippingZoneId = -1;
                 decimal shippingSum = 0.00m;
+                shippingTaxPercent = shippingModel.Tax;
 
                 // Determine the sums for the products in cart with this shippingModelId
                 decimal sumPieces = 0m, sumWeight = 0m, sumCost = 0m;

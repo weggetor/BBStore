@@ -63,13 +63,17 @@
                         <asp:TemplateField HeaderText="Quantity">
                             <ItemTemplate>
                                 <asp:HiddenField ID="HiddenCartProductId" runat="server" Value='<%# Eval("CartProductId") %>' />
-                                <asp:TextBox ID="txtQuantity" runat="server" Text='<%# String.Format("{0:G}",Convert.ToDouble(Eval("Quantity"))) %>' 
-                                    ontextchanged="txtQuantity_TextChanged" AutoPostBack="True"></asp:TextBox><asp:Label ID="lblQuantity" runat="server" Text='<%# String.Format("{0:G}",Convert.ToDouble(Eval("Quantity"))) %>' Visible="false"/>
+                                <asp:TextBox ID="txtQuantity" runat="server" CssClass="bbstore-cart-quantity-input" Text='<%# String.Format("{0:G}",Convert.ToDouble(Eval("Quantity"))) %>' 
+                                    ontextchanged="txtQuantity_TextChanged" AutoPostBack="True"></asp:TextBox><asp:Label ID="lblQuantity" runat="server" CssClass="bbstore-cart-quantity" Text='<%# String.Format("{0:G}",Convert.ToDouble(Eval("Quantity"))) %>' Visible="false"/>
                                 <asp:LinkButton runat="server" ID="cmdDeleteRow" ResourceKey="cmdDeleteRow" OnClick="cmdDeleteRow_OnClick" CssClass="deleterow"></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField> 
-                        <asp:BoundField DataField="Unit" HeaderText="Unit" SortExpression="Unit" />               
-                        <asp:BoundField DataField="ItemNo" HeaderText="ItemNo" SortExpression="ItemNo" />
+                        <asp:BoundField DataField="Unit" HeaderText="Unit" SortExpression="Unit">               
+                            <ItemStyle CssClass="bbstore-cart-value"></ItemStyle>
+                        </asp:BoundField>
+                        <asp:BoundField DataField="ItemNo" HeaderText="ItemNo" SortExpression="ItemNo">               
+                            <ItemStyle CssClass="bbstore-cart-value"></ItemStyle>
+                        </asp:BoundField>
                         <asp:TemplateField HeaderText="Product">
                             <ItemTemplate>
                                 <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>' CssClass="bbstore-cart-name"/>
@@ -78,19 +82,19 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="UnitCost" HeaderText="UnitCost" SortExpression="UnitCost" DataFormatString="{0:n2}" >
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right"  CssClass="bbstore-cart-value bbstore-cart-pullright" />
                         </asp:BoundField>
                         <asp:BoundField DataField="NetTotal" HeaderText="NetTotal" SortExpression="NetTotal" DataFormatString="{0:n2}" >
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-value bbstore-cart-pullright" />
                         </asp:BoundField>
                         <asp:BoundField DataField="TaxPercent" HeaderText="TaxPercent" SortExpression="TaxPercent" DataFormatString="{0:F1}" >
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-value bbstore-cart-pullright" />
                         </asp:BoundField>
                         <asp:BoundField DataField="TaxTotal" HeaderText="TaxTotal" SortExpression="TaxTotal" DataFormatString="{0:n2}" >
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-value bbstore-cart-pullright" />
                         </asp:BoundField>
                         <asp:BoundField DataField="SubTotal" HeaderText="SubTotal" SortExpression="SubTotal" DataFormatString="{0:n2}" >
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-value bbstore-cart-pullright" />
                         </asp:BoundField>
                     </Columns>
                     <HeaderStyle CssClass="bbstore-grid-header" />
@@ -106,35 +110,34 @@
                         <asp:BoundField HeaderText="Image" />
                         <asp:TemplateField HeaderText="Quantity" SortExpression="Quantity">
                             <ItemTemplate>
-                                <span style="padding:4px;"><asp:Label ID="Label1" runat="server" Text='<%# String.Format("{0:G}",Convert.ToDouble(Eval("Quantity"))) %>'></asp:Label></span>
+                                <span style="padding:4px;"><asp:Label ID="Label1" runat="server" CssClass="bbstore-cart-quantity-additional" Text='<%# String.Format("{0:G}",Convert.ToDouble(Eval("Quantity"))) %>'></asp:Label></span>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField HeaderText="Unit" />
-                        <asp:BoundField HeaderText="ItemNo" />
+                        <asp:BoundField HeaderText="Unit">               
+                            <ItemStyle CssClass="bbstore-cart-value-additional"></ItemStyle>
+                        </asp:BoundField>
+                        <asp:BoundField HeaderText="ItemNo">               
+                            <ItemStyle CssClass="bbstore-cart-value-additional"></ItemStyle>
+                        </asp:BoundField>
                         <asp:TemplateField HeaderText="Product">
                             <ItemTemplate>
-                                <span style="padding:4px;"><asp:Label ID="Label2" runat="server" Text='<%# Eval("Name") %>'></asp:Label></span>
+                                <span style="padding:4px;"><asp:Label ID="Label2" runat="server"  CssClass="bbstore-cart-name-additional" Text='<%# Eval("Name") %>'></asp:Label></span>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="UnitCost" DataFormatString="{0:n2}" 
-                            HeaderText="UnitCost" SortExpression="UnitCost">
-                        <ItemStyle HorizontalAlign="Right" />
+                        <asp:BoundField DataField="UnitCost" DataFormatString="{0:n2}" HeaderText="UnitCost" SortExpression="UnitCost">
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-value-additional bbstore-cart-pullright" />
                         </asp:BoundField>
-                        <asp:BoundField DataField="NetTotal" DataFormatString="{0:n2}" 
-                            HeaderText="NetTotal" SortExpression="NetTotal">
-                        <ItemStyle HorizontalAlign="Right" />
+                        <asp:BoundField DataField="NetTotal" DataFormatString="{0:n2}" HeaderText="NetTotal" SortExpression="NetTotal">
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-value-additional bbstore-cart-pullright" />
                         </asp:BoundField>
-                        <asp:BoundField DataField="TaxPercent" DataFormatString="{0:F1}" 
-                            HeaderText="TaxPercent" SortExpression="TaxPercent">
-                        <ItemStyle HorizontalAlign="Right" />
+                        <asp:BoundField DataField="TaxPercent" DataFormatString="{0:F1}" HeaderText="TaxPercent" SortExpression="TaxPercent" >
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-value-additional bbstore-cart-pullright"  />
                         </asp:BoundField>
-                        <asp:BoundField DataField="TaxTotal" DataFormatString="{0:n2}" 
-                            HeaderText="TaxTotal" SortExpression="TaxTotal">
-                        <ItemStyle HorizontalAlign="Right" />
+                        <asp:BoundField DataField="TaxTotal" DataFormatString="{0:n2}" HeaderText="TaxTotal" SortExpression="TaxTotal">
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-value-additional bbstore-cart-pullright"  />
                         </asp:BoundField>
-                        <asp:BoundField DataField="SubTotal" DataFormatString="{0:n2}" 
-                            HeaderText="SubTotal" SortExpression="SubTotal">
-                        <ItemStyle HorizontalAlign="Right" />
+                        <asp:BoundField DataField="SubTotal" DataFormatString="{0:n2}" HeaderText="SubTotal" SortExpression="SubTotal">
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-value-additional bbstore-cart-pullright"  />
                         </asp:BoundField>
                     </Columns>
                 </asp:GridView>        
@@ -142,18 +145,18 @@
                     ShowHeader="False" AllowSorting="True" CssClass="bbstore-grid">
                     <Columns>
                         <asp:BoundField DataField="Description" HeaderText="Description">
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-pullright" />
                         </asp:BoundField>
                         <asp:BoundField  HeaderText="UnitCost" />
                         <asp:BoundField DataField="NetTotal" DataFormatString="{0:n2}" HeaderText="NetTotal" SortExpression="NetTotal">
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-pullright"/>
                         </asp:BoundField>
                         <asp:BoundField  HeaderText="TaxPercent" />
                         <asp:BoundField DataField="TaxTotal" DataFormatString="{0:n2}" HeaderText="TaxTotal" SortExpression="TaxTotal">
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-pullright" />
                         </asp:BoundField>
                         <asp:BoundField DataField="SubTotal" DataFormatString="{0:n2}" HeaderText="SubTotal" SortExpression="SubTotal">
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-pullright" />
                         </asp:BoundField>
                      </Columns>
                      <RowStyle CssClass="bbstore-grid-sumrow" />
@@ -162,10 +165,10 @@
                 AllowSorting="True" GridLines="None" CssClass="bbstore-grid-summary">
                     <Columns>
                         <asp:BoundField DataField="Text"  HeaderText="Text" >
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-pullright" />
                         </asp:BoundField>
                         <asp:BoundField DataField="Amount" DataFormatString="{0:n2}" HeaderText="Amount">
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" CssClass="bbstore-cart-pullright"/>
                         </asp:BoundField>
                      </Columns>
                 </asp:GridView>
@@ -185,9 +188,9 @@
                         <asp:Label ID="lblTermsPost" runat="server" Resourcekey="lblTermsPost.Text"/></p>
                     <p><asp:CheckBox ID="chkCancelTerms" runat="server" />&nbsp;
                         <asp:Label ID="lblCancelTerms" runat="server"/>&nbsp;
-                    <p><asp:Label ID="lblRemarks" runat="server" Resourcekey="lblRemarks.Text"/><br />
+                    <p ID="pnlRemarks" runat="server"><asp:Label ID="lblRemarks" runat="server" Resourcekey="lblRemarks.Text"/><br />
                         <asp:TextBox ID="txtRemarks" runat="server" Rows="5" TextMode="MultiLine" Columns="80" /></p>
-					<p><asp:Label ID="lblAttachment" runat="server" Resourcekey="lblAttachment.Text"/><asp:FileUpload runat="server" ID="fulAttachment"/></p>                
+					<p ID="pnlAttachment" runat="server"><asp:Label ID="lblAttachment" runat="server" Resourcekey="lblAttachment.Text"/><asp:FileUpload runat="server" ID="fulAttachment"/></p>                
                     <asp:Label ID="lblTermsError" runat="server" CssClass="dnnFormMessage dnnFormValidationSummary" Visible="false" ResourceKey="lblTerms.Error"/>
                     <asp:Label ID="lblCancelTermsError" runat="server" CssClass="dnnFormMessage dnnFormValidationSummary" Visible="false" ResourceKey="lblCancelTerms.Error"/>
                     <div style="text-align:right"><asp:Button ID="cmdFinish" runat="server" Resourcekey="cmdFinish.Text" onclick="cmdFinish_Click" /></div>

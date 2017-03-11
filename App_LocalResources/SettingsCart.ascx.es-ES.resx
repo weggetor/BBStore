@@ -375,4 +375,22 @@ Select the following tokens:
 	<data name="lblPurgeInterval.Text" xml:space="preserve">
 		<value>Intervalo de la purga de carro</value>
 	</data>
+	<data name="lblShowSubTotal.Text" xml:space="preserve">
+		<value>Mostrar sub total en carro</value>
+	</data>
+	<data name="lblShowSubTotal.Help" xml:space="preserve">
+		<value>Echale un vistazo si quieres a la subtotalbelow el carro</value>
+	</data>
+	<data name="lblEnableCartAttachment.Text" xml:space="preserve">
+		<value>Ver subir adjunto</value>
+	</data>
+	<data name="lblEnableCartAttachment.Help" xml:space="preserve">
+		<value>Compruebe si se debe mostrar la posibilidad de cargar un archivo en carro</value>
+	</data>
+	<data name="lblEnableCartComment.Text" xml:space="preserve">
+		<value>Mostrar comentario</value>
+	</data>
+	<data name="lblEnableCartComment.Help" xml:space="preserve">
+		<value>Compruebe a la orden si es posible comentarios</value>
+	</data>
 </root>

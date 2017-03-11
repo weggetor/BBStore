@@ -23,10 +23,21 @@ COLORSUM : #A0AFEB;
 
 /* Cart Module*/
 .bbstore-cart .deleterow { font-size: xx-small;text-align: center;}
+.bbstore-cart-pullright { text-align: right!important;}
 .bbstore-cart-option { font-size: xx-small;}
+.bbstore-cart-quantity {}
+.bbstore-cart-quantity-input {}
+.bbstore-cart-additional {}
+.bbstore-cart-name {}
+.bbstore-cart-name-additional {}
+.bbstore-cart-value {}
+.bbstore-cart-value-additional {}
+
+/* Cart Payment */
 .bbstore-cart-payment-header { border: 1px solid #999999; color: white; background-color: #A0AFEB; font-size: 130%; padding: 5px; margin: 0 5px 0 0;; cursor: pointer;display: block;  }  
 .bbstore-cart-payment-selectedheader { border: 1px solid #999999; color: white; background-color: #000084; font-size: 130%; padding: 5px; margin: 0 5px 0 0 ; cursor: pointer; display: block; } 
 .bbstore-cart-payment-content { background: linear-gradient(#FFFFFF, #EEEEEE ) repeat scroll 0 0 #EEEEEE; border: 1px solid #999999; padding: 10px; }
+.bbstore-cart-payment-table td { padding: 3px 10px;border: 0;}
 
 .bbstore-cart-payment .cards ul { list-style: none outside none; min-height: 50px;height: 50px;}
 .bbstore-cart-payment .cards li {list-style: none; background-image: url("Providers/Payment/images/creditcardlogos.png"); background-position: 0 0; float: left; height: 32px; margin-right: 8px; text-indent: -9999px; transition: all 0.2s ease 0s; width: 51px; }
@@ -65,7 +76,6 @@ COLORSUM : #A0AFEB;
 .bbstore-product-option-decription {}
 .bbstore-product-option-error { color: red;}
 
-
 /* ProductGroup Module */
 .bbstore-productgroup-tree td { padding-left: 5px!important}
 .bbstore-productgroup-treenode {width:99%!important;}
@@ -82,7 +92,6 @@ COLORSUM : #A0AFEB;
 .bbstore-admin .dnnHelpText,
 .bbstore-admin .dnnHelpText p {color:white!important;}
 .bbstore-admin .dnnTooltip .dnnFormHelpContent {width:500px;}
-
 
 /* Admin modules editgrid */
 .bbstore-admin-editgrid {background-color:white; border:1px solid #333333}
