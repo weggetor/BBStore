@@ -55,7 +55,7 @@ namespace Bitboxx.DNNModules.BBStore
     /// ----------------------------------------------------------------------------- 
     [DNNtc.PackageProperties("BBStore Product", 1, "BBStore Product", "BBStore Product", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
     [DNNtc.ModuleProperties("BBStore Product", "BBStore Product", 0)]
-    [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.CoreVersion, "06.00.00")]
+    [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.CoreVersion, "08.00.00")]
     [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.Package, "BBImageHandler")]
     [DNNtc.ModuleControlProperties("", "BBStore Simple Product", DNNtc.ControlType.View, "", false, false)]
     partial class ViewProduct : PortalModuleBase, IActionable

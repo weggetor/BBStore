@@ -1,0 +1,9 @@
+﻿<h1>Releasenotes</h1>
+<p>
+	<h2>Version 2.0.0 on 2017/4/6</h2>
+	<ul>
+		<li>Minimum DNN version is now 8.0.0</li>
+		<li>Saving first customer address updates the user profile</li>
+	</ul>
+</p>
+	

@@ -205,10 +205,40 @@ namespace Bitboxx.DNNModules.BBStore
             if (txtAdrEditFax != null) CustomerAddress.Fax = txtAdrEditFax.Text.Trim();
             if (txtAdrEditCell != null) CustomerAddress.Cell = txtAdrEditCell.Text.Trim();
             if (txtAdrEditEmail != null) CustomerAddress.Email = txtAdrEditEmail.Text.Trim();
-			if (IsNewAddress)
+
+            UserInfo user = UserController.Instance.GetCurrentUserInfo();
+            bool isFirstAddress = (Controller.GetCustomerAddresses(this.MainControl.CustomerId).Count <= 1 && String.IsNullOrEmpty(user.LastName));
+
+            if (IsNewAddress)
 				Controller.NewCustomerAddress(CustomerAddress);
 			else
 				Controller.UpdateCustomerAddress(CustomerAddress);
+
+            if (isFirstAddress)
+		    {
+                if (txtAdrEditCompany != null) user.Profile.SetProfileProperty("Company", CustomerAddress.Company);
+                if (txtAdrEditPrefix != null) user.Profile.SetProfileProperty("Prefix",CustomerAddress.Prefix);
+                if (txtAdrEditFirstname != null) user.Profile.SetProfileProperty("FirstName",CustomerAddress.Firstname);
+                if (txtAdrEditFirstname != null) user.FirstName = CustomerAddress.Firstname;
+                if (txtAdrEditMiddlename != null) user.Profile.SetProfileProperty("MiddleName",CustomerAddress.Middlename);
+                if (txtAdrEditLastname != null) user.Profile.SetProfileProperty("LastName", CustomerAddress.Lastname);
+                if (txtAdrEditLastname != null) user.LastName = CustomerAddress.Lastname;
+		        if (txtAdrEditFirstname != null && txtAdrEditLastname != null) user.DisplayName = CustomerAddress.Firstname + " " + CustomerAddress.Lastname ;
+                if (txtAdrEditSuffix != null) user.Profile.SetProfileProperty("Suffix",CustomerAddress.Suffix);
+                if (txtAdrEditUnit != null) user.Profile.SetProfileProperty("Unit",CustomerAddress.Unit);
+                if (txtAdrEditStreet != null) user.Profile.SetProfileProperty("Street",CustomerAddress.Street);
+                if (txtAdrEditPostalCode != null) user.Profile.SetProfileProperty("PostalCode", CustomerAddress.PostalCode);
+                if (txtAdrEditCity != null) user.Profile.SetProfileProperty("City",CustomerAddress.City);
+                if (txtAdrEditSuburb != null) user.Profile.SetProfileProperty("Suburb",CustomerAddress.Suburb);
+                if (ddlCountry != null) user.Profile.SetProfileProperty("Country", GetListEntryByText("Country", CustomerAddress.Country).EntryID.ToString());
+                if (txtAdrEditRegion != null) user.Profile.SetProfileProperty("Region", GetListEntryByText("Region", CustomerAddress.Region).EntryID.ToString());
+                if (txtAdrEditPhone != null) user.Profile.SetProfileProperty("Telephone", CustomerAddress.Telephone);
+                if (txtAdrEditFax != null) user.Profile.SetProfileProperty("Fax",CustomerAddress.Fax);
+                if (txtAdrEditCell != null) user.Profile.SetProfileProperty("Cell",CustomerAddress.Cell);
+
+		        UserController.UpdateUser(PortalId, user);
+		    }
+
 			Response.Redirect(Globals.NavigateURL(TabId, "", "action=checkout"));
 		}
 
@@ -227,20 +257,13 @@ namespace Bitboxx.DNNModules.BBStore
 			return null;
 		}
 
-		private string GetCountryCode(string Country)
-		{
-			ListController oController = new ListController();
-			ListEntryInfoCollection oCountries = oController.GetListEntryInfoCollection("Country");
-			foreach (ListEntryInfo oCountry in oCountries)
-			{
-				if (oCountry.Text.ToLower() == Country.ToLower())
-				{
-					return oCountry.Value;
-				}
-			}
-			return "";
-		}
+	    private ListEntryInfo GetListEntryByText(string list, string text)
+	    {
+	        IEnumerable<ListEntryInfo> listItems = new ListController().GetListEntryInfoItems(list);
+	        return (from l in listItems where l.Text == text select l).FirstOrDefault();
+	    }
 
+		
 		private string GenerateForm()
 		{
 			string template = Localization.GetString("AddressTemplate.Text", this.LocalResourceFile.Replace("ViewCartAddressEdit","ViewCart"));

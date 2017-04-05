@@ -135,7 +135,7 @@ namespace Bitboxx.DNNModules.BBStore
 				user.Membership.Password = txtPassword.Text.Trim();
 
 				user.Profile.PreferredLocale = PortalSettings.DefaultLanguage;
-				user.Profile.TimeZone = PortalSettings.TimeZoneOffset;
+				user.Profile.PreferredTimeZone = PortalSettings.TimeZone;
 				user.Profile.FirstName = user.FirstName;
 				user.Profile.LastName = user.LastName;
 
@@ -161,7 +161,18 @@ namespace Bitboxx.DNNModules.BBStore
 					Mail.SendMail(user, MessageType.UserRegistrationVerified, PortalSettings);
 					Response.Redirect(Request.QueryString["returnUrl"]);
 				}
-			}
+                else
+                {
+                    divMessages.Attributes.Add("class", "dnnFormMessage dnnFormWarning");
+                    string loginUrl = Globals.NavigateURL(TabId, "", "ctl=Login");
+                    lblIntro.Text = String.Format(Localization.GetString("ErrorCreatingUser.Text", this.LocalResourceFile), status.ToString("G"));
+                    txtUserName.Text = "";
+                    pnlUser.Visible = true;
+                    pnlCheckUser.Visible = true;
+                    pnlPassword.Visible = false;
+                    pnlConfirmUser.Visible = false;
+                }
+            }
 			else
 			{
 				// 2.) User exists in this portal (thisPortalUser # null) => Ask for password and login
@@ -208,33 +219,43 @@ namespace Bitboxx.DNNModules.BBStore
 				user.IsSuperUser = false;
 
 				user.Profile.PreferredLocale = PortalSettings.DefaultLanguage;
-				user.Profile.TimeZone = PortalSettings.TimeZoneOffset;
+				user.Profile.PreferredTimeZone = PortalSettings.TimeZone;
 				user.Profile.FirstName = user.FirstName;
 				user.Profile.LastName = user.LastName;
 
 				UserCreateStatus status = MembershipProvider.Instance().CreateUser(ref user);
-				
-				if (status == UserCreateStatus.Success)
-				{
-					// Add User to Standard Roles
-					RoleController roleController = new RoleController();
-					RoleInfo role = new RoleInfo();
 
-					ArrayList roles = roleController.GetPortalRoles(PortalId);
-					for (int i = 0; i < roles.Count - 1; i++)
-					{
-						role = (RoleInfo) roles[i];
-						if (role.AutoAssignment == true)
-							roleController.AddUserRole(PortalId, user.UserID, role.RoleID, Null.NullDate, Null.NullDate);
-					}
-					// Log new user in and create a new customer +  add him to cart
-					UserController.UserLogin(PortalId, user, PortalSettings.PortalName, Request.UserHostAddress, false);
-					int customerId = Controller.NewCustomer(new CustomerInfo(user.UserID, PortalId, _userName));
-					Controller.UpdateCartCustomerId(this.MainControl.CartId,customerId);
-					Mail.SendMail(user, MessageType.UserRegistrationVerified, PortalSettings);
-					Response.Redirect(Request.QueryString["returnUrl"]);
-				}
-				
+			    if (status == UserCreateStatus.Success)
+			    {
+			        // Add User to Standard Roles
+			        RoleController roleController = new RoleController();
+			        RoleInfo role = new RoleInfo();
+
+			        ArrayList roles = roleController.GetPortalRoles(PortalId);
+			        for (int i = 0; i < roles.Count - 1; i++)
+			        {
+			            role = (RoleInfo) roles[i];
+			            if (role.AutoAssignment == true)
+			                roleController.AddUserRole(PortalId, user.UserID, role.RoleID, Null.NullDate, Null.NullDate);
+			        }
+			        // Log new user in and create a new customer +  add him to cart
+			        UserController.UserLogin(PortalId, user, PortalSettings.PortalName, Request.UserHostAddress, false);
+			        int customerId = Controller.NewCustomer(new CustomerInfo(user.UserID, PortalId, _userName));
+			        Controller.UpdateCartCustomerId(this.MainControl.CartId, customerId);
+			        Mail.SendMail(user, MessageType.UserRegistrationVerified, PortalSettings);
+			        Response.Redirect(Request.QueryString["returnUrl"]);
+			    }
+			    else
+			    {
+                    divMessages.Attributes.Add("class", "dnnFormMessage dnnFormWarning");
+                    string loginUrl = Globals.NavigateURL(TabId, "", "ctl=Login");
+                    lblIntro.Text = String.Format(Localization.GetString("ErrorCreatingUser.Text", this.LocalResourceFile),status.ToString("G"));
+                    txtUserName.Text = "";
+                    pnlUser.Visible = true;
+                    pnlCheckUser.Visible = true;
+                    pnlPassword.Visible = false;
+                    pnlConfirmUser.Visible = false;
+                }
 			}
 			else
 			{

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -17,7 +17,7 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -28,6 +28,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +40,7 @@
     <DocumentationFile>
     </DocumentationFile>
     <PackageAsSingleFile>false</PackageAsSingleFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,6 +48,7 @@
     <OutputPath>bin\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -57,59 +60,55 @@
     </Reference>
     <Reference Include="DotNetNuke, Version=6.1.0.1171, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\DotNetNuke.dll</HintPath>
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\DotNetNuke.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DotNetNuke.Instrumentation">
-      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\DotNetNuke.Instrumentation.dll</HintPath>
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\DotNetNuke.Instrumentation.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DotNetNuke.Web, Version=6.1.0.1171, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\DotNetNuke.Web.dll</HintPath>
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\DotNetNuke.Web.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke.Web.Deprecated">
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\DotNetNuke.Web.Deprecated.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\Microsoft.ApplicationBlocks.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SharpZipLib, Version=0.81.0.1407, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\SharpZipLib.dll</HintPath>
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\SharpZipLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Telerik.Web.UI, Version=2012.2.724.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependencies\DNN6.0.0\Telerik.Web.UI.dll</HintPath>
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\Telerik.Web.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -642,6 +641,7 @@
     </Content>
     <Content Include="App_LocalResources\SettingsAdmin.ascx.resx" />
     <Content Include="App_LocalResources\EditCoupon.ascx.resx" />
+    <Content Include="Installation\ReleaseNotes\Release.02.00.00.txt" />
     <Content Include="Installation\ReleaseNotes\Release.01.00.17.txt" />
     <Content Include="Webthumb\wkhtmltoimage.exe" />
     <EmbeddedResource Include="App_LocalResources\SettingsCart.ascx.resx">

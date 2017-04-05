@@ -4,6 +4,7 @@
 <%@ Register TagPrefix="bb" TagName="FeatureGridControl" Src="Controls/FeatureGridControl.ascx" %>
 <%@ Register TagPrefix="bb" TagName="LanguageEditor" Src="Controls/LanguageEditorControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web.Deprecated" %>
 <%@ Register TagPrefix="dnn" TagName="UrlControl" Src="~/controls/urlcontrol.ascx" %>  
 <div class="dnnForm bbstore-product-edit dnnClear" id="bbstore-editproduct">
     <ul class="dnnAdminTabNav">
