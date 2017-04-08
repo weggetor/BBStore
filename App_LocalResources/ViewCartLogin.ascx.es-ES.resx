@@ -150,4 +150,10 @@
 	<data name="OtherPortalKnownUser.Text" xml:space="preserve">
 		<value>¡Bienvenido! Ya eres un usuario de uno de nuestros otros portales. Por favor, introduzca su contraseña para agregar este sitio a su cuenta de usuario</value>
 	</data>
+	<data name="ErrorCreatingUser.Text" xml:space="preserve">
+		<value>Hubo un problema al crear la cuenta: {0}. Póngase en contacto con el administrador de tienda</value>
+	</data>
+	<data name="NewUserMailSubject.Text" xml:space="preserve">
+		<value>La bienvenida en nuestro [STORENAME]</value>
+	</data>
 </root>

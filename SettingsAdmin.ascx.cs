@@ -50,12 +50,34 @@ namespace Bitboxx.DNNModules.BBStore
                 return PortalSettings.DefaultLanguage;
             }
         }
-		#endregion
+
+        public BBStoreController Controller
+        {
+            get
+            {
+                if (_controller == null)
+                    _controller = new BBStoreController();
+                return _controller;
+            }
+        }
+
+        public int NewUserMailResourceId
+        {
+            get
+            {
+                if (ViewState["NewUserMailResourceId"] != null)
+                    return Convert.ToInt32(ViewState["NewUserMailResourceId"]);
+                return -1;
+            }
+            set { ViewState["NewUserMailResourceId"] = value; }
+        }
+        #endregion
 
         #region Fields
 
         string _startString = "/* BBSTORE Styles BEGIN */";
         string _endString = "/* BBSTORE Styles END */";
+        private BBStoreController _controller = null;
 
         #endregion
 
@@ -88,6 +110,35 @@ namespace Bitboxx.DNNModules.BBStore
                     ddlVendorCountry.SelectedValue = ddlVendorCountry.Items[0].Value;
                     ddlVendorCountry.DataBind();
                 }
+
+                // Read the texts for empty cart display
+                LocalResourceInfo newUserMailResource = Controller.GetLocalResource(PortalId, "NEWUSERMAIL");
+                if (newUserMailResource == null)
+                {
+                    newUserMailResource = new LocalResourceInfo() { LocalResourceToken = "NEWUSERMAIL", PortalId = PortalId };
+                    NewUserMailResourceId = Controller.NewLocalResource(newUserMailResource);
+
+                    LocaleController lc = new LocaleController();
+                    Dictionary<string, Locale> loc = lc.GetLocales(PortalSettings.PortalId);
+
+                    foreach (var lang in loc)
+                    {
+                        string defaultText = Localization.GetString("NewUserMailBody.Text", this.LocalResourceFile, PortalSettings, lang.Key);
+                        LocalResourceLangInfo resourecLang = new LocalResourceLangInfo() { Language = lang.Key, LocalResourceId = NewUserMailResourceId, TextValue = defaultText };
+                        Controller.NewLocalResourceLang(resourecLang);
+                    }
+                }
+                else
+                {
+                    NewUserMailResourceId = newUserMailResource.LocalResourceId;
+                }
+
+                List<ILanguageEditorInfo> dbLangs = new List<ILanguageEditorInfo>();
+                foreach (LocalResourceLangInfo lang in Controller.GetLocalResourceLangs(NewUserMailResourceId))
+                {
+                    dbLangs.Add(lang);
+                }
+                lngNewUserMail.Langs = dbLangs;
             }
 
             base.OnLoad(e);
@@ -267,6 +318,14 @@ namespace Bitboxx.DNNModules.BBStore
 				objModules.UpdateModuleSetting(ModuleId, "SupplierRole", cboSupplierRole.SelectedValue);
                 objModules.UpdateModuleSetting(ModuleId, "MiniCartTemplate", txtMiniCartTemplate.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "HideMiniCartIfEmpty", chkHideMiniCartIfEmpty.Checked.ToString());
+
+                lngNewUserMail.UpdateLangs();
+                Controller.DeleteLocalResourceLangs(NewUserMailResourceId);
+                foreach (LocalResourceLangInfo lang in lngNewUserMail.Langs)
+                {
+                    lang.LocalResourceId = NewUserMailResourceId;
+                    Controller.NewLocalResourceLang(lang);
+                }
 
                 UpdateCss();
             }

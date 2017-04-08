@@ -7,6 +7,8 @@
 <%@ Register TagPrefix="bb" TagName="TabSelectControl" Src="Controls/TabSelectControl.ascx" %>
 <%@ Register TagPrefix="bb" TagName="SelectFolderControl" Src="Controls/SelectFolderControl.ascx" %>   
 <%@ Register TagPrefix="bb" TagName="ColorPicker" Src="Controls/ColorPickerControl.ascx" %>
+<%@ Register TagPrefix="bb" TagName="LanguageEditor" Src="Controls/LanguageEditorControl.ascx" %>
+
 <div id="bbstore-panels" class="dnnForm bbstore-admin bbstore-admin-settings dnnClear">
     <div class="dnnFormExpandContent"><a href=""><%=Localization.GetString("ExpandAll", Localization.SharedResourceFile)%></a></div>
 
@@ -157,6 +159,7 @@
                 <asp:TextBox ID="txtSMTPPassword" runat="server" />
             </div>
         </asp:Panel>
+        <bb:LanguageEditor ID="lngNewUserMail" runat="server" InternalType="Bitboxx.DNNModules.BBStore.LocalResourceLangInfo" FixedDisplay="Control=Texteditor,Height=400px,Width=500px,Label=NewUserMail" />
     </fieldset>
 
     <h2 id="bbstore-admin-head5" class="dnnFormSectionHead"><a href="#"><%=LocalizeString("shColors")%></a></h2>

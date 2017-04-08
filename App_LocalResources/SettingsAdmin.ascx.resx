@@ -112,10 +112,10 @@
 		<value>2.0</value>
 	</resheader>
 	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="ControlTitle_settings.Text" xml:space="preserve">
     <value>BBStore Admin Settings</value>
@@ -423,5 +423,54 @@ If not checked, no valid record in this table results into using standard price 
   </data>
 	<data name="lblHideMiniCartIfEmpty.Text" xml:space="preserve">
     <value>Hide empty Minicart</value>
+  </data>
+	<data name="lblNewUserMail.Help" xml:space="preserve">
+    <value>Emailtext that is sent to the user when he registered in checkout process</value>
+  </data>
+	<data name="lblNewUserMail.Text" xml:space="preserve">
+    <value>New User Email</value>
+  </data>
+	<data name="NewUserMailBody.Text" xml:space="preserve">
+    <value>&lt;html&gt;
+&lt;head&gt;
+&lt;style type="text/css"&gt;
+.Normal, .Normal td
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.SubHead
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table style="width:100%;" align="center" border="0" cellspacing="0" cellpadding="10"&gt;
+  &lt;tr valign="top"&gt;
+    &lt;td width="50%" align="left" class="Normal"&gt;[BBSTORE-VENDORNAME]&lt;br /&gt;
+    [BBSTORE-VENDORSTREET1]&lt;br /&gt;
+    [BBSTORE-VENDORSTREET2]&lt;br /&gt;
+    [BBSTORE-VENDORZIP] [BBSTORE-VENDORCITY]&lt;/td&gt;
+    &lt;td width="50%" align="right"&gt;[BBSTORE-VENDORIMAGE]&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2&gt;Welcome to the [STORENAME]!&lt;/h2&gt;
+&lt;p&gt;We created an account for you:&lt;/p&gt;
+&lt;p&gt;Username: &lt;i&gt;[USERNAME]&lt;/i&gt;&lt;br/&gt;
+Password: &lt;i&gt;[PASSWORD]&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;Please feel free to visit us again at any time!&lt;/p&gt;
+
+&lt;p&gt;Best regards,&lt;br/&gt;
+Your team of [STORENAME]&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</value>
+  </data>
+	<data name="lblLanguage.Help" xml:space="preserve">
+    <value>Select the Language you want to edit</value>
+  </data>
+	<data name="lblLanguage.Text" xml:space="preserve">
+    <value>Select Language </value>
   </data>
 </root>

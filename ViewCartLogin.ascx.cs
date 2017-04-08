@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,6 +13,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Membership;
 using DotNetNuke.Security.Roles;
+using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Mail;
 using DotNetNuke.UI.Skins.Controls;
@@ -21,7 +24,8 @@ namespace Bitboxx.DNNModules.BBStore
 	{
 		private string _userName = "";
 		private BBStoreController _controller;
-		private List<UserInfo> _allUsers; 
+		private List<UserInfo> _allUsers;
+	    private Hashtable _storeSettings;
 		
 		public ViewCart MainControl { get; set; }
 		public BBStoreController Controller
@@ -33,8 +37,24 @@ namespace Bitboxx.DNNModules.BBStore
 				return _controller;
 			}
 		}
+        public Hashtable StoreSettings
+        {
+            get
+            {
+                if (_storeSettings == null)
+                    _storeSettings = Controller.GetStoreSettings(PortalId);
+                return _storeSettings;
+            }
+        }
+        protected string CurrentLanguage
+        {
+            get
+            {
+                return System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+            }
+        }
 
-		protected List<UserInfo> AllUsers
+        protected List<UserInfo> AllUsers
 		{
 			get
 			{
@@ -122,7 +142,7 @@ namespace Bitboxx.DNNModules.BBStore
 			var thisUsers = from u in AllUsers where u.Username == _userName select u;
 			UserInfo thisPortalUser = (from u in thisUsers where u.PortalID == PortalId select u).FirstOrDefault();
 
-			if (thisUsers.Any() == true && thisPortalUser == null)
+			if (thisUsers.Any() == true && thisPortalUser == null && !thisUsers.FirstOrDefault().IsSuperUser)
 			{
 				// 3.) User exists only in another portal (thisUsers.Any() == true && thisPortalUser == null) => Ask for password, create and login
 				UserInfo user = new UserInfo();
@@ -158,8 +178,8 @@ namespace Bitboxx.DNNModules.BBStore
 					UserController.UserLogin(PortalId, user, PortalSettings.PortalName, Request.UserHostAddress, false);
 					int customerId = Controller.NewCustomer(new CustomerInfo(user.UserID, PortalId, _userName));
 					Controller.UpdateCartCustomerId(this.MainControl.CartId, customerId);
-					Mail.SendMail(user, MessageType.UserRegistrationVerified, PortalSettings);
-					Response.Redirect(Request.QueryString["returnUrl"]);
+                    MailRegistration(user);
+                    Response.Redirect(Request.QueryString["returnUrl"]);
 				}
                 else
                 {
@@ -175,7 +195,7 @@ namespace Bitboxx.DNNModules.BBStore
             }
 			else
 			{
-				// 2.) User exists in this portal (thisPortalUser # null) => Ask for password and login
+				// 2.) User exists in this portal (thisPortalUser # null) Or Superuser => Ask for password and login
 				UserLoginStatus loginStatus= UserLoginStatus.LOGIN_FAILURE;
 				UserInfo user = UserController.ValidateUser(PortalId, txtUserName.Text, txtPassword.Text, "DNN", "",
 				                                            PortalSettings.PortalName, Request.UserHostAddress, ref loginStatus);
@@ -242,7 +262,9 @@ namespace Bitboxx.DNNModules.BBStore
 			        UserController.UserLogin(PortalId, user, PortalSettings.PortalName, Request.UserHostAddress, false);
 			        int customerId = Controller.NewCustomer(new CustomerInfo(user.UserID, PortalId, _userName));
 			        Controller.UpdateCartCustomerId(this.MainControl.CartId, customerId);
-			        Mail.SendMail(user, MessageType.UserRegistrationVerified, PortalSettings);
+			        MailRegistration(user);
+
+			        // Mail.SendMail(user, MessageType.UserRegistrationVerified, PortalSettings);
 			        Response.Redirect(Request.QueryString["returnUrl"]);
 			    }
 			    else
@@ -269,7 +291,90 @@ namespace Bitboxx.DNNModules.BBStore
 				pnlConfirmUser.Visible = false;
 			}
 		}
-	}
+
+        private void MailRegistration(UserInfo user)
+        {
+            string storeEmail = (string)StoreSettings["StoreEmail"] ?? "";
+            string storeName = (string)StoreSettings["StoreName"] ?? "";
+            string storeReplyTo = (string)StoreSettings["StoreReplyTo"] ?? "";
+            string storeAdmin = (string)StoreSettings["StoreAdmin"] ?? "";
+
+            string templateContent = Controller.GetLocalResourceLang(PortalId, "NEWUSERMAIL", CurrentLanguage).TextValue;
+            if (String.IsNullOrEmpty(templateContent))
+                templateContent = Localization.GetString("NewUserMailBody.Text", this.LocalResourceFile, PortalSettings, CurrentLanguage);
+            templateContent = templateContent.Replace("[USERNAME]", user.Username);
+            templateContent = templateContent.Replace("[PASSWORD]", user.Membership.Password);
+            templateContent = templateContent.Replace("[BBSTORE-VENDORIMAGE]", (PortalSettings.LogoFile != string.Empty ? "<img src=\"cid:Logo\" />" : ""));
+            templateContent = templateContent.Replace("[BBSTORE-VENDORNAME]", (string)StoreSettings["VendorName"] ?? "");
+            templateContent = templateContent.Replace("[BBSTORE-VENDORSTREET1]", (string)StoreSettings["VendorStreet1"] ?? "");
+            templateContent = templateContent.Replace("[BBSTORE-VENDORSTREET2]", (string)StoreSettings["VendorStreet2"] ?? "");
+            templateContent = templateContent.Replace("[BBSTORE-VENDORZIP]", (string)StoreSettings["VendorZip"] ?? "");
+            templateContent = templateContent.Replace("[BBSTORE-VENDORCITY]", (string)StoreSettings["VendorCity"] ?? "");
+            templateContent = templateContent.Replace("[STORENAME]", storeName);
+
+            try
+            {
+                // http://www.systemnetmail.com
+
+                MailMessage mail = new MailMessage();
+
+                //set the addresses
+                string smtpServer = DotNetNuke.Entities.Host.Host.SMTPServer;
+                string smtpAuthentication = DotNetNuke.Entities.Host.Host.SMTPAuthentication;
+                string smtpUsername = DotNetNuke.Entities.Host.Host.SMTPUsername;
+                string smtpPassword = DotNetNuke.Entities.Host.Host.SMTPPassword;
+
+                if (Convert.ToInt32(StoreSettings["SMTPSettings"] ?? "0") == 1)
+                {
+                    smtpServer = (string)StoreSettings["SMTPServer"];
+                    smtpAuthentication = "1";
+                    smtpUsername = (string)StoreSettings["SMTPUser"];
+                    smtpPassword = (string)StoreSettings["SMTPPassword"]; ;
+                }
+
+                mail.From = new MailAddress("\"" + storeName.Trim() + "\" <" + storeEmail.Trim() + ">");
+                mail.To.Add(user.Email.Trim());
+                if (storeAdmin != string.Empty)
+                    mail.To.Add(storeAdmin.Trim());
+                if (storeReplyTo != string.Empty)
+                    mail.ReplyTo = new MailAddress(storeReplyTo.Trim());
+
+                mail.Subject = LocalizeString("NewUserMailSubject.Text").Replace("[STORENAME]", storeName);
+
+                AlternateView av1 = AlternateView.CreateAlternateViewFromString(templateContent, null, "text/html");
+                string logoFile = MapPath(PortalSettings.HomeDirectory + PortalSettings.LogoFile);
+
+                if (PortalSettings.LogoFile != string.Empty && File.Exists(logoFile))
+                {
+                    LinkedResource linkedResource = new LinkedResource(logoFile);
+                    linkedResource.ContentId = "Logo";
+                    linkedResource.ContentType.Name = logoFile;
+                    linkedResource.ContentType.MediaType = "image/jpeg";
+                    av1.LinkedResources.Add(linkedResource);
+                }
+                mail.AlternateViews.Add(av1);
+                mail.IsBodyHtml = true;
+
+
+                SmtpClient emailClient = new SmtpClient(smtpServer);
+                if (smtpAuthentication == "1")
+                {
+                    System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+                    emailClient.UseDefaultCredentials = false;
+                    emailClient.Credentials = SMTPUserInfo;
+                }
+                emailClient.Send(mail);
+            }
+            catch (SmtpException sex)
+            {
+                Exceptions.LogException(sex);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.LogException(ex);
+            }
+        }
+    }
 }
 
 						

@@ -424,4 +424,34 @@ Si no, ningún registro válido en esta tabla resulta en utilizar el precio est�
 	<data name="lblHideMiniCartIfEmpty.Text" xml:space="preserve">
 		<value>Ocultar el vacío minicarro</value>
 	</data>
+	<data name="lblNewUserMail.Help" xml:space="preserve">
+		<value>Emailtext que se envía al usuario cuando se inscribió en el proceso de compra</value>
+	</data>
+	<data name="lblNewUserMail.Text" xml:space="preserve">
+		<value>Nuevo correo electrónico de usuario</value>
+	</data>
+	<data name="NewUserMailBody.Text" xml:space="preserve">
+		<value>&lt;html&gt;&lt;head&gt;&lt;style type="text/css"&gt;. Normal. Normal td {font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+. SubHead {font-family: Verdana, Arial, Helvetica, sans-serif;}&lt;/style&gt;
+&lt;/head&gt; &lt;body&gt;&lt;table style="width:100%;" align="center" border="0" cellspacing="0" cellpadding="10"&gt; &lt;tr valign="top"&gt; &lt;td width="50%" align="left" class="Normal"&gt; [BBSTORE NOMBREPROVEEDOR] &lt; br / &amp;gt; [BBSTORE-VENDORSTREET1] &lt; br / &amp;gt; [BBSTORE-VENDORSTREET2] &lt; br / &amp;gt; [BBSTORE-VENDORZIP] [BBSTORE-VENDORCITY]&lt;/td&gt; &lt;td width="50%" align="right"&gt; [BBSTORE-VENDORIMAGE]&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt; &lt;h2&gt;Bienvenidos a [STORENAME]!&lt;/h2&gt;
+
+&lt;p&gt;Hemos creado una cuenta para usted:&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;Username: &lt;i&gt;[nombre de usuario]&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;Contraseña: &lt;i&gt;[contraseña]&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;No dude en visitarnos nuevamente en cualquier momento!&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;Saludos cordiales, &lt;br/&gt;
+Tu equipo de [STORENAME]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</value>
+	</data>
+	<data name="lblLanguage.Help" xml:space="preserve">
+		<value>Seleccione el idioma que desea editar</value>
+	</data>
+	<data name="lblLanguage.Text" xml:space="preserve">
+		<value>Seleccionar idioma </value>
+	</data>
 </root>

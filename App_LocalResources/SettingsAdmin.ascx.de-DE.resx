@@ -424,4 +424,52 @@ Wenn nicht angehakt und kein entsprechender Datensatz in der Preistabelle vorhan
 	<data name="lblHideMiniCartIfEmpty.Text" xml:space="preserve">
 		<value>Leeren Minicart verstecken</value>
 	</data>
+	<data name="lblNewUserMail.Help" xml:space="preserve">
+		<value>Emailtext, der an den Benutzer gesendet wird, wenn er sich während des Checkout-Prozesses registriert</value>
+	</data>
+	<data name="lblNewUserMail.Text" xml:space="preserve">
+		<value>"Neue Benutzer"-Email</value>
+	</data>
+	<data name="NewUserMailBody.Text" xml:space="preserve">
+		<value>&lt;html&gt;
+&lt;head&gt;
+&lt;style type="text/css"&gt;
+.Normal, .Normal td
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.SubHead
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table style="width:100%;" align="center" border="0" cellspacing="0" cellpadding="10"&gt;
+  &lt;tr valign="top"&gt;
+    &lt;td width="50%" align="left" class="Normal"&gt;[BBSTORE-VENDORNAME]&lt;br /&gt;
+    [BBSTORE-VENDORSTREET1]&lt;br /&gt;
+    [BBSTORE-VENDORSTREET2]&lt;br /&gt;
+    [BBSTORE-VENDORZIP] [BBSTORE-VENDORCITY]&lt;/td&gt;
+    &lt;td width="50%" align="right"&gt;[BBSTORE-VENDORIMAGE]&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2&gt;Willkommen im [STORENAME]!&lt;/h2&gt;
+&lt;p&gt;Wir haben ein Kundenkonto für Sie angelegt:&lt;/p&gt;
+&lt;p&gt;Username: &lt;i&gt;[USERNAME]&lt;/i&gt;&lt;br/&gt;
+Passwort: &lt;i&gt;[PASSWORD]&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;Besuchen Sie uns gerne jederzeit wieder!&lt;/p&gt;
+&lt;p&gt;Mit freundlichen Grüssen,&lt;br/&gt;
+Dein [STORENAME]-Team&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</value>
+	</data>
+	<data name="lblLanguage.Help" xml:space="preserve">
+		<value>Wählen Sie die Sprache, die Sie bearbeiten möchten</value>
+	</data>
+	<data name="lblLanguage.Text" xml:space="preserve">
+		<value>Sprache auswählen </value>
+	</data>
 </root>
