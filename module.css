@@ -82,8 +82,11 @@ COLORSUM : #A0AFEB;
 .bbstore-productgroup-list {text-align:center; vertical-align:top}
 
 /* Admin module */
-.bbstore-admin .bbTopic { display: table-cell; text-align: center; padding: 30px; }
-.bbstore-admin .bbTopic a { font-size: 150%;}
+.bbstore-admin-group {display: -webkit-flex; display: flex;  -webkit-flex-direction: row; flex-direction: row; -webkit-flex-wrap: wrap; flex-wrap: wrap; -webkit-justify-content: space-around; justify-content: space-around;}
+.bbstore-admin-item { -webkit-flex-grow: 1; flex-grow: 1; margin: 20px;}
+.bbstore-admin-item a { font-size: 150%;}
+.bbstore-admin-item div {text-align: center;}
+
 .bbstore-admin .bbSection { border-bottom: #000 1px solid; padding-bottom: 20px;}
 .bbstore-admin .bbAction { margin-left: 20px;}
 .bbstore-admin .dnnFormMessage { display: block;}
@@ -95,20 +98,23 @@ COLORSUM : #A0AFEB;
 
 /* Admin modules editgrid */
 .bbstore-admin-editgrid {background-color:white; border:1px solid #333333}
-.bbstore-admin-editgrid-row { background-color:white; color:#333333; border-width: 0 1px 0 1px; border-style:solid; border-color:#333333; }
+.bbstore-admin-editgrid-row { background-color:white; color:#333333; border-width: 0 1px 0 1px; border-style:solid; border-color:#333333;}
 .bbstore-admin-editgrid-row:hover { background-color:#D6D6D6 }
+.bbstore-admin-editgrid-row td { padding-left: 10px;}
 .bbstore-admin-editgrid-alternaterow { background-color:#F2F2F2; border-width: 0 1px 0 1px; border-style:solid; border-color:#333333; }
 .bbstore-admin-editgrid-alternaterow:hover { background-color:#D6D6D6; }
+.bbstore-admin-editgrid-alternaterow td { padding-left: 10px;}
 .bbstore-admin-editgrid-selectedrow { font-weight:bold; border-width: 0 1px 0 1px; border-style:solid; border-color:#333333; }
+.bbstore-admin-editgrid-selectedrow td { padding-left: 10px;}
 .bbstore-admin-editgrid-search {background-color:#D6D6D6; 	color:White; font-size:small; border:1px solid #333333;border-bottom-style:none}
 .bbstore-admin-editgrid-search a {	color:#8A8A8A!important; font-weight:bold!important;}
 .bbstore-admin-editgrid-search td { color:#333333!important; font-weight:bold!important;}
 .bbstore-admin-editgrid-header {background-color:#D6D6D6; 	color:#8A8A8A; font-weight:bold; border:1px solid #333333 ; text-align:left;}
 .bbstore-admin-editgrid-header a {	color:#8A8A8A!important; font-weight:bold!important;}
-.bbstore-admin-editgrid-header td { color:#333333!important; font-weight:bold!important;}
+.bbstore-admin-editgrid-header td, .bbstore-admin-editgrid-header th { color:#333333!important; font-weight:bold!important;padding-left: 10px;}
 .bbstore-admin-editgrid-footer {background-color:#D6D6D6; 	color:8A8A8A; font-weight:bold; border:1px solid #333333}
 .bbstore-admin-editgrid-footer a {	color:#8A8A8A!important; font-weight:bold!important;}
-.bbstore-admin-editgrid-footer td { color:#333333!important; font-weight:bold!important;}
+.bbstore-admin-editgrid-footer td, .bbstore-admin-editgrid-footer th { color:#333333!important; font-weight:bold!important;padding-left: 10px;}
 .bbstore-admin-editgrid-pager {background-color:#D6D6D6; 	color:8A8A8A; font-size:small; border:1px solid #333333;}
 .bbstore-admin-editgrid-pager a {	color:#8A8A8A!important; }
 .bbstore-admin-editgrid-pager td { color:#333333!important; }

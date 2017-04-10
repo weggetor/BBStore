@@ -2497,6 +2497,22 @@ namespace Bitboxx.DNNModules.BBStore
             return (anz > 0);
         }
 
+        public override IDataReader GetOrderStats(DateTime startDate, DateTime endDate)
+        {
+            string sqlCmd = "SELECT count(*) as Amount, SUM(UnitCost) as [Sum] , Name as [Product]" +
+                            " FROM " + GetFullyQualifiedName("OrderProduct") + " p" +
+                            " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON o.OrderID = p.OrderId" +
+                            " WHERE o.OrderTime <= @MaxDate AND o.OrderTime >= @MinDate"+
+                            " GROUP BY Name" +
+                            " ORDER by 1 DESC";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                {
+                    new SqlParameter("MinDate",startDate),
+                    new SqlParameter("MaxDate",endDate),
+                };
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
 
         // OrderStates methods
         public override IDataReader GetOrderStates(int portalId)

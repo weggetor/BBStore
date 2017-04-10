@@ -769,6 +769,11 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return DataProvider.Instance().HasOrderAddress(customerAddressId);
         }
+
+        public List<OrderStatsInfo> GetOrderStats(DateTime startDate, DateTime endDate)
+        {
+            return CBO.FillCollection<OrderStatsInfo>(DataProvider.Instance().GetOrderStats(startDate, endDate));
+        }
         #endregion
 
         #region OrderStates methods

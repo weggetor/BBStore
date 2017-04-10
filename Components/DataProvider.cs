@@ -245,6 +245,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract IDataReader GetOrderProductOptions(int OrderProductId);
         public abstract IDataReader GetOrderAdditionalCosts(int OrderId);
         public abstract IDataReader GetOrderAddresses(int orderId, string language);
+        public abstract IDataReader GetOrderStats(DateTime startDate, DateTime endDate);
         public abstract bool HasOrderAddress(int customerAddressId);
 
         // OrderState methods

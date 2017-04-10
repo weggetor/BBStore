@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,88 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cmdMainMenu.Text" xml:space="preserve">
-    <value>Back</value>
+  <data name="Amount.Header" xml:space="preserve">
+    <value>Amount</value>
   </data>
-  <data name="TitleEditProduct.Text" xml:space="preserve">
-    <value>Edit Product</value>
+  <data name="cmdRefresh.Text" xml:space="preserve">
+    <value>Refresh</value>
   </data>
-  <data name="TitleMenu.Text" xml:space="preserve">
-    <value>Main Menu</value>
+  <data name="ddlTimeframe_0.Text" xml:space="preserve">
+    <value>(all days)</value>
   </data>
-  <data name="TitleProductList.Text" xml:space="preserve">
-    <value>Select Product</value>
+  <data name="ddlTimeframe_1.Text" xml:space="preserve">
+    <value>Today</value>
   </data>
-  <data name="cmdProduct.Text" xml:space="preserve">
-    <value>Products</value>
+  <data name="ddlTimeframe_2.Text" xml:space="preserve">
+    <value>Yesterday</value>
   </data>
-  <data name="cmdProductGroup.Text" xml:space="preserve">
-    <value>Productgroups</value>
+  <data name="ddlTimeframe_3.Text" xml:space="preserve">
+    <value>This Week</value>
   </data>
-  <data name="TitleProductGroup.Text" xml:space="preserve">
-    <value>Edit Productgroups</value>
+  <data name="ddlTimeframe_4.Text" xml:space="preserve">
+    <value>Last Week</value>
   </data>
-  <data name="cmdOrder.Text" xml:space="preserve">
-    <value>View Orders</value>
+  <data name="ddlTimeframe_5.Text" xml:space="preserve">
+    <value>This Month</value>
   </data>
-  <data name="TitleOrderList.Text" xml:space="preserve">
-    <value>Order List</value>
+  <data name="ddlTimeframe_6.Text" xml:space="preserve">
+    <value>Last Month</value>
   </data>
-  <data name="cmdFeatureList.Text" xml:space="preserve">
-    <value>Featurelists</value>
+  <data name="ddlTimeframe_7.Text" xml:space="preserve">
+    <value>This Year</value>
   </data>
-  <data name="TitleFeatureList.Text" xml:space="preserve">
-    <value>Edit Featurelists</value>
+  <data name="ddlTimeframe_8.Text" xml:space="preserve">
+    <value>Last Year</value>
   </data>
-  <data name="cmdSettings.Text" xml:space="preserve">
-    <value>Shop Settings</value>
+  <data name="ddlTimeframe_9.Text" xml:space="preserve">
+    <value>Individual values</value>
   </data>
-  <data name="cmdMaintenance.Text" xml:space="preserve">
-    <value>Maintenance</value>
+  <data name="lblEndDate.Text" xml:space="preserve">
+    <value>End Date:</value>
   </data>
-  <data name="TitleMaintenance.Text" xml:space="preserve">
-    <value>Maintenance</value>
+  <data name="lblOrders.Text" xml:space="preserve">
+    <value>Orders</value>
   </data>
-  <data name="TitleFeatureListItem.Text" xml:space="preserve">
-    <value>Edit Featurelistitems</value>
+  <data name="lblStartDate.Text" xml:space="preserve">
+    <value>Start Date:</value>
   </data>
-  <data name="TitleAdminShipping.Text" xml:space="preserve">
-    <value>Edit Shipping Options</value>
+  <data name="lblTimeframe.Text" xml:space="preserve">
+    <value>Select Period</value>
   </data>
-  <data name="cmdShipping.Text" xml:space="preserve">
-    <value>Shipping</value>
+  <data name="Product.Header" xml:space="preserve">
+    <value>Product Name</value>
   </data>
-  <data name="TitlePayment.Text" xml:space="preserve">
-    <value>Payment Options</value>
-  </data>
-  <data name="cmdPayment.Text" xml:space="preserve">
-    <value>Payment Options</value>
-  </data>
-  <data name="cmdUnits.Text" xml:space="preserve">
-    <value>Units</value>
-  </data>
-  <data name="TitleUnitList.Text" xml:space="preserve">
-    <value>Units</value>
-  </data>
-  <data name="TitleEditUnit.Text" xml:space="preserve">
-    <value>Edit Units</value>
-  </data>
-  <data name="cmdSendAgain.Text" xml:space="preserve">
-    <value>Send again</value>
-  </data>
-  <data name="SendAgain.Message" xml:space="preserve">
-    <value>The order mail was sent again!</value>
-  </data>
-  <data name="cmdCoupon.Text" xml:space="preserve">
-    <value>Coupons</value>
-  </data>
-  <data name="TitleCoupon.Text" xml:space="preserve">
-    <value>Edit Coupons</value>
-  </data>
-  <data name="cmdStats.Text" xml:space="preserve">
-    <value>Reports</value>
-  </data>
-  <data name="TitleAdminStats.Text" xml:space="preserve">
-    <value>Reports</value>
+  <data name="Sum.Header" xml:space="preserve">
+    <value>Sum (EUR)</value>
   </data>
 </root>

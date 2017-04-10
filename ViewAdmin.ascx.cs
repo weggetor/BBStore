@@ -117,6 +117,7 @@ namespace Bitboxx.DNNModules.BBStore
                 actions.Add(GetNextActionID(), Localization.GetString("cmdUnits.Text", this.LocalResourceFile), ModuleActionType.AddContent, "", ControlPath + "Images/admin_units_small.png", Globals.NavigateURL(TabId, "", "adminmode=unitlist"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
                 actions.Add(GetNextActionID(), Localization.GetString("cmdOrder.Text", this.LocalResourceFile), ModuleActionType.AddContent, "", ControlPath + "Images/admin_order_small.png", Globals.NavigateURL(TabId, "", "adminmode=orderlist"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
                 actions.Add(GetNextActionID(), Localization.GetString("cmdCoupon.Text", this.LocalResourceFile), ModuleActionType.AddContent, "", ControlPath + "Images/admin_coupon_small.png", Globals.NavigateURL(TabId, "", "adminmode=couponlist"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
+                actions.Add(GetNextActionID(), Localization.GetString("cmdStats.Text", this.LocalResourceFile), ModuleActionType.AddContent, "", ControlPath + "Images/admin_stats_small.png", Globals.NavigateURL(TabId, "", "adminmode=stats"), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
 
                 return actions;
             }
@@ -213,6 +214,16 @@ namespace Bitboxx.DNNModules.BBStore
                         phContent.Controls.Add(adminShippingControl);
 						lblTitle.Text = Localization.GetString("TitleAdminShipping.Text", this.LocalResourceFile);
 						break;
+
+                    case "stats":
+                        pnlMain.Visible = false;
+                        pnlPlaceholder.Visible = true;
+                        pnlBackLink.Visible = true;
+                        ViewAdminStats adminStatsControl = LoadControl(@"~\DesktopModules\BBStore\ViewAdminStats.ascx") as ViewAdminStats;
+                        adminStatsControl.ModuleConfiguration = this.ModuleConfiguration;
+                        phContent.Controls.Add(adminStatsControl);
+                        lblTitle.Text = Localization.GetString("TitleAdminStats.Text", this.LocalResourceFile);
+                        break;
 
                     case "payment":
                         pnlMain.Visible = false;
@@ -395,6 +406,11 @@ namespace Bitboxx.DNNModules.BBStore
         {
             Response.Redirect(Globals.NavigateURL(TabId, "", "adminmode=couponlist"));
         }
+        protected void cmdStats_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(Globals.NavigateURL(TabId, "", "adminmode=stats"));
+        }
+
         protected void cmdMainMenu_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["adminmode"] != null && Request.QueryString["adminmode"] == "featurelistitem")
@@ -435,20 +451,21 @@ namespace Bitboxx.DNNModules.BBStore
             buttons.Add(new BBStoreAdminButtonType() { Name = "Units", ImageUrl = "Images/admin_units.png", ImgClickFunc = cmdUnits_Click, LnkClickFunc = cmdUnits_Click, Enabled = true });
             buttons.Add(new BBStoreAdminButtonType() { Name = "Order", ImageUrl = "Images/admin_order.png", ImgClickFunc = cmdOrder_Click, LnkClickFunc = cmdOrder_Click, Enabled = (cartModule != null)});
             buttons.Add(new BBStoreAdminButtonType() { Name = "Coupon", ImageUrl = "Images/admin_coupon.png", ImgClickFunc = cmdCoupon_Click, LnkClickFunc = cmdCoupon_Click, Enabled = (cartModule != null) });
+            buttons.Add(new BBStoreAdminButtonType() { Name = "Stats", ImageUrl = "Images/admin_stats.png", ImgClickFunc = cmdStats_Click, LnkClickFunc = cmdStats_Click, Enabled = (cartModule != null) });
 
-	        int i = 0;
+            int i = 0;
 
 	        HtmlGenericControl divRow = new HtmlGenericControl("div");
-	        divRow.Style.Add("display", "table-row");
-
-	        int rowLength = 4;
+	        divRow.Attributes["class"] = "bbstore-admin-group";
 
 	        foreach (var button in buttons)
 	        {
 	            HtmlGenericControl divTopic = new HtmlGenericControl("div");
-	            divTopic.Attributes["class"] = "bbTopic";
+	            divTopic.Attributes["class"] = "bbstore-admin-item";
 
-	            ImageButton img = new ImageButton();
+                HtmlGenericControl divInner = new HtmlGenericControl("div");
+
+                ImageButton img = new ImageButton();
 	            img.ID = "img" + button.Name;
 	            img.ImageUrl = button.ImageUrl;
 	            img.Click += button.ImgClickFunc;
@@ -460,19 +477,15 @@ namespace Bitboxx.DNNModules.BBStore
 	            lnk.Click += button.LnkClickFunc;
 	            lnk.Enabled = button.Enabled;
 
-	            divTopic.Controls.Add(img);
-                divTopic.Controls.Add(new HtmlGenericControl("br"));
-	            divTopic.Controls.Add(lnk);
+	            divInner.Controls.Add(img);
+                divInner.Controls.Add(new HtmlGenericControl("br"));
+	            divInner.Controls.Add(lnk);
 
+                divTopic.Controls.Add(divInner);
 	            divRow.Controls.Add(divTopic);
-	            if (i%rowLength == rowLength-1 || i == buttons.Count - 1)
-	            {
-	                phButtons.Controls.Add(divRow);
-	                divRow = new HtmlGenericControl("div");
-	                divRow.Style.Add("display", "table-row");
-	            }
 	            i++;
 	        }
+            pnlMain.Controls.Add(divRow);
 	    }
 
 	    #endregion
