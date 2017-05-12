@@ -36,7 +36,8 @@ namespace Bitboxx.DNNModules.BBStore
         public Guid CartID { get; set; }
 		public int SubscriberID { get; set; }
         public int CouponId { get; set; }
-		public int CustomerID { get; set; }
+        public string TaxId { get; set; }
+        public int CustomerID { get; set; }
 		public int CustomerPaymentProviderID { get; set; }
 		public string CartName { get; set; }
 		public string Comment { get; set; }

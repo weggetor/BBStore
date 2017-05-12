@@ -143,7 +143,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract void DeleteCustomerAddress(int CustomerAdressId);
 
         #region Cart methods
-        public abstract IDataReader GetCart(Guid CartId);
+        public abstract IDataReader GetCart(Guid CartId, bool isTaxFree);
         public abstract void NewCart(int PortalId, CartInfo Cart);
         public abstract void UpdateCart(int PortalId, CartInfo Cart);
         public abstract void DeleteCart(Guid CartId);
@@ -152,7 +152,9 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract void UpdateCartCustomerId(Guid CartId, int CustomerId);
 	    public abstract void UpdateCartCustomerPaymentProviderId(Guid CartId, int CustomerPaymentProviderId);
         public abstract void UpdateCartCouponId(Guid cartId, int couponId);
-    	public abstract string SerializeCart(Guid cartId);
+        public abstract void UpdateCartTaxId(Guid cartId, string taxId);
+
+        public abstract string SerializeCart(Guid cartId);
         public abstract CartInfo DeserializeCart(int portalId, int userId, Guid cartId, string cartXml, bool extendedPrice);
         #endregion
 
@@ -168,7 +170,7 @@ namespace Bitboxx.DNNModules.BBStore
 
         // CartAdditionalCost methods
         public abstract IDataReader GetCartAdditionalCost(int CartAdditionalCostId);
-        public abstract IDataReader GetCartAdditionalCosts(Guid CartId);
+        public abstract IDataReader GetCartAdditionalCosts(Guid CartId, bool isTaxFree);
         public abstract int NewCartAdditionalCost(CartAdditionalCostInfo CartAdditionalCost);
         public abstract void UpdateCartAdditionalCost(CartAdditionalCostInfo CartAdditionalCost);
         public abstract void DeleteCartAdditionalCost(int CartAdditionalCostId);
@@ -178,7 +180,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract IDataReader GetCartProduct(int CartProductId);
         public abstract IDataReader GetCartProductByProductId(Guid CartId, int ProductId);
         public abstract IDataReader GetCartProductByProductIdAndSelectedOptions(Guid CartId, int ProductId, System.Collections.Generic.List<OptionListInfo> SelectedOptions);
-        public abstract IDataReader GetCartProducts(Guid CartId);
+        public abstract IDataReader GetCartProducts(Guid CartId, bool isTaxFree);
         public abstract int NewCartProduct(Guid CartId, CartProductInfo CartProduct);
         public abstract void UpdateCartProduct(CartProductInfo CartProduct);
         public abstract void UpdateCartProductQuantity(int cartProductId,decimal quantity);
@@ -238,7 +240,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract void NewSubscriberAddressTypeLang(SubscriberAddressTypeLangInfo subscriberAddressTypelang);
 		
 		// Order methods
-        public abstract int SaveOrder(Guid CartId, int PortalId, string numberMask);
+        public abstract int SaveOrder(Guid CartId, int PortalId, string numberMask, bool isTaxfree);
         public abstract IDataReader GetOrder(int OrderId);
     	public abstract IDataReader GetOrders(int PortalId, string Language, string Sort, string Filter);
         public abstract IDataReader GetOrderProducts(int OrderId);

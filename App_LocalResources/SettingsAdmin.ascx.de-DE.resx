@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
     Microsoft ResX Schema 
@@ -471,5 +471,17 @@ Dein [STORENAME]-Team&lt;/p&gt;
 	</data>
 	<data name="lblLanguage.Text" xml:space="preserve">
 		<value>Sprache auswählen </value>
+	</data>
+	<data name="lblTaxfreeEnabled.Help" xml:space="preserve">
+		<value>Aktivieren Sie diese Option wenn Sie die Möglichkeit zur Steuerbefreiung bei Bestellungen aus dem EU Ausland zulassen wollen</value>
+	</data>
+	<data name="lblTaxfreeEnabled.Text" xml:space="preserve">
+		<value>EU Steuerbefreiung aktivieren</value>
+	</data>
+	<data name="lblTaxfreeCountries.Help" xml:space="preserve">
+		<value>Geben Sie eine kommaseparierte Liste von CountryCodes ein um zu definieren in welchen Ländern bei Angabe einer Umsatzsteuer-ID steuerfrei eingekauft werden kann (wenn der Countrycode des Käufers sich vom Code des Shops unterscheidet)</value>
+	</data>
+	<data name="lblTaxfreeCountries.Text" xml:space="preserve">
+		<value>Steuerfreie Länder (EU)</value>
 	</data>
 </root>

@@ -220,6 +220,42 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.CheckBox chkCouponsEnabled;
         
         /// <summary>
+        /// lblTaxfreeEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblTaxfreeEnabled;
+        
+        /// <summary>
+        /// chkTaxfreeEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkTaxfreeEnabled;
+        
+        /// <summary>
+        /// lblTaxfreeCountries control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl lblTaxfreeCountries;
+        
+        /// <summary>
+        /// txtTaxfreeCountries control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTaxfreeCountries;
+        
+        /// <summary>
         /// lblSupplierRole control.
         /// </summary>
         /// <remarks>

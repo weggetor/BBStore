@@ -181,6 +181,13 @@
                     <p><asp:TextBox ID="txtCoupon" runat="server" Columns="60" />
                        <asp:Button ID="cmdCoupon" Resourcekey="cmdCoupon.Text" runat="server" OnClick="cmdCoupon_Click" /></p>
                 </asp:Panel>
+                <asp:Panel runat="server" ID="pnlTaxfree" Visible="false">
+                    <hr/>
+                    <p><asp:Label ID="lblTaxfree" runat="server" Resourcekey="lblTaxfree.Text"/>&nbsp;</p>
+                    <p><asp:TextBox ID="txtTaxfree" runat="server" Columns="20" />
+                       <asp:Button ID="cmdTaxfree" Resourcekey="cmdTaxfree.Text" runat="server" OnClick="cmdTaxfree_Click" /></p>
+                    <hr/>
+                </asp:Panel>
                 <asp:Panel ID="pnlConfirm2" runat="server" Visible="false">
                     <p><asp:CheckBox ID="chkTerms" runat="server" />&nbsp;
                         <asp:Label ID="lblTermsPre" runat="server" Resourcekey="lblTermsPre.Text"/>&nbsp;

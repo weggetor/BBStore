@@ -998,12 +998,12 @@ namespace Bitboxx.DNNModules.BBStore
         }
 
         // Cart methods
-        public override IDataReader GetCart(Guid CartId)
+        public override IDataReader GetCart(Guid CartId, bool isTaxFree )
         {
             string selCmd = "WITH Product as (SELECT Product.CartProductID," +
                 "Product.Quantity," +
                 "Product.UnitCost," +
-                "Product.TaxPercent," +
+                (isTaxFree ? "0.00 as TaxPercent," : "Product.TaxPercent,")  +
                 "ISNULL((SELECT SUM(PriceAlteration )" +
                 " FROM " + Prefix + "CartProductOption ProductOption " +
                 " WHERE ProductOption.CartProductId = Product.CartProductId),0.00)  as PriceAlteration" +
@@ -1011,7 +1011,7 @@ namespace Bitboxx.DNNModules.BBStore
                 "Additional as (SELECT Additional.CartAdditionalCostId," +
                 "Additional.Quantity," +
                 "Additional.UnitCost," +
-                "Additional.TaxPercent" +
+                (isTaxFree ? "0.00 as TaxPercent" : "Additional.TaxPercent") +
                 " FROM " + Prefix + "CartAdditionalCost Additional WHERE Additional.CartId = '" + CartId.ToString() + "')" +
                 "SELECT Cart.*," +
                 "ISNULL(( SELECT SUM(Product.Quantity * (Product.UnitCost + Product.PriceAlteration)) FROM Product ),0.00) as OrderTotal," +
@@ -1027,10 +1027,10 @@ namespace Bitboxx.DNNModules.BBStore
         {
             string sqlCmd = "INSERT INTO " + GetFullyQualifiedName("Cart") +
                             " (CartID,StoreGuid,PortalID,SubscriberID,CustomerID,CustomerPaymentProviderID," +
-                            "  Comment,Currency,Total,AttachName,AttachContentType,Attachment,CartName,CouponId)" +
+                            "  Comment,Currency,Total,AttachName,AttachContentType,Attachment,CartName,CouponId,TaxId)" +
                             " VALUES " +
                             " (@CartID,@StoreGuid,@PortalID,@SubscriberID,@CustomerID,@CustomerPaymentProviderID," +
-                            "  @Comment,@Currency,@Total,@AttachName,@AttachContentType,@Attachment, @CartName, @CouponId)";
+                            "  @Comment,@Currency,@Total,@AttachName,@AttachContentType,@Attachment, @CartName, @CouponId,@TaxId)";
 
             SqlParameter[] SqlParams = new SqlParameter[]
                 {
@@ -1039,6 +1039,7 @@ namespace Bitboxx.DNNModules.BBStore
                     new SqlParameter("PortalID", portalId),
                     new SqlParameter("SubscriberID", cart.SubscriberID),
                     new SqlParameter("CouponId", cart.CouponId),
+                    new SqlParameter("TaxId", ""),
                     new SqlParameter("CustomerID", GetNull(cart.CustomerID)),
                     new SqlParameter("CustomerPaymentProviderID", GetNull(cart.CustomerPaymentProviderID)),
                     new SqlParameter("Comment", cart.Comment),
@@ -1152,6 +1153,14 @@ namespace Bitboxx.DNNModules.BBStore
                 " CouponId = " + (couponId == -1 ? "Null" : couponId.ToString()) +
                 " WHERE cartID = '" + cartId.ToString() + "'";
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd);
+        }
+
+        public override void UpdateCartTaxId(Guid cartId, string taxId)
+        {
+            string updCmd = "UPDATE " + Prefix + "Cart SET " +
+                " TaxId = @TaxId" +
+                " WHERE cartID = '" + cartId.ToString() + "'";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, new SqlParameter("TaxId", taxId));
         }
         public override string SerializeCart(Guid cartId)
         {
@@ -1540,12 +1549,13 @@ namespace Bitboxx.DNNModules.BBStore
                 " WHERE CartAdditionalCostId = " + CartAdditionalCostId.ToString();
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
-        public override IDataReader GetCartAdditionalCosts(Guid CartId)
+        public override IDataReader GetCartAdditionalCosts(Guid CartId, bool isTaxFree)
         {
-            string selCmd = "SELECT *," +
+            string selCmd = "SELECT CartAdditionalCostID,CartID,Quantity,Name,Description,UnitCost,Area,"+
+                (isTaxFree ? "0.00 as TaxPercent," : "TaxPercent,") +
                 " Quantity * UnitCost As NetTotal," +
-                " Quantity * UnitCost * TaxPercent / 100 AS TaxTotal," +
-                " Quantity * UnitCost * (100 + TaxPercent) / 100 AS SubTotal" +
+                (isTaxFree ? "0.00 as TaxTotal," : " Quantity * UnitCost * TaxPercent / 100 AS TaxTotal,") +
+                (isTaxFree ? "Quantity * UnitCost AS SubTotal" : "Quantity * UnitCost * (100 + TaxPercent) / 100 AS SubTotal") +
                 " FROM " + Prefix + "CartAdditionalCost CartAdditionalCost" +
                 " WHERE CartId = '" + CartId.ToString() + "'";
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
@@ -1714,10 +1724,31 @@ namespace Bitboxx.DNNModules.BBStore
                  " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount,CartProduct.Weight,CartProduct.ShippingModelId";
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
-        public override IDataReader GetCartProducts(Guid CartId)
+        public override IDataReader GetCartProducts(Guid CartId, bool isTaxFree)
         {
-            string selCmd = "SELECT CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
-                " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent, CartProduct.Unit, CartProduct.Decimals,"+
+            string selCmd = "";
+            if (isTaxFree)
+            {
+                selCmd = "SELECT CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
+                                " CartProduct.Name, CartProduct.Quantity,0.00 as TaxPercent, CartProduct.Unit, CartProduct.Decimals," +
+                                " CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount," +
+                                " CartProduct.Weight,CartProduct.ShippingModelId," +
+                                " CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0) AS UnitCost," +
+                                " CartProduct.Quantity * ROUND((CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)),2) AS SubTotal," +
+                                " ROUND(CartProduct.Quantity * (CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0)),2) As NetTotal," +
+                                " 0.00 AS TaxTotal" +
+                                " FROM " + Prefix + "CartProduct CartProduct" +
+                                " LEFT JOIN " + Prefix + "CartProductOption ProductOption ON ProductOption.CartProductID = CartProduct.CartProductID" +
+                                " WHERE CartProduct.CartID = '" + CartId.ToString() + "'" +
+                                " GROUP BY CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
+                                " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent,CartProduct.Unit, CartProduct.Decimals," +
+                                " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount,CartProduct.Weight,CartProduct.ShippingModelId" +
+                                " ORDER BY CartProduct.CartProductId";
+            }
+            else
+            {
+                selCmd = "SELECT CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
+                " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent, CartProduct.Unit, CartProduct.Decimals," +
                 " CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount," +
                 " CartProduct.Weight,CartProduct.ShippingModelId," +
                 " CartProduct.UnitCost + ISNULL(SUM(ProductOption.PriceAlteration),0) AS UnitCost," +
@@ -1729,9 +1760,11 @@ namespace Bitboxx.DNNModules.BBStore
                 " LEFT JOIN " + Prefix + "CartProductOption ProductOption ON ProductOption.CartProductID = CartProduct.CartProductID" +
                 " WHERE CartProduct.CartID = '" + CartId.ToString() + "'" +
                 " GROUP BY CartProduct.CartProductId, CartProduct.CartID,CartProduct.ProductID,CartProduct.Image, CartProduct.ItemNo," +
-                " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent,CartProduct.Unit, CartProduct.Decimals,"+
+                " CartProduct.Name, CartProduct.Quantity,CartProduct.TaxPercent,CartProduct.Unit, CartProduct.Decimals," +
                 " CartProduct.UnitCost, CartProduct.Description,CartProduct.ProductUrl,CartProduct.ProductDiscount,CartProduct.Weight,CartProduct.ShippingModelId" +
                 " ORDER BY CartProduct.CartProductId";
+            }
+
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
         public override int NewCartProduct(Guid CartId, CartProductInfo CartProduct)
@@ -2256,7 +2289,7 @@ namespace Bitboxx.DNNModules.BBStore
         
 
         // Order methods
-        public override int SaveOrder(Guid CartId, int PortalId, string numberMask)
+        public override int SaveOrder(Guid CartId, int PortalId, string numberMask, bool isTaxfree)
         {
             // TODO: Orderhistorie Insert
             int retVal = -1;
@@ -2273,9 +2306,9 @@ namespace Bitboxx.DNNModules.BBStore
                         
                         string insCmd = "set nocount on " +
                             "INSERT INTO " + Prefix + "Order (PortalId,SubscriberId,OrderNo,OrderTime,OrderName,OrderStateId,CustomerId," +
-                            " Comment,Currency,Total,PaymentProviderId,PaymentProviderValues,Attachment, AttachName,AttachContentType) " +
+                            " Comment,TaxId,Currency,Total,PaymentProviderId,PaymentProviderValues,Attachment, AttachName,AttachContentType) " +
                             " SELECT Cart.PortalId,Cart.SubscriberId,'abcde',GETDATE(),Cart.CartName," + orderStateId.ToString() + ",Cart.CustomerId," +
-                            " Cart.Comment,Cart.Currency,Cart.Total,CustomerPaymentProvider.PaymentProviderId,CustomerPaymentProvider.PaymentProviderValues,Cart.Attachment,Cart.AttachName,Cart.AttachContentType " +
+                            " Cart.Comment,Cart.TaxId,Cart.Currency,Cart.Total,CustomerPaymentProvider.PaymentProviderId,CustomerPaymentProvider.PaymentProviderValues,Cart.Attachment,Cart.AttachName,Cart.AttachContentType " +
                             " FROM " + Prefix + "Cart Cart" +
                             " LEFT JOIN " + Prefix + "CustomerPaymentProvider CustomerPaymentProvider " +
                             " ON Cart.CustomerPaymentProviderID = CustomerPaymentProvider.CustomerPaymentProviderID" +
@@ -2303,8 +2336,9 @@ namespace Bitboxx.DNNModules.BBStore
                         string updCmd = "UPDATE " + Prefix + "Order SET OrderNo = '" + orderNo + "' WHERE OrderId = " + OrderId.ToString();
                         SqlHelper.ExecuteNonQuery(trans, CommandType.Text, updCmd);
 
-                        insCmd = "INSERT INTO " + Prefix + "OrderAdditionalCost (OrderId, Quantity,Name,Description,UnitCost,TaxPercent,Area) " +
-                            " SELECT " + OrderId.ToString() + ",Quantity,Name,Description,UnitCost,TaxPercent,Area " +
+                        insCmd = "INSERT INTO " + Prefix + "OrderAdditionalCost (OrderId, Quantity,Name,Description,UnitCost,Area,TaxPercent) " +
+                            " SELECT " + OrderId.ToString() + ",Quantity,Name,Description,UnitCost,Area," +
+                            (isTaxfree ? "0.00 as TaxPercent" : "TaxPercent") +
                             " FROM " + Prefix + "CartAdditionalCost " +
                             " WHERE CartId = '" + CartId.ToString() + "'";
                         SqlHelper.ExecuteNonQuery(trans, CommandType.Text, insCmd);
@@ -2331,7 +2365,7 @@ namespace Bitboxx.DNNModules.BBStore
                                     new SqlParameter("Name",dr["Name"]), 
                                     new SqlParameter("Description",dr["Description"]),
                                     new SqlParameter("UnitCost",dr["UnitCost"]),
-                                    new SqlParameter("TaxPercent",dr["TaxPercent"]),
+                                    new SqlParameter("TaxPercent",isTaxfree ? 0.00 : dr["TaxPercent"]),
                                 };
                                 
                             int OrderProductId = (int)SqlHelper.ExecuteScalar(trans, CommandType.Text, insCmd, sqlParams);
@@ -5350,7 +5384,7 @@ namespace Bitboxx.DNNModules.BBStore
             return -1;
         }
 
-        // Coupon methods
+        #region Coupon methods
         public override IDataReader GetCoupons(int PortalId)
         {
             string selCmd = "SELECT *" +
@@ -5463,6 +5497,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " WHERE CouponId = @CouponId";
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("CouponId", CouponId));
         }
+        #endregion
 
         public override IDataReader GetShippingZoneById(int shippingZoneId, string language)
         {

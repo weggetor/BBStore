@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
     Microsoft ResX Schema 
@@ -194,5 +194,11 @@
 	</data>
 	<data name="TitleCoupon.Text" xml:space="preserve">
 		<value>Gutscheine bearbeiten</value>
+	</data>
+	<data name="cmdStats.Text" xml:space="preserve">
+		<value>Auswertungen</value>
+	</data>
+	<data name="TitleAdminStats.Text" xml:space="preserve">
+		<value>Auswertungen</value>
 	</data>
 </root>

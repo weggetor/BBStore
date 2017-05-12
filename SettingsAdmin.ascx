@@ -68,6 +68,14 @@
 	        <dnn:Label id="lblCouponsEnabled" runat="server" controlname="chkCouponsEnabled" suffix=":"/>
             <asp:CheckBox runat="server" ID="chkCouponsEnabled"/>
         </div>
+        <div class="dnnFormItem">
+	        <dnn:Label id="lblTaxfreeEnabled" runat="server" controlname="chkTaxfreeEnabled" suffix=":"/>
+            <asp:CheckBox runat="server" ID="chkTaxfreeEnabled"/>
+        </div>
+        <div class="dnnFormItem">
+            <dnn:Label id="lblTaxfreeCountries" runat="server"  controlname="txtTaxfreeCountries" suffix=":"/>
+            <asp:TextBox ID="txtTaxfreeCountries" runat="server" Columns="40" />
+        </div>
 	    <div class="dnnFormItem">
 	        <dnn:Label id="lblSupplierRole" runat="server" controlname="cboSupplierRole" suffix=":"/>
             <asp:DropDownList Width="200"  runat="server" ID="cboSupplierRole"/>

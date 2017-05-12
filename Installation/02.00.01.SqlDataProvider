@@ -1,0 +1,25 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Cart]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Cart] ADD TaxId NVARCHAR(30) NOT NULL DEFAULT '' 
+END
+go
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}BBStore_Order]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_Order] ADD TaxId NVARCHAR(30) NOT NULL DEFAULT '' 
+END
+go
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

@@ -252,6 +252,14 @@ namespace Bitboxx.DNNModules.BBStore
                     if (ModuleSettings["CouponsEnabled"] != null)
                         chkCouponsEnabled.Checked = Convert.ToBoolean(ModuleSettings["CouponsEnabled"]);
 
+                    if (ModuleSettings["TaxfreeEnabled"] != null)
+                        chkTaxfreeEnabled.Checked = Convert.ToBoolean(ModuleSettings["TaxfreeEnabled"]);
+
+                    if (ModuleSettings["TaxfreeCountries"] != null)
+                        txtTaxfreeCountries.Text = (string) ModuleSettings["TaxfreeCountries"];
+                    else
+                        txtTaxfreeCountries.Text = "BE,BG,CZ,DK,DE,EE,IE,EL,ES,FR,GB,HR,IT,CY,LV,LT,LU,HU,MT,NL,AT,PL,PT,RO,SI,SK,FI,SE";
+
                     if (ModuleSettings["StartPage"] != null)
                         urlSelectStartPage.Url = (string)ModuleSettings["StartPage"];
 
@@ -294,6 +302,8 @@ namespace Bitboxx.DNNModules.BBStore
                 objModules.UpdateModuleSetting(ModuleId, "CancelTermsMandatory", chkCancelTermsMandatory.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "CancelTerms", txtCancelTerms.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "CouponsEnabled", chkCouponsEnabled.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "TaxfreeEnabled", chkTaxfreeEnabled.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "TaxfreeCountries", txtTaxfreeCountries.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "StartPage", urlSelectStartPage.Url);
 				objModules.UpdateModuleSetting(ModuleId, "ProductImageDir", cboProductImageDir.Text.Trim());
 				objModules.UpdateModuleSetting(ModuleId, "ProductGroupImageDir", cboProductGroupImageDir.Text.Trim());

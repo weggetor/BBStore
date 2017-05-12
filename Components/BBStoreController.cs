@@ -363,9 +363,9 @@ namespace Bitboxx.DNNModules.BBStore
         #endregion
 
         #region Cart methods
-        public CartInfo GetCart(int PortalId, Guid CartId)
+        public CartInfo GetCart(int PortalId, Guid CartId, bool isTaxFree = false)
         {
-            IDataReader dr = DataProvider.Instance().GetCart(CartId);
+            IDataReader dr = DataProvider.Instance().GetCart(CartId, isTaxFree);
             CartInfo Cart = (CartInfo)CBO.FillObject(dr, typeof(CartInfo));
             if (Cart != null)
                 Cart.Total = Cart.AdditionalTotal + Cart.OrderTotal;
@@ -402,6 +402,10 @@ namespace Bitboxx.DNNModules.BBStore
         public void UpdateCartCouponId(Guid cartId, int couponId)
         {
             DataProvider.Instance().UpdateCartCouponId(cartId, couponId);
+        }
+        public void UpdateCartTaxId(Guid cartId, string taxId)
+        {
+            DataProvider.Instance().UpdateCartTaxId(cartId, taxId);
         }
         public string SerializeCart(Guid cartId)
         {
@@ -500,9 +504,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return (CartAdditionalCostInfo)CBO.FillObject(DataProvider.Instance().GetCartAdditionalCost(CartAdditionalCostId), typeof(CartAdditionalCostInfo));
         }
-        public List<CartAdditionalCostInfo> GetCartAdditionalCosts(Guid CartId)
+        public List<CartAdditionalCostInfo> GetCartAdditionalCosts(Guid CartId, bool isTaxfree = false)
         {
-            return CBO.FillCollection<CartAdditionalCostInfo>(DataProvider.Instance().GetCartAdditionalCosts(CartId));
+            return CBO.FillCollection<CartAdditionalCostInfo>(DataProvider.Instance().GetCartAdditionalCosts(CartId, isTaxfree));
         }
         public int NewCartAdditionalCost(CartAdditionalCostInfo CartAdditionalCost)
         {
@@ -535,9 +539,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return (CartProductInfo)CBO.FillObject(DataProvider.Instance().GetCartProductByProductIdAndSelectedOptions(CartId,ProductId,SelectedOptions), typeof(CartProductInfo));
         }
-        public List<CartProductInfo> GetCartProducts(Guid CartId)
+        public List<CartProductInfo> GetCartProducts(Guid CartId, bool isTaxFree = false)
         {
-            return CBO.FillCollection<CartProductInfo>(DataProvider.Instance().GetCartProducts(CartId));
+            return CBO.FillCollection<CartProductInfo>(DataProvider.Instance().GetCartProducts(CartId, isTaxFree));
         }
         public int NewCartProduct(Guid CartId, CartProductInfo CartProduct)
         {
@@ -737,9 +741,9 @@ namespace Bitboxx.DNNModules.BBStore
         #endregion
 
         #region Order methods
-        public int SaveOrder(Guid CartId, int PortalId, string numberMask)
+        public int SaveOrder(Guid CartId, int PortalId, string numberMask, bool isTaxfree = false)
         {
-            return DataProvider.Instance().SaveOrder(CartId, PortalId, numberMask);
+            return DataProvider.Instance().SaveOrder(CartId, PortalId, numberMask, isTaxfree);
         }
         public OrderInfo GetOrder(int OrderId)
         {
@@ -2364,8 +2368,114 @@ namespace Bitboxx.DNNModules.BBStore
 
         public LicenseDataInfo GetLicense(int portalId, bool forceUpdate)
         {
-            //IPAddress hostIp = Dns.GetHostAddresses(PortalSettings.Current.PortalAlias.HTTPAlias)[0];
             return new LicenseDataInfo("bitboxx.net", "BB", -1, 255, 2, null);
+
+            //EventLogController objEventLog = new EventLogController();
+
+            //string message = "";
+            //LicenseDataInfo license;
+            //string password = "geheim";
+            //string cacheKey = "bbstore_license_" + portalId.ToString();
+
+            //if (!forceUpdate)
+            //{
+            //    license = (LicenseDataInfo)DataCache.GetCache(cacheKey);
+            //    if (license != null)
+            //    {
+            //        objEventLog.AddLog("BBStore_License", "Fetching BBStore License from Cache", PortalSettings.Current, -1, EventLogController.EventLogType.PORTAL_SETTING_UPDATED);
+            //        return license;
+            //    }
+            //}
+
+            //IPAddress hostIp = Dns.GetHostAddresses(PortalSettings.Current.PortalAlias.HTTPAlias)[0];
+            //IPAddress localHost = IPAddress.Parse("127.0.0.1");
+            //if (hostIp.Equals(localHost))
+            //{
+            //    objEventLog.AddLog("BBStore_License", "HostIP equals localhost", PortalSettings.Current, -1, EventLogController.EventLogType.PORTAL_SETTING_UPDATED);
+            //    return new LicenseDataInfo("127.0.0.1", "00", -1, 255, 0, null);
+            //}
+
+            //ModuleController objModules = new ModuleController();
+            //ModuleInfo adminModule = objModules.GetModuleByDefinition(portalId, "BBStore Admin");
+            //if (adminModule != null)
+            //{
+            //    Hashtable adminSettings = objModules.GetModuleSettings(adminModule.ModuleID);
+
+            //    string initialKey = (string)adminSettings["InitialKey"];
+
+            //    objEventLog.AddLog("BBStore_License", String.Format("InitialKey is {0}", initialKey), PortalSettings.Current, -1, EventLogController.EventLogType.PORTAL_SETTING_UPDATED);
+            //    if (String.IsNullOrEmpty(initialKey))
+            //        return null;
+
+            //    string customerTag = hostIp.ToString();
+            //    objEventLog.AddLog("BBStore_License", String.Format("CustomerTag (1) is {0}", customerTag), PortalSettings.Current, -1, EventLogController.EventLogType.PORTAL_SETTING_UPDATED);
+
+            //    int productId, customerId;
+            //    if (!LicenseClient.CheckInitialKey(initialKey, customerTag, out productId, out customerId))
+            //    {
+            //        customerTag = PortalSettings.Current.PortalAlias.HTTPAlias;
+
+            //        if (VfpInterop.Occurs(".", customerTag) > 1)
+            //            customerTag = customerTag.Substring(customerTag.IndexOf('.') + 1);
+
+            //        objEventLog.AddLog("BBStore_License", String.Format("CustomerTag (2) is {0}", customerTag), PortalSettings.Current, -1, EventLogController.EventLogType.PORTAL_SETTING_UPDATED);
+
+            //        if (!LicenseClient.CheckInitialKey(initialKey, customerTag, out productId, out customerId))
+            //        {
+            //            objEventLog.AddLog("BBStore_License", "CheckInitialKey failed (2)", PortalSettings.Current, -1, EventLogController.EventLogType.PORTAL_SETTING_UPDATED);
+            //            return null;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        objEventLog.AddLog("BBStore_License", "CheckInitialKey failed (1)", PortalSettings.Current, -1, EventLogController.EventLogType.PORTAL_SETTING_UPDATED);
+            //    }
+
+            //    DateTime lastLicenseRead = DateTime.Parse((string)adminSettings["LastLicenseRead"] ?? "1970/01/01", CultureInfo.InvariantCulture);
+            //    int licenseReadRetries = Int32.Parse((string)adminSettings["LicenseReadRetries"] ?? "0", CultureInfo.InvariantCulture);
+
+            //    // We only contact license server once a day
+            //    string licenseKey = (string)adminSettings["LicenseKey"] ?? "";
+            //    if (lastLicenseRead < DateTime.Now - new TimeSpan(24, 0, 0) || forceUpdate)
+            //    {
+            //        try
+            //        {
+            //            licenseKey = LicenseClient.GetLicenseKey(productId, customerId, customerTag);
+            //            objEventLog.AddLog("BBStore_License", "Fetching Successfull", PortalSettings.Current, -1, EventLogController.EventLogType.PORTAL_SETTING_UPDATED);
+            //            objModules.UpdateModuleSetting(adminModule.ModuleID, "LicenseKey", licenseKey);
+            //            objModules.UpdateModuleSetting(adminModule.ModuleID, "LicenseReadRetries", "0");
+            //            objModules.UpdateModuleSetting(adminModule.ModuleID, "LastLicenseRead", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            //        }
+            //        catch (Exception)
+            //        {
+            //            licenseReadRetries++;
+            //            objEventLog.AddLog("BBStore_License", "Fetching Failed (" + licenseReadRetries.ToString() + " try of 30)", PortalSettings.Current, -1, EventLogController.EventLogType.PORTAL_SETTING_UPDATED);
+            //            if (!forceUpdate)
+            //                objModules.UpdateModuleSetting(adminModule.ModuleID, "LicenseReadRetries", licenseReadRetries.ToString());
+            //            objModules.UpdateModuleSetting(adminModule.ModuleID, "LastLicenseRead", (DateTime.Now - new TimeSpan(12, 0, 0)).ToString(CultureInfo.InvariantCulture));
+            //            if (licenseReadRetries >= 30)
+            //                return null;
+            //        }
+            //    }
+            //    if (String.IsNullOrEmpty(licenseKey))
+            //        return null;
+
+            //    license = LicenseClient.CheckLicenseKey(customerTag, licenseKey, password);
+
+            //    int timeOut = Convert.ToInt32(Host.PerformanceSetting);
+            //    if (timeOut > 0 & license != null)
+            //    {
+            //        DataCache.SetCache(cacheKey, license, TimeSpan.FromMinutes(timeOut));
+            //    }
+
+            //    return license;
+            //}
+            //else
+            //{
+            //    objEventLog.AddLog("BBStore_License", "No admin module", PortalSettings.Current, -1, EventLogController.EventLogType.HOST_SETTING_UPDATED);
+            //}
+            //return null;
+
         }
 
         public void CheckLicense(LicenseDataInfo license, PortalModuleBase callingControl, ModuleKindEnum moduleKind)

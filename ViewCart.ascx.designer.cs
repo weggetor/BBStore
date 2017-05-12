@@ -247,6 +247,42 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.Button cmdCoupon;
         
         /// <summary>
+        /// pnlTaxfree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlTaxfree;
+        
+        /// <summary>
+        /// lblTaxfree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTaxfree;
+        
+        /// <summary>
+        /// txtTaxfree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTaxfree;
+        
+        /// <summary>
+        /// cmdTaxfree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cmdTaxfree;
+        
+        /// <summary>
         /// pnlConfirm2 control.
         /// </summary>
         /// <remarks>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
     Microsoft ResX Schema 
@@ -439,7 +439,7 @@
 		<value>La campaña de cupón de {0} ya se consume.</value>
 	</data>
 	<data name="lblCoupon.Text" xml:space="preserve">
-		<value># Si tiene un cupón de introducir aquí el código:</value>
+		<value>Si tiene un cupón de introducir aquí el código:</value>
 	</data>
 	<data name="cmdDeleteRow.Text" xml:space="preserve">
 		<value>quitar</value>
@@ -449,5 +449,14 @@
 	</data>
 	<data name="DeleteCustomerAddress.Error" xml:space="preserve">
 		<value>No se puede eliminar la dirección ya que se utiliza en otro carro</value>
+	</data>
+	<data name="cmdTaxfree.Text" xml:space="preserve">
+		<value>Guardar ID de IVA </value>
+	</data>
+	<data name="lblTaxfree.Text" xml:space="preserve">
+		<value>Si usted reside en la Unión Europea y es aplicables a la compra sin impuesto Introduzca su NIF y golpear "actualizar". Esto recalculará el carro sin los impuestos.</value>
+	</data>
+	<data name="TaxFree.Text" xml:space="preserve">
+		<value>Libres de impuestos ({0})</value>
 	</data>
 </root>

@@ -27,6 +27,7 @@ namespace Bitboxx.DNNModules.BBStore
             AdditionalTax = 0.00M;
             AdditionalTotal = 0.00M;
             Total = 0.00M;
+            TaxId = "";
         	AttachName = "";
         	AttachContentType = "";
         }
@@ -48,6 +49,7 @@ namespace Bitboxx.DNNModules.BBStore
         public decimal AdditionalTotal { get; set; }
         public decimal AdditionalTax { get; set; }
         public decimal Total { get; set; }
+        public string TaxId { get; set; }
     	public byte[] Attachment { get; set; }
 		public string AttachName { get; set; }
 		public string AttachContentType { get; set; }

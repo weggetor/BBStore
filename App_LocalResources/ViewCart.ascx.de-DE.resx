@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
     Microsoft ResX Schema 
@@ -452,5 +452,14 @@
 	</data>
 	<data name="DeleteCustomerAddress.Error" xml:space="preserve">
 		<value>Kann die Adresse nicht löschen da sie noch in einem anderen Warenkorb verwendet wird</value>
+	</data>
+	<data name="cmdTaxfree.Text" xml:space="preserve">
+		<value>Umsatzsteuer-ID übernehmen</value>
+	</data>
+	<data name="lblTaxfree.Text" xml:space="preserve">
+		<value>Wenn Sie im Besitz einer Umsatzsteuer-identifikationsnummer sind, können Sie diese hier eingeben. Bei der Aktualisierung des Warenkorbs wird dann die Steuer herausgerechnet.</value>
+	</data>
+	<data name="TaxFree.Text" xml:space="preserve">
+		<value>Steuerfrei ({0})</value>
 	</data>
 </root>

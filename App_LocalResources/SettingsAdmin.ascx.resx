@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
 	<!-- 
     Microsoft ResX Schema 
@@ -472,5 +472,17 @@ Your team of [STORENAME]&lt;/p&gt;
   </data>
 	<data name="lblLanguage.Text" xml:space="preserve">
     <value>Select Language </value>
+  </data>
+	<data name="lblTaxfreeEnabled.Help" xml:space="preserve">
+    <value>Enable the possibility to enter a Tax ID to order without tax (only applicable if both partners are living in the EU)</value>
+  </data>
+	<data name="lblTaxfreeEnabled.Text" xml:space="preserve">
+    <value>Enable Taxfree</value>
+  </data>
+	<data name="lblTaxfreeCountries.Help" xml:space="preserve">
+    <value>Enter a comma separated list of countrycodes to define which countries can buy tax free (if countrycode of buyer differs from countrycode of seller).</value>
+  </data>
+	<data name="lblTaxfreeCountries.Text" xml:space="preserve">
+    <value>Taxfree countries</value>
   </data>
 </root>

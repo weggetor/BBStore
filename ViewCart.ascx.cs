@@ -54,6 +54,9 @@ namespace Bitboxx.DNNModules.BBStore
         private Hashtable _storeSettings;
         private List<NavigationInfo> _navList = new List<NavigationInfo>();
         private int _shippingAddressId = -1;
+        private int _billingAddressId = -1;
+        private bool _isTaxFree = false;
+        private bool _isTaxFreeApplicable = false; 
 
         #endregion
 
@@ -92,7 +95,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             get
             {
-                CartInfo cart = Controller.GetCart(PortalId, CartId);
+                CartInfo cart = Controller.GetCart(PortalId, CartId, _isTaxFree);
 
                 if (cart.CustomerID > -1)
                 {
@@ -248,6 +251,16 @@ namespace Bitboxx.DNNModules.BBStore
                 return _shippingAddressId;
             }
         }
+
+        public int BillingAddressId
+        {
+            get
+            {
+                if (_billingAddressId < 0)
+                    _billingAddressId = Controller.GetCartAddressId(CartId, "Billing");
+                return _billingAddressId;
+            }
+        }
         public string ErrorText
         {
             set
@@ -262,7 +275,7 @@ namespace Bitboxx.DNNModules.BBStore
             get
             {
                 if (_cart == null)
-                    _cart = Controller.GetCart(PortalId, CartId);
+                    _cart = Controller.GetCart(PortalId, CartId, _isTaxFree);
                 return _cart;
             }
             set { _cart = value; }
@@ -306,7 +319,8 @@ namespace Bitboxx.DNNModules.BBStore
                 cmdFinish.CssClass = (string)Settings["OrderButtonCssClass"] ?? "";
                 cmdCoupon.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
                 cmdUploadCart.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
-                
+                cmdTaxfree.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+
 
                 // Init empty cart display
                 LocalResourceLangInfo localResourceLang = Controller.GetLocalResourceLang(PortalId, "EMPTYCART", CurrentLanguage);
@@ -369,8 +383,24 @@ namespace Bitboxx.DNNModules.BBStore
                         cmdDeleteCart.Visible = Convert.ToBoolean(Settings["EnableCartDelete"]);
 
                     }
+
+                    // Check if vendor and customer both in EU and customer not from vendor country
+                    CustomerAddressInfo billingAddress = Controller.GetCustomerAddress(BillingAddressId);
+                    if (billingAddress != null)
+                    {
+                        string cusCountryCode = billingAddress.CountryCode.Trim();
+                        string venCountryCode = ((string)StoreSettings["VendorCountry"]).Trim();
+                        string[] allowedCountryCodes = ((string) StoreSettings["TaxfreeCountries"]).Split(',');
+                        if (cusCountryCode != venCountryCode && allowedCountryCodes.Contains(cusCountryCode))
+                        {
+                            _isTaxFreeApplicable = Convert.ToBoolean(StoreSettings["TaxfreeEnabled"] ?? "false");
+                        }
+                    }
+
                     // First lets retrieve our cart from database
-                    Cart = Controller.GetCart(PortalId, CartId);
+                    Cart = Controller.GetCart(PortalId, CartId, _isTaxFree);
+                    _isTaxFree = _isTaxFreeApplicable && 
+                        (IsPostBack && !String.IsNullOrEmpty(txtTaxfree.Text) || !IsPostBack && !String.IsNullOrEmpty(Cart.TaxId));
 
                     if (Cart == null)
                     {
@@ -595,7 +625,7 @@ namespace Bitboxx.DNNModules.BBStore
                         Controller.UpdateCartProductQuantity(cartProductId, Math.Round(newQuantity, decimals));
                     else
                         Controller.DeleteCartProduct(cartProductId);
-                    Cart = Controller.GetCart(PortalId, CartId);
+                    Cart = Controller.GetCart(PortalId, CartId, _isTaxFree);
                 }
             }
         }
@@ -674,7 +704,7 @@ namespace Bitboxx.DNNModules.BBStore
                 // Save the order
                 Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
                 string numberMask = (string)storeSettings["OrderMask"];
-                int OrderId = Controller.SaveOrder(Cart.CartID, PortalId, numberMask);
+                int OrderId = Controller.SaveOrder(Cart.CartID, PortalId, numberMask, _isTaxFree);
 
                 // Mail Order, finish Paypal and delete Cart
                 if (OrderId >= 0)
@@ -787,6 +817,12 @@ namespace Bitboxx.DNNModules.BBStore
                 pnlCouponError.Visible = false;
                 txtCoupon.Text = "";
             }
+        }
+
+        protected void cmdTaxfree_Click(object sender, EventArgs e)
+        {
+            // TODO: TaxId überprüfen. Siehe: http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml
+            Controller.UpdateCartTaxId(Cart.CartID,txtTaxfree.Text.Trim());
         }
 
         protected void lstCustomerAddresses_ItemDataBound(object sender, ListViewItemEventArgs e)
@@ -973,10 +1009,10 @@ namespace Bitboxx.DNNModules.BBStore
                 UpdatePayment();
             }
 
-            Cart = Controller.GetCart(PortalId, CartId);
+            Cart = Controller.GetCart(PortalId, CartId,_isTaxFree);
 
             // Now we need the products in the cart
-            List<CartProductInfo> myProducts = Controller.GetCartProducts(CartId);
+            List<CartProductInfo> myProducts = Controller.GetCartProducts(CartId, _isTaxFree);
             grdCartProducts.DataSource = myProducts;
             grdCartProducts.DataBind();
 
@@ -991,7 +1027,7 @@ namespace Bitboxx.DNNModules.BBStore
                 grdAdditionalCosts.AlternatingRowStyle.CssClass = "bbstore-grid-row";
             }
 
-            List<CartAdditionalCostInfo> myAdditionalCosts = Controller.GetCartAdditionalCosts(CartId);
+            List<CartAdditionalCostInfo> myAdditionalCosts = Controller.GetCartAdditionalCosts(CartId, _isTaxFree);
             grdAdditionalCosts.DataSource = myAdditionalCosts;
             grdAdditionalCosts.DataBind();
 
@@ -1033,17 +1069,23 @@ namespace Bitboxx.DNNModules.BBStore
                 Hashtable ht = new Hashtable();
                 foreach (CartProductInfo cp in myProducts)
                 {
-                    if (ht.ContainsKey(cp.TaxPercent))
-                        ht[cp.TaxPercent] = (decimal)ht[cp.TaxPercent] + cp.TaxTotal;
-                    else
-                        ht.Add(cp.TaxPercent, cp.TaxTotal);
+                    if (cp.TaxPercent > 0)
+                    {
+                        if (ht.ContainsKey(cp.TaxPercent))
+                            ht[cp.TaxPercent] = (decimal) ht[cp.TaxPercent] + cp.TaxTotal;
+                        else
+                            ht.Add(cp.TaxPercent, cp.TaxTotal);
+                    }
                 }
                 foreach (CartAdditionalCostInfo cap in myAdditionalCosts)
                 {
-                    if (ht.ContainsKey(cap.TaxPercent))
-                        ht[cap.TaxPercent] = (decimal)ht[cap.TaxPercent] + cap.TaxTotal;
-                    else
-                        ht.Add(cap.TaxPercent, cap.TaxTotal);
+                    if (cap.TaxPercent > 0)
+                    {
+                        if (ht.ContainsKey(cap.TaxPercent))
+                            ht[cap.TaxPercent] = (decimal) ht[cap.TaxPercent] + cap.TaxTotal;
+                        else
+                            ht.Add(cap.TaxPercent, cap.TaxTotal);
+                    }
                 }
 
 
@@ -1066,6 +1108,11 @@ namespace Bitboxx.DNNModules.BBStore
                         string Text = string.Format(Localization.GetString("IncludeTax.Text", this.LocalResourceFile), (decimal)tax.Key);
                         lstSum.Add(new CartSumInfo(Text, (decimal)tax.Value));
                     }
+                }
+                if (_isTaxFree)
+                {
+                    string text = string.Format(Localization.GetString("TaxFree.Text", this.LocalResourceFile), Cart.TaxId);
+                    lstSum.Add(new CartSumInfo(text, 0));
                 }
 
                 grdSummary.DataSource = lstSum;
@@ -1096,6 +1143,13 @@ namespace Bitboxx.DNNModules.BBStore
             pnlConfirm.Visible = true;
             pnlConfirm2.Visible = true;
             pnlCoupon.Visible = Cart.CouponId <= 0 && Convert.ToBoolean(StoreSettings["CouponsEnabled"] ?? "false");
+            
+            pnlTaxfree.Visible =  _isTaxFreeApplicable;
+            if (pnlTaxfree.Visible && !IsPostBack)
+            {
+                txtTaxfree.Text = Cart.TaxId;
+            }
+
             pnlCheckout.Visible = false;
             pnlAttachment.Visible = Convert.ToBoolean(Settings["EnableCartAttachment"]);
             pnlRemarks.Visible = Convert.ToBoolean(Settings["EnableCartComment"]);
@@ -1277,7 +1331,7 @@ namespace Bitboxx.DNNModules.BBStore
             Controller.DeleteCartAdditionalCost(CartId, "SHIPPING");
 
             // Lets retrieve the CartProducts
-            List<CartProductInfo> cartProducts = Controller.GetCartProducts(CartId);
+            List<CartProductInfo> cartProducts = Controller.GetCartProducts(CartId, _isTaxFree);
             var shippingModelIds = (from c in cartProducts select c.ShippingModelId).Distinct();
 
             foreach (int shippingModelId in shippingModelIds)
@@ -1470,7 +1524,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             // Last we eventually have to add extra cost to CartAdditionalCost
             Controller.DeleteCartAdditionalCost(CartId, "PAYMENT");
-            Cart = Controller.GetCart(PortalId, CartId);
+            Cart = Controller.GetCart(PortalId, CartId, _isTaxFree);
             SubscriberPaymentProviderInfo spp = Controller.GetSubscriberPaymentProviderByCPP(Cart.CustomerPaymentProviderID);
             if (spp != null)
             {
@@ -1502,7 +1556,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             // Last we eventually have to add extra cost to CartAdditionalCost
             Controller.DeleteCartAdditionalCost(CartId, "COUPON");
-            Cart = Controller.GetCart(PortalId, CartId);
+            Cart = Controller.GetCart(PortalId, CartId, _isTaxFree);
             decimal couponCost = 0.0m;
             if (coupon.DiscountPercent != null && coupon.DiscountPercent > 0)
             {
@@ -1531,7 +1585,7 @@ namespace Bitboxx.DNNModules.BBStore
         private void UpdateDiscount()
         {
             Controller.DeleteCartAdditionalCost(CartId, "DISCOUNT");
-            List<CartProductInfo> cpl = Controller.GetCartProducts(CartId);
+            List<CartProductInfo> cpl = Controller.GetCartProducts(CartId, _isTaxFree);
             decimal Discount = 0.00m;
             Hashtable ht = new Hashtable();
             foreach (CartProductInfo cp in cpl)
@@ -1942,7 +1996,10 @@ namespace Bitboxx.DNNModules.BBStore
             orderItems = orderItems.Replace("[PRODUCTSUBTOTAL]", String.Format("{0:n2}", SubTotal));
 
             template = template.Replace("[BBSTORE-ORDERITEMS]", orderItems);
-            template = template.Replace("[BBSTORE-COMMENT]", order.Comment);
+            string comment = order.Comment;
+            if (_isTaxFree)
+                comment = "TAX-ID:" + order.TaxId + "<br/>" + comment;
+            template = template.Replace("[BBSTORE-COMMENT]", comment);
 
             if (order.PaymentProviderId > 0)
             {
@@ -2053,6 +2110,7 @@ namespace Bitboxx.DNNModules.BBStore
                 return actions;
             }
         }
+
 
         
     }
