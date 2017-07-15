@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace Bitboxx.DNNModules.BBStore
 {
+    [Serializable]
+    [DataContract()]
     public class OrderAdditionalCostInfo
     {
         public OrderAdditionalCostInfo()
@@ -20,16 +23,27 @@ namespace Bitboxx.DNNModules.BBStore
             TaxTotal = 0.00M;
             SubTotal = 0.00M;
         }
+        [DataMember()]
         public int OrderAdditionalCostId { get; set; }
+        [DataMember()]
         public int OrderId { get; set; }
+        [DataMember()]
         public decimal Quantity { get; set; }
+        [DataMember()]
         public string Name { get; set; }
+        [DataMember()]
         public string Description { get; set; }
+        [DataMember()]
         public string Area { get; set; }
+        [DataMember()]
         public decimal UnitCost { get; set; }
+        [DataMember()]
         public decimal NetTotal { get; set; }
+        [DataMember()]
         public decimal TaxPercent { get; set; }
+        [DataMember()]
         public decimal TaxTotal { get; set; }
+        [DataMember()]
         public decimal SubTotal { get; set; }
         
     }

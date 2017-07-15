@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 using System.Text;
 
 namespace Bitboxx.DNNModules.BBStore
 {
+    [Serializable()]
+    [DataContract()]
     public class OrderAddressInfo
     {
         public OrderAddressInfo()
@@ -13,29 +16,54 @@ namespace Bitboxx.DNNModules.BBStore
             CountryCode = "";
         }
 
+        [DataMember()]
         public int OrderAddressId { get; set; }
+        [DataMember()]
         public int PortalId { get; set; }
+        [DataMember()]
         public int OrderId { get; set; }
+        [DataMember()]
         public int CustomerAddressId { get; set; }
+        [DataMember()]
         public string Company { get; set; }
+        [DataMember()]
         public string Prefix { get; set; }
+        [DataMember()]
         public string Firstname { get; set; }
+        [DataMember()]
         public string Middlename { get; set; }
+        [DataMember()]
         public string Lastname { get; set; }
+        [DataMember()]
         public string Suffix { get; set; }
+        [DataMember()]
         public string Unit { get; set; }
+        [DataMember()]
         public string Street { get; set; }
+        [DataMember()]
         public string Region { get; set; }
+        [DataMember()]
         public string PostalCode { get; set; }
+        [DataMember()]
         public string City { get; set; }
+        [DataMember()]
         public string Suburb { get; set; }
+        [DataMember()]
         public string Country { get; set; }
+        [DataMember()]
         public string CountryCode { get; set; }
+        [DataMember()]
         public string Telephone { get; set; }
+        [DataMember()]
         public string Cell { get; set; }
+        [DataMember()]
         public string Fax { get; set; }
+        [DataMember()]
         public string Email { get; set; }
-		public string AddressType { get; set; }
+        [DataMember()]
+        public int SubscriberAddressTypeId { get; set; }
+        [DataMember()]
+        public string AddressType { get; set; }
 
         public string ToHtml()
         {

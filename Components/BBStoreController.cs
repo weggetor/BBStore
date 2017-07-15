@@ -305,6 +305,14 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return CBO.FillCollection<CustomerInfo>(DataProvider.Instance().GetCustomersByUserId(portalId,userId));
         }
+        public List<CustomerInfo> GetCustomersByPortal(int portalId)
+        {
+            return CBO.FillCollection<CustomerInfo>(DataProvider.Instance().GetCustomersByPortal(portalId));
+        }
+        public List<CustomerInfo> GetCustomersByPortalAndUser(int portalId, int userId)
+        {
+            return CBO.FillCollection<CustomerInfo>(DataProvider.Instance().GetCustomersByPortalAndUser(portalId, userId));
+        }
         public CustomerInfo GetCustomerById(int CustomerId)
         {
             return (CustomerInfo)CBO.FillObject(DataProvider.Instance().GetCustomerById(CustomerId), typeof(CustomerInfo));
@@ -703,9 +711,9 @@ namespace Bitboxx.DNNModules.BBStore
         #endregion
 
         #region SubscriberAddressType methods
-        public List<SubscriberAddressTypeInfo> GetSubscriberAddressTypes(int portalId)
+        public List<SubscriberAddressTypeInfo> GetSubscriberAddressTypesByPortal(int portalId)
         {
-            return CBO.FillCollection<SubscriberAddressTypeInfo>(DataProvider.Instance().GetSubscriberAddressTypes(portalId));
+            return CBO.FillCollection<SubscriberAddressTypeInfo>(DataProvider.Instance().GetSubscriberAddressTypesByPortal(portalId));
         }
         public List<SubscriberAddressTypeInfo> GetSubscriberAddressTypes(int portalId, int subscriberId, string language)
         {
@@ -727,6 +735,10 @@ namespace Bitboxx.DNNModules.BBStore
         {
             DataProvider.Instance().UpdateSubscriberAddressType(subscriberAddressType);
         }
+        public void DeleteSubscriberAddressType(int SubscriberAddressTypeId)
+        {
+            DataProvider.Instance().DeleteSubscriberAddressType(SubscriberAddressTypeId);
+        }
         #endregion
 
         #region SubscriberAddressTypeLangs methods
@@ -734,9 +746,17 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return CBO.FillCollection<SubscriberAddressTypeLangInfo>(DataProvider.Instance().GetSubscriberAddressTypeLangs(subscriberAddressTypeId));
         }
+        public List<SubscriberAddressTypeLangInfo> GetSubscriberAddressTypeLangsByPortal(int portalId)
+        {
+            return CBO.FillCollection<SubscriberAddressTypeLangInfo>(DataProvider.Instance().GetSubscriberAddressTypeLangsByPortal(portalId));
+        }
         public void NewSubscriberAddressTypeLang(SubscriberAddressTypeLangInfo subscriberAddressTypeLang)
         {
             DataProvider.Instance().NewSubscriberAddressTypeLang(subscriberAddressTypeLang);
+        }
+        public void DeleteSubscriberAddressTypeLang(int subscriberAddressTypeId, string language)
+        {
+            DataProvider.Instance().DeleteSubscriberAddressTypeLang(subscriberAddressTypeId,language);
         }
         #endregion
 
@@ -747,36 +767,154 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public OrderInfo GetOrder(int OrderId)
         {
-            return (OrderInfo)CBO.FillObject(DataProvider.Instance().GetOrder(OrderId), typeof(OrderInfo));
+            return (OrderInfo)CBO.FillObject<OrderInfo>(DataProvider.Instance().GetOrder(OrderId));
+        }
+        public List<OrderInfo> GetOrdersByPortal(int PortalId)
+        {
+            return CBO.FillCollection<OrderInfo>(DataProvider.Instance().GetOrdersByPortal(PortalId));
+        }
+        public List<OrderInfo> GetOrdersByPortalAndUser(int portalId, int userId)
+        {
+            return CBO.FillCollection<OrderInfo>(DataProvider.Instance().GetOrdersByPortalAndUser(portalId, userId));
         }
         public List<OrderListInfo> GetOrders(int PortalId, string Language, string Sort, string Filter)
         {
-            return CBO.FillCollection<OrderListInfo>(DataProvider.Instance().GetOrders(PortalId,Language,Sort,Filter));
+            return CBO.FillCollection<OrderListInfo>(DataProvider.Instance().GetOrders(PortalId, Language, Sort, Filter));
         }
+        public int NewOrder(OrderInfo Order)
+        {
+            return DataProvider.Instance().NewOrder(Order);
+        }
+        public void UpdateOrder(OrderInfo Order)
+        {
+            DataProvider.Instance().UpdateOrder(Order);
+        }
+        public void DeleteOrder(int OrderId)
+        {
+            DataProvider.Instance().DeleteOrder(OrderId);
+        }
+
+        #endregion
+
+        #region OrderProduct methods
         public List<OrderProductInfo> GetOrderProducts(int OrderId)
         {
             return CBO.FillCollection<OrderProductInfo>(DataProvider.Instance().GetOrderProducts(OrderId));
         }
+        public List<OrderProductInfo> GetOrderProductsByPortal(int portalId)
+        {
+            return CBO.FillCollection<OrderProductInfo>(DataProvider.Instance().GetOrderProductsByPortal(portalId));
+        }
+        public List<OrderProductInfo> GetOrderProductsByPortalAndUser(int portalId, int userId)
+        {
+            return CBO.FillCollection<OrderProductInfo>(DataProvider.Instance().GetOrderProductsByPortalAndUser(portalId, userId));
+        }
+        public int NewOrderProduct(OrderProductInfo OrderProduct)
+        {
+            return DataProvider.Instance().NewOrderProduct(OrderProduct);
+        }
+        public void UpdateOrderProduct(OrderProductInfo OrderProduct)
+        {
+            DataProvider.Instance().UpdateOrderProduct(OrderProduct);
+        }
+        public void DeleteOrderProduct(int OrderProductId)
+        {
+            DataProvider.Instance().DeleteOrderProduct(OrderProductId);
+        }
+        #endregion
+
+        #region OrderProductOption methods
+
         public List<OrderProductOptionInfo> GetOrderProductOptions(int OrderProductId)
         {
             return CBO.FillCollection<OrderProductOptionInfo>(DataProvider.Instance().GetOrderProductOptions(OrderProductId));
         }
+        public List<OrderProductOptionInfo> GetOrderProductOptionsByPortal(int portalId)
+        {
+            return CBO.FillCollection<OrderProductOptionInfo>(DataProvider.Instance().GetOrderProductOptionsByPortal(portalId));
+        }
+        public List<OrderProductOptionInfo> GetOrderProductOptionsByPortalAndUser(int portalId, int userId)
+        {
+            return CBO.FillCollection<OrderProductOptionInfo>(DataProvider.Instance().GetOrderProductOptionsByPortalAndUser(portalId, userId));
+        }
+        public int NewOrderProductOption(OrderProductOptionInfo OrderProductOption)
+        {
+            return DataProvider.Instance().NewOrderProductOption(OrderProductOption);
+        }
+        public void UpdateOrderProductOption(OrderProductOptionInfo OrderProductOption)
+        {
+            DataProvider.Instance().UpdateOrderProductOption(OrderProductOption);
+        }
+        public void DeleteOrderProductOption(int OrderProductOptionId)
+        {
+            DataProvider.Instance().DeleteOrderProductOption(OrderProductOptionId);
+        }
+
+        #endregion
+
+        #region OrderAdditionalCosts
         public List<OrderAdditionalCostInfo> GetOrderAdditionalCosts(int OrderId)
         {
             return CBO.FillCollection<OrderAdditionalCostInfo>(DataProvider.Instance().GetOrderAdditionalCosts(OrderId));
         }
+        public List<OrderAdditionalCostInfo> GetOrderAdditionalCostsByPortal(int portalId)
+        {
+            return CBO.FillCollection<OrderAdditionalCostInfo>(DataProvider.Instance().GetOrderAdditionalCostsByPortal(portalId));
+        }
+        public List<OrderAdditionalCostInfo> GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId)
+        {
+            return CBO.FillCollection<OrderAdditionalCostInfo>(DataProvider.Instance().GetOrderAdditionalCostsByPortalAndUser(portalId, userId));
+        }
+
+        public int NewOrderAdditionalCost(OrderAdditionalCostInfo OrderAdditionalCost)
+        {
+            return DataProvider.Instance().NewOrderAdditionalCost(OrderAdditionalCost);
+        }
+        public void UpdateOrderAdditionalCost(OrderAdditionalCostInfo OrderAdditionalCost)
+        {
+            DataProvider.Instance().UpdateOrderAdditionalCost(OrderAdditionalCost);
+        }
+        public void DeleteOrderAdditionalCost(int OrderAdditionalCostId)
+        {
+            DataProvider.Instance().DeleteOrderAdditionalCost(OrderAdditionalCostId);
+        }
+
+
+        #endregion
+
+        #region OrderAddress
+
         public List<OrderAddressInfo> GetOrderAddresses(int orderId, string language)
         {
 			return CBO.FillCollection<OrderAddressInfo>(DataProvider.Instance().GetOrderAddresses(orderId, language));
+        }
+        public List<OrderAddressInfo> GetOrderAddressesByPortal(int portalId)
+        {
+            return CBO.FillCollection<OrderAddressInfo>(DataProvider.Instance().GetOrderAddressesByPortal(portalId));
+        }
+        public List<OrderAddressInfo> GetOrderAddressesByPortalAndUser(int portalId, int userId)
+        {
+            return CBO.FillCollection<OrderAddressInfo>(DataProvider.Instance().GetOrderAddressesByPortalAndUser(portalId, userId));
+        }
+        public int NewOrderAddress(OrderAddressInfo OrderAddress)
+        {
+            return DataProvider.Instance().NewOrderAddress(OrderAddress);
+        }
+        public void UpdateOrderAddress(OrderAddressInfo OrderAddress)
+        {
+            DataProvider.Instance().UpdateOrderAddress(OrderAddress);
         }
         public bool HasOrderAddress(int customerAddressId)
         {
             return DataProvider.Instance().HasOrderAddress(customerAddressId);
         }
-
         public List<OrderStatsInfo> GetOrderStats(DateTime startDate, DateTime endDate)
         {
             return CBO.FillCollection<OrderStatsInfo>(DataProvider.Instance().GetOrderStats(startDate, endDate));
+        }
+        public void DeleteOrderAddress(int OrderAddressId)
+        {
+            DataProvider.Instance().DeleteOrderAddress(OrderAddressId);
         }
         #endregion
 
@@ -1899,61 +2037,71 @@ namespace Bitboxx.DNNModules.BBStore
                 {
                     
                     orderStateId = NewOrderState(newOrderState);
-                    orderStateLang = new OrderStateLangInfo();
-                    orderStateLang.OrderStateId = orderStateId;
-                    orderStateLang.Language = "en-US";
-                    orderStateLang.OrderState = "created";
+                    orderStateLang = new OrderStateLangInfo
+                                     {
+                                         OrderStateId = orderStateId,
+                                         Language = "en-US",
+                                         OrderState = "created"
+                                     };
                     if (!checkOnly) NewOrderStateLang(orderStateLang);
-                    result.AppendLine(String.Format("OrderState: OrderState '{0}' for language '{1}' {2}", orderStateLang.OrderState, orderStateLang.Language, verb));
+                    result.AppendLine($"OrderState: OrderState '{orderStateLang.OrderState}' for language '{orderStateLang.Language}' {verb}");
                 }
 
                 if (!(from o in orderStates where o.OrderState == "confirmed" select o).Any())
                 {
                     orderStateId = NewOrderState(newOrderState);
-                    orderStateLang = new OrderStateLangInfo();
-                    orderStateLang.OrderStateId = orderStateId;
-                    orderStateLang.Language = "en-US";
-                    orderStateLang.OrderState = "confirmed";
+                    orderStateLang = new OrderStateLangInfo
+                                     {
+                                         OrderStateId = orderStateId,
+                                         Language = "en-US",
+                                         OrderState = "confirmed"
+                                     };
                     if (!checkOnly) NewOrderStateLang(orderStateLang);
-                    result.AppendLine(String.Format("OrderState: OrderState '{0}' for language '{1}' {2}", orderStateLang.OrderState, orderStateLang.Language, verb));
+                    result.AppendLine($"OrderState: OrderState '{orderStateLang.OrderState}' for language '{orderStateLang.Language}' {verb}");
                 }
 
                 if (!(from o in orderStates where o.OrderState == "payed" select o).Any())
                 {
                     orderStateId = NewOrderState(newOrderState);
-                    orderStateLang = new OrderStateLangInfo();
-                    orderStateLang.OrderStateId = orderStateId;
-                    orderStateLang.Language = "en-US";
-                    orderStateLang.OrderState = "payed";
+                    orderStateLang = new OrderStateLangInfo
+                                     {
+                                         OrderStateId = orderStateId,
+                                         Language = "en-US",
+                                         OrderState = "payed"
+                                     };
                     if (!checkOnly) NewOrderStateLang(orderStateLang);
-                    result.AppendLine(String.Format("OrderState: OrderState '{0}' for language '{1}' {2}", orderStateLang.OrderState, orderStateLang.Language, verb));
+                    result.AppendLine($"OrderState: OrderState '{orderStateLang.OrderState}' for language '{orderStateLang.Language}' {verb}");
                 }
                 if (!(from o in orderStates where o.OrderState == "cancelled" select o).Any())
                 {
                     orderStateId = NewOrderState(newOrderState);
-                    orderStateLang = new OrderStateLangInfo();
-                    orderStateLang.OrderStateId = orderStateId;
-                    orderStateLang.Language = "en-US";
-                    orderStateLang.OrderState = "cancelled";
+                    orderStateLang = new OrderStateLangInfo
+                                     {
+                                         OrderStateId = orderStateId,
+                                         Language = "en-US",
+                                         OrderState = "cancelled"
+                                     };
                     if (!checkOnly) NewOrderStateLang(orderStateLang);
-                    result.AppendLine(String.Format("OrderState: OrderState '{0}' for language '{1}' {2}", orderStateLang.OrderState, orderStateLang.Language, verb));
+                    result.AppendLine($"OrderState: OrderState '{orderStateLang.OrderState}' for language '{orderStateLang.Language}' {verb}");
                 }
                 if (!(from o in orderStates where o.OrderState == "shipped" select o).Any())
                 {
                     orderStateId = NewOrderState(newOrderState);
-                    orderStateLang = new OrderStateLangInfo();
-                    orderStateLang.OrderStateId = orderStateId;
-                    orderStateLang.Language = "en-US";
-                    orderStateLang.OrderState = "shipped";
+                    orderStateLang = new OrderStateLangInfo
+                                     {
+                                         OrderStateId = orderStateId,
+                                         Language = "en-US",
+                                         OrderState = "shipped"
+                                     };
                     if (!checkOnly) NewOrderStateLang(orderStateLang);
-                    result.AppendLine(String.Format("OrderState: OrderState '{0}' for language '{1}' {2}", orderStateLang.OrderState, orderStateLang.Language, verb));
+                    result.AppendLine($"OrderState: OrderState '{orderStateLang.OrderState}' for language '{orderStateLang.Language}' {verb}");
                 }
 
                 #endregion
 
                 #region Check SubscriberAddressType
 
-                List<SubscriberAddressTypeInfo> subscriberAddressTypes = GetSubscriberAddressTypes(portalId);
+                List<SubscriberAddressTypeInfo> subscriberAddressTypes = GetSubscriberAddressTypesByPortal(portalId);
                 bool orderAddressExists = (from s in subscriberAddressTypes where s.IsOrderAddress select s).Any();
                 if (!orderAddressExists)
                 {
@@ -1980,9 +2128,11 @@ namespace Bitboxx.DNNModules.BBStore
                 List<UnitInfo> units = GetUnits(portalId,"en-US","unitid");
                 if (!(from u in units where u.Unit == "Piece" select u).Any())
                 {
-                    UnitInfo unit = new UnitInfo();
-                    unit.Decimals = 0;
-                    unit.PortalId = portalId;
+                    UnitInfo unit = new UnitInfo
+                                    {
+                                        Decimals = 0,
+                                        PortalId = portalId
+                                    };
                     int unitId = NewUnit(unit);
                     UnitLangInfo unitLang = new UnitLangInfo();
                     unitLang.UnitId = unitId;
@@ -1991,7 +2141,7 @@ namespace Bitboxx.DNNModules.BBStore
                     unitLang.Language = "en-US";
                     
                     if (!checkOnly) NewUnitLang(unitLang);
-                    result.AppendLine(String.Format("Unit: Unit '{0}' for language '{1}' {2}", unitLang.Unit, unitLang.Language, verb));
+                    result.AppendLine($"Unit: Unit '{unitLang.Unit}' for language '{unitLang.Language}' {verb}");
                 }
                 #endregion
 
@@ -2020,7 +2170,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newOrderStateLang.Language = language;
                             newOrderStateLang.OrderStateId = orderState.OrderStateId;
                             if (!checkOnly) NewOrderStateLang(newOrderStateLang);
-                            result.AppendLine(String.Format("OrderStateLang: OrderStateId({0}) language({1}) {2}", orderState.OrderStateId, language, verb));
+                            result.AppendLine($"OrderStateLang: OrderStateId({orderState.OrderStateId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2050,7 +2200,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newPaymentProviderLang.Language = language;
                             newPaymentProviderLang.PaymentProviderId = paymentProvider.PaymentProviderId;
                             if (!checkOnly) NewPaymentProviderLang(newPaymentProviderLang);
-                            result.AppendLine(String.Format("PaymentProviderLang: PaymentProviderId({0}) language({1}) {2}", paymentProvider.PaymentProviderId, language, verb));
+                            result.AppendLine($"PaymentProviderLang: PaymentProviderId({paymentProvider.PaymentProviderId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2080,7 +2230,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newFeatureGroupLang.Language = language;
                             newFeatureGroupLang.FeatureGroupId = featureGroup.FeatureGroupId;
                             if (!checkOnly) NewFeatureGroupLang(newFeatureGroupLang);
-                            result.AppendLine(String.Format("FeatureGroupLang: FeatureGroupId({0}) language({1}) {2}", featureGroup.FeatureGroupId, language, verb));
+                            result.AppendLine($"FeatureGroupLang: FeatureGroupId({featureGroup.FeatureGroupId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2101,7 +2251,7 @@ namespace Bitboxx.DNNModules.BBStore
                             FeatureLangInfo newFeatureLang = new FeatureLangInfo();
                             if (def == null)
                             {
-                                newFeatureLang.Feature = string.Format("### {0}: {1} ({2})", language, feature.FeatureToken, feature.FeatureId.ToString());
+                                newFeatureLang.Feature = $"### {language}: {feature.FeatureToken} ({feature.FeatureId.ToString()})";
                                 newFeatureLang.Unit = "###";
                             }
                             else
@@ -2116,7 +2266,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newFeatureLang.Language = language;
                             newFeatureLang.FeatureId = feature.FeatureId;
                             if (!checkOnly) NewFeatureLang(newFeatureLang);
-                            result.AppendLine(String.Format("FeatureLang: FeatureId({0}) language({1}) {2}", feature.FeatureId, language, verb));
+                            result.AppendLine($"FeatureLang: FeatureId({feature.FeatureId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2148,7 +2298,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newFeatureListLang.Language = language;
                             newFeatureListLang.FeatureListId = featureList.FeatureListId;
                             if (!checkOnly) NewFeatureListLang(newFeatureListLang);
-                            result.AppendLine(String.Format("FeatureListLang: FeatureListId({0}) language({1}) {2}", featureList.FeatureListId, language, verb));
+                            result.AppendLine($"FeatureListLang: FeatureListId({featureList.FeatureListId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2180,7 +2330,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newFeatureListItemLang.Language = language;
                             newFeatureListItemLang.FeatureListItemId = featureListItem.FeatureListItemId;
                             if (!checkOnly) NewFeatureListItemLang(newFeatureListItemLang);
-                            result.AppendLine(String.Format("FeatureListItemLang: FeatureListItemId({0}) language({1}) {2}", featureListItem.FeatureListItemId, language, verb));
+                            result.AppendLine($"FeatureListItemLang: FeatureListItemId({featureListItem.FeatureListItemId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2219,7 +2369,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newProductGroupLang.Language = language;
                             newProductGroupLang.ProductGroupId = productGroup.ProductGroupId;
                             if (!checkOnly) NewProductGroupLang(newProductGroupLang);
-                            result.AppendLine(String.Format("ProductGroupLang: ProductGroupId({0}) language({1}) {2}", productGroup.ProductGroupId, language, verb));
+                            result.AppendLine($"ProductGroupLang: ProductGroupId({productGroup.ProductGroupId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2279,7 +2429,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newProductLang.Language = language;
                             newProductLang.SimpleProductId = product.SimpleProductId;
                             if (!checkOnly) NewSimpleProductLang(newProductLang);
-                            result.AppendLine(String.Format("SimpleProductLang: SimpleProductId({0}) language({1}) {2}", product.SimpleProductId, language, verb));
+                            result.AppendLine($"SimpleProductLang: SimpleProductId({product.SimpleProductId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2287,7 +2437,7 @@ namespace Bitboxx.DNNModules.BBStore
                 #endregion
 
                 #region Check SubscriberAddressTypeLang
-                List<SubscriberAddressTypeInfo> subScriberAddressTypes = GetSubscriberAddressTypes(portalId);
+                List<SubscriberAddressTypeInfo> subScriberAddressTypes = GetSubscriberAddressTypesByPortal(portalId);
                 foreach (SubscriberAddressTypeInfo subscriberAddressType in subScriberAddressTypes)
                 {
                     List<SubscriberAddressTypeLangInfo> listLangs = GetSubscriberAddressTypeLangs(subscriberAddressType.SubscriberAddressTypeId);
@@ -2310,7 +2460,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newSubscriberAddressTypeLang.Language = language;
                             newSubscriberAddressTypeLang.SubscriberAddressTypeId = subscriberAddressType.SubscriberAddressTypeId;
                             if (!checkOnly) NewSubscriberAddressTypeLang(newSubscriberAddressTypeLang);
-                            result.AppendLine(String.Format("SubscriberAddressTypeLang: SubscriberAddresstypeid({0}) language({1}) {2}", subscriberAddressType.SubscriberAddressTypeId, language, verb));
+                            result.AppendLine($"SubscriberAddressTypeLang: SubscriberAddresstypeid({subscriberAddressType.SubscriberAddressTypeId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2347,7 +2497,7 @@ namespace Bitboxx.DNNModules.BBStore
                             newUnitLang.Language = language;
                             newUnitLang.UnitId = unit.UnitId;
                             if (!checkOnly) NewUnitLang(newUnitLang);
-                            result.AppendLine(String.Format("UnitLang: unitId({0}) language({1}) {2}", unit.UnitId, language, verb));
+                            result.AppendLine($"UnitLang: unitId({unit.UnitId}) language({language}) {verb}");
                         }
                     }
                 }
@@ -2511,7 +2661,7 @@ namespace Bitboxx.DNNModules.BBStore
             }
             else if (license != null && license.ValidUntil < DateTime.Now)
             {
-                message = String.Format("License expired on {0}", ((DateTime) license.ValidUntil).Date);
+                message = $"License expired on {((DateTime) license.ValidUntil).Date}";
                 Exceptions.ProcessModuleLoadException(message, callingControl, new Exception(message));
             }
             else
@@ -2519,7 +2669,7 @@ namespace Bitboxx.DNNModules.BBStore
                 ModuleKindEnum licenseModuleKindEnum = (ModuleKindEnum) license.Modules;
                 if ((licenseModuleKindEnum & moduleKind) != moduleKind)
                 {
-                    message = String.Format("No valid license for module {0} !", licenseModuleKindEnum.ToString("F"));
+                    message = $"No valid license for module {licenseModuleKindEnum.ToString("F")} !";
                     Exceptions.ProcessModuleLoadException(message, callingControl, new Exception(message));
                 }
             }

@@ -792,6 +792,24 @@ namespace Bitboxx.DNNModules.BBStore
                 " AND UserId = " + UserId.ToString();
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
+        public override IDataReader GetCustomersByPortal(int PortalId)
+        {
+            string selCmd = "SELECT * FROM " + Prefix + "Customer Customer" +
+                            " WHERE PortalId = " + PortalId.ToString();
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
+        }
+        public override IDataReader GetCustomersByPortalAndUser(int portalId, int userId)
+        {
+            string selCmd = "SELECT * FROM " + Prefix + "Customer Customer" +
+                            " WHERE PortalId = @PortalId AND UserId = @UserId";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                    {
+                                            new SqlParameter("PortalId", portalId),
+                                            new SqlParameter("UserId", userId)
+                                    };
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, sqlParams);
+        }
         public override int NewCustomer(CustomerInfo Customer)
         {
             string insCmd = "set nocount on INSERT INTO " + Prefix + "Customer (UserId,PortalId,Customername) VALUES (" +
@@ -2166,7 +2184,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
 
         // SubscriberAddressType methods
-        public override IDataReader GetSubscriberAddressTypes(int portalId)
+        public override IDataReader GetSubscriberAddressTypesByPortal(int portalId)
         {
             string sqlCmd = "SELECT * FROM " + GetFullyQualifiedName("SubscriberAddressType") + 
                             " WHERE PortalId = @PortalId " +
@@ -2263,6 +2281,12 @@ namespace Bitboxx.DNNModules.BBStore
                                            };
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
         }
+        public override void DeleteSubscriberAddressType(int SubscriberAddressTypeId)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("SubscriberAddressType") +
+                " WHERE SubscriberAddressTypeId = @SubscriberAddressTypeId";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("SubscriberAddressTypeId", SubscriberAddressTypeId));
+        }
 
         // SubscriberAddressTypeLangs methods
         public override IDataReader GetSubscriberAddressTypeLangs(int subscriberAddressTypeId)
@@ -2271,6 +2295,14 @@ namespace Bitboxx.DNNModules.BBStore
                             " WHERE SubscriberAddressTypeId = @SubscriberAddressTypeId";
             return (IDataReader) SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd,
                                         new SqlParameter("SubscriberAddressTypeId", subscriberAddressTypeId));
+        }
+        public override IDataReader GetSubscriberAddressTypeLangsByPortal(int portalId)
+        {
+            string sqlCmd = "SELECT satl.* FROM " + GetFullyQualifiedName("SubscriberAddressTypeLang") + " satl" +
+                            " INNER JOIN  " + GetFullyQualifiedName("SubscriberAddressType") + " sat ON sat.SubscriberAddressTypeId = satl.SubscriberAddressTypeId" +
+                            " WHERE sat.PortalId = @PortalId";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd,
+                                        new SqlParameter("PortalId", portalId));
         }
         public override void NewSubscriberAddressTypeLang(SubscriberAddressTypeLangInfo subscriberAddressTypeLang)
         {
@@ -2285,8 +2317,19 @@ namespace Bitboxx.DNNModules.BBStore
                                            };
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
         }
+        public override void DeleteSubscriberAddressTypeLang(int SubscriberAddressTypeId, string language)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("SubscriberAddressTypeLang") +
+                " WHERE SubscriberAddressTypeId = @SubscriberAddressTypeId" +
+                " AND Language = @Language";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                               {
+                                                   new SqlParameter("SubscriberAddressTypeId",SubscriberAddressTypeId),
+                                                   new SqlParameter("Language", language),
+                                               };
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, sqlParams);
+        }
 
-        
 
         // Order methods
         public override int SaveOrder(Guid CartId, int PortalId, string numberMask, bool isTaxfree)
@@ -2474,6 +2517,112 @@ namespace Bitboxx.DNNModules.BBStore
 
             return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, SqlParams);
         }
+        public override IDataReader GetOrdersByPortal(int PortalId)
+        {
+            string selCmd = "SELECT *" +
+                " FROM " + GetFullyQualifiedName("Order") +
+                " WHERE PortalId = @PortalId" +
+                " ORDER BY OrderId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
+        }
+
+        public override IDataReader GetOrdersByPortalAndUser(int portalId, int userId)
+        {
+            string selCmd = "SELECT o.*" +
+                " FROM " + GetFullyQualifiedName("Order") + " o" +
+                " INNER JOIN "+ GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
+                " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                " ORDER BY o.OrderId DESC";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                        {
+                                            new SqlParameter("PortalId", portalId),
+                                            new SqlParameter("UserId", userId)
+                                        };
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, sqlParams);
+        }
+        public override int NewOrder(OrderInfo Order)
+        {
+            string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("Order") +
+                            " (PortalID,SubscriberID,OrderNo,OrderTime,OrderStateID,CustomerID,Comment,Currency,Total,PaymentProviderID,PaymentProviderValues,Attachment,AttachName,AttachContentType,OrderName,TaxId)" +
+                            " VALUES " +
+                            " (@PortalID,@SubscriberID,@OrderNo,@OrderTime,@OrderStateID,@CustomerID,@Comment,@Currency,@Total,@PaymentProviderID,@PaymentProviderValues,@Attachment,@AttachName,@AttachContentType,@OrderName,@TaxId) SELECT CAST(scope_identity() AS INTEGER);";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderID", Order.OrderID),
+                                           new SqlParameter("PortalID", Order.PortalId),
+                                           new SqlParameter("SubscriberID", Order.SubscriberID),
+                                           new SqlParameter("OrderNo", Order.OrderNo),
+                                           new SqlParameter("OrderTime", Order.OrderTime),
+                                           new SqlParameter("OrderStateID", Order.OrderStateId),
+                                           new SqlParameter("CustomerID", Order.CustomerID),
+                                           new SqlParameter("Comment", Order.Comment),
+                                           new SqlParameter("Currency", Order.Currency),
+                                           new SqlParameter("Total", Order.Total),
+                                           new SqlParameter("PaymentProviderID", Order.PaymentProviderId),
+                                           new SqlParameter("PaymentProviderValues", Order.PaymentProviderValues),
+                                           new SqlParameter("Attachment", Order.Attachment ?? System.Data.SqlTypes.SqlBinary.Null),
+                                           new SqlParameter("AttachName", Order.AttachName),
+                                           new SqlParameter("AttachContentType", Order.AttachContentType),
+                                           new SqlParameter("OrderName", Order.OrderName),
+                                           new SqlParameter("TaxId", Order.TaxId)
+                                       };
+
+            return (int) SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
+        }
+        public override void UpdateOrder(OrderInfo Order)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("Order") + " SET " +
+                            " PortalID = @PortalID," +
+                            " SubscriberID = @SubscriberID," +
+                            " OrderNo = @OrderNo," +
+                            " OrderTime = @OrderTime," +
+                            " OrderStateID = @OrderStateID," +
+                            " CustomerID = @CustomerID," +
+                            " Comment = @Comment," +
+                            " Currency = @Currency," +
+                            " Total = @Total," +
+                            " PaymentProviderID = @PaymentProviderID," +
+                            " PaymentProviderValues = @PaymentProviderValues," +
+                            " Attachment = @Attachment," +
+                            " AttachName = @AttachName," +
+                            " AttachContentType = @AttachContentType," +
+                            " OrderName = @OrderName," +
+                            " TaxId = @TaxId" +
+                            " WHERE OrderID = @OrderID";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderID", Order.OrderID),
+                                           new SqlParameter("PortalID", Order.PortalId),
+                                           new SqlParameter("SubscriberID", Order.SubscriberID),
+                                           new SqlParameter("OrderNo", Order.OrderNo),
+                                           new SqlParameter("OrderTime", Order.OrderTime),
+                                           new SqlParameter("OrderStateID", Order.OrderStateId),
+                                           new SqlParameter("CustomerID", Order.CustomerID),
+                                           new SqlParameter("Comment", Order.Comment),
+                                           new SqlParameter("Currency", Order.Currency),
+                                           new SqlParameter("Total", Order.Total),
+                                           new SqlParameter("PaymentProviderID", Order.PaymentProviderId),
+                                           new SqlParameter("PaymentProviderValues", Order.PaymentProviderValues),
+                                           new SqlParameter("Attachment", Order.Attachment ?? System.Data.SqlTypes.SqlBinary.Null),
+                                           new SqlParameter("AttachName", Order.AttachName),
+                                           new SqlParameter("AttachContentType", Order.AttachContentType),
+                                           new SqlParameter("OrderName", Order.OrderName),
+                                           new SqlParameter("TaxId", Order.TaxId)
+                                       };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
+        public override void DeleteOrder(int OrderId)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("Order") +
+                " WHERE OrderId = @OrderId";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("OrderId", OrderId));
+        }
+
+        // OrderProduct methods
         public override IDataReader GetOrderProducts(int OrderId)
         {
             string selCmd = "SELECT OrderProduct.OrderProductId, OrderProduct.OrderID,OrderProduct.ProductID,OrderProduct.Image, OrderProduct.ItemNo," +
@@ -2490,12 +2639,186 @@ namespace Bitboxx.DNNModules.BBStore
                  " OrderProduct.Name, OrderProduct.Quantity,OrderProduct.TaxPercent,OrderProduct.Unit,OrderProduct.UnitCost, OrderProduct.Description";
             return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
+        public override IDataReader GetOrderProductsByPortal(int PortalId)
+        {
+            string selCmd = "SELECT op.*" +
+                " FROM " + GetFullyQualifiedName("OrderProduct") + " op "+
+                " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON op.OrderId = o.OrderId" +
+                " WHERE o.PortalId = @PortalId" +
+                " ORDER BY op.OrderProductId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
+        }
+
+        public override IDataReader GetOrderProductsByPortalAndUser(int portalId, int userId)
+        {
+            string selCmd = "SELECT op.*" +
+                " FROM " + GetFullyQualifiedName("OrderProduct") + " op " +
+                " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON op.OrderId = o.OrderId" +
+                " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
+                " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                " ORDER BY op.OrderProductId DESC";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                    {
+                                            new SqlParameter("PortalId", portalId),
+                                            new SqlParameter("UserId", userId)
+                                    };
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, sqlParams);
+        }
+
+        public override int NewOrderProduct(OrderProductInfo OrderProduct)
+        {
+            string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("OrderProduct") +
+                            " (OrderID,ProductID,Image,ItemNo,Quantity,Name,Description,UnitCost,TaxPercent,Unit)" +
+                            " VALUES " +
+                            " (@OrderID,@ProductID,@Image,@ItemNo,@Quantity,@Name,@Description,@UnitCost,@TaxPercent,@Unit) SELECT CAST(scope_identity() AS INTEGER);";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderProductID", OrderProduct.OrderProductId),
+                                           new SqlParameter("OrderID", OrderProduct.OrderId),
+                                           new SqlParameter("ProductID", OrderProduct.ProductId),
+                                           new SqlParameter("Image", OrderProduct.Image),
+                                           new SqlParameter("ItemNo", OrderProduct.ItemNo),
+                                           new SqlParameter("Quantity", OrderProduct.Quantity),
+                                           new SqlParameter("Name", OrderProduct.Name),
+                                           new SqlParameter("Description", OrderProduct.Description),
+                                           new SqlParameter("UnitCost", OrderProduct.UnitCost),
+                                           new SqlParameter("TaxPercent", OrderProduct.TaxPercent),
+                                           new SqlParameter("Unit", OrderProduct.Unit)
+                                       };
+
+            return (int)SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
+        }
+        public override void UpdateOrderProduct(OrderProductInfo OrderProduct)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("OrderProduct") + " SET " +
+                            " OrderID = @OrderID," +
+                            " ProductID = @ProductID," +
+                            " Image = @Image," +
+                            " ItemNo = @ItemNo," +
+                            " Quantity = @Quantity," +
+                            " Name = @Name," +
+                            " Description = @Description," +
+                            " UnitCost = @UnitCost," +
+                            " TaxPercent = @TaxPercent," +
+                            " Unit = @Unit" +
+                            " WHERE OrderProductID = @OrderProductID";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderProductID", OrderProduct.OrderProductId),
+                                           new SqlParameter("OrderID", OrderProduct.OrderId),
+                                           new SqlParameter("ProductID", OrderProduct.ProductId),
+                                           new SqlParameter("Image", OrderProduct.Image),
+                                           new SqlParameter("ItemNo", OrderProduct.ItemNo),
+                                           new SqlParameter("Quantity", OrderProduct.Quantity),
+                                           new SqlParameter("Name", OrderProduct.Name),
+                                           new SqlParameter("Description", OrderProduct.Description),
+                                           new SqlParameter("UnitCost", OrderProduct.UnitCost),
+                                           new SqlParameter("TaxPercent", OrderProduct.TaxPercent),
+                                           new SqlParameter("Unit", OrderProduct.Unit)
+                                       };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
+        public override void DeleteOrderProduct(int OrderProductId)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("OrderProduct") +
+                " WHERE OrderProductId = @OrderProductId";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("OrderProductId", OrderProductId));
+        }
+
+        //OrderProductOption methods
         public override IDataReader GetOrderProductOptions(int OrderProductId)
         {
             string selCmd = "SELECT * FROM " + Prefix + "OrderProductOption " +
                 "WHERE OrderProductId = " + OrderProductId.ToString();
             return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
+        public override IDataReader GetOrderProductOptionsByPortal(int PortalId)
+        {
+            string selCmd = "SELECT opo.*" +
+                " FROM " + GetFullyQualifiedName("OrderProductOption") + " opo " +
+                " INNER JOIN " + GetFullyQualifiedName("OrderProduct") + " op ON op.OrderProductId = opo.OrderProductId" +
+                " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON o.OrderId = op.OrderId" +
+                " WHERE o.PortalId = @PortalId" +
+                " ORDER BY opo.OrderProductOptionId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
+        }
+
+        public override IDataReader GetOrderProductOptionsByPortalAndUser(int portalId, int userId)
+        {
+            string selCmd = "SELECT opo.*" +
+                " FROM " + GetFullyQualifiedName("OrderProductOption") + " opo " +
+                " INNER JOIN " + GetFullyQualifiedName("OrderProduct") + " op ON op.OrderProductId = opo.OrderProductId" +
+                " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON o.OrderId = op.OrderId" +
+                " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
+                " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                " ORDER BY opo.OrderProductOptionId DESC";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                    {
+                                            new SqlParameter("PortalId", portalId),
+                                            new SqlParameter("UserId", userId)
+                                    };
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, sqlParams);
+        }
+        public override int NewOrderProductOption(OrderProductOptionInfo OrderProductOption)
+        {
+            string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("OrderProductOption") +
+                            " (OrderProductID,OptionID,OptionName,OptionValue,Pricealteration,OptionDescription,OptionImage)" +
+                            " VALUES " +
+                            " (@OrderProductID,@OptionID,@OptionName,@OptionValue,@Pricealteration,@OptionDescription,@OptionImage) SELECT CAST(scope_identity() AS INTEGER);";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderProductOptionID", OrderProductOption.OrderProductOptionId),
+                                           new SqlParameter("OrderProductID", OrderProductOption.OrderProductId),
+                                           new SqlParameter("OptionID", OrderProductOption.OptionId),
+                                           new SqlParameter("OptionName", OrderProductOption.OptionName),
+                                           new SqlParameter("OptionValue", OrderProductOption.OptionValue),
+                                           new SqlParameter("Pricealteration", OrderProductOption.PriceAlteration),
+                                           new SqlParameter("OptionDescription", OrderProductOption.OptionDescription),
+                                           new SqlParameter("OptionImage", OrderProductOption.OptionImage ?? System.Data.SqlTypes.SqlBinary.Null)
+                                       };
+
+            return (int) SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
+        }
+        public override void UpdateOrderProductOption(OrderProductOptionInfo OrderProductOption)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("OrderProductOption") + " SET " +
+                            " OrderProductID = @OrderProductID," +
+                            " OptionID = @OptionID," +
+                            " OptionName = @OptionName," +
+                            " OptionValue = @OptionValue," +
+                            " Pricealteration = @Pricealteration," +
+                            " OptionDescription = @OptionDescription," +
+                            " OptionImage = @OptionImage" +
+                            " WHERE OrderProductOptionID = @OrderProductOptionID";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderProductOptionID", OrderProductOption.OrderProductOptionId),
+                                           new SqlParameter("OrderProductID", OrderProductOption.OrderProductId),
+                                           new SqlParameter("OptionID", OrderProductOption.OptionId),
+                                           new SqlParameter("OptionName", OrderProductOption.OptionName),
+                                           new SqlParameter("OptionValue", OrderProductOption.OptionValue),
+                                           new SqlParameter("Pricealteration", OrderProductOption.PriceAlteration),
+                                           new SqlParameter("OptionDescription", OrderProductOption.OptionDescription),
+                                           new SqlParameter("OptionImage", OrderProductOption.OptionImage ?? System.Data.SqlTypes.SqlBinary.Null)
+                                       };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
+        public override void DeleteOrderProductOption(int OrderProductOptionId)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("OrderProductOption") +
+                " WHERE OrderProductOptionId = @OrderProductOptionId";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("OrderProductOptionId", OrderProductOptionId));
+        }
+
+
+        // OrderAdditionalCosts methods
         public override IDataReader GetOrderAdditionalCosts(int OrderId)
         {
             string selCmd = "SELECT *," +
@@ -2507,6 +2830,87 @@ namespace Bitboxx.DNNModules.BBStore
 
             return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
+        public override IDataReader GetOrderAdditionalCostsByPortal(int PortalId)
+        {
+            string selCmd = "SELECT oac.*" +
+                " FROM " + GetFullyQualifiedName("OrderAdditionalCost") + " oac " +
+                " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON oac.OrderId = o.OrderId" +
+                " WHERE o.PortalId = @PortalId" +
+                " ORDER BY oac.OrderAdditionalCostId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
+        }
+
+        public override IDataReader GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId)
+        {
+            string selCmd = "SELECT oac.*" +
+                " FROM " + GetFullyQualifiedName("OrderAdditionalCost") + " oac " +
+                " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON oac.OrderId = o.OrderId" +
+                " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
+                " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                " ORDER BY oac.OrderAdditionalCostId DESC";
+            SqlParameter[] sqlParams = new SqlParameter[]
+                                    {
+                                            new SqlParameter("PortalId", portalId),
+                                            new SqlParameter("UserId", userId)
+                                    };
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, sqlParams);
+        }
+        public override int NewOrderAdditionalCost(OrderAdditionalCostInfo OrderAdditionalCost)
+        {
+            string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("OrderAdditionalCost") +
+                            " (OrderID,Quantity,Name,Description,UnitCost,TaxPercent,Area)" +
+                            " VALUES " +
+                            " (@OrderID,@Quantity,@Name,@Description,@UnitCost,@TaxPercent,@Area) SELECT CAST(scope_identity() AS INTEGER);";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderAdditionalCostID", OrderAdditionalCost.OrderAdditionalCostId),
+                                           new SqlParameter("OrderID", OrderAdditionalCost.OrderId),
+                                           new SqlParameter("Quantity", OrderAdditionalCost.Quantity),
+                                           new SqlParameter("Name", OrderAdditionalCost.Name),
+                                           new SqlParameter("Description", OrderAdditionalCost.Description),
+                                           new SqlParameter("UnitCost", OrderAdditionalCost.UnitCost),
+                                           new SqlParameter("TaxPercent", OrderAdditionalCost.TaxPercent),
+                                           new SqlParameter("Area", OrderAdditionalCost.Area)
+                                       };
+
+            return (int) SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
+        }
+        public override void UpdateOrderAdditionalCost(OrderAdditionalCostInfo OrderAdditionalCost)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("OrderAdditionalCost") + " SET " +
+                            " OrderID = @OrderID," +
+                            " Quantity = @Quantity," +
+                            " Name = @Name," +
+                            " Description = @Description," +
+                            " UnitCost = @UnitCost," +
+                            " TaxPercent = @TaxPercent," +
+                            " Area = @Area" +
+                            " WHERE OrderAdditionalCostID = @OrderAdditionalCostID";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderAdditionalCostID", OrderAdditionalCost.OrderAdditionalCostId),
+                                           new SqlParameter("OrderID", OrderAdditionalCost.OrderId),
+                                           new SqlParameter("Quantity", OrderAdditionalCost.Quantity),
+                                           new SqlParameter("Name", OrderAdditionalCost.Name),
+                                           new SqlParameter("Description", OrderAdditionalCost.Description),
+                                           new SqlParameter("UnitCost", OrderAdditionalCost.UnitCost),
+                                           new SqlParameter("TaxPercent", OrderAdditionalCost.TaxPercent),
+                                           new SqlParameter("Area", OrderAdditionalCost.Area)
+                                       };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
+        public override void DeleteOrderAdditionalCost(int OrderAdditionalCostId)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("OrderAdditionalCost") +
+                " WHERE OrderAdditionalCostId = @OrderAdditionalCostId";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("OrderAdditionalCostId", OrderAdditionalCostId));
+        }
+
+        // OrderAdresses
+
         public override IDataReader GetOrderAddresses(int orderId, string language)
         {
             string sqlCmd = "SELECT oa.*, ISNULL(satl.AddressType,'') as AddressType " +
@@ -2523,6 +2927,130 @@ namespace Bitboxx.DNNModules.BBStore
             
             return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
         }
+
+        public override IDataReader GetOrderAddressesByPortal(int portalId)
+        {
+            string sqlCmd = "SELECT oa.* FROM " + GetFullyQualifiedName("OrderAddress") + " oa " +
+                            " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON oa.OrderId = o.OrderId" +
+                            " WHERE o.PortalId = @PortalId";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                {
+                    new SqlParameter("PortalId",portalId),
+                };
+
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
+        public override IDataReader GetOrderAddressesByPortalAndUser(int portalId, int userId)
+        {
+            string sqlCmd = "SELECT oa.* FROM " + GetFullyQualifiedName("OrderAddress") + " oa " +
+                            " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON oa.OrderId = o.OrderId" +
+                            " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
+                            " WHERE o.PortalId = @PortalId AND c.UserId = @UserId";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                {
+                    new SqlParameter("PortalId",portalId),
+                    new SqlParameter("UserId",userId)
+                };
+
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
+
+        public override int NewOrderAddress(OrderAddressInfo OrderAddress)
+        {
+            string insCmd = "SET NOCOUNT ON INSERT INTO " + GetFullyQualifiedName("OrderAddress") +
+                " (PortalID,OrderID,CustomerAddressID,SubscriberAddressTypeId,Company,Prefix,Firstname,Middlename,Lastname,Suffix,Unit,Street,Region,Postalcode,City,Suburb,Country,Countrycode,Telephone,Cell,Fax,Email)" +
+                " VALUES " +
+                " (@PortalID,@OrderID,@CustomerAddressID,@SubscriberAddressTypeId,@Company,@Prefix,@Firstname,@Middlename,@Lastname,@Suffix,@Unit,@Street,@Region,@Postalcode,@City,@Suburb,@Country,@Countrycode,@Telephone,@Cell,@Fax,@Email) SELECT CAST(scope_identity() AS INTEGER);";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderAddressID", OrderAddress.OrderAddressId),
+                                           new SqlParameter("PortalID", OrderAddress.PortalId),
+                                           new SqlParameter("OrderID", OrderAddress.OrderId),
+                                           new SqlParameter("CustomerAddressID", OrderAddress.CustomerAddressId),
+                                           new SqlParameter("SubscriberAddressTypeId", OrderAddress.SubscriberAddressTypeId),
+                                           new SqlParameter("Company", OrderAddress.Company),
+                                           new SqlParameter("Prefix", OrderAddress.Prefix),
+                                           new SqlParameter("Firstname", OrderAddress.Firstname),
+                                           new SqlParameter("Middlename", OrderAddress.Middlename),
+                                           new SqlParameter("Lastname", OrderAddress.Lastname),
+                                           new SqlParameter("Suffix", OrderAddress.Suffix),
+                                           new SqlParameter("Unit", OrderAddress.Unit),
+                                           new SqlParameter("Street", OrderAddress.Street),
+                                           new SqlParameter("Region", OrderAddress.Region),
+                                           new SqlParameter("Postalcode", OrderAddress.PostalCode),
+                                           new SqlParameter("City", OrderAddress.City),
+                                           new SqlParameter("Suburb", OrderAddress.Suburb),
+                                           new SqlParameter("Country", OrderAddress.Country),
+                                           new SqlParameter("Countrycode", OrderAddress.CountryCode),
+                                           new SqlParameter("Telephone", OrderAddress.Telephone),
+                                           new SqlParameter("Cell", OrderAddress.Cell),
+                                           new SqlParameter("Fax", OrderAddress.Fax),
+                                           new SqlParameter("Email", OrderAddress.Email)
+                                       };
+
+            return (int)SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
+        }
+        public override void UpdateOrderAddress(OrderAddressInfo OrderAddress)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("OrderAddress") + " SET " +
+                " PortalID = @PortalID," +
+                " OrderID = @OrderID," +
+                " CustomerAddressID = @CustomerAddressID," +
+                " SubscriberAddressTypeId = @SubscriberAddressTypeId," +
+                " Company = @Company," +
+                " Prefix = @Prefix," +
+                " Firstname = @Firstname," +
+                " Middlename = @Middlename," +
+                " Lastname = @Lastname," +
+                " Suffix = @Suffix," +
+                " Unit = @Unit," +
+                " Street = @Street," +
+                " Region = @Region," +
+                " Postalcode = @Postalcode," +
+                " City = @City," +
+                " Suburb = @Suburb," +
+                " Country = @Country," +
+                " Countrycode = @Countrycode," +
+                " Telephone = @Telephone," +
+                " Cell = @Cell," +
+                " Fax = @Fax," +
+                " Email = @Email" +
+                " WHERE OrderAddressID = @OrderAddressID";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderAddressID", OrderAddress.OrderAddressId),
+                                           new SqlParameter("PortalID", OrderAddress.PortalId),
+                                           new SqlParameter("OrderID", OrderAddress.OrderId),
+                                           new SqlParameter("CustomerAddressID", OrderAddress.CustomerAddressId),
+                                           new SqlParameter("SubscriberAddressTypeId", OrderAddress.SubscriberAddressTypeId),
+                                           new SqlParameter("Company", OrderAddress.Company),
+                                           new SqlParameter("Prefix", OrderAddress.Prefix),
+                                           new SqlParameter("Firstname", OrderAddress.Firstname),
+                                           new SqlParameter("Middlename", OrderAddress.Middlename),
+                                           new SqlParameter("Lastname", OrderAddress.Lastname),
+                                           new SqlParameter("Suffix", OrderAddress.Suffix),
+                                           new SqlParameter("Unit", OrderAddress.Unit),
+                                           new SqlParameter("Street", OrderAddress.Street),
+                                           new SqlParameter("Region", OrderAddress.Region),
+                                           new SqlParameter("Postalcode", OrderAddress.PostalCode),
+                                           new SqlParameter("City", OrderAddress.City),
+                                           new SqlParameter("Suburb", OrderAddress.Suburb),
+                                           new SqlParameter("Country", OrderAddress.Country),
+                                           new SqlParameter("Countrycode", OrderAddress.CountryCode),
+                                           new SqlParameter("Telephone", OrderAddress.Telephone),
+                                           new SqlParameter("Cell", OrderAddress.Cell),
+                                           new SqlParameter("Fax", OrderAddress.Fax),
+                                           new SqlParameter("Email", OrderAddress.Email)
+                                       };
+
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
         public override bool HasOrderAddress(int customerAddressId)
         {
             string sqlCmd = "SELECT COUNT(*) FROM " + GetFullyQualifiedName("OrderAddress") +
@@ -2531,6 +3059,14 @@ namespace Bitboxx.DNNModules.BBStore
             return (anz > 0);
         }
 
+        public override void DeleteOrderAddress(int orderAddressId)
+        {
+            string delCmd = "DELETE FROM " + GetFullyQualifiedName("OrderAddress") +
+                " WHERE OrderAddressId = @OrderAddressId";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, delCmd, new SqlParameter("OrderAddressId", orderAddressId));
+        }
+
+        // OrderStats
         public override IDataReader GetOrderStats(DateTime startDate, DateTime endDate)
         {
             string sqlCmd = "SELECT count(*) as Amount, SUM(UnitCost) as [Sum] , Name as [Product]" +
@@ -2547,7 +3083,7 @@ namespace Bitboxx.DNNModules.BBStore
             return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
         }
 
-
+ 
         // OrderStates methods
         public override IDataReader GetOrderStates(int portalId)
         {
@@ -2558,7 +3094,6 @@ namespace Bitboxx.DNNModules.BBStore
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId",portalId));
 
         }
-
         public override IDataReader GetOrderStates(int portalId, string language)
         {
             string selCmd = "SELECT DISTINCT OrderState.OrderStateId, OrderState.OrderAction, OrderState.PortalId, Lang.OrderState" +
@@ -2569,7 +3104,6 @@ namespace Bitboxx.DNNModules.BBStore
 
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId",portalId), new SqlParameter("Language",language));
         }
-
         public override void SetOrderState(int orderId,int orderStateId)
         {
             string sqlCmd = "UPDATE " + GetFullyQualifiedName("Order") + " SET" +
@@ -5854,7 +6388,7 @@ namespace Bitboxx.DNNModules.BBStore
         public override void DeleteImportRelationByStore(int PortalId, Guid storeGuid)
         {
             string sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
-                " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid";
+                " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid AND TableName <> 'USER'";
 
             SqlParameter[] param = new SqlParameter[]
                                        {

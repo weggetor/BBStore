@@ -32,8 +32,17 @@ namespace Bitboxx.DNNModules.BBStore
             ProductGroupListItem = new List<ProductGroupListItemInfo>();
             Unit= new List<UnitInfo>();
             UnitLang = new List<UnitLangInfo>();
-
+            Order = new List<OrderInfo>();
+            OrderProduct = new List<OrderProductInfo>();
+            OrderProductOption = new List<OrderProductOptionInfo>();
+            OrderAdditionalCost = new List<OrderAdditionalCostInfo>();
+            OrderAddress = new List<OrderAddressInfo>();
+            Customer = new List<CustomerInfo>();
+            SubscriberAddressType = new List<SubscriberAddressTypeInfo>();
+            SubscriberAddressTypeLang = new List<SubscriberAddressTypeLangInfo>();
         }
+
+    
         [DataMember()]
         public Guid StoreGuid { get; set; }
         [DataMember()]
@@ -74,6 +83,23 @@ namespace Bitboxx.DNNModules.BBStore
         public List<UnitInfo> Unit { get; set; }
         [DataMember()]
         public List<UnitLangInfo> UnitLang { get; set; }
+        [DataMember()]
+        public List<OrderInfo> Order { get; set; }
+        [DataMember()]
+        public List<OrderProductInfo> OrderProduct { get; set; }
+        [DataMember()]
+        public List<OrderProductOptionInfo> OrderProductOption { get; set; }
+        [DataMember()]
+        public List<OrderAdditionalCostInfo> OrderAdditionalCost { get; set; }
+        [DataMember()]
+        public List<OrderAddressInfo> OrderAddress { get; set; }
+        [DataMember()]
+        public List<CustomerInfo> Customer { get; set; }
+        [DataMember()]
+        public List<SubscriberAddressTypeInfo> SubscriberAddressType { get; set; }
+        [DataMember()]
+        public List<SubscriberAddressTypeLangInfo> SubscriberAddressTypeLang { get; set; }
+
 
     }
 }

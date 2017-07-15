@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace Bitboxx.DNNModules.BBStore
 {
+    [Serializable()]
+    [DataContract()]
     public class SubscriberAddressTypeInfo
     {
-		public SubscriberAddressTypeInfo()
+        
+        public SubscriberAddressTypeInfo()
         {
 			SubscriberAddressTypeId = -1;
             PortalId = 0;
@@ -18,13 +22,21 @@ namespace Bitboxx.DNNModules.BBStore
 			ViewOrder = 0;
 		    IsOrderAddress = false;
         }
+        [DataMember()]
         public int SubscriberAddressTypeId { get; set; }
+        [DataMember()]
         public int PortalId { get; set; }
+        [DataMember()]
         public int SubscriberId { get; set; }
+        [DataMember()]
         public string KzAddressType { get; set; }
+        [DataMember()]
         public bool Mandatory { get; set; }
+        [DataMember()]
         public string AddressType { get; set; }
-		public int ViewOrder { get; set; }
+        [DataMember()]
+        public int ViewOrder { get; set; }
+        [DataMember()]
         public bool IsOrderAddress { get; set; }
     }
 }

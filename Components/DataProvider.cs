@@ -118,7 +118,9 @@ namespace Bitboxx.DNNModules.BBStore
 
         // Customer methods
 		public abstract IDataReader GetCustomersByUserId(int PortalId, int UserId);
-		public abstract IDataReader GetCustomerById(int CustomerId);
+        public abstract IDataReader GetCustomersByPortal(int PortalId);
+        public abstract IDataReader GetCustomersByPortalAndUser(int portalId, int userId);
+        public abstract IDataReader GetCustomerById(int CustomerId);
         public abstract int NewCustomer(CustomerInfo Customer);
 		public abstract void UpdateCustomer(CustomerInfo Customer);
 	    public abstract int SaveCustomer(CustomerInfo Customer);
@@ -228,27 +230,64 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract void DeleteCustomerPaymentProvider(int CustomerPaymentProviderId);
 
 		// SubscriberAddressType methods
-        public abstract IDataReader GetSubscriberAddressTypes(int portalId);
+        public abstract IDataReader GetSubscriberAddressTypesByPortal(int portalId);
 		public abstract IDataReader GetSubscriberAddressTypes(int portalId, int subscriberId, string language);
 		public abstract IDataReader GetSubscriberAddressType(int portalId, int subscriberId, string kzAddressType, string language);
 		public abstract IDataReader GetSubscriberAddressType(int subscriberAddressTypeId, string language);
         public abstract int NewSubscriberAddressType(SubscriberAddressTypeInfo subscriberAddressType);
         public abstract void UpdateSubscriberAddressType(SubscriberAddressTypeInfo subscriberAddressType);
+        public abstract void DeleteSubscriberAddressType(int SubscriberAddressTypeId);
 
         // SubscriberAddressTypeLangs methods
         public abstract IDataReader GetSubscriberAddressTypeLangs(int subscriberAddressTypeId);
+        public abstract IDataReader GetSubscriberAddressTypeLangsByPortal(int portalId);
         public abstract void NewSubscriberAddressTypeLang(SubscriberAddressTypeLangInfo subscriberAddressTypelang);
-		
-		// Order methods
+        public abstract void DeleteSubscriberAddressTypeLang(int SubscriberAddressTypeId, string language);
+
+        // Order methods
         public abstract int SaveOrder(Guid CartId, int PortalId, string numberMask, bool isTaxfree);
         public abstract IDataReader GetOrder(int OrderId);
     	public abstract IDataReader GetOrders(int PortalId, string Language, string Sort, string Filter);
+        public abstract IDataReader GetOrdersByPortal(int PortalId);
+        public abstract IDataReader GetOrdersByPortalAndUser(int PortalId, int userid);
+        public abstract int NewOrder(OrderInfo Order);
+        public abstract void UpdateOrder(OrderInfo Order);
+        public abstract void DeleteOrder(int OrderId);
+
+        // OrderProduct methods
         public abstract IDataReader GetOrderProducts(int OrderId);
+        public abstract IDataReader GetOrderProductsByPortal(int PortalId);
+        public abstract IDataReader GetOrderProductsByPortalAndUser(int PortalId, int userId);
+        public abstract int NewOrderProduct(OrderProductInfo OrderProduct);
+        public abstract void UpdateOrderProduct(OrderProductInfo OrderProduct);
+        public abstract void DeleteOrderProduct(int OrderProductId);
+
+        // OrderProductOption methods
         public abstract IDataReader GetOrderProductOptions(int OrderProductId);
+        public abstract IDataReader GetOrderProductOptionsByPortal(int PortalId);
+        public abstract IDataReader GetOrderProductOptionsByPortalAndUser(int PortalId, int userId);
+        public abstract int NewOrderProductOption(OrderProductOptionInfo OrderProductOption);
+        public abstract void UpdateOrderProductOption(OrderProductOptionInfo OrderProductOption);
+        public abstract void DeleteOrderProductOption(int OrderProductOptionId);
+
+        // OrderAdditionalCosts methods
         public abstract IDataReader GetOrderAdditionalCosts(int OrderId);
+        public abstract IDataReader GetOrderAdditionalCostsByPortal(int PortalId);
+        public abstract IDataReader GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId);
+        public abstract int NewOrderAdditionalCost(OrderAdditionalCostInfo OrderAdditionalCost);
+        public abstract void UpdateOrderAdditionalCost(OrderAdditionalCostInfo OrderAdditionalCost);
+        public abstract void DeleteOrderAdditionalCost(int OrderAdditionalCostId);
+
+        // OrderAddresses methods
         public abstract IDataReader GetOrderAddresses(int orderId, string language);
+        public abstract IDataReader GetOrderAddressesByPortal(int portalId);
+        public abstract IDataReader GetOrderAddressesByPortalAndUser(int portalId, int userId);
         public abstract IDataReader GetOrderStats(DateTime startDate, DateTime endDate);
+        public abstract int NewOrderAddress(OrderAddressInfo OrderAddress);
+        public abstract void UpdateOrderAddress(OrderAddressInfo OrderAddress);
         public abstract bool HasOrderAddress(int customerAddressId);
+        public abstract void DeleteOrderAddress(int OrderAddressId);
+
 
         // OrderState methods
         public abstract IDataReader GetOrderStates(int portalId);

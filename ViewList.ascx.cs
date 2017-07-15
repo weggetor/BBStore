@@ -471,7 +471,12 @@ namespace Bitboxx.DNNModules.BBStore
 						else if (productGroupId > -1)
 						{
 							ProductGroupInfo pg = Controller.GetProductGroup(PortalId, CurrentLanguage, productGroupId);
-							productGroupPath = pg.ProductGroupName;
+						    if (pg == null)
+						    {
+						        productGroupPath = "";
+						    }
+						    else
+						        productGroupPath = pg.ProductGroupName;
 						}
 					}
 

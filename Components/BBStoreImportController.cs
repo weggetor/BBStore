@@ -59,6 +59,14 @@ namespace Bitboxx.DNNModules.BBStore
             bbStore.ProductGroupListItem = GetProductGroupListItems(portalId, storeGuid);
             bbStore.Unit = GetUnits(portalId, storeGuid);
             bbStore.UnitLang = GetUnitLangs(portalId, storeGuid);
+            bbStore.Order = GetOrders(portalId, storeGuid);
+            bbStore.OrderProduct = GetOrderProducts(portalId, storeGuid);
+            bbStore.OrderProductOption = GetOrderProductOptions(portalId, storeGuid);
+            bbStore.OrderAdditionalCost = GetOrderAdditionalCosts(portalId, storeGuid);
+            bbStore.OrderAddress = GetOrderAddresses(portalId, storeGuid);
+            bbStore.Customer = GetCustomers(portalId, storeGuid);
+            bbStore.SubscriberAddressType = GetSubscriberAddressTypes(portalId, storeGuid);
+            bbStore.SubscriberAddressTypeLang = GetSubscriberAddressTypeLangs(portalId, storeGuid);
 
             return bbStore;
         }
@@ -69,6 +77,14 @@ namespace Bitboxx.DNNModules.BBStore
 
             SaveImportStore(storeGuid, bbStore.StoreName);
 
+            foreach (UnitInfo unit in bbStore.Unit)
+            {
+                SaveUnit(portalId, unit, storeGuid);
+            }
+            foreach (UnitLangInfo unitLang in bbStore.UnitLang)
+            {
+                SaveUnitLang(portalId, unitLang, storeGuid);
+            }
             foreach (ProductGroupInfo productGroup in bbStore.ProductGroup)
             {
                 SaveProductGroup(portalId, productGroup, storeGuid);
@@ -142,19 +158,46 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 SaveProductGroupListItem(portalId, productGroupListItem.ProductGroupId, productGroupListItem.FeatureListItemId, storeGuid);
             }
-            foreach (UnitInfo unit in bbStore.Unit)
+
+            foreach (CustomerInfo customer in bbStore.Customer)
             {
-                SaveUnit(portalId, unit, storeGuid);
+                SaveCustomer(portalId, customer, storeGuid);
             }
-            foreach (UnitLangInfo unitLang in bbStore.UnitLang)
+
+            foreach (OrderInfo order in bbStore.Order)
             {
-                SaveUnitLang(portalId, unitLang, storeGuid);
+                SaveOrder(portalId, order, storeGuid);
             }
+            foreach (OrderProductInfo orderProduct in bbStore.OrderProduct)
+            {
+                SaveOrderProduct(portalId, orderProduct, storeGuid);
+            }
+            foreach (OrderProductOptionInfo orderProductOption in bbStore.OrderProductOption)
+            {
+                SaveOrderProductOption(portalId, orderProductOption, storeGuid);
+            }
+            foreach (OrderAdditionalCostInfo orderAdditionalCost in bbStore.OrderAdditionalCost)
+            {
+                SaveOrderAdditionalCost(portalId, orderAdditionalCost, storeGuid);
+            }
+            foreach (SubscriberAddressTypeInfo subscriberAddressType in bbStore.SubscriberAddressType)
+            {
+                SaveSubscriberAddressType(portalId, subscriberAddressType, storeGuid);
+            }
+            foreach (SubscriberAddressTypeLangInfo subscriberAddressTypeLang in bbStore.SubscriberAddressTypeLang)
+            {
+                SaveSubscriberAddressTypeLang(portalId, subscriberAddressTypeLang, storeGuid);
+            }
+            foreach (OrderAddressInfo orderAddress in bbStore.OrderAddress)
+            {
+                SaveOrderAddress(portalId, orderAddress, storeGuid);
+            }
+
+
             // Deletion of Products no more used
             // bbstore.Product is ID-converted because of the routines running before
             List<int> allProducts = GetImportRelationForeignIdsByTable(portalId, "PRODUCT", storeGuid);
             List<int> newProducts = (from p in bbStore.Product select p.SimpleProductId).ToList<int>();
-
             List<int> deleteProducts = allProducts.Except(newProducts).ToList();
             foreach (int deleteProduct in deleteProducts)
             {
@@ -175,6 +218,13 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteFeatureLists(portalId,storeGuid);
             DeleteProductGroups(portalId,storeGuid);
             DeleteUnits(portalId, storeGuid);
+            DeleteSubscriberAddressTypes(portalId, storeGuid);
+            DeleteOrderAdditionalCosts(portalId, storeGuid);
+            DeleteOrderProductOptions(portalId, storeGuid);
+            DeleteOrderProducts(portalId, storeGuid);
+            DeleteOrders(portalId, storeGuid);
+            DeleteCustomers(portalId, storeGuid);
+            DeleteOrderAddresses(portalId, storeGuid);
             DeleteImportRelationByStore(portalId,storeGuid);
             Controller.ReseedTables();
             DeleteEmptyImageDirectories(portalId);
@@ -338,38 +388,49 @@ namespace Bitboxx.DNNModules.BBStore
 
         public void DeleteProductImages(int portalId, int productId, Guid storeGuid)
         {
-            int ownId = GetImportRelationOwnId(portalId, "PRODUCT", productId, storeGuid);
-            if (ownId < 0)
-                throw new KeyNotFoundException(String.Format("DeleteProductImages: ProductId {0} not found in ImportRelation",productId));
-
-
-            // Retrieve product
-            SimpleProductInfo product = Controller.GetSimpleProductByProductId(portalId, ownId);
-
-            if (!String.IsNullOrEmpty(product.Image))
+            try
             {
-                PortalController pc = new PortalController();
-                PortalInfo pi = pc.GetPortal(portalId);
-                FileInfo fi = new FileInfo(pi.HomeDirectoryMapPath + product.Image.Replace("/", "\\"));
-                string folderPath = product.Image.Replace("\\", "/").Replace(fi.Name, "");
+                int ownId = GetImportRelationOwnId(portalId, "PRODUCT", productId, storeGuid);
+                if (ownId < 0)
+                    throw new KeyNotFoundException(String.Format("DeleteProductImages: ProductId {0} not found in ImportRelation", productId));
 
-                try
+
+                // Retrieve product
+                SimpleProductInfo product = Controller.GetSimpleProductByProductId(portalId, ownId);
+
+                if (!String.IsNullOrEmpty(product.Image))
                 {
-                    IFolderInfo folder = FolderManager.Instance.GetFolder(portalId, folderPath);
-                    if (folder != null)
+                    PortalController pc = new PortalController();
+                    PortalInfo pi = pc.GetPortal(portalId);
+                    FileInfo fi = new FileInfo(pi.HomeDirectoryMapPath + product.Image.Replace("/", "\\"));
+                    if (String.IsNullOrEmpty(fi.Name))
+                        return;
+
+                    string folderPath = product.Image.Replace("\\", "/").Replace(fi.Name, "");
+
+                    try
                     {
-                        List<IFileInfo> files = FolderManager.Instance.GetFiles(folder).ToList();
-                        foreach (IFileInfo file in files)
+                        IFolderInfo folder = FolderManager.Instance.GetFolder(portalId, folderPath);
+                        if (folder != null)
                         {
-                            FileManager.Instance.DeleteFile(file);
+                            List<IFileInfo> files = FolderManager.Instance.GetFiles(folder).ToList();
+                            foreach (IFileInfo file in files)
+                            {
+                                FileManager.Instance.DeleteFile(file);
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    throw new IOException(string.Format("DeleteProductImages: Error when deleting Files or Folder: {0}", ex.ToString()));
+                    catch (Exception ex)
+                    {
+                        throw new IOException(string.Format("DeleteProductImages: Error when deleting Files or Folder: {0}", ex.ToString()));
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
         }
 
         public void DeleteProductImagesAll(int portalId)
@@ -399,6 +460,76 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 DeleteProductImages(portalId,foreignId,storeGuid);
             }
+        }
+
+        public void DeleteOrderAdditionalCosts(int portalId, Guid storeGuid)
+        {
+            List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDERADDITIONALCOST", storeGuid);
+            foreach (int ownId in ownIds)
+            {
+                Controller.DeleteOrderAdditionalCost(ownId);
+            }
+            DeleteImportRelationByTable(portalId, "ORDERADDITIONALCOST", storeGuid);
+        }
+
+        public void DeleteOrderProductOptions(int portalId, Guid storeGuid)
+        {
+            List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDERPRODUCTOPTION", storeGuid);
+            foreach (int ownId in ownIds)
+            {
+                Controller.DeleteOrderProductOption(ownId);
+            }
+            DeleteImportRelationByTable(portalId, "ORDERPRODUCTOPTION", storeGuid);
+        }
+
+        public void DeleteOrderProducts(int portalId, Guid storeGuid)
+        {
+            List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDERPRODUCT", storeGuid);
+            foreach (int ownId in ownIds)
+            {
+                Controller.DeleteOrderProduct(ownId);
+            }
+            DeleteImportRelationByTable(portalId, "ORDERPRODUCT", storeGuid);
+        }
+
+        public void DeleteOrders(int portalId, Guid storeGuid)
+        {
+            List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDER", storeGuid);
+            foreach (int ownId in ownIds)
+            {
+                Controller.DeleteOrder(ownId);
+            }
+            DeleteImportRelationByTable(portalId, "ORDER", storeGuid);
+        }
+
+        public void DeleteCustomers(int portalId, Guid storeGuid)
+        {
+            List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "CUSTOMER", storeGuid);
+            foreach (int ownId in ownIds)
+            {
+                Controller.DeleteCustomer(ownId);
+            }
+            DeleteImportRelationByTable(portalId, "CUSTOMER", storeGuid);
+        }
+
+        public void DeleteOrderAddresses(int portalId, Guid storeGuid)
+        {
+            List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDERADDRESS", storeGuid);
+            foreach (int ownId in ownIds)
+            {
+                Controller.DeleteOrderAddress(ownId);
+            }
+            DeleteImportRelationByTable(portalId, "ORDERADDRESS", storeGuid);
+        }
+
+        public void DeleteSubscriberAddressTypes(int portalId, Guid storeGuid)
+        {
+            List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "SUBSCRIBERADDRESSTYPE", storeGuid);
+            foreach (int ownId in ownIds)
+            {
+                Controller.DeleteSubscriberAddressType(ownId);
+            }
+            DeleteImportRelationByTable(portalId, "SUBSCRIBERADDRESSTYPE", storeGuid);
         }
 
         public ProductGroupInfo GetProductGroupByName(int portalId, string language, string productGroupName, Guid storeGuid)
@@ -582,7 +713,7 @@ namespace Bitboxx.DNNModules.BBStore
 
         public List<FeatureListLangInfo> GetFeatureListsLangs(int portalId, Guid storeGuid)
         {
-            List<FeatureListLangInfo> featureListsLangs = Controller.GetFeatureListLangs(portalId);
+            List<FeatureListLangInfo> featureListsLangs = Controller.GetFeatureListLangsByPortal(portalId);
             if (storeGuid == BBStoreController.StoreGuid)
                 return featureListsLangs;
 
@@ -624,7 +755,7 @@ namespace Bitboxx.DNNModules.BBStore
 
         public List<FeatureListItemLangInfo> GetFeatureListItemsLangs(int portalId, Guid storeGuid)
         {
-            List<FeatureListItemLangInfo> featureListItemsLangs = Controller.GetFeatureListItemLangs(portalId);
+            List<FeatureListItemLangInfo> featureListItemsLangs = Controller.GetFeatureListItemLangsByPortal(portalId);
             if (storeGuid == BBStoreController.StoreGuid)
                 return featureListItemsLangs;
 
@@ -800,6 +931,171 @@ namespace Bitboxx.DNNModules.BBStore
             return result;
         }
 
+        private List<OrderInfo> GetOrders(int portalId, Guid storeGuid)
+        {
+            List<OrderInfo> orders = Controller.GetOrdersByPortal(portalId);
+            if (storeGuid == BBStoreController.StoreGuid)
+                return orders;
+
+            List<OrderInfo> result = new List<OrderInfo>();
+            foreach (OrderInfo order in orders)
+            {
+                int orderId = GetImportRelationForeignId(portalId, "ORDER", order.OrderID, storeGuid);
+                if (orderId > -1)
+                {
+                    order.OrderID = orderId;
+                    result.Add(order);
+                }
+            }
+            return result;
+        }
+
+        private List<OrderProductInfo> GetOrderProducts(int portalId, Guid storeGuid)
+        {
+            List<OrderProductInfo> orderProducts = Controller.GetOrderProductsByPortal(portalId);
+            if (storeGuid == BBStoreController.StoreGuid)
+                return orderProducts;
+
+            List<OrderProductInfo> result = new List<OrderProductInfo>();
+            foreach (OrderProductInfo orderProduct in orderProducts)
+            {
+                int orderProductId = GetImportRelationForeignId(portalId, "ORDERPRODUCT", orderProduct.OrderProductId, storeGuid);
+                int orderId = GetImportRelationForeignId(portalId, "ORDER", orderProduct.OrderId, storeGuid);
+                if (orderId > -1 && orderProductId > -1)
+                {
+                    orderProduct.OrderId = orderId;
+                    orderProduct.OrderProductId = orderProductId;
+                    result.Add(orderProduct);
+                }
+            }
+            return result;
+        }
+
+        private List<OrderProductOptionInfo> GetOrderProductOptions(int portalId, Guid storeGuid)
+        {
+            List<OrderProductOptionInfo> orderProductOptions = Controller.GetOrderProductOptionsByPortal(portalId);
+            if (storeGuid == BBStoreController.StoreGuid)
+                return orderProductOptions;
+
+            List<OrderProductOptionInfo> result = new List<OrderProductOptionInfo>();
+            foreach (OrderProductOptionInfo orderProductOption in orderProductOptions)
+            {
+                int orderProductOptionId = GetImportRelationForeignId(portalId, "ORDERPRODUCTOPTION", orderProductOption.OrderProductOptionId, storeGuid);
+                int orderProductId = GetImportRelationForeignId(portalId, "ORDERPRODUCT", orderProductOption.OrderProductId, storeGuid);
+                if (orderProductId > -1 && orderProductOptionId > -1)
+                {
+                    orderProductOption.OrderProductOptionId = orderProductOptionId;
+                    orderProductOption.OrderProductId = orderProductId;
+                    result.Add(orderProductOption);
+                }
+            }
+            return result;
+        }
+
+        private List<OrderAdditionalCostInfo> GetOrderAdditionalCosts(int portalId, Guid storeGuid)
+        {
+            List<OrderAdditionalCostInfo> orderadditionalCosts = Controller.GetOrderAdditionalCostsByPortal(portalId);
+            if (storeGuid == BBStoreController.StoreGuid)
+                return orderadditionalCosts;
+
+            List<OrderAdditionalCostInfo> result = new List<OrderAdditionalCostInfo>();
+            foreach (OrderAdditionalCostInfo orderadditionalCost in orderadditionalCosts)
+            {
+                int orderadditionalCostId = GetImportRelationForeignId(portalId, "ORDERADDITIONALCOST", orderadditionalCost.OrderAdditionalCostId, storeGuid);
+                int orderId = GetImportRelationForeignId(portalId, "ORDER", orderadditionalCost.OrderId, storeGuid);
+                if (orderId > -1 && orderadditionalCostId > -1)
+                {
+                    orderadditionalCost.OrderId = orderId;
+                    orderadditionalCost.OrderAdditionalCostId = orderadditionalCostId;
+                    result.Add(orderadditionalCost);
+                }
+            }
+            return result;
+        }
+
+        private List<OrderAddressInfo> GetOrderAddresses(int portalId, Guid storeGuid)
+        {
+            List<OrderAddressInfo> orderAddresses = Controller.GetOrderAddressesByPortal(portalId);
+            if (storeGuid == BBStoreController.StoreGuid)
+                return orderAddresses;
+
+            List<OrderAddressInfo> result = new List<OrderAddressInfo>();
+            foreach (OrderAddressInfo orderAddress in orderAddresses)
+            {
+                int orderAddressId = GetImportRelationForeignId(portalId, "ORDERADDRESS", orderAddress.OrderAddressId, storeGuid);
+                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYPE", orderAddress.SubscriberAddressTypeId, storeGuid);
+                int orderId = GetImportRelationForeignId(portalId, "ORDER", orderAddress.OrderId, storeGuid);
+                if (orderId > -1 && subscriberAddressTypeId > -1 && orderAddressId > -1)
+                {
+                    orderAddress.OrderId = orderId;
+                    orderAddress.OrderAddressId = orderAddressId;
+                    orderAddress.SubscriberAddressTypeId = subscriberAddressTypeId;
+                    result.Add(orderAddress);
+                }
+            }
+            return result;
+        }
+
+        private List<CustomerInfo> GetCustomers(int portalId, Guid storeGuid)
+        {
+            List<CustomerInfo> customers = Controller.GetCustomersByPortal(portalId);
+            if (storeGuid == BBStoreController.StoreGuid)
+                return customers;
+
+            List<CustomerInfo> result = new List<CustomerInfo>();
+            foreach (CustomerInfo customer in customers)
+            {
+                int customerId = GetImportRelationForeignId(portalId, "CUSTOMER", customer.CustomerId, storeGuid);
+                int userId = GetImportRelationForeignId(portalId, "USER", customer.UserId, storeGuid);
+                if (userId > -1 && customerId > -1)
+                {
+                    customer.CustomerId = customerId;
+                    customer.UserId = userId;
+                    result.Add(customer);
+                }
+            }
+            return result;
+        }
+
+        private List<SubscriberAddressTypeInfo> GetSubscriberAddressTypes(int portalId, Guid storeGuid)
+        {
+            List<SubscriberAddressTypeInfo> subscriberAddressTypes = Controller.GetSubscriberAddressTypesByPortal(portalId);
+            if (storeGuid == BBStoreController.StoreGuid)
+                return subscriberAddressTypes;
+
+            List<SubscriberAddressTypeInfo> result = new List<SubscriberAddressTypeInfo>();
+            foreach (SubscriberAddressTypeInfo subscriberAddressType in subscriberAddressTypes)
+            {
+                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYPE", subscriberAddressType.SubscriberAddressTypeId, storeGuid);
+                if (subscriberAddressTypeId > -1)
+                {
+                    subscriberAddressType.SubscriberAddressTypeId = subscriberAddressTypeId;
+                    result.Add(subscriberAddressType);
+                }
+            }
+            return result;
+        }
+
+        private List<SubscriberAddressTypeLangInfo> GetSubscriberAddressTypeLangs(int portalId, Guid storeGuid)
+        {
+            List<SubscriberAddressTypeLangInfo> subscriberAddressTypeLangs = Controller.GetSubscriberAddressTypeLangsByPortal(portalId);
+            if (storeGuid == BBStoreController.StoreGuid)
+                return subscriberAddressTypeLangs;
+
+            List<SubscriberAddressTypeLangInfo> result = new List<SubscriberAddressTypeLangInfo>();
+            foreach (SubscriberAddressTypeLangInfo subscriberAddressTypeLang in subscriberAddressTypeLangs)
+            {
+                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYPE", subscriberAddressTypeLang.SubscriberAddressTypeId, storeGuid);
+                if (subscriberAddressTypeId > -1)
+                {
+                    subscriberAddressTypeLang.SubscriberAddressTypeId = subscriberAddressTypeId;
+                    result.Add(subscriberAddressTypeLang);
+                }
+            }
+            return result;
+        }
+
+
         public void SaveProductGroupListItem(int portalId, int productGroupId, int featureListItemId, Guid storeGuid)
         {
             int ownFeatureListItemId = GetImportRelationOwnId(portalId, "FEATURELISTITEM", featureListItemId, storeGuid);
@@ -882,6 +1178,9 @@ namespace Bitboxx.DNNModules.BBStore
                 else
                     product.Image = (string)storeSettings["ProductImageDir"] + product.Image;
             }
+
+            int ownUnitId = GetImportRelationOwnId(portalId, "UNIT", product.UnitId, storeGuid);
+            product.UnitId = ownUnitId;
 
             int ownId = GetImportRelationOwnId(product.PortalId, "PRODUCT", product.SimpleProductId, storeGuid);
             if (ownId > -1)
@@ -1164,6 +1463,221 @@ namespace Bitboxx.DNNModules.BBStore
             Controller.DeleteUnitLang(ownId, unitLang.Language);
             unitLang.UnitId = ownId;
             Controller.NewUnitLang(unitLang);
+        }
+
+        private void SaveOrder(int portalId, OrderInfo order, Guid storeGuid)
+        {
+            order.PortalId = portalId;
+            int ownId = GetImportRelationOwnId(portalId, "ORDER", order.OrderID, storeGuid);
+            int ownCustomerId = GetImportRelationOwnId(portalId, "CUSTOMER", order.CustomerID, storeGuid);
+
+            if (ownId > -1)
+            {
+                order.OrderID= ownId;
+                order.CustomerID = ownCustomerId;
+                Controller.UpdateOrder(order);
+            }
+            else
+            {
+                order.CustomerID = ownCustomerId;
+                ownId = Controller.NewOrder(order);
+                NewImportRelation(portalId, "ORDER", ownId, order.OrderID, storeGuid);
+            }
+        }
+
+        private void SaveOrderProduct(int portalId, OrderProductInfo orderProduct, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "ORDERPRODUCT", orderProduct.OrderProductId, storeGuid);
+            int ownProductId = orderProduct.ProductId;
+            int ownOrderId = orderProduct.OrderId;
+            if (orderProduct.ProductId != -1)
+            {
+                ownProductId = GetImportRelationOwnId(portalId, "PRODUCT", orderProduct.ProductId, storeGuid);
+                if (ownProductId < 0)
+                {
+                    // throw new KeyNotFoundException(String.Format("SaveOrderProduct: ProductId {0} not found in ImportRelation", orderProduct.ProductId));
+                    return;
+                }
+            }
+
+            if (orderProduct.OrderId != -1)
+            {
+                ownOrderId = GetImportRelationOwnId(portalId, "ORDER", orderProduct.OrderId, storeGuid);
+                if (ownOrderId < 0)
+                    throw new KeyNotFoundException(String.Format("SaveOrderProduct: OrderId {0} not found in ImportRelation", orderProduct.OrderId));
+            }
+
+            if (ownId > -1)
+            {
+                orderProduct.OrderProductId = ownId;
+                orderProduct.ProductId = ownProductId;
+                orderProduct.OrderId = ownOrderId;
+                Controller.UpdateOrderProduct(orderProduct);
+            }
+            else
+            {
+                orderProduct.ProductId = ownProductId;
+                orderProduct.OrderId = ownOrderId;
+                ownId = Controller.NewOrderProduct(orderProduct);
+                NewImportRelation(portalId, "ORDERPRODUCT", ownId, orderProduct.OrderProductId, storeGuid);
+            }
+        }
+
+        private void SaveOrderProductOption(int portalId, OrderProductOptionInfo orderProductOption, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "ORDERPRODUCTOPTION", orderProductOption.OrderProductOptionId, storeGuid);
+            int ownOrderProductId = orderProductOption.OrderProductId;
+            if (orderProductOption.OrderProductId != -1)
+            {
+                ownOrderProductId = GetImportRelationOwnId(portalId, "ORDERPRODUCT", orderProductOption.OrderProductId, storeGuid);
+                if (ownOrderProductId < 0)
+                    throw new KeyNotFoundException(String.Format("SaveOrderProductOption: OrderProductId {0} not found in ImportRelation", orderProductOption.OrderProductId));
+            }
+
+            if (ownId > -1)
+            {
+                orderProductOption.OrderProductOptionId = ownId;
+                orderProductOption.OrderProductId = ownOrderProductId;
+                Controller.UpdateOrderProductOption(orderProductOption);
+            }
+            else
+            {
+                orderProductOption.OrderProductId = ownOrderProductId;
+                ownId = Controller.NewOrderProductOption(orderProductOption);
+                NewImportRelation(portalId, "ORDERPRODUCTOPTION", ownId, orderProductOption.OrderProductOptionId, storeGuid);
+            }
+        }
+
+        private void SaveOrderAdditionalCost(int portalId, OrderAdditionalCostInfo orderAdditionalCost, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "ORDERADDITIONALCOST", orderAdditionalCost.OrderAdditionalCostId, storeGuid);
+            int ownOrderId = orderAdditionalCost.OrderId;
+            if (orderAdditionalCost.OrderId != -1)
+            {
+                ownOrderId = GetImportRelationOwnId(portalId, "ORDER", orderAdditionalCost.OrderId, storeGuid);
+                if (ownOrderId < 0)
+                    throw new KeyNotFoundException(String.Format("SaveOrderAdditionalCost: OrderId {0} not found in ImportRelation", orderAdditionalCost.OrderId));
+            }
+
+            if (ownId > -1)
+            {
+                orderAdditionalCost.OrderAdditionalCostId = ownId;
+                orderAdditionalCost.OrderId = ownOrderId;
+                Controller.UpdateOrderAdditionalCost(orderAdditionalCost);
+            }
+            else
+            {
+                orderAdditionalCost.OrderId = ownOrderId;
+                ownId = Controller.NewOrderAdditionalCost(orderAdditionalCost);
+                NewImportRelation(portalId, "ORDERADDITIONALCOST", ownId, orderAdditionalCost.OrderAdditionalCostId, storeGuid);
+            }
+        }
+
+        private void SaveOrderAddress(int portalId, OrderAddressInfo orderAddress, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "ORDERADDRESS", orderAddress.OrderAddressId, storeGuid);
+
+            int ownOrderId = orderAddress.OrderId;
+            if (ownOrderId != -1)
+            {
+                ownOrderId = GetImportRelationOwnId(portalId, "ORDER", orderAddress.OrderId, storeGuid);
+                if (ownOrderId < 0)
+                    throw new KeyNotFoundException(String.Format("SaveOrderAddress: OrderId {0} not found in ImportRelation", orderAddress.OrderId));
+            }
+
+            int ownCustomerAddressId = orderAddress.CustomerAddressId;
+            if (ownCustomerAddressId != -1)
+            {
+                ownCustomerAddressId = GetImportRelationOwnId(portalId, "CUSTOMERADDRESS", orderAddress.CustomerAddressId, storeGuid);
+                if (ownCustomerAddressId < 0)
+                    throw new KeyNotFoundException(String.Format("SaveOrderAddress: CustomerAddressId {0} not found in ImportRelation", orderAddress.OrderId));
+            }
+
+            int ownSubscriberAddressTypeId = orderAddress.SubscriberAddressTypeId;
+            if (ownSubscriberAddressTypeId != -1)
+            {
+                ownSubscriberAddressTypeId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYPE", orderAddress.SubscriberAddressTypeId, storeGuid);
+                if (ownSubscriberAddressTypeId < 0)
+                    throw new KeyNotFoundException(String.Format("SaveOrderAddress: SubscriberAddressTypeId {0} not found in ImportRelation", orderAddress.OrderId));
+            }
+
+            if (ownId > -1)
+            {
+                orderAddress.OrderAddressId = ownId;
+                orderAddress.OrderId = ownOrderId;
+                orderAddress.CustomerAddressId = ownCustomerAddressId;
+                orderAddress.SubscriberAddressTypeId = ownSubscriberAddressTypeId;
+                Controller.UpdateOrderAddress(orderAddress);
+            }
+            else
+            {
+                orderAddress.OrderId = ownOrderId;
+                orderAddress.CustomerAddressId = ownCustomerAddressId;
+                orderAddress.SubscriberAddressTypeId = ownSubscriberAddressTypeId;
+                ownId = Controller.NewOrderAddress(orderAddress);
+                NewImportRelation(portalId, "ORDERADDRESS", ownId, orderAddress.OrderAddressId, storeGuid);
+            }
+        }
+
+        private void SaveCustomer(int portalId, CustomerInfo customer, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "CUSTOMER", customer.CustomerId, storeGuid);
+            int ownUserId = customer.UserId;
+            if (customer.UserId != -1)
+            {
+                ownUserId = GetImportRelationOwnId(portalId, "USER", customer.UserId, storeGuid);
+                if (ownUserId < 0)
+                    throw new KeyNotFoundException(String.Format("SaveCustomer: UserId {0} not found in ImportRelation", customer.UserId));
+            }
+
+            if (ownId > -1)
+            {
+                customer.CustomerId = ownId;
+                customer.UserId = ownUserId;
+                Controller.UpdateCustomer(customer);
+            }
+            else
+            {
+                customer.UserId = ownUserId;
+                ownId = Controller.NewCustomer(customer);
+                NewImportRelation(portalId, "CUSTOMER", ownId, customer.CustomerId, storeGuid);
+            }
+        }
+
+        private void SaveSubscriberAddressType(int portalId, SubscriberAddressTypeInfo subscriberAddressType, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYPE", subscriberAddressType.SubscriberAddressTypeId, storeGuid);
+            int ownSubscriberId = subscriberAddressType.SubscriberId;
+            if (ownSubscriberId != -1)
+            {
+                ownSubscriberId = GetImportRelationOwnId(portalId, "SUBSCRIBER", subscriberAddressType.SubscriberId, storeGuid);
+                if (ownSubscriberId < 0)
+                    throw new KeyNotFoundException(String.Format("SaveSubscriberAddressType: SubscriberId {0} not found in ImportRelation", subscriberAddressType.SubscriberId));
+            }
+
+            if (ownId > -1)
+            {
+                subscriberAddressType.SubscriberAddressTypeId = ownId;
+                subscriberAddressType.SubscriberId = ownSubscriberId;
+                Controller.UpdateSubscriberAddressType(subscriberAddressType);
+            }
+            else
+            {
+                subscriberAddressType.SubscriberId = ownSubscriberId;
+                ownId = Controller.NewSubscriberAddressType(subscriberAddressType);
+                NewImportRelation(portalId, "SUBSCRIBERADDRESSTYPE", ownId, subscriberAddressType.SubscriberAddressTypeId, storeGuid);
+            }
+        }
+
+        public void SaveSubscriberAddressTypeLang(int portalId, SubscriberAddressTypeLangInfo subscriberAddressTypeLang, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYPE", subscriberAddressTypeLang.SubscriberAddressTypeId, storeGuid);
+            if (ownId < 0)
+                throw new KeyNotFoundException(String.Format("SaveSubscriberAddressTypeLang: SubscriberAddressTypeId {0} not found in Importrelation", subscriberAddressTypeLang.SubscriberAddressTypeId));
+
+            Controller.DeleteSubscriberAddressTypeLang(ownId, subscriberAddressTypeLang.Language);
+            subscriberAddressTypeLang.SubscriberAddressTypeId = ownId;
+            Controller.NewSubscriberAddressTypeLang(subscriberAddressTypeLang);
         }
 
         #endregion

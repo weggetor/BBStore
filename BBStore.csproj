@@ -81,6 +81,10 @@
       <HintPath>..\..\..\..\Dependencies\DNN8.0.0\Microsoft.ApplicationBlocks.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpZipLib, Version=0.81.0.1407, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependencies\DNN8.0.0\SharpZipLib.dll</HintPath>
@@ -90,6 +94,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -99,6 +104,10 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -213,6 +222,9 @@
     <Compile Include="Infoclasses\ShippingZoneDisplayInfo.cs" />
     <Compile Include="Infoclasses\CouponInfo.cs" />
     <Compile Include="LicenseHandler\LicenseDataInfo.cs" />
+    <Compile Include="Services\AppController.cs" />
+    <Compile Include="Services\LoaderController.cs" />
+    <Compile Include="Services\RouteMapper.cs" />
     <Compile Include="SettingsMiniCart.ascx.cs">
       <DependentUpon>SettingsMiniCart.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

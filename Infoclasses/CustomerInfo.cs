@@ -6,6 +6,8 @@ using System.Web;
 
 namespace Bitboxx.DNNModules.BBStore
 {
+    [Serializable]
+    [DataContract()]
     public class CustomerInfo
     {
         public CustomerInfo()
@@ -23,9 +25,13 @@ namespace Bitboxx.DNNModules.BBStore
 	        CustomerName = customerName;
         }
 
+        [DataMember()]
         public int CustomerId { get; set; }
+        [DataMember()]
         public int UserId { get; set; }
+        [DataMember()]
         public int PortalId { get; set; }
+        [DataMember()]
         public string CustomerName { get; set; }
     }
 }
