@@ -1602,7 +1602,7 @@ namespace Bitboxx.DNNModules.BBStore
                         quantity += acp.Quantity;
                     }
                     Discount = cp.UnitCost - Controller.GetDiscount(acpl[0].ProductDiscount, quantity, cp.UnitCost, cp.TaxPercent);
-                    if (Discount > 0)
+                    if (Discount != 0)
                     {
                         if (ht.ContainsKey(cp.ProductId))
                             ht[cp.ProductId] = (decimal)ht[cp.ProductId] + Discount * cp.Quantity;
@@ -1619,7 +1619,7 @@ namespace Bitboxx.DNNModules.BBStore
                 ac.CartId = CartId;
                 ac.Name = Localization.GetString("Discount.Text", this.LocalResourceFile) + " " + cp.Name;
                 ac.Quantity = 1m;
-                ac.UnitCost = (-1) * (decimal)de.Value;
+                ac.UnitCost = (decimal)de.Value;
                 ac.TaxPercent = cp.TaxPercent;
                 Controller.NewCartAdditionalCost(ac);
             }

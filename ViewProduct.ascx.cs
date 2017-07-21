@@ -605,7 +605,7 @@ namespace Bitboxx.DNNModules.BBStore
             if (_txtAmount != null)
             {
                 // AutoPostback only when Discount on Amounts (a line starts with @)
-                if (product.Attributes.Contains("\n@"))
+                if (product.Attributes.Contains("\n@") || product.Attributes.StartsWith("@"))
                     _txtAmount.AutoPostBack = true;
                 _txtAmount.Text = "1";
                 _txtAmount.Columns = 3;
