@@ -17,6 +17,7 @@ namespace Bitboxx.DNNModules.BBStore
 			FeatureListItem = "";
 			Image = "";
 			ViewOrder = 0;
+		    _status = 0;
 		}
 		[DataMember()]
 		public Int32 FeatureListItemId { get; set; }
@@ -28,7 +29,9 @@ namespace Bitboxx.DNNModules.BBStore
 		public string Image { get; set; }
 		[DataMember()]
 		public int ViewOrder { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
 
-	}
+    }
 
 }

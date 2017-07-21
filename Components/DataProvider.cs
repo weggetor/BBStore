@@ -279,6 +279,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract void DeleteOrderAdditionalCost(int OrderAdditionalCostId);
 
         // OrderAddresses methods
+        public abstract IDataReader GetOrderAddresses(int orderId);
         public abstract IDataReader GetOrderAddresses(int orderId, string language);
         public abstract IDataReader GetOrderAddressesByPortal(int portalId);
         public abstract IDataReader GetOrderAddressesByPortalAndUser(int portalId, int userId);

@@ -15,6 +15,7 @@ namespace Bitboxx.DNNModules.BBStore
 			FeatureListId = 0;
 			PortalID = 0;
 			FeatureList = "";
+		    _status = 0;
 		}
 		[DataMember()]
 		public Int32 FeatureListId { get; set; }
@@ -22,5 +23,6 @@ namespace Bitboxx.DNNModules.BBStore
 		public Int32 PortalID { get; set; }
 		[DataMember()]
 		public string FeatureList { get; set; }
-	}
+        public int _status { get; set; }
+    }
 }

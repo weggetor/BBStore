@@ -884,6 +884,10 @@ namespace Bitboxx.DNNModules.BBStore
 
         #region OrderAddress
 
+        public List<OrderAddressInfo> GetOrderAddresses(int orderId)
+        {
+            return CBO.FillCollection<OrderAddressInfo>(DataProvider.Instance().GetOrderAddresses(orderId));
+        }
         public List<OrderAddressInfo> GetOrderAddresses(int orderId, string language)
         {
 			return CBO.FillCollection<OrderAddressInfo>(DataProvider.Instance().GetOrderAddresses(orderId, language));

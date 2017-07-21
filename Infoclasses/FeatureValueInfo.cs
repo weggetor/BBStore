@@ -19,6 +19,7 @@ namespace Bitboxx.DNNModules.BBStore
 			FeatureId = 0;
 			ProductId = 0;
 			FeatureListItemId = -1;
+		    _status = 0;
 		}
 		[DataMember()]
 		public Int32 FeatureValueId { get; set; }
@@ -40,8 +41,10 @@ namespace Bitboxx.DNNModules.BBStore
 		public Double? fValue { get; set; }
 		[DataMember()]
 		public Boolean? bValue { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
 
-	    public void Fill(IDataReader dr)
+        public void Fill(IDataReader dr)
 	    {
             FeatureValueId = Null.SetNullInteger(dr["FeatureValueId"]);
             FeatureId = Null.SetNullInteger(dr["FeatureId"]);

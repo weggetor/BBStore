@@ -36,7 +36,9 @@ namespace Bitboxx.DNNModules.BBStore
         #region Maintenance  methods
         public BBStoreInfo ExportStore(int portalId, Guid storeGuid)
         {
-            // TODO: Der Export auf die eigene StoreID exportiert ALLES, nicht nur die Daten die im Store selber angelegt wurden. 
+            // TODO: Der Export auf die eigene StoreID exportiert zur Zeit noch ALLES, 
+            // nicht nur die Daten die im Store selber angelegt wurden. 
+
             BBStoreInfo bbStore = new BBStoreInfo();
 
             bbStore.StoreGuid = storeGuid;
@@ -79,7 +81,10 @@ namespace Bitboxx.DNNModules.BBStore
 
             foreach (UnitInfo unit in bbStore.Unit)
             {
-                SaveUnit(portalId, unit, storeGuid);
+                if (unit._status == 3)
+                    DeleteUnit(portalId,unit.UnitId,storeGuid);
+                else
+                    SaveUnit(portalId, unit, storeGuid);
             }
             foreach (UnitLangInfo unitLang in bbStore.UnitLang)
             {
@@ -87,7 +92,10 @@ namespace Bitboxx.DNNModules.BBStore
             }
             foreach (ProductGroupInfo productGroup in bbStore.ProductGroup)
             {
-                SaveProductGroup(portalId, productGroup, storeGuid);
+                if (productGroup._status == 3)
+                    DeleteProductGroup(portalId,productGroup.ProductGroupId, storeGuid);
+                else
+                    SaveProductGroup(portalId, productGroup, storeGuid);
             }
             foreach (ProductGroupLangInfo productGroupLang in bbStore.ProductGroupLang)
             {
@@ -95,7 +103,10 @@ namespace Bitboxx.DNNModules.BBStore
             }
             foreach (SimpleProductInfo simpleProduct in bbStore.Product)
             {
-                SaveProduct(portalId, simpleProduct, storeGuid);
+                if(simpleProduct._status == 3)
+                    DeleteProduct(portalId,simpleProduct.SimpleProductId, storeGuid);
+                else
+                    SaveProduct(portalId, simpleProduct, storeGuid);
             }
             foreach (SimpleProductLangInfo simpleProductLang in bbStore.ProductLang)
             {
@@ -103,11 +114,17 @@ namespace Bitboxx.DNNModules.BBStore
             }
             foreach (ProductInGroupInfo productInGroup in bbStore.ProductInGroup)
             {
-                SaveProductInGroup(portalId, productInGroup.SimpleProductId, productInGroup.ProductGroupId, storeGuid);
+                if (productInGroup._status == 3)
+                    DeleteProductInGroup(portalId, productInGroup.SimpleProductId, productInGroup.ProductGroupId, storeGuid);
+                else
+                    SaveProductInGroup(portalId, productInGroup.SimpleProductId, productInGroup.ProductGroupId, storeGuid);
             }
             foreach (FeatureGroupInfo featureGroup in bbStore.FeatureGroup)
             {
-                SaveFeatureGroup(portalId, featureGroup, storeGuid);
+                if (featureGroup._status == 3)
+                    DeleteFeatureGroup(portalId,featureGroup.FeatureGroupId, storeGuid);
+                else
+                    SaveFeatureGroup(portalId, featureGroup, storeGuid);
             }
             foreach (FeatureGroupLangInfo featureGroupLang in bbStore.FeatureGroupLang)
             {
@@ -115,7 +132,10 @@ namespace Bitboxx.DNNModules.BBStore
             }
             foreach (FeatureListInfo featureList in bbStore.FeatureList)
             {
-                SaveFeatureList(portalId, featureList, storeGuid);
+                if (featureList._status == 3)
+                    DeleteFeatureList(portalId,featureList.FeatureListId, storeGuid);
+                else
+                    SaveFeatureList(portalId, featureList, storeGuid);
             }
             foreach (FeatureListLangInfo featureListLang in bbStore.FeatureListLang)
             {
@@ -123,7 +143,10 @@ namespace Bitboxx.DNNModules.BBStore
             }
             foreach (FeatureListItemInfo featureListItem in bbStore.FeatureListItem)
             {
-                SaveFeatureListItem(portalId, featureListItem, storeGuid);
+                if (featureListItem._status == 3)
+                    DeleteFeatureListItem(portalId, featureListItem.FeatureListItemId, storeGuid);
+                else
+                    SaveFeatureListItem(portalId, featureListItem, storeGuid);
             }
             foreach (FeatureListItemLangInfo featureListItemLang in bbStore.FeatureListItemLang)
             {
@@ -131,28 +154,40 @@ namespace Bitboxx.DNNModules.BBStore
             }
             foreach (FeatureInfo feature in bbStore.Feature)
             {
-                SaveFeature(portalId, feature, storeGuid);
+                if (feature._status == 3)
+                    DeleteFeature(portalId,feature.FeatureId, storeGuid);
+                else
+                    SaveFeature(portalId, feature, storeGuid);
             }
+
             foreach (FeatureLangInfo featureLang in bbStore.FeatureLang)
             {
                 SaveFeatureLang(portalId, featureLang, storeGuid);
             }
+
+            //TODO: Nicht alle löschen und dann wieder neu anlegen. Funktioniert bei CATO nicht mehr
             if (bbStore.ProductGroupFeature.Count > 0)
             {
                 Controller.DeleteProductGroupFeaturesByPortal(portalId);
                 foreach (ProductGroupFeatureInfo productGroupFeature in bbStore.ProductGroupFeature)
                 {
-                    SaveProductGroupFeature(portalId, productGroupFeature.FeatureId, productGroupFeature.ProductGroupId, storeGuid);
+                    if (productGroupFeature._status != 3)
+                        SaveProductGroupFeature(portalId, productGroupFeature.FeatureId, productGroupFeature.ProductGroupId, storeGuid);
                 }
             }
+
+            //TODO: Nicht alle löschen und dann wieder neu anlegen. Funktioniert bei CATO nicht mehr
             if (bbStore.FeatureValue.Count > 0)
             {
                 Controller.DeleteFeatureValuesByPortal(portalId);
                 foreach (FeatureValueInfo featureValue in bbStore.FeatureValue)
                 {
-                    SaveFeatureValue(portalId, featureValue, storeGuid);
+                    if (featureValue._status != 3)
+                        SaveFeatureValue(portalId, featureValue, storeGuid);
                 }
             }
+            
+            //TODO: Nicht alle löschen und dann wieder neu anlegen. Funktioniert bei CATO nicht mehr
             DeleteProductGroupListItems(portalId,storeGuid);
             foreach (ProductGroupListItemInfo productGroupListItem in bbStore.ProductGroupListItem)
             {
@@ -161,28 +196,47 @@ namespace Bitboxx.DNNModules.BBStore
 
             foreach (CustomerInfo customer in bbStore.Customer)
             {
-                SaveCustomer(portalId, customer, storeGuid);
+                if (customer._status == 3)
+                    DeleteCustomer(portalId, customer.CustomerId, storeGuid);
+                else
+                    SaveCustomer(portalId, customer, storeGuid);
             }
 
             foreach (OrderInfo order in bbStore.Order)
             {
-                SaveOrder(portalId, order, storeGuid);
+                if (order._status == 3)
+                    DeleteOrder(portalId, order.OrderID, storeGuid);
+                else
+                    SaveOrder(portalId, order, storeGuid);
             }
+
             foreach (OrderProductInfo orderProduct in bbStore.OrderProduct)
             {
-                SaveOrderProduct(portalId, orderProduct, storeGuid);
+                if (orderProduct._status == 3)
+                    DeleteOrderProduct(portalId, orderProduct.OrderProductId, storeGuid);
+                else
+                    SaveOrderProduct(portalId, orderProduct, storeGuid);
             }
             foreach (OrderProductOptionInfo orderProductOption in bbStore.OrderProductOption)
             {
-                SaveOrderProductOption(portalId, orderProductOption, storeGuid);
+                if (orderProductOption._status == 3)
+                    DeleteOrderProductOption(portalId, orderProductOption.OrderProductOptionId, storeGuid);
+                else
+                    SaveOrderProductOption(portalId, orderProductOption, storeGuid);
             }
             foreach (OrderAdditionalCostInfo orderAdditionalCost in bbStore.OrderAdditionalCost)
             {
-                SaveOrderAdditionalCost(portalId, orderAdditionalCost, storeGuid);
+                if(orderAdditionalCost._status ==3)
+                    DeleteOrderAdditionalCost(portalId, orderAdditionalCost.OrderAdditionalCostId, storeGuid);
+                else
+                    SaveOrderAdditionalCost(portalId, orderAdditionalCost, storeGuid);
             }
             foreach (SubscriberAddressTypeInfo subscriberAddressType in bbStore.SubscriberAddressType)
             {
-                SaveSubscriberAddressType(portalId, subscriberAddressType, storeGuid);
+                if(subscriberAddressType._status == 3)
+                    DeleteSubscriberAddressType(portalId,subscriberAddressType.SubscriberAddressTypeId, storeGuid);
+                else
+                    SaveSubscriberAddressType(portalId, subscriberAddressType, storeGuid);
             }
             foreach (SubscriberAddressTypeLangInfo subscriberAddressTypeLang in bbStore.SubscriberAddressTypeLang)
             {
@@ -190,23 +244,57 @@ namespace Bitboxx.DNNModules.BBStore
             }
             foreach (OrderAddressInfo orderAddress in bbStore.OrderAddress)
             {
-                SaveOrderAddress(portalId, orderAddress, storeGuid);
+                if (orderAddress._status == 3)
+                    DeleteOrderAddress(portalId, orderAddress.OrderAddressId, storeGuid);
+                else
+                    SaveOrderAddress(portalId, orderAddress, storeGuid);
             }
 
-
-            // Deletion of Products no more used
-            // bbstore.Product is ID-converted because of the routines running before
-            List<int> allProducts = GetImportRelationForeignIdsByTable(portalId, "PRODUCT", storeGuid);
-            List<int> newProducts = (from p in bbStore.Product select p.SimpleProductId).ToList<int>();
-            List<int> deleteProducts = allProducts.Except(newProducts).ToList();
-            foreach (int deleteProduct in deleteProducts)
-            {
-                //int foreignId = GetImportRelationForeignId(portalId, "PRODUCT", deleteProduct, storeGuid);
-                DeleteProductImages(portalId, deleteProduct, storeGuid);
-                DeleteProduct(portalId,deleteProduct,storeGuid);
-            }
+            //// Deletion of Products no more used
+            //// bbstore.Product is ID-converted because of the routines running before
+            //List<int> allProducts = GetImportRelationForeignIdsByTable(portalId, "PRODUCT", storeGuid);
+            //List<int> newProducts = (from p in bbStore.Product select p.SimpleProductId).ToList<int>();
+            //List<int> deleteProducts = allProducts.Except(newProducts).ToList();
+            //foreach (int deleteProduct in deleteProducts)
+            //{
+            //    //int foreignId = GetImportRelationForeignId(portalId, "PRODUCT", deleteProduct, storeGuid);
+            //    DeleteProductImages(portalId, deleteProduct, storeGuid);
+            //    DeleteProduct(portalId,deleteProduct,storeGuid);
+            //}
             DeleteEmptyImageDirectories(portalId);
         }
+
+        public BBStoreInfo GetAppOrders(int portalId, Guid storeGuid)
+        {
+            BBStoreController ctrl = new BBStoreController();
+            List<OrderProductInfo> orderProducts = GetOrderProducts(portalId, storeGuid);
+            List<OrderProductOptionInfo> orderProductOptions = GetOrderProductOptions(portalId, storeGuid);
+            List<OrderAdditionalCostInfo> orderAdditionalCosts = GetOrderAdditionalCosts(portalId, storeGuid);
+            List<OrderAddressInfo> orderAddresses = GetOrderAddresses(portalId, storeGuid);
+
+            BBStoreInfo bbStore = new BBStoreInfo();
+
+            bbStore.StoreGuid = storeGuid;
+            bbStore.StoreName = (storeGuid == BBStoreController.StoreGuid ? BBStoreController.StoreName : GetImportStoreName(storeGuid));
+            bbStore.Order = GetChangedOrders(portalId, storeGuid);
+            foreach (OrderInfo order in bbStore.Order)
+            {
+                var ops = from o in orderProducts where o.OrderId == order.OrderID select o;
+                bbStore.OrderProduct.AddRange(ops);
+                var oacs = from oac in orderAdditionalCosts where oac.OrderId == order.OrderID select oac;
+                bbStore.OrderAdditionalCost.AddRange(oacs);
+                var oas = from oa in orderAddresses where oa.OrderId == order.OrderID select oa;
+                bbStore.OrderAddress.AddRange(oas);
+            }
+            foreach (var orderProduct in bbStore.OrderProduct)
+            {
+                var opos = from opo in orderProductOptions where opo.OrderProductId == orderProduct.OrderProductId select opo;
+                bbStore.OrderProductOption.AddRange(opos);
+            }
+
+            return bbStore;
+        }
+
 
         public void ResetStore(int portalId, bool skipImages, Guid storeGuid)
         {
@@ -275,7 +363,6 @@ namespace Bitboxx.DNNModules.BBStore
             Controller.DeleteSimpleProduct(ownId);
             DeleteImportRelationByOwnId(portalId, "PRODUCT", ownId);
         }
-
         public void DeleteProducts(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "PRODUCT", storeGuid);
@@ -286,6 +373,12 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "PRODUCT", storeGuid);
         }
 
+        public void DeleteFeatureGroup(int portalId, int featureGroupId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "FEATUREGROUP", featureGroupId, storeGuid);
+            Controller.DeleteFeatureGroup(ownId);
+            DeleteImportRelationByOwnId(portalId, "FEATUREGROUP", ownId);
+        }
         public void DeleteFeatureGroups(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "FEATUREGROUP", storeGuid);
@@ -296,6 +389,12 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "FEATUREGROUP", storeGuid);
         }
 
+        public void DeleteProductGroup(int portalId, int productGroupId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "PRODUCTGROUP", productGroupId, storeGuid);
+            Controller.DeleteProductGroup(ownId);
+            DeleteImportRelationByOwnId(portalId, "PRODUCTGROUP", ownId);
+        }
         public void DeleteProductGroups(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "PRODUCTGROUP", storeGuid);
@@ -306,6 +405,12 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "PRODUCTGROUP", storeGuid);
         }
 
+        public void DeleteFeatureList(int portalId, int featureListId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "FEATURELIST", featureListId, storeGuid);
+            Controller.DeleteFeatureList(ownId);
+            DeleteImportRelationByOwnId(portalId, "FEATURELIST", ownId);
+        }
         public void DeleteFeatureLists(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "FEATURELIST", storeGuid);
@@ -317,6 +422,12 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "FEATURELISTITEM", storeGuid);
         }
 
+        public void DeleteFeature(int portalId, int featureId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "FEATURE", featureId, storeGuid);
+            Controller.DeleteFeature(ownId);
+            DeleteImportRelationByOwnId(portalId, "FEATURE", ownId);
+        }
         public void DeleteFeatures(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "FEATURE", storeGuid);
@@ -327,6 +438,19 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "FEATURE", storeGuid);
         }
 
+        public void DeleteFeatureListItem(int portalId, int featureListItemId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "FEATURELISTITEM", featureListItemId, storeGuid);
+            Controller.DeleteFeatureListItem(ownId);
+            DeleteImportRelationByOwnId(portalId, "FEATURELISTITEM", ownId);
+        }
+
+        public void DeleteProductGroupListItem(int portalId, int productGroupId, int featureListItemId, Guid storeGuid)
+        {
+            int ownProductGroupId = GetImportRelationOwnId(portalId, "PRODUCTGROUP", productGroupId, storeGuid);
+            int ownFeatureListItemId = GetImportRelationOwnId(portalId, "FEATURELISTITEM", featureListItemId, storeGuid);
+            Controller.DeleteProductGroupListItem(ownProductGroupId,ownFeatureListItemId);
+        }
         public void DeleteProductGroupListItems(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "PRODUCTGROUP", storeGuid);
@@ -336,12 +460,25 @@ namespace Bitboxx.DNNModules.BBStore
             }
         }
 
+        public void DeleteProductInGroup(int portalId, int productId, int productGroupId, Guid storeGuid)
+        {
+            int ownProductId = GetImportRelationOwnId(portalId, "PRODUCT", productId, storeGuid);
+            int ownProductGroupId = GetImportRelationOwnId(portalId, "PRODUCTGROUP", productGroupId, storeGuid);
+            Controller.DeleteProductInGroup(ownProductId, ownProductGroupId);
+        }
+
         public void DeleteCustomerAddress(int portalId, int customerAddressId)
         {
             Controller.DeleteCustomerAddress(customerAddressId);
             DeleteImportRelationByOwnId(portalId, "CUSTOMERADDRESS", customerAddressId);
         }
 
+        public void DeleteUnit(int portalId, int unitId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "UNIT", unitId, storeGuid);
+            Controller.DeleteUnit(ownId);
+            DeleteImportRelationByOwnId(portalId, "UNIT", ownId);
+        }
         public void DeleteUnits(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "UNIT", storeGuid);
@@ -462,6 +599,12 @@ namespace Bitboxx.DNNModules.BBStore
             }
         }
 
+        public void DeleteOrderAdditionalCost(int portalId, int orderAdditionalCostId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "ORDERADDITIONALCOST", orderAdditionalCostId, storeGuid);
+            Controller.DeleteOrderAdditionalCost(ownId);
+            DeleteImportRelationByOwnId(portalId, "ORDERADDITIONALCOST", ownId);
+        }
         public void DeleteOrderAdditionalCosts(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDERADDITIONALCOST", storeGuid);
@@ -472,6 +615,12 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "ORDERADDITIONALCOST", storeGuid);
         }
 
+        public void DeleteOrderProductOption(int portalId, int orderProductOptionId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "ORDERPRODUCTOPTION", orderProductOptionId, storeGuid);
+            Controller.DeleteOrderProductOption(ownId);
+            DeleteImportRelationByOwnId(portalId, "ORDERPRODUCTOPTION", ownId);
+        }
         public void DeleteOrderProductOptions(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDERPRODUCTOPTION", storeGuid);
@@ -482,6 +631,12 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "ORDERPRODUCTOPTION", storeGuid);
         }
 
+        public void DeleteOrderProduct(int portalId, int orderProductId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "ORDERPRODUCT", orderProductId, storeGuid);
+            Controller.DeleteOrderProduct(ownId);
+            DeleteImportRelationByOwnId(portalId, "ORDERPRODUCT", ownId);
+        }
         public void DeleteOrderProducts(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDERPRODUCT", storeGuid);
@@ -492,6 +647,12 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "ORDERPRODUCT", storeGuid);
         }
 
+        public void DeleteOrder(int portalId, int orderId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "ORDER", orderId, storeGuid);
+            Controller.DeleteOrder(ownId);
+            DeleteImportRelationByOwnId(portalId, "ORDER", ownId);
+        }
         public void DeleteOrders(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDER", storeGuid);
@@ -502,6 +663,12 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "ORDER", storeGuid);
         }
 
+        public void DeleteCustomer(int portalId, int customerId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "CUSTOMER", customerId, storeGuid);
+            Controller.DeleteCustomer(ownId);
+            DeleteImportRelationByOwnId(portalId, "CUSTOMER", ownId);
+        }
         public void DeleteCustomers(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "CUSTOMER", storeGuid);
@@ -512,6 +679,12 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "CUSTOMER", storeGuid);
         }
 
+        public void DeleteOrderAddress(int portalId, int orderAddressId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "ORDERADDRESS", orderAddressId, storeGuid);
+            Controller.DeleteOrderAddress(ownId);
+            DeleteImportRelationByOwnId(portalId, "ORDERADDRESS", ownId);
+        }
         public void DeleteOrderAddresses(int portalId, Guid storeGuid)
         {
             List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "ORDERADDRESS", storeGuid);
@@ -522,14 +695,20 @@ namespace Bitboxx.DNNModules.BBStore
             DeleteImportRelationByTable(portalId, "ORDERADDRESS", storeGuid);
         }
 
+        public void DeleteSubscriberAddressType(int portalId, int subscriberAddressTypeId, Guid storeGuid)
+        {
+            int ownId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYP", subscriberAddressTypeId, storeGuid);
+            Controller.DeleteSubscriberAddressType(ownId);
+            DeleteImportRelationByOwnId(portalId, "SUBSCRIBERADDRESSTYP", ownId);
+        }
         public void DeleteSubscriberAddressTypes(int portalId, Guid storeGuid)
         {
-            List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "SUBSCRIBERADDRESSTYPE", storeGuid);
+            List<int> ownIds = GetImportRelationOwnIdsByTable(portalId, "SUBSCRIBERADDRESSTYP", storeGuid);
             foreach (int ownId in ownIds)
             {
                 Controller.DeleteSubscriberAddressType(ownId);
             }
-            DeleteImportRelationByTable(portalId, "SUBSCRIBERADDRESSTYPE", storeGuid);
+            DeleteImportRelationByTable(portalId, "SUBSCRIBERADDRESSTYP", storeGuid);
         }
 
         public ProductGroupInfo GetProductGroupByName(int portalId, string language, string productGroupName, Guid storeGuid)
@@ -941,9 +1120,33 @@ namespace Bitboxx.DNNModules.BBStore
             foreach (OrderInfo order in orders)
             {
                 int orderId = GetImportRelationForeignId(portalId, "ORDER", order.OrderID, storeGuid);
+                int customerId = GetImportRelationForeignId(portalId, "CUSTOMER", order.CustomerID, storeGuid);
                 if (orderId > -1)
                 {
                     order.OrderID = orderId;
+                    order.CustomerID = customerId;
+                    result.Add(order);
+                }
+            }
+            return result;
+        }
+
+
+        private List<OrderInfo> GetChangedOrders(int portalId, Guid storeGuid)
+        {
+            List<OrderInfo> orders = Controller.GetOrdersByPortal(portalId);
+            if (storeGuid == BBStoreController.StoreGuid)
+                return orders;
+
+            List<OrderInfo> result = new List<OrderInfo>();
+            foreach (OrderInfo order in orders)
+            {
+                int orderId = GetImportRelationForeignId(portalId, "ORDER", order.OrderID, storeGuid);
+                int customerId = GetImportRelationForeignId(portalId, "CUSTOMER", order.CustomerID, storeGuid);
+                if (orderId > -1 && (order.OrderStateId == 6 || order.OrderStateId == 7))
+                {
+                    order.OrderID = orderId;
+                    order.CustomerID = customerId;
                     result.Add(order);
                 }
             }
@@ -1023,7 +1226,7 @@ namespace Bitboxx.DNNModules.BBStore
             foreach (OrderAddressInfo orderAddress in orderAddresses)
             {
                 int orderAddressId = GetImportRelationForeignId(portalId, "ORDERADDRESS", orderAddress.OrderAddressId, storeGuid);
-                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYPE", orderAddress.SubscriberAddressTypeId, storeGuid);
+                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYP", orderAddress.SubscriberAddressTypeId, storeGuid);
                 int orderId = GetImportRelationForeignId(portalId, "ORDER", orderAddress.OrderId, storeGuid);
                 if (orderId > -1 && subscriberAddressTypeId > -1 && orderAddressId > -1)
                 {
@@ -1066,7 +1269,7 @@ namespace Bitboxx.DNNModules.BBStore
             List<SubscriberAddressTypeInfo> result = new List<SubscriberAddressTypeInfo>();
             foreach (SubscriberAddressTypeInfo subscriberAddressType in subscriberAddressTypes)
             {
-                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYPE", subscriberAddressType.SubscriberAddressTypeId, storeGuid);
+                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYP", subscriberAddressType.SubscriberAddressTypeId, storeGuid);
                 if (subscriberAddressTypeId > -1)
                 {
                     subscriberAddressType.SubscriberAddressTypeId = subscriberAddressTypeId;
@@ -1085,7 +1288,7 @@ namespace Bitboxx.DNNModules.BBStore
             List<SubscriberAddressTypeLangInfo> result = new List<SubscriberAddressTypeLangInfo>();
             foreach (SubscriberAddressTypeLangInfo subscriberAddressTypeLang in subscriberAddressTypeLangs)
             {
-                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYPE", subscriberAddressTypeLang.SubscriberAddressTypeId, storeGuid);
+                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYP", subscriberAddressTypeLang.SubscriberAddressTypeId, storeGuid);
                 if (subscriberAddressTypeId > -1)
                 {
                     subscriberAddressTypeLang.SubscriberAddressTypeId = subscriberAddressTypeId;
@@ -1494,10 +1697,7 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 ownProductId = GetImportRelationOwnId(portalId, "PRODUCT", orderProduct.ProductId, storeGuid);
                 if (ownProductId < 0)
-                {
-                    // throw new KeyNotFoundException(String.Format("SaveOrderProduct: ProductId {0} not found in ImportRelation", orderProduct.ProductId));
-                    return;
-                }
+                    throw new KeyNotFoundException(String.Format("SaveOrderProduct: ProductId {0} not found in ImportRelation", orderProduct.ProductId));
             }
 
             if (orderProduct.OrderId != -1)
@@ -1596,7 +1796,7 @@ namespace Bitboxx.DNNModules.BBStore
             int ownSubscriberAddressTypeId = orderAddress.SubscriberAddressTypeId;
             if (ownSubscriberAddressTypeId != -1)
             {
-                ownSubscriberAddressTypeId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYPE", orderAddress.SubscriberAddressTypeId, storeGuid);
+                ownSubscriberAddressTypeId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYP", orderAddress.SubscriberAddressTypeId, storeGuid);
                 if (ownSubscriberAddressTypeId < 0)
                     throw new KeyNotFoundException(String.Format("SaveOrderAddress: SubscriberAddressTypeId {0} not found in ImportRelation", orderAddress.OrderId));
             }
@@ -1646,7 +1846,7 @@ namespace Bitboxx.DNNModules.BBStore
 
         private void SaveSubscriberAddressType(int portalId, SubscriberAddressTypeInfo subscriberAddressType, Guid storeGuid)
         {
-            int ownId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYPE", subscriberAddressType.SubscriberAddressTypeId, storeGuid);
+            int ownId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYP", subscriberAddressType.SubscriberAddressTypeId, storeGuid);
             int ownSubscriberId = subscriberAddressType.SubscriberId;
             if (ownSubscriberId != -1)
             {
@@ -1665,13 +1865,13 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 subscriberAddressType.SubscriberId = ownSubscriberId;
                 ownId = Controller.NewSubscriberAddressType(subscriberAddressType);
-                NewImportRelation(portalId, "SUBSCRIBERADDRESSTYPE", ownId, subscriberAddressType.SubscriberAddressTypeId, storeGuid);
+                NewImportRelation(portalId, "SUBSCRIBERADDRESSTYP", ownId, subscriberAddressType.SubscriberAddressTypeId, storeGuid);
             }
         }
 
         public void SaveSubscriberAddressTypeLang(int portalId, SubscriberAddressTypeLangInfo subscriberAddressTypeLang, Guid storeGuid)
         {
-            int ownId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYPE", subscriberAddressTypeLang.SubscriberAddressTypeId, storeGuid);
+            int ownId = GetImportRelationOwnId(portalId, "SUBSCRIBERADDRESSTYP", subscriberAddressTypeLang.SubscriberAddressTypeId, storeGuid);
             if (ownId < 0)
                 throw new KeyNotFoundException(String.Format("SaveSubscriberAddressTypeLang: SubscriberAddressTypeId {0} not found in Importrelation", subscriberAddressTypeLang.SubscriberAddressTypeId));
 

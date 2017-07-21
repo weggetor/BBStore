@@ -16,6 +16,7 @@ namespace Bitboxx.DNNModules.BBStore
             UserId = -1;
             PortalId = -1;
 	        CustomerName = "";
+            _status = 0;
         }
         public CustomerInfo(int userId, int portalId, string customerName)
         {
@@ -23,6 +24,7 @@ namespace Bitboxx.DNNModules.BBStore
             UserId = userId;
             PortalId = portalId;
 	        CustomerName = customerName;
+            _status = 0;
         }
 
         [DataMember()]
@@ -33,5 +35,7 @@ namespace Bitboxx.DNNModules.BBStore
         public int PortalId { get; set; }
         [DataMember()]
         public string CustomerName { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
     }
 }

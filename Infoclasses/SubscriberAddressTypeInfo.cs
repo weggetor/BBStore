@@ -21,6 +21,7 @@ namespace Bitboxx.DNNModules.BBStore
 			AddressType = "";
 			ViewOrder = 0;
 		    IsOrderAddress = false;
+            _status = 0;
         }
         [DataMember()]
         public int SubscriberAddressTypeId { get; set; }
@@ -38,5 +39,7 @@ namespace Bitboxx.DNNModules.BBStore
         public int ViewOrder { get; set; }
         [DataMember()]
         public bool IsOrderAddress { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
     }
 }

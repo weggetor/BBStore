@@ -2910,6 +2910,19 @@ namespace Bitboxx.DNNModules.BBStore
         }
 
         // OrderAdresses
+        public override IDataReader GetOrderAddresses(int orderId)
+        {
+            string sqlCmd = "SELECT * FROM " + GetFullyQualifiedName("OrderAddress") + 
+                            " WHERE OrderId = @OrderId";
+
+            SqlParameter[] sqlParams = new SqlParameter[]
+                {
+                    new SqlParameter("OrderId",orderId),
+                };
+
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
+        }
+
 
         public override IDataReader GetOrderAddresses(int orderId, string language)
         {
@@ -2966,12 +2979,13 @@ namespace Bitboxx.DNNModules.BBStore
                 " VALUES " +
                 " (@PortalID,@OrderID,@CustomerAddressID,@SubscriberAddressTypeId,@Company,@Prefix,@Firstname,@Middlename,@Lastname,@Suffix,@Unit,@Street,@Region,@Postalcode,@City,@Suburb,@Country,@Countrycode,@Telephone,@Cell,@Fax,@Email) SELECT CAST(scope_identity() AS INTEGER);";
 
+            var customerAddressId = OrderAddress.CustomerAddressId == -1 ? DBNull.Value : (object)OrderAddress.CustomerAddressId;
             SqlParameter[] SqlParams = new SqlParameter[]
                                        {
                                            new SqlParameter("OrderAddressID", OrderAddress.OrderAddressId),
                                            new SqlParameter("PortalID", OrderAddress.PortalId),
                                            new SqlParameter("OrderID", OrderAddress.OrderId),
-                                           new SqlParameter("CustomerAddressID", OrderAddress.CustomerAddressId),
+                                           new SqlParameter("CustomerAddressID", customerAddressId),
                                            new SqlParameter("SubscriberAddressTypeId", OrderAddress.SubscriberAddressTypeId),
                                            new SqlParameter("Company", OrderAddress.Company),
                                            new SqlParameter("Prefix", OrderAddress.Prefix),
@@ -3022,12 +3036,13 @@ namespace Bitboxx.DNNModules.BBStore
                 " Email = @Email" +
                 " WHERE OrderAddressID = @OrderAddressID";
 
+            var customerAddressId = OrderAddress.CustomerAddressId == -1 ?  DBNull.Value : (object) OrderAddress.CustomerAddressId;
             SqlParameter[] SqlParams = new SqlParameter[]
                                        {
                                            new SqlParameter("OrderAddressID", OrderAddress.OrderAddressId),
                                            new SqlParameter("PortalID", OrderAddress.PortalId),
                                            new SqlParameter("OrderID", OrderAddress.OrderId),
-                                           new SqlParameter("CustomerAddressID", OrderAddress.CustomerAddressId),
+                                           new SqlParameter("CustomerAddressID",customerAddressId),
                                            new SqlParameter("SubscriberAddressTypeId", OrderAddress.SubscriberAddressTypeId),
                                            new SqlParameter("Company", OrderAddress.Company),
                                            new SqlParameter("Prefix", OrderAddress.Prefix),
@@ -3048,7 +3063,7 @@ namespace Bitboxx.DNNModules.BBStore
                                            new SqlParameter("Fax", OrderAddress.Fax),
                                            new SqlParameter("Email", OrderAddress.Email)
                                        };
-
+            
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
         }
         public override bool HasOrderAddress(int customerAddressId)

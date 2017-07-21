@@ -35,6 +35,7 @@ namespace Bitboxx.DNNModules.BBStore
         	NoCart = false;
         	SortNo = 0;
             Weight = 0.000m;
+            _status = 0;
         }
         [DataMember()]
 		public int SimpleProductId { get; set; }
@@ -82,5 +83,7 @@ namespace Bitboxx.DNNModules.BBStore
 		public int SortNo { get; set; }
         [DataMember()]
         public decimal Weight { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
     }
 }

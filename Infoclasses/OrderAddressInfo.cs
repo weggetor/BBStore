@@ -14,6 +14,7 @@ namespace Bitboxx.DNNModules.BBStore
         public OrderAddressInfo()
         {
             CountryCode = "";
+            _status = 0;
         }
 
         [DataMember()]
@@ -64,6 +65,8 @@ namespace Bitboxx.DNNModules.BBStore
         public int SubscriberAddressTypeId { get; set; }
         [DataMember()]
         public string AddressType { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
 
         public string ToHtml()
         {

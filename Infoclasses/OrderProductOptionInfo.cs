@@ -19,6 +19,7 @@ namespace Bitboxx.DNNModules.BBStore
             OptionValue = "";
 	        OptionDescription = "";
             PriceAlteration = 0.00M;
+            _status = 0;
         }
         [DataMember()]
         public int OrderProductOptionId { get; set; }
@@ -36,5 +37,7 @@ namespace Bitboxx.DNNModules.BBStore
         public string OptionDescription { get; set; }
         [DataMember()]
         public decimal PriceAlteration { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
     }
 }

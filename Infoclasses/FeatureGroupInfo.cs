@@ -16,6 +16,7 @@ namespace Bitboxx.DNNModules.BBStore
 			PortalID = 0;
 			FeatureGroup = "";
 			ViewOrder = 0;
+		    _status = 0;
 		}
 		[DataMember()]
 		public Int32 FeatureGroupId { get; set; }
@@ -25,6 +26,8 @@ namespace Bitboxx.DNNModules.BBStore
 		public string FeatureGroup { get; set; }
 		[DataMember()]
 		public Int32 ViewOrder { get; set; }
-	}
+        [DataMember()]
+        public int _status { get; set; }
+    }
 
 }

@@ -22,6 +22,7 @@ namespace Bitboxx.DNNModules.BBStore
             TaxPercent = 0.0M;
             TaxTotal = 0.00M;
             SubTotal = 0.00M;
+            _status = 0;
         }
         [DataMember()]
         public int OrderAdditionalCostId { get; set; }
@@ -45,6 +46,8 @@ namespace Bitboxx.DNNModules.BBStore
         public decimal TaxTotal { get; set; }
         [DataMember()]
         public decimal SubTotal { get; set; }
-        
+        [DataMember()]
+        public int _status { get; set; }
+
     }
 }

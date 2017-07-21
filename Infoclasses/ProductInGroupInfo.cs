@@ -10,9 +10,16 @@ namespace Bitboxx.DNNModules.BBStore
     [DataContract()]
     public class ProductInGroupInfo
     {
+        public ProductInGroupInfo()
+        {
+            _status = 0;
+        }
+
         [DataMember()]
         public int SimpleProductId { get; set; }
         [DataMember()]
         public int ProductGroupId { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
     }
 }

@@ -32,6 +32,7 @@ namespace Bitboxx.DNNModules.BBStore
 			Unit = "";
 			FeatureToken = "";
 			ViewOrder = 0;
+		    _status = 0;
 		}
 		[DataMember()]
 		public Int32 FeatureId { get; set; }
@@ -73,6 +74,8 @@ namespace Bitboxx.DNNModules.BBStore
 		public string FeatureToken { get; set; }
 		[DataMember()]
 		public int ViewOrder { get; set; }
-	}
+        [DataMember()]
+        public int _status { get; set; }
+    }
 
 }

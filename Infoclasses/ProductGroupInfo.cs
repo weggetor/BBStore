@@ -25,6 +25,7 @@ namespace Bitboxx.DNNModules.BBStore
 			ProductCount = 0;
 			Disabled = false;
 			ViewOrder = 0;
+            _status = 0;
         }
         
         [DataMember()]
@@ -53,6 +54,8 @@ namespace Bitboxx.DNNModules.BBStore
 		public bool Disabled { get; set; }
 		[DataMember()]
 		public int ViewOrder { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
 
     }
 }

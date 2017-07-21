@@ -32,6 +32,7 @@ namespace Bitboxx.DNNModules.BBStore
             TaxId = "";
         	AttachName = "";
         	AttachContentType = "";
+            _status = 0;
         }
 
         [DataMember()]
@@ -76,6 +77,8 @@ namespace Bitboxx.DNNModules.BBStore
         public string AttachName { get; set; }
         [DataMember()]
         public string AttachContentType { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
 
     }
 }

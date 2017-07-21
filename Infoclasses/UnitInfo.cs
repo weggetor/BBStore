@@ -23,5 +23,7 @@ namespace Bitboxx.DNNModules.BBStore
         public Int32 Decimals { get; set; }
         public string Unit { get; set; }
         public string Symbol { get; set; }
+        [DataMember()]
+        public int _status { get; set; }
     }
 }
