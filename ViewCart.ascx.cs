@@ -1619,7 +1619,7 @@ namespace Bitboxx.DNNModules.BBStore
                 ac.CartId = CartId;
                 ac.Name = Localization.GetString("Discount.Text", this.LocalResourceFile) + " " + cp.Name;
                 ac.Quantity = 1m;
-                ac.UnitCost = (decimal)de.Value;
+                ac.UnitCost = (-1)* (decimal)de.Value;
                 ac.TaxPercent = cp.TaxPercent;
                 Controller.NewCartAdditionalCost(ac);
             }

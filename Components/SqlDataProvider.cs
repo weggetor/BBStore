@@ -2526,12 +2526,13 @@ namespace Bitboxx.DNNModules.BBStore
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
         }
 
-        public override IDataReader GetOrdersByPortalAndUser(int portalId, int userId)
+        public override IDataReader GetOrdersByPortalAndUser(int portalId, int userId, int excludeOrderstate)
         {
             string selCmd = "SELECT o.*" +
                 " FROM " + GetFullyQualifiedName("Order") + " o" +
                 " INNER JOIN "+ GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
                 " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "" ) + 
                 " ORDER BY o.OrderId DESC";
 
             SqlParameter[] sqlParams = new SqlParameter[]
@@ -2649,13 +2650,14 @@ namespace Bitboxx.DNNModules.BBStore
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
         }
 
-        public override IDataReader GetOrderProductsByPortalAndUser(int portalId, int userId)
+        public override IDataReader GetOrderProductsByPortalAndUser(int portalId, int userId, int excludeOrderstate)
         {
             string selCmd = "SELECT op.*" +
                 " FROM " + GetFullyQualifiedName("OrderProduct") + " op " +
                 " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON op.OrderId = o.OrderId" +
                 " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
                 " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "") +
                 " ORDER BY op.OrderProductId DESC";
 
             SqlParameter[] sqlParams = new SqlParameter[]
@@ -2730,6 +2732,12 @@ namespace Bitboxx.DNNModules.BBStore
         }
 
         //OrderProductOption methods
+        public override IDataReader GetOrderProductOption(int orderProductOptionId)
+        {
+            string selCmd = "SELECT * FROM " + Prefix + "OrderProductOption " +
+                "WHERE OrderProductOptionId = " + orderProductOptionId.ToString();
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
+        }
         public override IDataReader GetOrderProductOptions(int OrderProductId)
         {
             string selCmd = "SELECT * FROM " + Prefix + "OrderProductOption " +
@@ -2747,7 +2755,7 @@ namespace Bitboxx.DNNModules.BBStore
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
         }
 
-        public override IDataReader GetOrderProductOptionsByPortalAndUser(int portalId, int userId)
+        public override IDataReader GetOrderProductOptionsByPortalAndUser(int portalId, int userId, int excludeOrderstate)
         {
             string selCmd = "SELECT opo.*" +
                 " FROM " + GetFullyQualifiedName("OrderProductOption") + " opo " +
@@ -2755,6 +2763,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON o.OrderId = op.OrderId" +
                 " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
                 " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "") +
                 " ORDER BY opo.OrderProductOptionId DESC";
             SqlParameter[] sqlParams = new SqlParameter[]
                                     {
@@ -2840,13 +2849,14 @@ namespace Bitboxx.DNNModules.BBStore
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("PortalId", PortalId));
         }
 
-        public override IDataReader GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId)
+        public override IDataReader GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId, int excludeOrderstate)
         {
             string selCmd = "SELECT oac.*" +
                 " FROM " + GetFullyQualifiedName("OrderAdditionalCost") + " oac " +
                 " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON oac.OrderId = o.OrderId" +
                 " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
                 " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "") +
                 " ORDER BY oac.OrderAdditionalCostId DESC";
             SqlParameter[] sqlParams = new SqlParameter[]
                                     {
@@ -2910,6 +2920,15 @@ namespace Bitboxx.DNNModules.BBStore
         }
 
         // OrderAdresses
+
+        public override IDataReader GetOrderAddress(int OrderAddressId)
+        {
+            string selCmd = "SELECT *" +
+                " FROM " + GetFullyQualifiedName("OrderAddress") +
+                " WHERE OrderAddressId = @OrderAddressId" +
+                " ORDER BY OrderAddressId DESC";
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, new SqlParameter("OrderAddressId", OrderAddressId));
+        }
         public override IDataReader GetOrderAddresses(int orderId)
         {
             string sqlCmd = "SELECT * FROM " + GetFullyQualifiedName("OrderAddress") + 
@@ -2955,12 +2974,13 @@ namespace Bitboxx.DNNModules.BBStore
             return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
         }
 
-        public override IDataReader GetOrderAddressesByPortalAndUser(int portalId, int userId)
+        public override IDataReader GetOrderAddressesByPortalAndUser(int portalId, int userId, int excludeOrderstate)
         {
             string sqlCmd = "SELECT oa.* FROM " + GetFullyQualifiedName("OrderAddress") + " oa " +
                             " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON oa.OrderId = o.OrderId" +
                             " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
-                            " WHERE o.PortalId = @PortalId AND c.UserId = @UserId";
+                            " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                            (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "");
 
             SqlParameter[] sqlParams = new SqlParameter[]
                 {
@@ -3063,8 +3083,16 @@ namespace Bitboxx.DNNModules.BBStore
                                            new SqlParameter("Fax", OrderAddress.Fax),
                                            new SqlParameter("Email", OrderAddress.Email)
                                        };
+
+            try
+            {
+                SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.WriteAllText(@"C:\Temp\test.log", ex.ToString());
+            }
             
-            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
         }
         public override bool HasOrderAddress(int customerAddressId)
         {

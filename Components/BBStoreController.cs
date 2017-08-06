@@ -773,9 +773,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return CBO.FillCollection<OrderInfo>(DataProvider.Instance().GetOrdersByPortal(PortalId));
         }
-        public List<OrderInfo> GetOrdersByPortalAndUser(int portalId, int userId)
+        public List<OrderInfo> GetOrdersByPortalAndUser(int portalId, int userId, int excludeOrderState = -1)
         {
-            return CBO.FillCollection<OrderInfo>(DataProvider.Instance().GetOrdersByPortalAndUser(portalId, userId));
+            return CBO.FillCollection<OrderInfo>(DataProvider.Instance().GetOrdersByPortalAndUser(portalId, userId, excludeOrderState));
         }
         public List<OrderListInfo> GetOrders(int PortalId, string Language, string Sort, string Filter)
         {
@@ -805,9 +805,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return CBO.FillCollection<OrderProductInfo>(DataProvider.Instance().GetOrderProductsByPortal(portalId));
         }
-        public List<OrderProductInfo> GetOrderProductsByPortalAndUser(int portalId, int userId)
+        public List<OrderProductInfo> GetOrderProductsByPortalAndUser(int portalId, int userId, int excludeOrderstate = -1)
         {
-            return CBO.FillCollection<OrderProductInfo>(DataProvider.Instance().GetOrderProductsByPortalAndUser(portalId, userId));
+            return CBO.FillCollection<OrderProductInfo>(DataProvider.Instance().GetOrderProductsByPortalAndUser(portalId, userId, excludeOrderstate));
         }
         public int NewOrderProduct(OrderProductInfo OrderProduct)
         {
@@ -824,7 +824,10 @@ namespace Bitboxx.DNNModules.BBStore
         #endregion
 
         #region OrderProductOption methods
-
+        public OrderProductOptionInfo GetOrderProductOption(int orderProductOptionId)
+        {
+            return CBO.FillObject <OrderProductOptionInfo>(DataProvider.Instance().GetOrderProductOption(orderProductOptionId));
+        }
         public List<OrderProductOptionInfo> GetOrderProductOptions(int OrderProductId)
         {
             return CBO.FillCollection<OrderProductOptionInfo>(DataProvider.Instance().GetOrderProductOptions(OrderProductId));
@@ -833,9 +836,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return CBO.FillCollection<OrderProductOptionInfo>(DataProvider.Instance().GetOrderProductOptionsByPortal(portalId));
         }
-        public List<OrderProductOptionInfo> GetOrderProductOptionsByPortalAndUser(int portalId, int userId)
+        public List<OrderProductOptionInfo> GetOrderProductOptionsByPortalAndUser(int portalId, int userId, int excludeOrderstate = -1) 
         {
-            return CBO.FillCollection<OrderProductOptionInfo>(DataProvider.Instance().GetOrderProductOptionsByPortalAndUser(portalId, userId));
+            return CBO.FillCollection<OrderProductOptionInfo>(DataProvider.Instance().GetOrderProductOptionsByPortalAndUser(portalId, userId, excludeOrderstate ));
         }
         public int NewOrderProductOption(OrderProductOptionInfo OrderProductOption)
         {
@@ -861,9 +864,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return CBO.FillCollection<OrderAdditionalCostInfo>(DataProvider.Instance().GetOrderAdditionalCostsByPortal(portalId));
         }
-        public List<OrderAdditionalCostInfo> GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId)
+        public List<OrderAdditionalCostInfo> GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId, int excludeOrderstate = -1) 
         {
-            return CBO.FillCollection<OrderAdditionalCostInfo>(DataProvider.Instance().GetOrderAdditionalCostsByPortalAndUser(portalId, userId));
+            return CBO.FillCollection<OrderAdditionalCostInfo>(DataProvider.Instance().GetOrderAdditionalCostsByPortalAndUser(portalId, userId, excludeOrderstate));
         }
 
         public int NewOrderAdditionalCost(OrderAdditionalCostInfo OrderAdditionalCost)
@@ -884,6 +887,10 @@ namespace Bitboxx.DNNModules.BBStore
 
         #region OrderAddress
 
+        public OrderAddressInfo GetOrderAddress(int OrderAddressId)
+        {
+            return CBO.FillObject<OrderAddressInfo>(DataProvider.Instance().GetOrderAddress(OrderAddressId));
+        }
         public List<OrderAddressInfo> GetOrderAddresses(int orderId)
         {
             return CBO.FillCollection<OrderAddressInfo>(DataProvider.Instance().GetOrderAddresses(orderId));
@@ -896,9 +903,9 @@ namespace Bitboxx.DNNModules.BBStore
         {
             return CBO.FillCollection<OrderAddressInfo>(DataProvider.Instance().GetOrderAddressesByPortal(portalId));
         }
-        public List<OrderAddressInfo> GetOrderAddressesByPortalAndUser(int portalId, int userId)
+        public List<OrderAddressInfo> GetOrderAddressesByPortalAndUser(int portalId, int userId, int excludeOrderstate = -1)
         {
-            return CBO.FillCollection<OrderAddressInfo>(DataProvider.Instance().GetOrderAddressesByPortalAndUser(portalId, userId));
+            return CBO.FillCollection<OrderAddressInfo>(DataProvider.Instance().GetOrderAddressesByPortalAndUser(portalId, userId, excludeOrderstate));
         }
         public int NewOrderAddress(OrderAddressInfo OrderAddress)
         {

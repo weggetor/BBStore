@@ -249,7 +249,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract IDataReader GetOrder(int OrderId);
     	public abstract IDataReader GetOrders(int PortalId, string Language, string Sort, string Filter);
         public abstract IDataReader GetOrdersByPortal(int PortalId);
-        public abstract IDataReader GetOrdersByPortalAndUser(int PortalId, int userid);
+        public abstract IDataReader GetOrdersByPortalAndUser(int PortalId, int userid, int excludeOrderState);
         public abstract int NewOrder(OrderInfo Order);
         public abstract void UpdateOrder(OrderInfo Order);
         public abstract void DeleteOrder(int OrderId);
@@ -257,15 +257,16 @@ namespace Bitboxx.DNNModules.BBStore
         // OrderProduct methods
         public abstract IDataReader GetOrderProducts(int OrderId);
         public abstract IDataReader GetOrderProductsByPortal(int PortalId);
-        public abstract IDataReader GetOrderProductsByPortalAndUser(int PortalId, int userId);
+        public abstract IDataReader GetOrderProductsByPortalAndUser(int PortalId, int userId, int excludeOrderState);
         public abstract int NewOrderProduct(OrderProductInfo OrderProduct);
         public abstract void UpdateOrderProduct(OrderProductInfo OrderProduct);
         public abstract void DeleteOrderProduct(int OrderProductId);
 
         // OrderProductOption methods
+        public abstract IDataReader GetOrderProductOption(int orderProductOptionId);
         public abstract IDataReader GetOrderProductOptions(int OrderProductId);
         public abstract IDataReader GetOrderProductOptionsByPortal(int PortalId);
-        public abstract IDataReader GetOrderProductOptionsByPortalAndUser(int PortalId, int userId);
+        public abstract IDataReader GetOrderProductOptionsByPortalAndUser(int PortalId, int userId, int excludeOrderState);
         public abstract int NewOrderProductOption(OrderProductOptionInfo OrderProductOption);
         public abstract void UpdateOrderProductOption(OrderProductOptionInfo OrderProductOption);
         public abstract void DeleteOrderProductOption(int OrderProductOptionId);
@@ -273,16 +274,18 @@ namespace Bitboxx.DNNModules.BBStore
         // OrderAdditionalCosts methods
         public abstract IDataReader GetOrderAdditionalCosts(int OrderId);
         public abstract IDataReader GetOrderAdditionalCostsByPortal(int PortalId);
-        public abstract IDataReader GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId);
+        public abstract IDataReader GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId, int excludeOrderState);
         public abstract int NewOrderAdditionalCost(OrderAdditionalCostInfo OrderAdditionalCost);
         public abstract void UpdateOrderAdditionalCost(OrderAdditionalCostInfo OrderAdditionalCost);
         public abstract void DeleteOrderAdditionalCost(int OrderAdditionalCostId);
 
         // OrderAddresses methods
+
+        public abstract IDataReader GetOrderAddress(int OrderAddressId);
         public abstract IDataReader GetOrderAddresses(int orderId);
         public abstract IDataReader GetOrderAddresses(int orderId, string language);
         public abstract IDataReader GetOrderAddressesByPortal(int portalId);
-        public abstract IDataReader GetOrderAddressesByPortalAndUser(int portalId, int userId);
+        public abstract IDataReader GetOrderAddressesByPortalAndUser(int portalId, int userId, int excludeOrderState);
         public abstract IDataReader GetOrderStats(DateTime startDate, DateTime endDate);
         public abstract int NewOrderAddress(OrderAddressInfo OrderAddress);
         public abstract void UpdateOrderAddress(OrderAddressInfo OrderAddress);

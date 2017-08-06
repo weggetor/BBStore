@@ -1163,10 +1163,12 @@ namespace Bitboxx.DNNModules.BBStore
             foreach (OrderProductInfo orderProduct in orderProducts)
             {
                 int orderProductId = GetImportRelationForeignId(portalId, "ORDERPRODUCT", orderProduct.OrderProductId, storeGuid);
+                int productId = GetImportRelationForeignId(portalId, "PRODUCT", orderProduct.ProductId, storeGuid);
                 int orderId = GetImportRelationForeignId(portalId, "ORDER", orderProduct.OrderId, storeGuid);
-                if (orderId > -1 && orderProductId > -1)
+                if (orderId > -1 && orderProductId > -1 && productId > -1)
                 {
                     orderProduct.OrderId = orderId;
+                    orderProduct.ProductId = productId;
                     orderProduct.OrderProductId = orderProductId;
                     result.Add(orderProduct);
                 }
@@ -1185,8 +1187,9 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 int orderProductOptionId = GetImportRelationForeignId(portalId, "ORDERPRODUCTOPTION", orderProductOption.OrderProductOptionId, storeGuid);
                 int orderProductId = GetImportRelationForeignId(portalId, "ORDERPRODUCT", orderProductOption.OrderProductId, storeGuid);
-                if (orderProductId > -1 && orderProductOptionId > -1)
+                if (orderProductId > -1)
                 {
+                    orderProductOption._status = (orderProductOptionId == -1 ? 1 : 2);
                     orderProductOption.OrderProductOptionId = orderProductOptionId;
                     orderProductOption.OrderProductId = orderProductId;
                     result.Add(orderProductOption);
@@ -1228,8 +1231,9 @@ namespace Bitboxx.DNNModules.BBStore
                 int orderAddressId = GetImportRelationForeignId(portalId, "ORDERADDRESS", orderAddress.OrderAddressId, storeGuid);
                 int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYP", orderAddress.SubscriberAddressTypeId, storeGuid);
                 int orderId = GetImportRelationForeignId(portalId, "ORDER", orderAddress.OrderId, storeGuid);
-                if (orderId > -1 && subscriberAddressTypeId > -1 && orderAddressId > -1)
+                if (orderId > -1 && subscriberAddressTypeId > -1)
                 {
+                    orderAddress._status = (orderAddressId == -1 ? 1 : 2);
                     orderAddress.OrderId = orderId;
                     orderAddress.OrderAddressId = orderAddressId;
                     orderAddress.SubscriberAddressTypeId = subscriberAddressTypeId;

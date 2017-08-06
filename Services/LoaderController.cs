@@ -56,7 +56,7 @@ namespace Bitboxx.DNNModules.BBStore.Services
 
         [HttpPost]
         [DnnAuthorize(StaticRoles = "Administrators")]
-        public HttpResponseMessage GetOrders()
+        public HttpResponseMessage GetChangedOrders()
         {
             try
             {
