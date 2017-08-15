@@ -1671,7 +1671,7 @@ namespace Bitboxx.DNNModules.BBStore
                 mail.Subject = ((string)StoreSettings["StoreSubject"]).Replace("[ORDERNO]", orderNo);
 
                 AlternateView av1 = AlternateView.CreateAlternateViewFromString(templateContent, null, "text/html");
-                string logoFile = MapPath(PortalSettings.HomeDirectory + PortalSettings.LogoFile);
+                string logoFile = Server.MapPath(PortalSettings.HomeDirectory + PortalSettings.LogoFile);
 
                 if (PortalSettings.LogoFile != string.Empty && File.Exists(logoFile))
                 {

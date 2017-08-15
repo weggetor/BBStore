@@ -1,6 +1,7 @@
 ﻿using System;
 using DotNetNuke.Web.Api;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -147,6 +148,38 @@ namespace Bitboxx.DNNModules.BBStore.Services
             return Request.CreateResponse(HttpStatusCode.OK, items);
         }
 
+
+        [HttpPost]
+        [DnnAuthorize(StaticRoles = "Registered Users")]
+        public HttpResponseMessage ProcessChangedOrderProducts(List<OrderProductInfo> orderProducts)
+        {
+            try
+            {
+                //System.IO.File.WriteAllText(@"C:\Temp\test.json", JsonConvert.SerializeObject(orderProductOptions));
+                BBStoreController controller = new BBStoreController();
+                BBStoreImportController importCtrl = new BBStoreImportController();
+                Dictionary<int, int> ids = new Dictionary<int, int>();
+                foreach (OrderProductInfo orderProduct in orderProducts)
+                {
+                    //System.IO.File.AppendAllText(@"C:\Temp\test.json", orderProductOption.OrderProductOptionId.ToString() + @"\r\n");
+                    OrderProductInfo op = controller.GetOrderProduct(orderProduct.OrderProductId);
+                    if (op != null)
+                        controller.UpdateOrderProduct(orderProduct);
+                    else
+                    {
+                        int oldId = orderProduct.OrderProductId;
+                        int newId = controller.NewOrderProduct(orderProduct);
+                        ids.Add(oldId,newId);
+                    }
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, ids);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
         [HttpPost]
         [DnnAuthorize(StaticRoles = "Registered Users")]
         public HttpResponseMessage ProcessChangedOrderProductOptions(List<OrderProductOptionInfo> orderProductOptions)
@@ -213,6 +246,25 @@ namespace Bitboxx.DNNModules.BBStore.Services
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound, "Order not found");
                 }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPost]
+        [DnnAuthorize(StaticRoles = "Registered Users")]
+        public HttpResponseMessage MailOrders(List<OrderInfo> orders)
+        {
+            try
+            {
+                BBStoreController controller = new BBStoreController();
+                foreach (OrderInfo order in orders)
+                {
+                    controller.MailOrder(PortalSettings.PortalId,order.OrderID);
+                }
+                return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)
             {

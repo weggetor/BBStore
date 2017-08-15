@@ -170,7 +170,7 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			get
 			{
-				string controlPath = MapPath(AppRelativeVirtualPath);
+				string controlPath = Server.MapPath(AppRelativeVirtualPath);
 				FileInfo fi = new FileInfo(controlPath);
 				string templatePath = fi.DirectoryName + @"\..\Templates\" + Key +"\\";
 				fi = new FileInfo(templatePath);

@@ -38,6 +38,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using DotNetNuke.Services.Log.EventLog;
 
@@ -797,6 +798,10 @@ namespace Bitboxx.DNNModules.BBStore
         #endregion
 
         #region OrderProduct methods
+        public OrderProductInfo GetOrderProduct(int OrderProductId)
+        {
+            return (OrderProductInfo)CBO.FillObject<OrderProductInfo>(DataProvider.Instance().GetOrderProduct(OrderProductId));
+        }
         public List<OrderProductInfo> GetOrderProducts(int OrderId)
         {
             return CBO.FillCollection<OrderProductInfo>(DataProvider.Instance().GetOrderProducts(OrderId));
@@ -2008,6 +2013,22 @@ namespace Bitboxx.DNNModules.BBStore
             if (cartModule != null)
                 return moduleController.GetModuleSettings(cartModule.ModuleID);
             throw new Exception("No cart module found in portal");
+        }
+
+        public void MailOrder(int portalId, int orderId)
+        {
+            System.Web.UI.Page dummy = new Page();
+            ViewCart viewCartControl = dummy.LoadControl(@"~\DesktopModules\BBStore\ViewCart.ascx") as ViewCart;
+
+            // Settings
+            ModuleController oModules = new ModuleController();
+            ModuleInfo mailCartModule = oModules.GetModuleByDefinition(portalId, "BBStore Cart");
+            viewCartControl.ModuleConfiguration = mailCartModule;
+
+            // ResourceFile
+            string resourceFile = System.IO.Path.GetFileNameWithoutExtension(viewCartControl.AppRelativeVirtualPath);
+            viewCartControl.LocalResourceFile = viewCartControl.LocalResourceFile + resourceFile + ".ascx.resx";
+            viewCartControl.MailOrder(orderId);
         }
 
         private void CheckCss(string colorBorder, string colorHead, string colorRow, string colorAlt, string colorSum)

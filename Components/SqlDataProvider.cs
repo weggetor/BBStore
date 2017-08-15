@@ -2624,6 +2624,13 @@ namespace Bitboxx.DNNModules.BBStore
         }
 
         // OrderProduct methods
+        public override IDataReader GetOrderProduct(int OrderProductId)
+        {
+            string selCmd = "SELECT *  FROM " + Prefix + "OrderProduct" +
+                            " WHERE OrderProductId = " + OrderProductId.ToString();
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
+        }
+
         public override IDataReader GetOrderProducts(int OrderId)
         {
             string selCmd = "SELECT OrderProduct.OrderProductId, OrderProduct.OrderID,OrderProduct.ProductID,OrderProduct.Image, OrderProduct.ItemNo," +

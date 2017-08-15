@@ -12,6 +12,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.FileSystem;
+using DotNetNuke.Services.Log.EventLog;
 using FileInfo = System.IO.FileInfo;
 
 namespace Bitboxx.DNNModules.BBStore
@@ -266,33 +267,44 @@ namespace Bitboxx.DNNModules.BBStore
 
         public BBStoreInfo GetAppOrders(int portalId, Guid storeGuid)
         {
-            BBStoreController ctrl = new BBStoreController();
-            List<OrderProductInfo> orderProducts = GetOrderProducts(portalId, storeGuid);
-            List<OrderProductOptionInfo> orderProductOptions = GetOrderProductOptions(portalId, storeGuid);
-            List<OrderAdditionalCostInfo> orderAdditionalCosts = GetOrderAdditionalCosts(portalId, storeGuid);
-            List<OrderAddressInfo> orderAddresses = GetOrderAddresses(portalId, storeGuid);
-
-            BBStoreInfo bbStore = new BBStoreInfo();
-
-            bbStore.StoreGuid = storeGuid;
-            bbStore.StoreName = (storeGuid == BBStoreController.StoreGuid ? BBStoreController.StoreName : GetImportStoreName(storeGuid));
-            bbStore.Order = GetChangedOrders(portalId, storeGuid);
-            foreach (OrderInfo order in bbStore.Order)
+            try
             {
-                var ops = from o in orderProducts where o.OrderId == order.OrderID select o;
-                bbStore.OrderProduct.AddRange(ops);
-                var oacs = from oac in orderAdditionalCosts where oac.OrderId == order.OrderID select oac;
-                bbStore.OrderAdditionalCost.AddRange(oacs);
-                var oas = from oa in orderAddresses where oa.OrderId == order.OrderID select oa;
-                bbStore.OrderAddress.AddRange(oas);
-            }
-            foreach (var orderProduct in bbStore.OrderProduct)
-            {
-                var opos = from opo in orderProductOptions where opo.OrderProductId == orderProduct.OrderProductId select opo;
-                bbStore.OrderProductOption.AddRange(opos);
-            }
+                BBStoreController ctrl = new BBStoreController();
+                List<OrderProductInfo> orderProducts = GetOrderProducts(portalId, storeGuid);
+                List<OrderProductOptionInfo> orderProductOptions = GetOrderProductOptions(portalId, storeGuid);
+                List<OrderAdditionalCostInfo> orderAdditionalCosts = GetOrderAdditionalCosts(portalId, storeGuid);
+                List<OrderAddressInfo> orderAddresses = GetOrderAddresses(portalId, storeGuid);
 
-            return bbStore;
+                BBStoreInfo bbStore = new BBStoreInfo();
+
+                bbStore.StoreGuid = storeGuid;
+                bbStore.StoreName = (storeGuid == BBStoreController.StoreGuid ? BBStoreController.StoreName : GetImportStoreName(storeGuid));
+                bbStore.Order = GetChangedOrders(portalId, storeGuid);
+                foreach (OrderInfo order in bbStore.Order)
+                {
+                    var ops = from o in orderProducts where o.OrderId == order.OrderID select o;
+                    bbStore.OrderProduct.AddRange(ops);
+                    var oacs = from oac in orderAdditionalCosts where oac.OrderId == order.OrderID select oac;
+                    bbStore.OrderAdditionalCost.AddRange(oacs);
+                    var oas = from oa in orderAddresses where oa.OrderId == order.OrderID select oa;
+                    bbStore.OrderAddress.AddRange(oas);
+                }
+                foreach (var orderProduct in bbStore.OrderProduct)
+                {
+                    var opos = from opo in orderProductOptions where opo.OrderProductId == orderProduct.OrderProductId select opo;
+                    bbStore.OrderProductOption.AddRange(opos);
+                }
+
+                return bbStore;
+            }
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetAppOrders", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
         }
 
 
@@ -1134,113 +1146,172 @@ namespace Bitboxx.DNNModules.BBStore
 
         private List<OrderInfo> GetChangedOrders(int portalId, Guid storeGuid)
         {
-            List<OrderInfo> orders = Controller.GetOrdersByPortal(portalId);
-            if (storeGuid == BBStoreController.StoreGuid)
-                return orders;
-
-            List<OrderInfo> result = new List<OrderInfo>();
-            foreach (OrderInfo order in orders)
+            try
             {
-                int orderId = GetImportRelationForeignId(portalId, "ORDER", order.OrderID, storeGuid);
-                int customerId = GetImportRelationForeignId(portalId, "CUSTOMER", order.CustomerID, storeGuid);
-                if (orderId > -1 && (order.OrderStateId == 6 || order.OrderStateId == 7))
+                List<OrderInfo> orders = Controller.GetOrdersByPortal(portalId);
+                if (storeGuid == BBStoreController.StoreGuid)
+                    return orders;
+
+                List<OrderInfo> result = new List<OrderInfo>();
+                foreach (OrderInfo order in orders)
                 {
-                    order.OrderID = orderId;
-                    order.CustomerID = customerId;
-                    result.Add(order);
+                    int orderId = GetImportRelationForeignId(portalId, "ORDER", order.OrderID, storeGuid);
+                    int customerId = GetImportRelationForeignId(portalId, "CUSTOMER", order.CustomerID, storeGuid);
+                    if (orderId > -1 && (order.OrderStateId == 6 || order.OrderStateId == 7))
+                    {
+                        order.OrderID = orderId;
+                        order.CustomerID = customerId;
+                        result.Add(order);
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetChangedOrders", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
         }
 
         private List<OrderProductInfo> GetOrderProducts(int portalId, Guid storeGuid)
         {
-            List<OrderProductInfo> orderProducts = Controller.GetOrderProductsByPortal(portalId);
-            if (storeGuid == BBStoreController.StoreGuid)
-                return orderProducts;
-
-            List<OrderProductInfo> result = new List<OrderProductInfo>();
-            foreach (OrderProductInfo orderProduct in orderProducts)
+            try
             {
-                int orderProductId = GetImportRelationForeignId(portalId, "ORDERPRODUCT", orderProduct.OrderProductId, storeGuid);
-                int productId = GetImportRelationForeignId(portalId, "PRODUCT", orderProduct.ProductId, storeGuid);
-                int orderId = GetImportRelationForeignId(portalId, "ORDER", orderProduct.OrderId, storeGuid);
-                if (orderId > -1 && orderProductId > -1 && productId > -1)
+                List<OrderProductInfo> orderProducts = Controller.GetOrderProductsByPortal(portalId);
+                if (storeGuid == BBStoreController.StoreGuid)
+                    return orderProducts;
+
+                List<OrderProductInfo> result = new List<OrderProductInfo>();
+                foreach (OrderProductInfo orderProduct in orderProducts)
                 {
-                    orderProduct.OrderId = orderId;
-                    orderProduct.ProductId = productId;
-                    orderProduct.OrderProductId = orderProductId;
-                    result.Add(orderProduct);
+                    int orderProductId = GetImportRelationForeignId(portalId, "ORDERPRODUCT", orderProduct.OrderProductId, storeGuid);
+                    if (orderProductId == -1)
+                        orderProductId = (-1) * orderProduct.OrderProductId;
+                    int productId = GetImportRelationForeignId(portalId, "PRODUCT", orderProduct.ProductId, storeGuid);
+                    int orderId = GetImportRelationForeignId(portalId, "ORDER", orderProduct.OrderId, storeGuid);
+                    if (orderId > -1 && productId > -1)
+                    {
+                        orderProduct.OrderId = orderId;
+                        orderProduct.ProductId = productId;
+                        orderProduct.OrderProductId = orderProductId;
+                        result.Add(orderProduct);
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetOrderProducts", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
         }
 
         private List<OrderProductOptionInfo> GetOrderProductOptions(int portalId, Guid storeGuid)
         {
-            List<OrderProductOptionInfo> orderProductOptions = Controller.GetOrderProductOptionsByPortal(portalId);
-            if (storeGuid == BBStoreController.StoreGuid)
-                return orderProductOptions;
-
-            List<OrderProductOptionInfo> result = new List<OrderProductOptionInfo>();
-            foreach (OrderProductOptionInfo orderProductOption in orderProductOptions)
+            try
             {
-                int orderProductOptionId = GetImportRelationForeignId(portalId, "ORDERPRODUCTOPTION", orderProductOption.OrderProductOptionId, storeGuid);
-                int orderProductId = GetImportRelationForeignId(portalId, "ORDERPRODUCT", orderProductOption.OrderProductId, storeGuid);
-                if (orderProductId > -1)
+                List<OrderProductOptionInfo> orderProductOptions = Controller.GetOrderProductOptionsByPortal(portalId);
+                if (storeGuid == BBStoreController.StoreGuid)
+                    return orderProductOptions;
+
+                List<OrderProductOptionInfo> result = new List<OrderProductOptionInfo>();
+                foreach (OrderProductOptionInfo orderProductOption in orderProductOptions)
                 {
+                    int orderProductOptionId = GetImportRelationForeignId(portalId, "ORDERPRODUCTOPTION", orderProductOption.OrderProductOptionId, storeGuid);
+                    int orderProductId = GetImportRelationForeignId(portalId, "ORDERPRODUCT", orderProductOption.OrderProductId, storeGuid);
+                    if (orderProductId == -1)
+                        orderProductId = (-1) * orderProductOption.OrderProductId;
+
                     orderProductOption._status = (orderProductOptionId == -1 ? 1 : 2);
                     orderProductOption.OrderProductOptionId = orderProductOptionId;
                     orderProductOption.OrderProductId = orderProductId;
                     result.Add(orderProductOption);
                 }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetOrderProductOptions", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
         }
 
         private List<OrderAdditionalCostInfo> GetOrderAdditionalCosts(int portalId, Guid storeGuid)
         {
-            List<OrderAdditionalCostInfo> orderadditionalCosts = Controller.GetOrderAdditionalCostsByPortal(portalId);
-            if (storeGuid == BBStoreController.StoreGuid)
-                return orderadditionalCosts;
-
-            List<OrderAdditionalCostInfo> result = new List<OrderAdditionalCostInfo>();
-            foreach (OrderAdditionalCostInfo orderadditionalCost in orderadditionalCosts)
+            try
             {
-                int orderadditionalCostId = GetImportRelationForeignId(portalId, "ORDERADDITIONALCOST", orderadditionalCost.OrderAdditionalCostId, storeGuid);
-                int orderId = GetImportRelationForeignId(portalId, "ORDER", orderadditionalCost.OrderId, storeGuid);
-                if (orderId > -1 && orderadditionalCostId > -1)
+                List<OrderAdditionalCostInfo> orderadditionalCosts = Controller.GetOrderAdditionalCostsByPortal(portalId);
+                if (storeGuid == BBStoreController.StoreGuid)
+                    return orderadditionalCosts;
+
+                List<OrderAdditionalCostInfo> result = new List<OrderAdditionalCostInfo>();
+                foreach (OrderAdditionalCostInfo orderadditionalCost in orderadditionalCosts)
                 {
-                    orderadditionalCost.OrderId = orderId;
-                    orderadditionalCost.OrderAdditionalCostId = orderadditionalCostId;
-                    result.Add(orderadditionalCost);
+                    int orderadditionalCostId = GetImportRelationForeignId(portalId, "ORDERADDITIONALCOST", orderadditionalCost.OrderAdditionalCostId, storeGuid);
+                    int orderId = GetImportRelationForeignId(portalId, "ORDER", orderadditionalCost.OrderId, storeGuid);
+                    if (orderId > -1 && orderadditionalCostId > -1)
+                    {
+                        orderadditionalCost.OrderId = orderId;
+                        orderadditionalCost.OrderAdditionalCostId = orderadditionalCostId;
+                        result.Add(orderadditionalCost);
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetOrderAdditionalCosts", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
+
         }
 
         private List<OrderAddressInfo> GetOrderAddresses(int portalId, Guid storeGuid)
         {
-            List<OrderAddressInfo> orderAddresses = Controller.GetOrderAddressesByPortal(portalId);
-            if (storeGuid == BBStoreController.StoreGuid)
-                return orderAddresses;
-
-            List<OrderAddressInfo> result = new List<OrderAddressInfo>();
-            foreach (OrderAddressInfo orderAddress in orderAddresses)
+            try
             {
-                int orderAddressId = GetImportRelationForeignId(portalId, "ORDERADDRESS", orderAddress.OrderAddressId, storeGuid);
-                int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYP", orderAddress.SubscriberAddressTypeId, storeGuid);
-                int orderId = GetImportRelationForeignId(portalId, "ORDER", orderAddress.OrderId, storeGuid);
-                if (orderId > -1 && subscriberAddressTypeId > -1)
+                List<OrderAddressInfo> orderAddresses = Controller.GetOrderAddressesByPortal(portalId);
+                if (storeGuid == BBStoreController.StoreGuid)
+                    return orderAddresses;
+
+                List<OrderAddressInfo> result = new List<OrderAddressInfo>();
+                foreach (OrderAddressInfo orderAddress in orderAddresses)
                 {
-                    orderAddress._status = (orderAddressId == -1 ? 1 : 2);
-                    orderAddress.OrderId = orderId;
-                    orderAddress.OrderAddressId = orderAddressId;
-                    orderAddress.SubscriberAddressTypeId = subscriberAddressTypeId;
-                    result.Add(orderAddress);
+                    int orderAddressId = GetImportRelationForeignId(portalId, "ORDERADDRESS", orderAddress.OrderAddressId, storeGuid);
+                    int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYP", orderAddress.SubscriberAddressTypeId, storeGuid);
+                    int orderId = GetImportRelationForeignId(portalId, "ORDER", orderAddress.OrderId, storeGuid);
+                    if (orderId > -1 && subscriberAddressTypeId > -1)
+                    {
+                        orderAddress._status = (orderAddressId == -1 ? 1 : 2);
+                        orderAddress.OrderId = orderId;
+                        orderAddress.OrderAddressId = orderAddressId;
+                        orderAddress.SubscriberAddressTypeId = subscriberAddressTypeId;
+                        result.Add(orderAddress);
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetOrderAddresses", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
+
         }
 
         private List<CustomerInfo> GetCustomers(int portalId, Guid storeGuid)
