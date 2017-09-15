@@ -81,7 +81,9 @@ namespace Bitboxx.DNNModules.BBStore.Services
                 BBStoreImportController importCtrl = new BBStoreImportController();
                 BBStoreInfo bbstore = importCtrl.GetAppOrders(portalId, storeGuid);
 
-                return Request.CreateResponse(HttpStatusCode.OK, bbstore);
+                string json = JsonConvert.SerializeObject(bbstore);
+
+                return Request.CreateResponse(HttpStatusCode.OK, json);
             }
             catch (Exception ex)
             {

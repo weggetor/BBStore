@@ -32,6 +32,8 @@ namespace Bitboxx.DNNModules.BBStore
             }
         }
 
+        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(BBStoreImportController));
+
         #endregion
 
         #region Maintenance  methods
@@ -267,34 +269,40 @@ namespace Bitboxx.DNNModules.BBStore
 
         public BBStoreInfo GetAppOrders(int portalId, Guid storeGuid)
         {
+            Logger.Debug("Starte GetAppOrders");
             try
             {
                 BBStoreController ctrl = new BBStoreController();
-                List<OrderProductInfo> orderProducts = GetOrderProducts(portalId, storeGuid);
-                List<OrderProductOptionInfo> orderProductOptions = GetOrderProductOptions(portalId, storeGuid);
-                List<OrderAdditionalCostInfo> orderAdditionalCosts = GetOrderAdditionalCosts(portalId, storeGuid);
-                List<OrderAddressInfo> orderAddresses = GetOrderAddresses(portalId, storeGuid);
 
                 BBStoreInfo bbStore = new BBStoreInfo();
 
                 bbStore.StoreGuid = storeGuid;
                 bbStore.StoreName = (storeGuid == BBStoreController.StoreGuid ? BBStoreController.StoreName : GetImportStoreName(storeGuid));
+                Logger.Debug("Starte GetChangedOrders...");
                 bbStore.Order = GetChangedOrders(portalId, storeGuid);
+                Logger.DebugFormat("Anzahl Gelesene Order: {}", bbStore.Order.Count);
                 foreach (OrderInfo order in bbStore.Order)
                 {
-                    var ops = from o in orderProducts where o.OrderId == order.OrderID select o;
-                    bbStore.OrderProduct.AddRange(ops);
-                    var oacs = from oac in orderAdditionalCosts where oac.OrderId == order.OrderID select oac;
-                    bbStore.OrderAdditionalCost.AddRange(oacs);
-                    var oas = from oa in orderAddresses where oa.OrderId == order.OrderID select oa;
-                    bbStore.OrderAddress.AddRange(oas);
+                    List<OrderProductInfo> orderproducts = GetForeignOrderProductsByOrderId(portalId, order.OrderID, storeGuid);
+                    Logger.DebugFormat("Gelesene OrderProducts für Order.OrderID {0}: Anzahl: {1}", order.OrderID, orderproducts.Count);
+                    bbStore.OrderProduct.AddRange(orderproducts);
+
+                    List<OrderAdditionalCostInfo> orderAdditionalCosts = GetForeignOrderAdditionalCostsByOrderId(portalId, order.OrderID, storeGuid);
+                    Logger.DebugFormat("Gelesene OrderAdditionalCost für Order.OrderID {0}: Anzahl: {1}", order.OrderID, orderAdditionalCosts.Count);
+                    bbStore.OrderAdditionalCost.AddRange(orderAdditionalCosts);
+
+                    List<OrderAddressInfo> orderAddresses = GetForeignOrderAddressesByOrderId(portalId, order.OrderID, storeGuid);
+                    Logger.DebugFormat("Gelesene OrderAddresses für Order.OrderID {0}: Anzahl: {1}", order.OrderID, orderAddresses.Count);
+                    bbStore.OrderAddress.AddRange(orderAddresses);
                 }
                 foreach (var orderProduct in bbStore.OrderProduct)
                 {
-                    var opos = from opo in orderProductOptions where opo.OrderProductId == orderProduct.OrderProductId select opo;
-                    bbStore.OrderProductOption.AddRange(opos);
+                    List<OrderProductOptionInfo> orderproductOptions = GetForeignOrderProductOptionsByOrderProductId(portalId, orderProduct.OrderProductId, storeGuid);
+                    Logger.DebugFormat("Gelesene OrderProductOptions für OrderProduct.OrderProductID {0}: Anzahl: {1}", orderProduct.OrderProductId, orderproductOptions.Count);
+                    bbStore.OrderProductOption.AddRange(orderproductOptions);
                 }
-
+                
+                Logger.DebugFormat("Länge des Ergbnis-Strings: {0}",Newtonsoft.Json.JsonConvert.SerializeObject(bbStore).Length);
                 return bbStore;
             }
             catch (Exception ex)
@@ -1212,6 +1220,43 @@ namespace Bitboxx.DNNModules.BBStore
             }
         }
 
+        private List<OrderProductInfo> GetForeignOrderProductsByOrderId(int portalId, int foreignOrderId, Guid storeGuid)
+        {
+            try
+            {
+                int ownOrderId = GetImportRelationOwnId(portalId, "ORDER", foreignOrderId, storeGuid);
+                List<OrderProductInfo> orderProducts = Controller.GetOrderProducts(ownOrderId);
+                if (storeGuid == BBStoreController.StoreGuid)
+                    return orderProducts;
+
+                List<OrderProductInfo> result = new List<OrderProductInfo>();
+                foreach (OrderProductInfo orderProduct in orderProducts)
+                {
+                    int orderProductId = GetImportRelationForeignId(portalId, "ORDERPRODUCT", orderProduct.OrderProductId, storeGuid);
+                    if (orderProductId == -1)
+                        orderProductId = (-1) * orderProduct.OrderProductId;
+                    int productId = GetImportRelationForeignId(portalId, "PRODUCT", orderProduct.ProductId, storeGuid);
+                    int orderId = foreignOrderId;
+                    if (orderId > -1 && productId > -1)
+                    {
+                        orderProduct.OrderId = orderId;
+                        orderProduct.ProductId = productId;
+                        orderProduct.OrderProductId = orderProductId;
+                        result.Add(orderProduct);
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetOrderProducts", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
+        }
+
         private List<OrderProductOptionInfo> GetOrderProductOptions(int portalId, Guid storeGuid)
         {
             try
@@ -1240,6 +1285,49 @@ namespace Bitboxx.DNNModules.BBStore
                 string message = ex.ToString();
                 var eventlogCtrl = new EventLogController();
                 eventlogCtrl.AddLog("BBStoreImportController.GetOrderProductOptions", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
+        }
+
+        private List<OrderProductOptionInfo> GetForeignOrderProductOptionsByOrderProductId(int portalId, int foreignOrderProductId, Guid storeGuid)
+        {
+            try
+            {
+                int ownOrderProductId = GetImportRelationOwnId(portalId, "ORDERPRODUCT", foreignOrderProductId, storeGuid);
+                List<OrderProductOptionInfo> orderProductOptions;
+                bool isNew;
+                int orderProductId;
+                if (ownOrderProductId == -1)
+                {
+                    orderProductOptions = Controller.GetOrderProductOptions(foreignOrderProductId);
+                    orderProductId = (-1)* ownOrderProductId;
+                }
+                else
+                {
+                    orderProductOptions = Controller.GetOrderProductOptions(ownOrderProductId);
+                    orderProductId = foreignOrderProductId;
+                }
+
+                if (storeGuid == BBStoreController.StoreGuid)
+                    return orderProductOptions;
+
+                List<OrderProductOptionInfo> result = new List<OrderProductOptionInfo>();
+                foreach (OrderProductOptionInfo orderProductOption in orderProductOptions)
+                {
+                    int orderProductOptionId = GetImportRelationForeignId(portalId, "ORDERPRODUCTOPTION", orderProductOption.OrderProductOptionId, storeGuid);
+                    orderProductOption._status = (orderProductOptionId == -1 ? 1 : 2);
+                    orderProductOption.OrderProductOptionId = orderProductOptionId;
+                    orderProductOption.OrderProductId = orderProductId;
+                    result.Add(orderProductOption);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetForeignOrderProductOptionsByOrderProductId", message,
                     PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
                 throw;
             }
@@ -1278,6 +1366,40 @@ namespace Bitboxx.DNNModules.BBStore
 
         }
 
+        private List<OrderAdditionalCostInfo> GetForeignOrderAdditionalCostsByOrderId(int portalId,int foreignOrderId, Guid storeGuid)
+        {
+            try
+            {
+                int ownOrderId = GetImportRelationOwnId(portalId, "ORDER", foreignOrderId, storeGuid);
+                List<OrderAdditionalCostInfo> orderadditionalCosts = Controller.GetOrderAdditionalCosts(ownOrderId);
+                if (storeGuid == BBStoreController.StoreGuid)
+                    return orderadditionalCosts;
+
+                List<OrderAdditionalCostInfo> result = new List<OrderAdditionalCostInfo>();
+                foreach (OrderAdditionalCostInfo orderadditionalCost in orderadditionalCosts)
+                {
+                    int orderadditionalCostId = GetImportRelationForeignId(portalId, "ORDERADDITIONALCOST", orderadditionalCost.OrderAdditionalCostId, storeGuid);
+                    int orderId = foreignOrderId;
+                    if (orderId > -1 && orderadditionalCostId > -1)
+                    {
+                        orderadditionalCost.OrderId = orderId;
+                        orderadditionalCost.OrderAdditionalCostId = orderadditionalCostId;
+                        result.Add(orderadditionalCost);
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetForeignOrderAdditionalCostsByOrder", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
+
+        }
+
         private List<OrderAddressInfo> GetOrderAddresses(int portalId, Guid storeGuid)
         {
             try
@@ -1292,6 +1414,43 @@ namespace Bitboxx.DNNModules.BBStore
                     int orderAddressId = GetImportRelationForeignId(portalId, "ORDERADDRESS", orderAddress.OrderAddressId, storeGuid);
                     int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYP", orderAddress.SubscriberAddressTypeId, storeGuid);
                     int orderId = GetImportRelationForeignId(portalId, "ORDER", orderAddress.OrderId, storeGuid);
+                    if (orderId > -1 && subscriberAddressTypeId > -1)
+                    {
+                        orderAddress._status = (orderAddressId == -1 ? 1 : 2);
+                        orderAddress.OrderId = orderId;
+                        orderAddress.OrderAddressId = orderAddressId;
+                        orderAddress.SubscriberAddressTypeId = subscriberAddressTypeId;
+                        result.Add(orderAddress);
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                string message = ex.ToString();
+                var eventlogCtrl = new EventLogController();
+                eventlogCtrl.AddLog("BBStoreImportController.GetOrderAddresses", message,
+                    PortalSettings.Current, PortalSettings.Current.UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                throw;
+            }
+
+        }
+
+        private List<OrderAddressInfo> GetForeignOrderAddressesByOrderId(int portalId, int foreignOrderId, Guid storeGuid)
+        {
+            try
+            {
+                int ownOrderId = GetImportRelationOwnId(portalId, "ORDER", foreignOrderId, storeGuid);
+                List<OrderAddressInfo> orderAddresses = Controller.GetOrderAddresses(ownOrderId);
+                if (storeGuid == BBStoreController.StoreGuid)
+                    return orderAddresses;
+
+                List<OrderAddressInfo> result = new List<OrderAddressInfo>();
+                foreach (OrderAddressInfo orderAddress in orderAddresses)
+                {
+                    int orderAddressId = GetImportRelationForeignId(portalId, "ORDERADDRESS", orderAddress.OrderAddressId, storeGuid);
+                    int subscriberAddressTypeId = GetImportRelationForeignId(portalId, "SUBSCRIBERADDRESSTYP", orderAddress.SubscriberAddressTypeId, storeGuid);
+                    int orderId = foreignOrderId;
                     if (orderId > -1 && subscriberAddressTypeId > -1)
                     {
                         orderAddress._status = (orderAddressId == -1 ? 1 : 2);
@@ -1765,7 +1924,11 @@ namespace Bitboxx.DNNModules.BBStore
 
         private void SaveOrderProduct(int portalId, OrderProductInfo orderProduct, Guid storeGuid)
         {
-            int ownId = GetImportRelationOwnId(portalId, "ORDERPRODUCT", orderProduct.OrderProductId, storeGuid);
+            int ownId;
+            if (orderProduct.OrderProductId < -1)
+                ownId = (-1)*orderProduct.OrderProductId;
+            else
+                ownId = GetImportRelationOwnId(portalId, "ORDERPRODUCT", orderProduct.OrderProductId, storeGuid);
             int ownProductId = orderProduct.ProductId;
             int ownOrderId = orderProduct.OrderId;
             if (orderProduct.ProductId != -1)
@@ -1801,10 +1964,15 @@ namespace Bitboxx.DNNModules.BBStore
         private void SaveOrderProductOption(int portalId, OrderProductOptionInfo orderProductOption, Guid storeGuid)
         {
             int ownId = GetImportRelationOwnId(portalId, "ORDERPRODUCTOPTION", orderProductOption.OrderProductOptionId, storeGuid);
-            int ownOrderProductId = orderProductOption.OrderProductId;
+            int ownOrderProductId;
+
+            if (orderProductOption.OrderProductId < -1)
+                ownOrderProductId = (-1)*orderProductOption.OrderProductId;
+            else
+                ownOrderProductId = GetImportRelationOwnId(portalId, "ORDERPRODUCT", orderProductOption.OrderProductId, storeGuid);
+
             if (orderProductOption.OrderProductId != -1)
             {
-                ownOrderProductId = GetImportRelationOwnId(portalId, "ORDERPRODUCT", orderProductOption.OrderProductId, storeGuid);
                 if (ownOrderProductId < 0)
                     throw new KeyNotFoundException(String.Format("SaveOrderProductOption: OrderProductId {0} not found in ImportRelation", orderProductOption.OrderProductId));
             }
