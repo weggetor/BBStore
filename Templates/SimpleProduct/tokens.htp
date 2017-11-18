@@ -16,7 +16,9 @@ Please select a template or create a new for the product display. You can use th
 	<li>[IMAGELINK:width] = Link to Product Image (width in pixel)</li>
 	<li>[AMOUNT] = Textbox for entering amount</li>
 	<li>[ADDCARTIMAGE] = Image with Link for &quot;Add to Cart&quot;</li>
+	<li>[ADDCARTIMAGE:ImageUrl] = Image with Link for &quot;Add to Cart&quot; (image url)</li>
 	<li>[ADDCARTLINK] = Link for &quot;Add to Cart&quot;</li>
+	<li>[ADDCARTLINK:Linktext] = Link for &quot;Add to Cart&quot; (Linktext)</li>
 	<li>[MANDATORYERROR] = Error Message (if any)</li>
 	<li>[RESOURCE:key] = Token replace from Resource-File</li>
 	<li>[FEATURES] (optional) = Featuregrid with Product Features</li>
