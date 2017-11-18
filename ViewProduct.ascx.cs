@@ -561,7 +561,21 @@ namespace Bitboxx.DNNModules.BBStore
             template = template.Replace("[PRODUCTOPTIONS]", "<asp:PlaceHolder ID=\"phProductOptions\" runat=\"server\" />");
             template = template.Replace("[MANDATORYERROR]", "<asp:Label ID=\"lblMandatory\" runat=\"server\" Visible=\"false\" Resourcekey=\"Mandatory.Error\" />");
             template = template.Replace("[ADDCARTIMAGE]", "<asp:ImageButton ID=\"imgAddCart\" runat=\"server\" />");
+            string addCartImageUrl = "";
+            if (template.IndexOf("[ADDCARTIMAGE:") > -1)
+            {
+                addCartImageUrl = template.Substring(template.IndexOf("[ADDCARTIMAGE:") + 14);
+                addCartImageUrl = addCartImageUrl.Substring(0, addCartImageUrl.IndexOf("]"));
+            }
+
             template = template.Replace("[ADDCARTLINK]", "<asp:LinkButton ID=\"lnkAddCart\" runat=\"server\" /><asp:LinkButton ID=\"lnkAskOffer\" runat=\"server\"  Visible=\"false\" />");
+            string addCartLinkText = "";
+            if (template.IndexOf("[ADDCARTLINK:") > -1)
+            {
+                addCartLinkText = template.Substring(template.IndexOf("[ADDCARTLINK:") + 13);
+                addCartLinkText = addCartLinkText.Substring(0, addCartLinkText.IndexOf("]"));
+            }
+
             template = template.Replace("[AMOUNT]", "<asp:TextBox ID=\"txtAmount\" runat=\"server\" />");
             template = template.Replace("[FEATURES]", "<asp:PlaceHolder ID=\"phFeatureGrid\" runat=\"server\" />");
 
@@ -590,15 +604,23 @@ namespace Bitboxx.DNNModules.BBStore
             _lnkAddCart = FindControlRecursive(ctrl, "lnkAddCart") as LinkButton;
             if (_lnkAddCart != null)
             {
+                if (!string.IsNullOrEmpty(addCartLinkText))
+                    _lnkAddCart.Text = addCartLinkText;
+                else
+                    _lnkAddCart.Text = Localization.GetString("lnkAddcart.Text", this.LocalResourceFile);
                 _lnkAddCart.Click += new EventHandler(lnkAddCart_Click);
-                _lnkAddCart.Text = Localization.GetString("lnkAddcart.Text", this.LocalResourceFile);
                 _lnkAddCart.Visible = _hasCartModule && !_simpleProduct.NoCart;
             }
+
             _imgAddCart = FindControlRecursive(ctrl, "imgAddCart") as ImageButton;
             if (_imgAddCart != null)
             {
+                if (!string.IsNullOrEmpty(addCartImageUrl))
+                    _imgAddCart.ImageUrl = addCartImageUrl;
+                else
+                    _imgAddCart.ImageUrl = Localization.GetString("imgAddCart.ImageUrl", this.LocalResourceFile);
+
                 _imgAddCart.Click += new ImageClickEventHandler(imgAddCart_Click);
-                _imgAddCart.ImageUrl = Localization.GetString("imgAddCart.ImageUrl", this.LocalResourceFile);
                 _imgAddCart.Visible = _hasCartModule && !product.NoCart;
             }
             _txtAmount = FindControlRecursive(ctrl, "txtAmount") as TextBox;
