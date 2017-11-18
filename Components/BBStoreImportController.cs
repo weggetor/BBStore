@@ -1907,16 +1907,19 @@ namespace Bitboxx.DNNModules.BBStore
             order.PortalId = portalId;
             int ownId = GetImportRelationOwnId(portalId, "ORDER", order.OrderID, storeGuid);
             int ownCustomerId = GetImportRelationOwnId(portalId, "CUSTOMER", order.CustomerID, storeGuid);
+            int ownSubscriberId = GetImportRelationOwnId(portalId, "USER", order.SubscriberID, storeGuid);
 
             if (ownId > -1)
             {
                 order.OrderID= ownId;
                 order.CustomerID = ownCustomerId;
+                order.SubscriberID = ownSubscriberId;
                 Controller.UpdateOrder(order);
             }
             else
             {
                 order.CustomerID = ownCustomerId;
+                order.SubscriberID = ownSubscriberId;
                 ownId = Controller.NewOrder(order);
                 NewImportRelation(portalId, "ORDER", ownId, order.OrderID, storeGuid);
             }

@@ -2530,8 +2530,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             string selCmd = "SELECT o.*" +
                 " FROM " + GetFullyQualifiedName("Order") + " o" +
-                " INNER JOIN "+ GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
-                " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                " WHERE o.PortalId = @PortalId AND o.SubscriberId = @UserId" +
                 (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "" ) + 
                 " ORDER BY o.OrderId DESC";
 
@@ -2662,8 +2661,7 @@ namespace Bitboxx.DNNModules.BBStore
             string selCmd = "SELECT op.*" +
                 " FROM " + GetFullyQualifiedName("OrderProduct") + " op " +
                 " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON op.OrderId = o.OrderId" +
-                " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
-                " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                " WHERE o.PortalId = @PortalId AND o.SubscriberId = @UserId" +
                 (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "") +
                 " ORDER BY op.OrderProductId DESC";
 
@@ -2768,8 +2766,7 @@ namespace Bitboxx.DNNModules.BBStore
                 " FROM " + GetFullyQualifiedName("OrderProductOption") + " opo " +
                 " INNER JOIN " + GetFullyQualifiedName("OrderProduct") + " op ON op.OrderProductId = opo.OrderProductId" +
                 " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON o.OrderId = op.OrderId" +
-                " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
-                " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                " WHERE o.PortalId = @PortalId AND o.SubscriberId = @UserId" +
                 (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "") +
                 " ORDER BY opo.OrderProductOptionId DESC";
             SqlParameter[] sqlParams = new SqlParameter[]
@@ -2861,8 +2858,7 @@ namespace Bitboxx.DNNModules.BBStore
             string selCmd = "SELECT oac.*" +
                 " FROM " + GetFullyQualifiedName("OrderAdditionalCost") + " oac " +
                 " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON oac.OrderId = o.OrderId" +
-                " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
-                " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                " WHERE o.PortalId = @PortalId AND o.SubscriberId = @UserId" +
                 (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "") +
                 " ORDER BY oac.OrderAdditionalCostId DESC";
             SqlParameter[] sqlParams = new SqlParameter[]
@@ -2985,8 +2981,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             string sqlCmd = "SELECT oa.* FROM " + GetFullyQualifiedName("OrderAddress") + " oa " +
                             " INNER JOIN " + GetFullyQualifiedName("Order") + " o ON oa.OrderId = o.OrderId" +
-                            " INNER JOIN " + GetFullyQualifiedName("Customer") + " c ON c.CustomerId = o.CustomerId" +
-                            " WHERE o.PortalId = @PortalId AND c.UserId = @UserId" +
+                            " WHERE o.PortalId = @PortalId AND o.SubscriberId = @UserId" +
                             (excludeOrderstate > -1 ? " AND o.OrderStateId != " + excludeOrderstate.ToString() : "");
 
             SqlParameter[] sqlParams = new SqlParameter[]
