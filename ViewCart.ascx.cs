@@ -26,6 +26,7 @@ using ICSharpCode.SharpZipLib.Zip;
 
 using Bitboxx.DNNModules.BBStore.Providers.Payment;
 using Bitboxx.Web.GeneratedImage;
+using DotNetNuke.Services.Log.EventLog;
 
 
 namespace Bitboxx.DNNModules.BBStore
@@ -2092,6 +2093,12 @@ namespace Bitboxx.DNNModules.BBStore
                     message += String.Format("ErrorNo:{0} Message {1}", error.ErrorNo, error.LongMessage);
                 }
                 ErrorText += message;
+
+                if (!String.IsNullOrEmpty(message))
+                {
+                    var objEventLog = new EventLogController();
+                    objEventLog.AddLog("Paypal Error", message, PortalSettings, UserId, EventLogController.EventLogType.ADMIN_ALERT);
+                }
             }
         }
 

@@ -232,76 +232,100 @@ namespace Bitboxx.DNNModules.BBStore.Providers.Payment
         {
             Errors = new List<PaypalError>();
 
-            int errorNum = -1;
-            for (int i = 9; i > -1; i--)
+            try
             {
-                if (response.Contains("L_ERRORCODE" + i.ToString()))
+                int errorNum = -1;
+                for (int i = 9; i > -1; i--)
                 {
-                    errorNum = i;
-                    break;
+                    if (response.Contains("L_ERRORCODE" + i.ToString()))
+                    {
+                        errorNum = i;
+                        break;
+                    }
                 }
-            }
-            PaypalError[] ppErrors = new PaypalError[0];
-            if (errorNum > -1)
-            {
-                ppErrors = new PaypalError[errorNum + 1];
-            }
-            string[] responseTokens = response.Split('&');
-            foreach (string responseToken in responseTokens)
-            {
-                string[] nameValues = responseToken.Split('=');
-                switch (nameValues[0])
+                PaypalError[] ppErrors = new PaypalError[0];
+                if (errorNum > -1)
                 {
-                    case "TOKEN":
-                        this.Token = HttpUtility.UrlDecode(nameValues[1]);
-                        break;
-                    case "TIMESTAMP":
-                        this.Timestamp = DateTime.Parse(HttpUtility.UrlDecode(nameValues[1]));
-                        break;
-                    case "CORRELATIONID":
-                        this.CorrelationId = HttpUtility.UrlDecode(nameValues[1]);
-                        break;
-                    case "ACK":
-                        this.Ack = (PaypalAckType)Enum.Parse(typeof(PaypalAckType),HttpUtility.UrlDecode(nameValues[1]));
-                        break;
-                    case "VERSION":
-                        this.Version = Convert.ToInt32(HttpUtility.UrlDecode(nameValues[1]));
-                        break;
-                    case "BUILD":
-                        this.Build = Convert.ToInt32(HttpUtility.UrlDecode(nameValues[1]));
-                        break;
-                    default:
-                        if (errorNum > -1)
-                        {
-                            string key = nameValues[0];
-                            string value = HttpUtility.UrlDecode(nameValues[1]);
-                            int index = Convert.ToInt32(key.Substring(key.Length - 1, 1));
-                            if (ppErrors[index] == null)
-                                ppErrors[index] = new PaypalError();
-
-                            key = key.Substring(0, key.Length - 1);
-                            switch (key)
+                    ppErrors = new PaypalError[errorNum + 1];
+                }
+                string[] responseTokens = response.Split('&');
+                foreach (string responseToken in responseTokens)
+                {
+                    string[] nameValues = responseToken.Split('=');
+                    switch (nameValues[0])
+                    {
+                        case "TOKEN":
+                            this.Token = HttpUtility.UrlDecode(nameValues[1]);
+                            break;
+                        case "TIMESTAMP":
+                            this.Timestamp = DateTime.Parse(HttpUtility.UrlDecode(nameValues[1]));
+                            break;
+                        case "CORRELATIONID":
+                            this.CorrelationId = HttpUtility.UrlDecode(nameValues[1]);
+                            break;
+                        case "ACK":
+                            this.Ack = (PaypalAckType) Enum.Parse(typeof (PaypalAckType), HttpUtility.UrlDecode(nameValues[1]));
+                            break;
+                        case "VERSION":
+                            int version = 0;
+                            Int32.TryParse(HttpUtility.UrlDecode(nameValues[1]), out version);
+                            this.Version = version;
+                            break;
+                        case "BUILD":
+                            int build = 0;
+                            Int32.TryParse(HttpUtility.UrlDecode(nameValues[1]), out build);
+                            this.Build = build;
+                            break;
+                        default:
+                            if (errorNum > -1)
                             {
-                                case "L_ERRORCODE":
-                                    ppErrors[index].ErrorNo = Convert.ToInt32(value);
-                                    break;
-                                case "L_SHORTMESSAGE":
-                                    ppErrors[index].ShortMessage = value;
-                                    break;
-                                case "L_LONGMESSAGE":
-                                    ppErrors[index].LongMessage = value;
-                                    break;
-                                case "L_SEVERITYCODE":
-                                    ppErrors[index].Severity = value;
-                                    break;
+                                string key = nameValues[0];
+                                string value = HttpUtility.UrlDecode(nameValues[1]);
+                                string strIndex = key.Substring(key.Length - 1, 1);
+                                int index = 0;
+                                if (Int32.TryParse(strIndex, out index))
+                                {
+                                    if (ppErrors[index] == null)
+                                        ppErrors[index] = new PaypalError();
+
+                                    key = key.Substring(0, key.Length - 1);
+                                    switch (key)
+                                    {
+                                        case "L_ERRORCODE":
+                                            int errorNo = 0;
+                                            Int32.TryParse(value, out errorNo);
+                                            ppErrors[index].ErrorNo = errorNo;
+                                            break;
+                                        case "L_SHORTMESSAGE":
+                                            ppErrors[index].ShortMessage = value;
+                                            break;
+                                        case "L_LONGMESSAGE":
+                                            ppErrors[index].LongMessage = value;
+                                            break;
+                                        case "L_SEVERITYCODE":
+                                            ppErrors[index].Severity = value;
+                                            break;
+                                    }
+                                }
                             }
-                        }
-                        break;
+                            break;
+                    }
+                }
+                foreach (PaypalError paypalError in ppErrors)
+                {
+                    this.Errors.Add(paypalError);
                 }
             }
-            foreach (PaypalError paypalError in ppErrors)
+            catch (Exception ex)
             {
-                this.Errors.Add(paypalError);
+                PaypalError error = new PaypalError()
+                                    {
+                                        ErrorNo = -100,
+                                        LongMessage = ex.Message + ' ' + response,
+                                        ShortMessage = "Error in PaypalCommonResponse: " + response,
+                                        Severity = "severe"
+                                    };
+                this.Errors.Add(error);
             }
         }
 
