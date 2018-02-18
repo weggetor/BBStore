@@ -40,6 +40,7 @@ using System.Net;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DotNetNuke.Data;
 using DotNetNuke.Services.Log.EventLog;
 
 namespace Bitboxx.DNNModules.BBStore
@@ -55,8 +56,10 @@ namespace Bitboxx.DNNModules.BBStore
     /// </history> 
     /// ----------------------------------------------------------------------------- 
     [DNNtc.BusinessControllerClass()]
-    public class BBStoreController 
+    public class BBStoreController
     {
+        private const string PREFIX = "BBStore_";
+        
         #region Properties
 
         private static Guid _storeGuid;
@@ -141,22 +144,77 @@ namespace Bitboxx.DNNModules.BBStore
         #region Public Methods
 
         #region SimpleProduct methods
-        public List<SimpleProductInfo> GetSimpleProducts(int PortalId)
+        public List<SimpleProductInfo> GetSimpleProducts(int portalId)
         {
-            return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProducts(PortalId));
+            using (IDataContext context = DataContext.Instance())
+            {
+                string sqlCmd = "SELECT s.SimpleProductId, s.SubscriberId,s.SupplierId, " +
+                                " s.PortalId,s.Image, s.UnitCost, s.OriginalUnitCost," +
+                                " s.HideCost,s.TaxPercent,s.UnitId," +
+                                " s.ItemNo,s.CreatedOnDate,s.CreatedByUserId," +
+                                " s.LastModifiedOnDate,s.LastModifiedByUserId,s.Disabled,s.NoCart," +
+                                " s.Weight," +
+                                " '' as ShortDescription, '' as ProductDescription, '' as Attributes, '' as [Name]," +
+                                " 0 AS [SortNo]" +
+                                " FROM {databaseOwner}[{objectQualifier}" + PREFIX + "SimpleProduct] s" +
+                                " WHERE s.PortalId = @0";
+
+                return context.ExecuteQuery<SimpleProductInfo>(CommandType.Text, sqlCmd, portalId).ToList();
+            }
         }
 
-        public List<SimpleProductInfo> GetSimpleProductsStandardPrice(int PortalId, string Language, string Sort, string Where)
+        public List<SimpleProductInfo> GetSimpleProductsStandardPrice(int portalId, string language, string sort, string where)
         {
-            return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProductsStandardPrice(PortalId, Language, Sort, Where));
+            using (IDataContext context = DataContext.Instance())
+            {
+                string sqlCmd = "SELECT " +
+                                " s.SimpleProductId, s.SubscriberId,s.SupplierId, " +
+                                " s.PortalId,s.Image, s.UnitCost, s.OriginalUnitCost," +
+                                " s.HideCost,s.TaxPercent,s.UnitId," +
+                                " s.ItemNo,s.CreatedOnDate,s.CreatedByUserId," +
+                                " s.LastModifiedOnDate,s.LastModifiedByUserId,s.Disabled,s.NoCart," +
+                                " s.Weight," +
+                                " sl.ShortDescription,sl.ProductDescription, sl.Attributes, sl.Name,";
+                if (sort.ToLower() == "random")
+                    sqlCmd += " CAST(1001 * RAND(CHECKSUM(NEWID())) AS INTEGER) AS 'SortNo'";
+                else
+                    sqlCmd += " 0 AS 'SortNo'";
+
+                sqlCmd += " FROM {databaseOwner}[{objectQualifier}" + PREFIX + "SimpleProduct] s" +
+                          " INNER JOIN {databaseOwner}[{objectQualifier}" + PREFIX + "SimpleProductLang] sl ON s.SimpleProductId = sl.SimpleProductId" +
+                          " WHERE s.PortalId = @0" +
+                          " AND sl.Language = @1" +
+                          (where != String.Empty ? " AND " + where : "");
+
+                if (sort != String.Empty)
+                {
+                    if (sort.ToLower() == "random")
+                        sqlCmd += " ORDER BY SortNo";
+                    else
+                        sqlCmd += " ORDER BY " + sort;
+                }
+                return context.ExecuteQuery<SimpleProductInfo>(CommandType.Text, sqlCmd, portalId, language).ToList();
+            }
         }
+
+        public SimpleProductInfo GetSimpleProductByProductId(int portalId, int productId)
+        {
+            using (IDataContext context = DataContext.Instance())
+            {
+                string sqlCmd = "SELECT s.*, 0 AS 'SortNo'" +
+                                " FROM {databaseOwner}[{objectQualifier}" + PREFIX + "SimpleProduct] s" +
+                                " WHERE s.PortalId = @0" +
+                                " AND s.SimpleProductId = @1";
+
+                return context.ExecuteQuery<SimpleProductInfo>(CommandType.Text, sqlCmd, portalId, productId).FirstOrDefault();
+            }
+        }
+
+        //============= DAL2 TODO =============================
+
         public List<SimpleProductInfo> GetSimpleProducts(int PortalId, string Language, string Sort, string Where, int Top, int userId, bool extendedPrice)
         {
             return CBO.FillCollection<SimpleProductInfo>(DataProvider.Instance().GetSimpleProducts(PortalId, Language, Sort, Where, Top, userId, extendedPrice));
-        }
-        public SimpleProductInfo GetSimpleProductByProductId(int PortalId, int ProductId)
-        {
-            return (SimpleProductInfo)CBO.FillObject(DataProvider.Instance().GetSimpleProductByProductId(PortalId, ProductId), typeof(SimpleProductInfo));
         }
         public SimpleProductInfo GetSimpleProductByProductId(int PortalId, int ProductId, string Language, int userId, bool extendedPrice)
         {

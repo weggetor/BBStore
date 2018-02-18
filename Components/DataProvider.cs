@@ -75,10 +75,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region Abstract methods
 
         // SimpleProduct methods
-		public abstract IDataReader GetSimpleProducts(int PortalId);
-        public abstract IDataReader GetSimpleProductsStandardPrice(int PortalId, string Language, string Sort, string Where);
         public abstract IDataReader GetSimpleProducts(int PortalId, string Language, string Sort, string Where, int Top, int userId, bool extendedPrice);
-		public abstract IDataReader GetSimpleProductByProductId(int PortalId, int ProductId);
         public abstract IDataReader GetSimpleProductByProductId(int PortalId, int ProductId, string Language, int userId, bool extendedPrice);
         public abstract IDataReader GetSimpleProductByModuleId(int PortalId, int ModuleId);
         public abstract IDataReader GetSimpleProductByModuleId(int PortalId, int ModuleId, string Language);
@@ -593,6 +590,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract void DeleteImportRelationByTable(int PortalId, string Tablename, Guid storeGuid);
         public abstract void DeleteImportRelationByPortal(int PortalId);
         public abstract void DeleteImportRelationByStore(int PortalId, Guid storeGuid);
+        public abstract void EnsureImportRelationIntegrity(int portalId, Guid storeId);
 
         #endregion
 

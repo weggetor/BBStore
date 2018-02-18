@@ -93,6 +93,51 @@ namespace Bitboxx.DNNModules.BBStore.Services
 
         [HttpPost]
         [DnnAuthorize(StaticRoles = "Administrators")]
+        public HttpResponseMessage GetOrderDetails()
+        {
+            try
+            {
+                var content = Request.Content;
+                string jsonContent = content.ReadAsStringAsync().Result;
+
+                dynamic obj = JsonConvert.DeserializeObject<ExpandoObject>(jsonContent);
+
+                int portalId = -1;
+                Guid storeGuid = Guid.Empty;
+                int orderId = -1;
+
+                if (((IDictionary<String, object>)obj).ContainsKey("PortalId"))
+                    portalId = Convert.ToInt32(obj.PortalId);
+                else
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, "PortalId must be zero or greater");
+
+                if (((IDictionary<String, object>)obj).ContainsKey("StoreId"))
+                    storeGuid = new Guid(obj.StoreId);
+                else
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, "StoreGuid must be valid!");
+
+                if (((IDictionary<String, object>)obj).ContainsKey("OrderId"))
+                    orderId = Convert.ToInt32(obj.OrderId);
+                else
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, "OrderId must be zero or greater");
+
+                BBStoreImportController importCtrl = new BBStoreImportController();
+                //BBStoreInfo bbstore = importCtrl.GetAppOrders(portalId, storeGuid);
+                BBStoreInfo bbstore = importCtrl.GetOrderDetails(portalId, orderId, storeGuid);
+
+
+                string json = JsonConvert.SerializeObject(bbstore);
+
+                return Request.CreateResponse(HttpStatusCode.OK, json);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPost]
+        [DnnAuthorize(StaticRoles = "Administrators")]
         public HttpResponseMessage ImportStore()
         {
             try

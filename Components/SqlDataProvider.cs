@@ -216,62 +216,7 @@ namespace Bitboxx.DNNModules.BBStore
 
             return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
         }
-        public override IDataReader GetSimpleProductsStandardPrice(int PortalId, string Language, string Sort, string Where)
-        {
-            string selCmd = "SELECT " +
-                            " SimpleProduct.SimpleProductId, SimpleProduct.SubscriberId,SimpleProduct.SupplierId, " +
-                            " SimpleProduct.PortalId,SimpleProduct.Image, SimpleProduct.UnitCost, SimpleProduct.OriginalUnitCost," +
-                            " SimpleProduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
-                            " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
-                            " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,SimpleProduct.Disabled,SimpleProduct.NoCart," +
-                            " SimpleProduct.Weight," +
-                            " Lang.ShortDescription,Lang.ProductDescription, Lang.Attributes, Lang.Name,";
-            if (Sort.ToLower() == "random")
-                selCmd += " CAST(1001 * RAND(CHECKSUM(NEWID())) AS INTEGER) AS 'SortNo'";
-            else
-                selCmd += " 0 AS 'SortNo'";
 
-            selCmd += " FROM " + Prefix + "SimpleProduct SimpleProduct" +
-                      " INNER JOIN " + Prefix + "SimpleProductLang Lang ON SimpleProduct.SimpleProductId = Lang.SimpleProductId" +
-                      " WHERE SimpleProduct.PortalId = " + PortalId.ToString() +
-                      " AND Lang.Language = '" + Language + "'" +
-                      (Where != String.Empty ? " AND " + Where : "");
-
-            if (Sort != String.Empty)
-            {
-                if (Sort.ToLower() == "random")
-                    selCmd += " ORDER BY SortNo";
-                else
-                    selCmd += " ORDER BY " + Sort;
-            }
-
-            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
-        }
-
-        public override IDataReader GetSimpleProducts(int PortalId)
-        {
-            string selCmd = "SELECT SimpleProduct.SimpleProductId, SimpleProduct.SubscriberId,SimpleProduct.SupplierId, " +
-                            " SimpleProduct.PortalId,SimpleProduct.Image, SimpleProduct.UnitCost, SimpleProduct.OriginalUnitCost," +
-                            " SimpleProduct.HideCost,SimpleProduct.TaxPercent,SimpleProduct.UnitId," +
-                            " SimpleProduct.ItemNo,SimpleProduct.CreatedOnDate,SimpleProduct.CreatedByUserId," +
-                            " SimpleProduct.LastModifiedOnDate,SimpleProduct.LastModifiedByUserId,SimpleProduct.Disabled,SimpleProduct.NoCart," +
-                            " SimpleProduct.Weight," +
-                            " '' as ShortDescription, '' as ProductDescription, '' as Attributes, '' as Name," +
-                            " 0 AS 'SortNo'" +
-                            " FROM " + Prefix + "SimpleProduct SimpleProduct" +
-                            " WHERE SimpleProduct.PortalId = " + PortalId.ToString();
-
-            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
-        }
-        public override IDataReader GetSimpleProductByProductId(int PortalId, int ProductId)
-        {
-            string selCmd = "SELECT SimpleProduct.*, 0 AS 'SortNo'" +
-                " FROM " + Prefix + "SimpleProduct SimpleProduct" +
-                " WHERE SimpleProduct.PortalId = " + PortalId.ToString() +
-                " AND SimpleProduct.SimpleProductId = " + ProductId.ToString();
-
-            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
-        }
         public override IDataReader GetSimpleProductByProductId(int PortalId, int ProductId, string Language, int userId, bool extendedPrice)
         {
             string selCmd = "DECLARE @Today dateTime = GetDate();" +
@@ -2792,7 +2737,8 @@ namespace Bitboxx.DNNModules.BBStore
                                            new SqlParameter("OptionValue", OrderProductOption.OptionValue),
                                            new SqlParameter("Pricealteration", OrderProductOption.PriceAlteration),
                                            new SqlParameter("OptionDescription", OrderProductOption.OptionDescription),
-                                           new SqlParameter("OptionImage", OrderProductOption.OptionImage ?? System.Data.SqlTypes.SqlBinary.Null)
+                                           new SqlParameter("OptionImage", OrderProductOption.OptionImage ?? System.Data.SqlTypes.SqlBinary.Null),
+                                           //new SqlParameter("OptionImage", OrderProductOption.OptionImage == null || OrderProductOption.OptionImage.Length == 0 ?  (object) DBNull.Value : (object)OrderProductOption.OptionImage)
                                        };
 
             return (int) SqlHelper.ExecuteScalar(ConnectionString, CommandType.Text, insCmd, SqlParams);
@@ -2818,9 +2764,9 @@ namespace Bitboxx.DNNModules.BBStore
                                            new SqlParameter("OptionValue", OrderProductOption.OptionValue),
                                            new SqlParameter("Pricealteration", OrderProductOption.PriceAlteration),
                                            new SqlParameter("OptionDescription", OrderProductOption.OptionDescription),
-                                           new SqlParameter("OptionImage", OrderProductOption.OptionImage ?? System.Data.SqlTypes.SqlBinary.Null)
+                                           new SqlParameter("OptionImage", OrderProductOption.OptionImage ?? System.Data.SqlTypes.SqlBinary.Null),
+                                           //new SqlParameter("OptionImage", OrderProductOption.OptionImage == null || OrderProductOption.OptionImage.Length == 0 ?  (object) DBNull.Value : (object)OrderProductOption.OptionImage)
                                        };
-
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
         }
         public override void DeleteOrderProductOption(int OrderProductOptionId)
@@ -6441,6 +6387,101 @@ namespace Bitboxx.DNNModules.BBStore
                                            new SqlParameter("StoreGuid", storeGuid),
                                        };
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+        }
+
+        public override void EnsureImportRelationIntegrity(int portalId, Guid storeGuid)
+        {
+
+            SqlParameter[] param = new SqlParameter[]
+                                       {
+                                           new SqlParameter("PortalId", portalId),
+                                           new SqlParameter("StoreGuid", storeGuid),
+                                       };
+
+            string sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                            " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                            " AND Tablename = 'ORDER' " +
+                            " AND OwnId NOT IN (SELECT OrderID FROM " + GetFullyQualifiedName("Order") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                     " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                     " AND Tablename = 'ORDERPRODUCT' " +
+                     " AND OwnId NOT IN (SELECT OrderProductID FROM " + GetFullyQualifiedName("OrderProduct") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                     " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                     " AND Tablename = 'ORDERPRODUCTOPTION' " +
+                     " AND OwnId NOT IN (SELECT OrderProductOptionID FROM " + GetFullyQualifiedName("OrderProductOption") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                     " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                     " AND Tablename = 'ORDERADDRESS' " +
+                     " AND OwnId NOT IN (SELECT OrderAddressID FROM " + GetFullyQualifiedName("OrderAddress") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'ORDERADDITIONALCOST' " +
+                      " AND OwnId NOT IN (SELECT OrderAdditionalCostID FROM " + GetFullyQualifiedName("OrderAdditionalCost") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'PRODUCT' " +
+                      " AND OwnId NOT IN (SELECT SimpleProductId FROM " + GetFullyQualifiedName("SimpleProduct") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'PRODUCTGROUP' " +
+                      " AND OwnId NOT IN (SELECT ProductGroupId FROM " + GetFullyQualifiedName("ProductGroup") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'CUSTOMER' " +
+                      " AND OwnId NOT IN (SELECT CustomerId FROM " + GetFullyQualifiedName("Customer") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'FEATURE' " +
+                      " AND OwnId NOT IN (SELECT FeatureId FROM " + GetFullyQualifiedName("Feature") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'FEATUREGROUP' " +
+                      " AND OwnId NOT IN (SELECT FeatureGroupId FROM " + GetFullyQualifiedName("FeatureGroup") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'FEATURELIST' " +
+                      " AND OwnId NOT IN (SELECT FeatureListId FROM " + GetFullyQualifiedName("FeatureList") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'FEATURELISTITEM' " +
+                      " AND OwnId NOT IN (SELECT FeatureListItemId FROM " + GetFullyQualifiedName("FeatureListItem") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'SUBSCRIBERADDRESSTYP' " +
+                      " AND OwnId NOT IN (SELECT SubscriberAddressTypeId FROM " + GetFullyQualifiedName("SubscriberAddressType") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
+            sqlCmd = "DELETE FROM " + GetFullyQualifiedName("ImportRelation") +
+                      " WHERE PortalId = @PortalId and StoreGuId = @StoreGuid" +
+                      " AND Tablename = 'UNIT' " +
+                      " AND OwnId NOT IN (SELECT UnitId FROM " + GetFullyQualifiedName("Unit") + ")";
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, sqlCmd, param);
+
         }
 
         #endregion
