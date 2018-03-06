@@ -79,7 +79,44 @@ namespace Bitboxx.DNNModules.BBStore.Services
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, "StoreGuid must be valid!");
 
                 BBStoreImportController importCtrl = new BBStoreImportController();
-                BBStoreInfo bbstore = importCtrl.GetAppOrders(portalId, storeGuid);
+                BBStoreInfo bbstore = importCtrl.GetAppOrders(portalId, 7, storeGuid);
+
+                string json = JsonConvert.SerializeObject(bbstore);
+
+                return Request.CreateResponse(HttpStatusCode.OK, json);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPost]
+        [DnnAuthorize(StaticRoles = "Administrators")]
+        public HttpResponseMessage GetMarkedOrders()
+        {
+            try
+            {
+                var content = Request.Content;
+                string jsonContent = content.ReadAsStringAsync().Result;
+
+                dynamic obj = JsonConvert.DeserializeObject<ExpandoObject>(jsonContent);
+
+                int portalId = -1;
+                Guid storeGuid = Guid.Empty;
+
+                if (((IDictionary<String, object>)obj).ContainsKey("PortalId"))
+                    portalId = Convert.ToInt32(obj.PortalId);
+                else
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, "PortalId must be zero or greater");
+
+                if (((IDictionary<String, object>)obj).ContainsKey("StoreId"))
+                    storeGuid = new Guid(obj.StoreId);
+                else
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, "StoreGuid must be valid!");
+
+                BBStoreImportController importCtrl = new BBStoreImportController();
+                BBStoreInfo bbstore = importCtrl.GetAppOrders(portalId, 6, storeGuid);
 
                 string json = JsonConvert.SerializeObject(bbstore);
 
