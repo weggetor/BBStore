@@ -222,7 +222,6 @@
     <Compile Include="Infoclasses\ShippingZoneDisplayInfo.cs" />
     <Compile Include="Infoclasses\CouponInfo.cs" />
     <Compile Include="LicenseHandler\LicenseDataInfo.cs" />
-    <Compile Include="Services\TestController.cs" />
     <Compile Include="Services\AppController.cs" />
     <Compile Include="Services\LoaderController.cs" />
     <Compile Include="Services\RouteMapper.cs" />

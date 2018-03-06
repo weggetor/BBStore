@@ -86,24 +86,57 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			get
 			{
-				if (Settings["RandomSort"] != null && Convert.ToBoolean(Settings["RandomSort"]))
-					return "random";
-                else if (Request.Cookies["SortExpression"] != null)
-                    return Request.Cookies["SortExpression"].Value;
-				else
-					return "Name";
+			    string order = "Name";
+			    if (Settings["SortOrder"] != null)
+			    {
+			        switch ((string)Settings["SortOrder"])
+			        {
+                        case "0": //user select
+                            if (Request.Cookies["SortExpression"] != null)
+                                order = Request.Cookies["SortExpression"].Value;
+			                break;
+                        case "1": // ItemNo
+			                order = "ItemNo";
+                            break;
+                        case "2": //UnitCost
+			                order = "UnitCost";
+			                break;
+                        case "3": //CreatedDate
+			                order = "CreatedOnDate";
+			                break;
+                        case "4": //Name
+                            order = "Name";
+			                break;
+                        case "5": //Random
+			                order = "random";
+			                break;
+
+			        }
+                }
+			    else
+			    {
+                    if (Settings["RandomSort"] != null && Convert.ToBoolean(Settings["RandomSort"]))
+                        order = "random";
+                    else if (Request.Cookies["SortExpression"] != null)
+                        order = Request.Cookies["SortExpression"].Value;
+                }
+			    return order;
 			}
+
 			set
 			{
-                if (Request.Cookies["SortExpression"] != null)
-                    Response.Cookies["SortExpression"].Value = value.ToString();
-                else
+			    if ((Settings["SortOrder"] != null && (string) Settings["SortOrder"] == "0") || Settings["SortOrder"] == null)
                 {
-                    HttpCookie cookie = new HttpCookie("SortExpression");
-                    cookie.Value = value.ToString();
-                    cookie.Expires = DateTime.Now.AddDays(1);
-                    Response.AppendCookie(cookie);
-                }
+			        if (Request.Cookies["SortExpression"] != null)
+			            Response.Cookies["SortExpression"].Value = value.ToString();
+			        else
+			        {
+			            HttpCookie cookie = new HttpCookie("SortExpression");
+			            cookie.Value = value.ToString();
+			            cookie.Expires = DateTime.Now.AddDays(1);
+			            Response.AppendCookie(cookie);
+			        }
+			    }
 			}
 		}
 		public string WhereExpression

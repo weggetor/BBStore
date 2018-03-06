@@ -202,22 +202,22 @@ namespace Bitboxx.DNNModules.BBStore {
         protected global::System.Web.UI.WebControls.CheckBox chkShowPaging;
         
         /// <summary>
-        /// lblRandomSort control.
+        /// lblSort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UserControl lblRandomSort;
+        protected global::System.Web.UI.UserControl lblSort;
         
         /// <summary>
-        /// chkRandomSort control.
+        /// ddlSort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkRandomSort;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSort;
         
         /// <summary>
         /// lblHideEmptyModule control.

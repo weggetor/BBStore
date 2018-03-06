@@ -193,10 +193,13 @@ namespace Bitboxx.DNNModules.BBStore
 					else
 						chkShowPaging.Checked = true;
 
-					if (ModuleSettings["RandomSort"] != null)
-						chkRandomSort.Checked = Convert.ToBoolean(ModuleSettings["RandomSort"]);
-					else
-						chkRandomSort.Checked = false;
+                    if (ModuleSettings["RandomSort"] != null && Convert.ToBoolean(ModuleSettings["RandomSort"]))
+                        ddlSort.SelectedValue = "5";
+
+                    if (ModuleSettings["SortOrder"] != null)
+                        ddlSort.SelectedValue = (string) ModuleSettings["SortOrder"];
+                    else
+                        ddlSort.SelectedValue = "0";
 
                     if (ModuleSettings["HideEmptyModule"] != null)
                         chkHideEmptyModule.Checked = Convert.ToBoolean(ModuleSettings["HideEmptyModule"]);
@@ -290,7 +293,7 @@ namespace Bitboxx.DNNModules.BBStore
 				objModules.UpdateModuleSetting(ModuleId, "ShowAllLinkPos", cboShowAllLink.SelectedIndex.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "ShowListHead", chkShowListHead.Checked.ToString());
 				objModules.UpdateModuleSetting(ModuleId, "ShowPaging", chkShowPaging.Checked.ToString());
-				objModules.UpdateModuleSetting(ModuleId, "RandomSort", chkRandomSort.Checked.ToString());
+                objModules.UpdateModuleSetting(ModuleId, "SortOrder", ddlSort.SelectedValue);
                 objModules.UpdateModuleSetting(ModuleId, "HideEmptyModule", chkHideEmptyModule.Checked.ToString());
                 objModules.UpdateModuleSetting(ModuleId, "Template", tplTemplate.Value);
                 objModules.UpdateModuleSetting(ModuleId, "ProductModulePage", urlProductModulePage.Url);

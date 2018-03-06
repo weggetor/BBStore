@@ -55,8 +55,15 @@
             <asp:CheckBox  ID="chkShowPaging" runat="server" />
         </div>
         <div class="dnnFormItem">
-            <dnn:Label id="lblRandomSort" runat="server" controlname="chkRandomSort" suffix=":"/>
-            <asp:CheckBox  ID="chkRandomSort" runat="server" />
+            <dnn:Label id="lblSort" runat="server" controlname="ddlSort" suffix=":"/>
+            <asp:DropDownList ID="ddlSort" runat="server">
+                <asp:ListItem resourcekey="ddlSort0" Value="0" />
+			    <asp:ListItem resourcekey="ddlSort1" Value="1" />
+			    <asp:ListItem resourcekey="ddlSort2" Value="2" />
+                <asp:ListItem resourcekey="ddlSort3" Value="2" />
+                <asp:ListItem resourcekey="ddlSort4" Value="2" />
+                <asp:ListItem resourcekey="ddlSort5" Value="2" />
+            </asp:DropDownList>
         </div>
         <div class="dnnFormItem">
             <dnn:Label id="lblHideEmptyModule" runat="server" controlname="chkHideEmptyModule" suffix=":"/>
