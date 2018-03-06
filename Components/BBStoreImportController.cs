@@ -265,7 +265,7 @@ namespace Bitboxx.DNNModules.BBStore
             EnsureImportRelationIntegrity(portalId, storeGuid);
         }
 
-        public BBStoreInfo GetAppOrders(int portalId, Guid storeGuid)
+        public BBStoreInfo GetAppOrders(int portalId, int status, Guid storeGuid)
         {
             Logger.Debug("Starte GetAppOrders");
             try
@@ -277,7 +277,7 @@ namespace Bitboxx.DNNModules.BBStore
                 bbStore.StoreGuid = storeGuid;
                 bbStore.StoreName = (storeGuid == BBStoreController.StoreGuid ? BBStoreController.StoreName : GetImportStoreName(storeGuid));
                 Logger.Debug("Starte GetChangedOrders...");
-                bbStore.Order = GetChangedOrders(portalId, storeGuid);
+                bbStore.Order = GetOrdersByStatus(portalId, status, storeGuid);
                 Logger.DebugFormat("Anzahl Gelesene Order: {}", bbStore.Order.Count);
                 return bbStore;
             }
@@ -1165,10 +1165,12 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 int orderId = GetImportRelationForeignId(portalId, "ORDER", order.OrderID, storeGuid);
                 int customerId = GetImportRelationForeignId(portalId, "CUSTOMER", order.CustomerID, storeGuid);
+                int subscriberID = GetImportRelationForeignId(portalId, "USER", order.SubscriberID, storeGuid);
                 if (orderId > -1)
                 {
                     order.OrderID = orderId;
                     order.CustomerID = customerId;
+                    order.SubscriberID = subscriberID;
                     result.Add(order);
                 }
             }
@@ -1183,13 +1185,14 @@ namespace Bitboxx.DNNModules.BBStore
                 int customerId = GetImportRelationForeignId(portalId, "CUSTOMER", order.CustomerID, storeGuid);
                 order.OrderID = foreignOrderId;
                 order.CustomerID = customerId;
+                order.SubscriberID = GetImportRelationForeignId(portalId, "USER", order.SubscriberID, storeGuid);
                 return order;
             }
             return null;
         }
 
 
-        private List<OrderInfo> GetChangedOrders(int portalId, Guid storeGuid)
+        private List<OrderInfo> GetOrdersByStatus(int portalId, int status, Guid storeGuid)
         {
             try
             {
@@ -1198,13 +1201,14 @@ namespace Bitboxx.DNNModules.BBStore
                     return orders;
 
                 List<OrderInfo> result = new List<OrderInfo>();
-                foreach (OrderInfo order in orders.Where(o => o.OrderStateId == 7))
+                foreach (OrderInfo order in orders.Where(o => o.OrderStateId == status))
                 {
                     int orderId = GetImportRelationForeignId(portalId, "ORDER", order.OrderID, storeGuid);
                     if (orderId > -1)
                     {
                         order.OrderID = orderId;
                         order.CustomerID = GetImportRelationForeignId(portalId, "CUSTOMER", order.CustomerID, storeGuid);
+                        order.SubscriberID = GetImportRelationForeignId(portalId, "USER", order.SubscriberID, storeGuid);
                         result.Add(order);
                     }
                 }
