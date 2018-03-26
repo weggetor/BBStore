@@ -1340,8 +1340,8 @@ namespace Bitboxx.DNNModules.BBStore
                 int orderProductId;
                 if (ownOrderProductId == -1)
                 {
-                    orderProductOptions = Controller.GetOrderProductOptions(foreignOrderProductId);
-                    orderProductId = (-1)* ownOrderProductId;
+                    orderProductOptions = Controller.GetOrderProductOptions((-1) * foreignOrderProductId);
+                    orderProductId = foreignOrderProductId;
                 }
                 else
                 {

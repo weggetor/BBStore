@@ -67,6 +67,10 @@ namespace Bitboxx.DNNModules.BBStore.Services
             obj.data.inserts.SubscriberAddressTypeLang = controller.GetSubscriberAddressTypeLangsByPortal(PortalSettings.PortalId);
 
             string retVal = JsonConvert.SerializeObject(obj);
+            while (retVal.IndexOf(@"//") > -1)
+            {
+                retVal = retVal.Replace(@"//", @"/");
+            }
 
             return Request.CreateResponse(HttpStatusCode.OK, retVal);
         }
@@ -213,21 +217,25 @@ namespace Bitboxx.DNNModules.BBStore.Services
         {
             try
             {
-                //System.IO.File.WriteAllText(@"C:\Temp\test.json", JsonConvert.SerializeObject(orderProductOptions));
+                //System.IO.File.WriteAllText(@"C:\Temp\test.json", JsonConvert.SerializeObject(orderProducts));
                 BBStoreController controller = new BBStoreController();
                 BBStoreImportController importCtrl = new BBStoreImportController();
                 Dictionary<int, int> ids = new Dictionary<int, int>();
                 foreach (OrderProductInfo orderProduct in orderProducts)
                 {
-                    //System.IO.File.AppendAllText(@"C:\Temp\test.json", orderProductOption.OrderProductOptionId.ToString() + @"\r\n");
+                    //System.IO.File.AppendAllText(@"C:\Temp\test.json", orderProduct.OrderProductId.ToString() + @"\r\n");
                     OrderProductInfo op = controller.GetOrderProduct(orderProduct.OrderProductId);
                     if (op != null)
+                    {
+                        //System.IO.File.AppendAllText(@"C:\Temp\test.json", "-> UPDATE" + @"\r\n");
                         controller.UpdateOrderProduct(orderProduct);
+                    }
                     else
                     {
+                        //System.IO.File.AppendAllText(@"C:\Temp\test.json", "-> INSERT" + @"\r\n");
                         int oldId = orderProduct.OrderProductId;
                         int newId = controller.NewOrderProduct(orderProduct);
-                        ids.Add(oldId,newId);
+                        ids.Add(oldId, newId);
                     }
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, ids);
