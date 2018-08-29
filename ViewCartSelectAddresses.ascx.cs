@@ -63,11 +63,11 @@ namespace Bitboxx.DNNModules.BBStore
 			else
 			{
 				//Lets check if we have a customer (only if logged in)
-				int userId = UserController.GetCurrentUserInfo().UserID;
+				int userId = UserController.Instance.GetCurrentUserInfo().UserID;
 				List<CustomerInfo> customers = Controller.GetCustomersByUserId(PortalId, userId);
 				if (customers.Count == 0)
 				{
-					int customerId = Controller.NewCustomer(new CustomerInfo(userId, PortalId, UserController.GetCurrentUserInfo().Username));
+					int customerId = Controller.NewCustomer(new CustomerInfo(userId, PortalId, UserController.Instance.GetCurrentUserInfo().Username));
 					Controller.UpdateCartCustomerId(this.MainControl.CartId, customerId);
 				}
 
@@ -329,7 +329,7 @@ namespace Bitboxx.DNNModules.BBStore
 		        importController.DeleteCustomerAddress(PortalId, customerAdressId);
 		        Response.Redirect(Globals.NavigateURL(TabId, "", "action=checkout"));
 		    }
-		    catch (SqlException sex)
+		    catch (SqlException)
 		    {
                 DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("DeleteCustomerAddress.Error", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
             }
@@ -348,7 +348,7 @@ namespace Bitboxx.DNNModules.BBStore
 		private string GetCountryCode(string Country)
 		{
 			ListController oController = new ListController();
-			ListEntryInfoCollection oCountries = oController.GetListEntryInfoCollection("Country");
+			IEnumerable<ListEntryInfo> oCountries = oController.GetListEntryInfoItems("Country");
 			foreach (ListEntryInfo oCountry in oCountries)
 			{
 				if (oCountry.Text.ToLower() == Country.ToLower())

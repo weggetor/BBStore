@@ -26,6 +26,7 @@ using ICSharpCode.SharpZipLib.Zip;
 
 using Bitboxx.DNNModules.BBStore.Providers.Payment;
 using Bitboxx.Web.GeneratedImage;
+using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Log.EventLog;
 
 
@@ -57,7 +58,8 @@ namespace Bitboxx.DNNModules.BBStore
         private int _shippingAddressId = -1;
         private int _billingAddressId = -1;
         private bool _isTaxFree = false;
-        private bool _isTaxFreeApplicable = false; 
+        private bool _isTaxFreeApplicable = false;
+        private ILog logger = LoggerSource.Instance.GetLogger(typeof(ViewCart));
 
         #endregion
 
@@ -434,7 +436,7 @@ namespace Bitboxx.DNNModules.BBStore
                     // if user is logged in we connect customer to cart. If no customer exists we create one!
                     if (Request.IsAuthenticated)
                     {
-                        UserInfo user = UserController.GetCurrentUserInfo();
+                        UserInfo user = UserController.Instance.GetCurrentUserInfo();
                         List<CustomerInfo> customers = Controller.GetCustomersByUserId(PortalId, user.UserID);
                         if (customers.Count > 0)
                         {
@@ -1377,7 +1379,7 @@ namespace Bitboxx.DNNModules.BBStore
                         if (shippingCountry == String.Empty)
                         {
                             ListController lc = new ListController();
-                            ListEntryInfoCollection leic = lc.GetListEntryInfoCollection("Country", "");
+                            IEnumerable<ListEntryInfo> leic = lc.GetListEntryInfoItems("Country", "");
                             foreach (ListEntryInfo lei in leic)
                             {
                                 if (lei.Value == shippingCountryCode)
@@ -1640,7 +1642,6 @@ namespace Bitboxx.DNNModules.BBStore
             try
             {
                 // http://www.systemnetmail.com
-
                 MailMessage mail = new MailMessage();
 
                 //set the addresses
@@ -1659,10 +1660,13 @@ namespace Bitboxx.DNNModules.BBStore
 
                 mail.From = new MailAddress("\"" + storeName.Trim() + "\" <" + storeEmail.Trim() + ">");
                 mail.To.Add(UserInfo.Email.Trim());
+
                 if (storeAdmin != string.Empty)
                     mail.To.Add(storeAdmin.Trim());
                 if (storeReplyTo != string.Empty)
-                    mail.ReplyTo = new MailAddress(storeReplyTo.Trim());
+                    mail.ReplyToList.Add(new MailAddress(storeReplyTo.Trim()));
+
+                logger.Info("Sende OrderMail für OrderID:" + order.OrderNo + " an: " + UserInfo.Email.Trim() + " und: " + storeEmail.Trim());
 
                 //set the content
                 string orderNo = order.OrderNo.Trim();
@@ -1757,10 +1761,12 @@ namespace Bitboxx.DNNModules.BBStore
             catch (SmtpException sex)
             {
                 Exceptions.LogException(sex);
+                logger.Error("Fehler beim Senden der OrderMail", sex);
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
+                logger.Error("Fehler beim Senden der OrderMail", ex);
             }
         }
 

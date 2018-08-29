@@ -89,9 +89,10 @@ namespace Bitboxx.DNNModules.BBStore
 		        ddlCountry = FindControlRecursive(ctrl, "ddlCountry") as DropDownList;
 		        if (ddlCountry != null)
 		        {
-		            ListController ListController = new ListController();
-		            ListEntryInfoCollection Countries = ListController.GetListEntryInfoCollection("Country");
-		            ddlCountry.DataSource = Countries;
+		            ListController listController = new ListController();
+                    IEnumerable<ListEntryInfo> countries = listController.GetListEntryInfoItems("Country");
+
+                    ddlCountry.DataSource = countries;
 		            ddlCountry.DataTextField = "Text";
 		            ddlCountry.DataValueField = "Value";
 		            ddlCountry.DataBind();

@@ -61,22 +61,10 @@ namespace Bitboxx.DNNModules.BBStore
 		
 		BBStoreController _controller;
 
-		private Label lblShortDescription;
-		private Literal ltrProductDescription;
-		private ProductOptionSelectControl ProductOptionSelect;
-		private Label lblTax;
-		private Label lblPrice;
-		private Label lblOriginalPrice;
-		private Label lblMandatory;
-        private Label lblUnit;
-		private Label lblCurrency;
-		private Label lblTitle;
-		private Label lblItemNo;
-		private GeneratedImage imgProduct;
-		private bool IsConfigured = false;
-		private SimpleProductInfo SimpleProduct;
+		private ProductOptionSelectControl _productOptionSelect;
+		private GeneratedImage _imgProduct;
+		private bool _isConfigured = false;
 		private List<SimpleProductInfo> _products;
-	    private int _productsPerPage = 25;
 	    private Hashtable _storeSettings = null;
 		#endregion
 
@@ -327,9 +315,6 @@ namespace Bitboxx.DNNModules.BBStore
 			get
 			{
 				ModuleActionCollection Actions = new ModuleActionCollection();
-				//Actions.Add(GetNextActionID(), Localization.GetString(ModuleActionType.AddContent, this.LocalResourceFile),
-				//   ModuleActionType.AddContent, "", "add.gif", EditUrl(), false, DotNetNuke.Security.SecurityAccessLevel.Edit,
-				//    true, false);
 				return Actions;
 			}
 		}
@@ -352,7 +337,7 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			get
 			{
-				UserInfo user = UserController.GetCurrentUserInfo();
+				UserInfo user = UserController.Instance.GetCurrentUserInfo();
 				return (user.IsInRole("Administrators") && IsEditable);
 			}
 		}
@@ -390,7 +375,7 @@ namespace Bitboxx.DNNModules.BBStore
 
             if (Settings["ProductsInRow"] != null && Settings["ProductsPerPage"] != null)
 			{
-				IsConfigured = true;
+				_isConfigured = true;
 				lstProducts.GroupItemCount = Int32.Parse((string)Settings["ProductsInRow"]);
                 lstProductsBS3.GroupItemCount = Int32.Parse((string)Settings["ProductsInRow"]);
             }
@@ -423,7 +408,7 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			try
 			{
-                if (!Page.IsPostBack && IsConfigured)
+                if (!Page.IsPostBack && _isConfigured)
 				{
 
 					string[] ppp = ((string)Settings["ProductsPerPage"]).Replace("!","").Split(',');
@@ -480,7 +465,7 @@ namespace Bitboxx.DNNModules.BBStore
 		}
 		protected void Page_Prerender(object sender, System.EventArgs e)
 		{
-            if (IsConfigured)
+            if (_isConfigured)
 			{
 				bool setTitle = (Settings["SetTitle"] != null ? Convert.ToBoolean((string)Settings["SetTitle"]) : false);
 
@@ -678,7 +663,7 @@ namespace Bitboxx.DNNModules.BBStore
 		protected void lstProducts_ItemCreated(object sender, ListViewItemEventArgs e)
 		{
 
-			if (IsConfigured)
+			if (_isConfigured)
 			{
 				ListView lv = sender as ListView;
 				ListViewDataItem item = e.Item as ListViewDataItem;
@@ -782,14 +767,14 @@ namespace Bitboxx.DNNModules.BBStore
 
             if (showNetPrice)
             {
-                price = unitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m);
-                originalPrice = originalUnitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m);
+                price = unitCost + (_productOptionSelect != null ? _productOptionSelect.PriceAlteration : 0.00m);
+                originalPrice = originalUnitCost + (_productOptionSelect != null ? _productOptionSelect.PriceAlteration : 0.00m);
                 tax = Localization.GetString("ExcludeTax.Text", this.LocalResourceFile);
             }
             else
             {
-                price = decimal.Round((unitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m)) * (100 + taxPercent) / 100, 2);
-                originalPrice = decimal.Round((originalUnitCost + (ProductOptionSelect != null ? ProductOptionSelect.PriceAlteration : 0.00m)) * (100 + taxPercent) / 100, 2);
+                price = decimal.Round((unitCost + (_productOptionSelect != null ? _productOptionSelect.PriceAlteration : 0.00m)) * (100 + taxPercent) / 100, 2);
+                originalPrice = decimal.Round((originalUnitCost + (_productOptionSelect != null ? _productOptionSelect.PriceAlteration : 0.00m)) * (100 + taxPercent) / 100, 2);
                 tax = Localization.GetString("IncludeTax.Text", this.LocalResourceFile);
             }
 
@@ -922,12 +907,12 @@ namespace Bitboxx.DNNModules.BBStore
                     PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
                     product.Image.Replace('/', '\\');
 
-                imgProduct = new GeneratedImage();
-                imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
+                _imgProduct = new GeneratedImage();
+                _imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
                 imageWidth = imageWidths.Dequeue();
                 if (imageWidth > 0)
-                    imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
-                imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
+                    _imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
+                _imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
                 // TODO: Watermark
                 //if (false)
                 //{
@@ -936,7 +921,7 @@ namespace Bitboxx.DNNModules.BBStore
                 //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontColor", Value = "Red" });
                 //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
                 //}
-                phimgProduct.Controls.Add(imgProduct);
+                phimgProduct.Controls.Add(_imgProduct);
 
                 imageCnt++;
                 phimgProduct = FindControlRecursive(ctrl, "phimgProduct" + imageCnt.ToString()) as PlaceHolder;

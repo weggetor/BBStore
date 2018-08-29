@@ -46,7 +46,6 @@ namespace Bitboxx.DNNModules.BBStore
 		private bool _hasChanged = false;
 		BBStoreController _controller;
 		List<SimpleProductInfo> Products;
-        private ContactAddressInfo _contactAddress;
         private string _template = "";
 		#endregion
 
@@ -156,13 +155,13 @@ namespace Bitboxx.DNNModules.BBStore
                     
                     if (!Page.IsPostBack)
 			        {
-			            ListController ListController = new ListController();
-			            ListEntryInfoCollection Countries = ListController.GetListEntryInfoCollection("Country");
+			            ListController listController = new ListController();
+			            IEnumerable<ListEntryInfo> countries = listController.GetListEntryInfoItems("Country");
 
 
 			            Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
 
-			            ddlCountry.DataSource = Countries;
+			            ddlCountry.DataSource = countries;
 			            ddlCountry.DataTextField = "Text";
 			            ddlCountry.DataValueField = "Value";
 			            ddlCountry.DataBind();
@@ -652,7 +651,7 @@ namespace Bitboxx.DNNModules.BBStore
                 if (storeAdmin != string.Empty)
                     mail.To.Add(storeAdmin.Trim());
                 if (storeReplyTo != string.Empty)
-                    mail.ReplyTo = new MailAddress(storeReplyTo.Trim());
+                    mail.ReplyToList.Add(new MailAddress(storeReplyTo.Trim()));
 
                 //set the content
                 mail.Subject = ((string)Settings["EmailSubject"]).Replace("[REQUESTNO]", contactAddress.ContactAddressId.ToString());

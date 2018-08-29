@@ -13,6 +13,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 
 using Bitboxx.DNNModules.BBStore.Providers.Payment;
+using DotNetNuke.Framework.JavaScriptLibraries;
 
 namespace Bitboxx.DNNModules.BBStore
 {
@@ -80,7 +81,7 @@ namespace Bitboxx.DNNModules.BBStore
             cmdConfirm.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
             try
 			{
-			    DotNetNuke.Framework.jQuery.RequestUIRegistration();
+                JavaScript.RequestRegistration(CommonJs.jQueryUI);
 
                 // Is he logged in ?
                 if (!Request.IsAuthenticated)

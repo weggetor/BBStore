@@ -5,6 +5,7 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Common;
 using System.Collections;
+using System.Linq;
 
 namespace Bitboxx.DNNModules.BBStore
 {
@@ -54,8 +55,14 @@ namespace Bitboxx.DNNModules.BBStore
 			{
 				List<CartProductInfo> myProducts = _controller.GetCartProducts(CartId);
 
-                ModuleController objModules = new ModuleController();
-                ModuleInfo cartModule = objModules.GetModuleByDefinition(PortalSettings.PortalId, "BBStore Cart");
+       //         ModuleController objModules = new ModuleController();
+       //         var cartModules = objModules.GetModulesByDefinition(PortalSettings.PortalId, "BBStore Cart").Cast<ModuleInfo>().ToList();
+
+			    //string currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+       //         ModuleInfo cartModule = cartModules.Where(m => m.CultureCode == currentCulture || m.IsNeutralCulture).FirstOrDefault();
+
+			    ModuleInfo cartModule = _controller.GetModuleByName(PortalSettings.PortalId, "BBStore Cart");
+
 
                 Hashtable storeSettings = _controller.GetStoreSettings(PortalSettings.PortalId);
 

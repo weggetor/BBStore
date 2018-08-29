@@ -100,7 +100,7 @@ namespace Bitboxx.DNNModules.BBStore.Providers.Payment
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            DotNetNuke.Framework.jQuery.RegisterJQuery(Page);
+            
         }
 
         protected void Page_PreRender(object sender, EventArgs e)

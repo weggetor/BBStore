@@ -201,7 +201,7 @@ namespace Bitboxx.DNNModules.BBStore
 
 			if (!IsPostBack)
 			{
-				UserInfo objUser = UserController.GetCurrentUserInfo();
+				UserInfo objUser = UserController.Instance.GetCurrentUserInfo();
 				_isSuperUser = (objUser != null && objUser.IsSuperUser);
 				rblMode.SelectedValue = (_isSuperUser ? "0" : "1");
 

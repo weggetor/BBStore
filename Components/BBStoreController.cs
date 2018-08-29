@@ -62,39 +62,12 @@ namespace Bitboxx.DNNModules.BBStore
         
         #region Properties
 
-        private static Guid _storeGuid;
         public static Guid StoreGuid 
         {
             get
             {
                 return PortalSettings.Current.GUID;
-                if (_storeGuid == Guid.Empty)
-                {
-                    int portalId = PortalSettings.Current.PortalId;
-                    ModuleController mc = new ModuleController();
-                    ModuleInfo adminModule = mc.GetModuleByDefinition(portalId, "BBStore Admin");
-                    Hashtable storeSettings = mc.GetModuleSettings(adminModule.ModuleID);
-                    
-                    if (storeSettings["StoreId"] != null)
-                    {
-                        _storeGuid = new Guid((string)storeSettings["StoreId"]);
-                    }
-                    else
-                    {
-                        _storeGuid = Guid.NewGuid();
-                        mc.UpdateModuleSetting(adminModule.ModuleID,"StoreId",_storeGuid.ToString());
-                    }
-                }
-                return _storeGuid;
             }
-            //set
-            //{
-            //    _storeGuid = value;
-            //    int portalId = PortalSettings.Current.PortalId;
-            //    ModuleController mc = new ModuleController();
-            //    ModuleInfo adminModule = mc.GetModuleByDefinition(portalId, "BBStore Admin");
-            //    mc.UpdateModuleSetting(adminModule.ModuleID, "StoreId", _storeGuid.ToString());
-            //}
         }
 
         public static string StoreName
@@ -102,9 +75,8 @@ namespace Bitboxx.DNNModules.BBStore
             get
             {
                 int portalId = PortalSettings.Current.PortalId;
-                ModuleController mc = new ModuleController();
-                ModuleInfo adminModule = mc.GetModuleByDefinition(portalId, "BBStore Admin");
-                Hashtable storeSettings = mc.GetModuleSettings(adminModule.ModuleID);
+                BBStoreController controller = new BBStoreController();
+                Hashtable storeSettings = controller.GetModuleSettingsByName(portalId, "BBStore Admin");
 
                 if (storeSettings["VendorName"] != null)
                     return (string) storeSettings["VendorName"];
@@ -218,15 +190,15 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public SimpleProductInfo GetSimpleProductByProductId(int PortalId, int ProductId, string Language, int userId, bool extendedPrice)
         {
-            return (SimpleProductInfo)CBO.FillObject(DataProvider.Instance().GetSimpleProductByProductId(PortalId, ProductId, Language, userId, extendedPrice), typeof(SimpleProductInfo));
+            return CBO.FillObject<SimpleProductInfo>(DataProvider.Instance().GetSimpleProductByProductId(PortalId, ProductId, Language, userId, extendedPrice));
         }
         public SimpleProductInfo GetSimpleProductByModuleId(int PortalId, int ModuleId)
         {
-            return (SimpleProductInfo)CBO.FillObject(DataProvider.Instance().GetSimpleProductByModuleId(PortalId, ModuleId), typeof(SimpleProductInfo));
+            return CBO.FillObject<SimpleProductInfo>(DataProvider.Instance().GetSimpleProductByModuleId(PortalId, ModuleId));
         }
         public SimpleProductInfo GetSimpleProductByModuleId(int PortalId, int ModuleId, string Language)
         {
-            return (SimpleProductInfo)CBO.FillObject(DataProvider.Instance().GetSimpleProductByModuleId(PortalId, ModuleId, Language), typeof(SimpleProductInfo));
+            return CBO.FillObject<SimpleProductInfo>(DataProvider.Instance().GetSimpleProductByModuleId(PortalId, ModuleId, Language));
         }
         public int NewSimpleProduct(SimpleProductInfo SimpleProduct)
         {
@@ -310,7 +282,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public SimpleProductLangInfo GetSimpleProductLang(int SimpleProductId,string Language)
         {
-            return (SimpleProductLangInfo)CBO.FillObject(DataProvider.Instance().GetSimpleProductLang(SimpleProductId,Language),typeof(SimpleProductLangInfo));
+            return CBO.FillObject<SimpleProductLangInfo>(DataProvider.Instance().GetSimpleProductLang(SimpleProductId,Language));
         }
         public void NewSimpleProductLang(SimpleProductLangInfo SimpleProductLang)
         {
@@ -334,7 +306,7 @@ namespace Bitboxx.DNNModules.BBStore
 
         public ProductPriceInfo GetProductPriceById(int ProductPriceId)
         {
-            return (ProductPriceInfo)CBO.FillObject(DataProvider.Instance().GetProductPriceById(ProductPriceId), typeof(ProductPriceInfo));
+            return CBO.FillObject<ProductPriceInfo>(DataProvider.Instance().GetProductPriceById(ProductPriceId));
         }
         public List<ProductPriceInfo> GetProductPrices(int PortalId)
         {
@@ -374,7 +346,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public CustomerInfo GetCustomerById(int CustomerId)
         {
-            return (CustomerInfo)CBO.FillObject(DataProvider.Instance().GetCustomerById(CustomerId), typeof(CustomerInfo));
+            return CBO.FillObject<CustomerInfo>(DataProvider.Instance().GetCustomerById(CustomerId));
         }
         public int NewCustomer(CustomerInfo Customer)
         {
@@ -397,7 +369,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region CustomerAddress methods
         public CustomerAddressInfo GetCustomerAddress(int CustomerAddressId)
         {
-            return (CustomerAddressInfo)CBO.FillObject(DataProvider.Instance().GetCustomerAddress(CustomerAddressId), typeof(CustomerAddressInfo));
+            return CBO.FillObject<CustomerAddressInfo>(DataProvider.Instance().GetCustomerAddress(CustomerAddressId));
         }
         public List<CustomerAddressInfo> GetCustomerAddresses(int CustomerId)
         {
@@ -409,7 +381,7 @@ namespace Bitboxx.DNNModules.BBStore
 		}
         public CustomerAddressInfo GetCustomerMainAddress(int CustomerId)
         {
-            return (CustomerAddressInfo)CBO.FillObject(DataProvider.Instance().GetCustomerMainAddress(CustomerId), typeof(CustomerAddressInfo));
+            return CBO.FillObject<CustomerAddressInfo>(DataProvider.Instance().GetCustomerMainAddress(CustomerId));
         }
         public List<CustomerAddressInfo> GetCustomerAdditionalAddresses(int CustomerId)
         {
@@ -433,7 +405,7 @@ namespace Bitboxx.DNNModules.BBStore
         public CartInfo GetCart(int PortalId, Guid CartId, bool isTaxFree = false)
         {
             IDataReader dr = DataProvider.Instance().GetCart(CartId, isTaxFree);
-            CartInfo Cart = (CartInfo)CBO.FillObject(dr, typeof(CartInfo));
+            CartInfo Cart = CBO.FillObject<CartInfo>(dr);
             if (Cart != null)
                 Cart.Total = Cart.AdditionalTotal + Cart.OrderTotal;
             return Cart;
@@ -569,7 +541,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region CartAdditionalCost methods
         public CartAdditionalCostInfo GetCartAdditionalCost(int CartAdditionalCostId)
         {
-            return (CartAdditionalCostInfo)CBO.FillObject(DataProvider.Instance().GetCartAdditionalCost(CartAdditionalCostId), typeof(CartAdditionalCostInfo));
+            return CBO.FillObject<CartAdditionalCostInfo>(DataProvider.Instance().GetCartAdditionalCost(CartAdditionalCostId));
         }
         public List<CartAdditionalCostInfo> GetCartAdditionalCosts(Guid CartId, bool isTaxfree = false)
         {
@@ -596,15 +568,15 @@ namespace Bitboxx.DNNModules.BBStore
         #region CartProduct methods
         public CartProductInfo GetCartProduct(int CartProductId)
         {
-            return (CartProductInfo)CBO.FillObject(DataProvider.Instance().GetCartProduct(CartProductId), typeof(CartProductInfo));
+            return CBO.FillObject<CartProductInfo>(DataProvider.Instance().GetCartProduct(CartProductId));
         }
         public CartProductInfo GetCartProductByProductId(Guid CartId, int ProductId)
         {
-            return (CartProductInfo)CBO.FillObject(DataProvider.Instance().GetCartProductByProductId(CartId,ProductId), typeof(CartProductInfo));
+            return CBO.FillObject<CartProductInfo>(DataProvider.Instance().GetCartProductByProductId(CartId,ProductId));
         }
         public CartProductInfo GetCartProductByProductIdAndSelectedOptions(Guid CartId, int ProductId, System.Collections.Generic.List<OptionListInfo> SelectedOptions)
         {
-            return (CartProductInfo)CBO.FillObject(DataProvider.Instance().GetCartProductByProductIdAndSelectedOptions(CartId,ProductId,SelectedOptions), typeof(CartProductInfo));
+            return CBO.FillObject<CartProductInfo>(DataProvider.Instance().GetCartProductByProductIdAndSelectedOptions(CartId,ProductId,SelectedOptions));
         }
         public List<CartProductInfo> GetCartProducts(Guid CartId, bool isTaxFree = false)
         {
@@ -631,7 +603,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region CartProductOption methods
         public CartProductOptionInfo GetCartProductOption(int CartProductOptionId)
         {
-            return (CartProductOptionInfo)CBO.FillObject(DataProvider.Instance().GetCartProductOption(CartProductOptionId), typeof(CartProductOptionInfo));
+            return CBO.FillObject<CartProductOptionInfo>(DataProvider.Instance().GetCartProductOption(CartProductOptionId));
         }
         public List<CartProductOptionInfo> GetCartProductOptions(int CartProductId)
         {
@@ -694,7 +666,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region PaymentProvider methods
         public PaymentProviderInfo GetPaymentProvider(int PaymentProviderId, string Language)
         {
-            return (PaymentProviderInfo)CBO.FillObject(DataProvider.Instance().GetPaymentProvider(PaymentProviderId,Language), typeof(PaymentProviderInfo));
+            return CBO.FillObject<PaymentProviderInfo>(DataProvider.Instance().GetPaymentProvider(PaymentProviderId,Language));
         }
         public List<PaymentProviderInfo> GetPaymentProviders(string Language)
         {
@@ -720,12 +692,12 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public SubscriberPaymentProviderInfo GetSubscriberPaymentProvider(int PortalId,int SubscriberId, int PaymentProviderId)
         {
-            return (SubscriberPaymentProviderInfo)CBO.FillObject(DataProvider.Instance().GetSubscriberPaymentProvider(PortalId,SubscriberId,PaymentProviderId), typeof(SubscriberPaymentProviderInfo));
+            return CBO.FillObject<SubscriberPaymentProviderInfo>(DataProvider.Instance().GetSubscriberPaymentProvider(PortalId,SubscriberId,PaymentProviderId));
         }
 
         public SubscriberPaymentProviderInfo GetSubscriberPaymentProviderByCPP(int customerPaymentProviderId)
         {
-            return (SubscriberPaymentProviderInfo)CBO.FillObject(DataProvider.Instance().GetSubscriberPaymentProviderByCPP(customerPaymentProviderId), typeof(SubscriberPaymentProviderInfo));
+            return CBO.FillObject<SubscriberPaymentProviderInfo>(DataProvider.Instance().GetSubscriberPaymentProviderByCPP(customerPaymentProviderId));
         }
 
         public int NewSubscriberPaymentProvider(SubscriberPaymentProviderInfo SubscriberPaymentProvider)
@@ -749,11 +721,11 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public CustomerPaymentProviderInfo GetCustomerPaymentProvider(int CustomerId, int PaymentProviderId)
         {
-            return (CustomerPaymentProviderInfo)CBO.FillObject(DataProvider.Instance().GetCustomerPaymentProvider(CustomerId,PaymentProviderId), typeof(CustomerPaymentProviderInfo));    
+            return CBO.FillObject<CustomerPaymentProviderInfo>(DataProvider.Instance().GetCustomerPaymentProvider(CustomerId,PaymentProviderId));    
         }
         public CustomerPaymentProviderInfo GetCustomerPaymentProvider(int CustomerPaymentProviderId)
         {
-            return (CustomerPaymentProviderInfo)CBO.FillObject(DataProvider.Instance().GetCustomerPaymentProvider(CustomerPaymentProviderId), typeof(CustomerPaymentProviderInfo));    
+            return CBO.FillObject<CustomerPaymentProviderInfo>(DataProvider.Instance().GetCustomerPaymentProvider(CustomerPaymentProviderId));    
         }
         public int NewCustomerPaymentProvider(CustomerPaymentProviderInfo CustomerPaymentProvider)
         {
@@ -780,11 +752,11 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public SubscriberAddressTypeInfo GetSubscriberAddressType(int portalId, int subscriberId, string kzAddressType, string language)
         {
-            return (SubscriberAddressTypeInfo) CBO.FillObject(DataProvider.Instance().GetSubscriberAddressType(portalId, subscriberId, kzAddressType,language),typeof (SubscriberAddressTypeInfo));
+            return CBO.FillObject<SubscriberAddressTypeInfo>(DataProvider.Instance().GetSubscriberAddressType(portalId, subscriberId, kzAddressType,language));
         }
         public SubscriberAddressTypeInfo GetSubscriberAddressType(int portalId, int subscriberId, int subscriberAddressTypeId, string language)
         {
-            return (SubscriberAddressTypeInfo)CBO.FillObject(DataProvider.Instance().GetSubscriberAddressType(subscriberAddressTypeId,language), typeof(SubscriberAddressTypeInfo));
+            return CBO.FillObject<SubscriberAddressTypeInfo>(DataProvider.Instance().GetSubscriberAddressType(subscriberAddressTypeId,language));
         }
         public int NewSubscriberAddressType(SubscriberAddressTypeInfo subscriberAddressType)
         {
@@ -919,6 +891,11 @@ namespace Bitboxx.DNNModules.BBStore
         #endregion
 
         #region OrderAdditionalCosts
+        public OrderAdditionalCostInfo GetOrderAdditionalCost(int orderAdditionalCostId)
+        {
+            return CBO.FillObject<OrderAdditionalCostInfo>(DataProvider.Instance().GetOrderAdditionalCost(orderAdditionalCostId));
+        }
+
         public List<OrderAdditionalCostInfo> GetOrderAdditionalCosts(int OrderId)
         {
             return CBO.FillCollection<OrderAdditionalCostInfo>(DataProvider.Instance().GetOrderAdditionalCosts(OrderId));
@@ -1015,7 +992,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region OrderStateLangs methods
         public OrderStateLangInfo GetOrderStateLang(int orderStateId, string language)
         {
-            return (OrderStateLangInfo)CBO.FillObject(DataProvider.Instance().GetOrderStateLang(orderStateId, language), typeof(OrderStateLangInfo));
+            return CBO.FillObject<OrderStateLangInfo>(DataProvider.Instance().GetOrderStateLang(orderStateId, language));
         }
         public List<OrderStateLangInfo> GetOrderStateLangs(int orderStateId)
         {
@@ -1055,15 +1032,15 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public ProductGroupInfo GetProductGroupByName(int PortalId, string Language, string ProductGroupName)
         {
-            return (ProductGroupInfo)CBO.FillObject(DataProvider.Instance().GetProductGroupByName(PortalId, Language, ProductGroupName), typeof(ProductGroupInfo));
+            return CBO.FillObject<ProductGroupInfo>(DataProvider.Instance().GetProductGroupByName(PortalId, Language, ProductGroupName));
         }
         public ProductGroupInfo GetProductGroup(int PortalId, string Language, int ProductGroupId)
         {
-            return (ProductGroupInfo)CBO.FillObject(DataProvider.Instance().GetProductGroup(PortalId, Language, ProductGroupId), typeof(ProductGroupInfo));
+            return CBO.FillObject<ProductGroupInfo>(DataProvider.Instance().GetProductGroup(PortalId, Language, ProductGroupId));
         }
         public ProductGroupInfo GetProductGroup(int PortalId, int ProductGroupId)
         {
-            return (ProductGroupInfo)CBO.FillObject(DataProvider.Instance().GetProductGroup(PortalId, ProductGroupId), typeof(ProductGroupInfo));
+            return CBO.FillObject<ProductGroupInfo>(DataProvider.Instance().GetProductGroup(PortalId, ProductGroupId));
         }
         public string GetProductGroupPath(int portalId, int productGroupId, string language, bool returnId, string delimiter, string linkTemplate, string rootText)
         {
@@ -1102,7 +1079,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public ProductGroupLangInfo GetProductGroupLang(int ProductGroupId, string Language)
         {
-            return (ProductGroupLangInfo)CBO.FillObject(DataProvider.Instance().GetProductGroupLang(ProductGroupId, Language), typeof(ProductGroupLangInfo));
+            return CBO.FillObject<ProductGroupLangInfo>(DataProvider.Instance().GetProductGroupLang(ProductGroupId, Language));
         }
         public void NewProductGroupLang(ProductGroupLangInfo ProductGroupLang)
         {
@@ -1185,7 +1162,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public FeatureGridValueInfo GetFeatureGridValueByProductAndToken(int PortalId, int ProductId, string Language, string FeatureToken)
         {
-            return (FeatureGridValueInfo)CBO.FillObject(DataProvider.Instance().GetFeatureGridValueByProductAndToken(PortalId, ProductId, Language, FeatureToken), typeof(FeatureGridValueInfo));    
+            return CBO.FillObject<FeatureGridValueInfo>(DataProvider.Instance().GetFeatureGridValueByProductAndToken(PortalId, ProductId, Language, FeatureToken));    
         }
         public List<FeatureGridFeatureInfo> GetFeatureGridFeaturesByProduct(int PortalId, int ProductId, string Language, int RoleId, int FeatureGroupId)
         {
@@ -1231,7 +1208,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region FeatureGroup methods
         public FeatureGroupInfo GetFeatureGroupById(int FeatureGroupId)
         {
-            return (FeatureGroupInfo)CBO.FillObject(DataProvider.Instance().GetFeatureGroupById(FeatureGroupId), typeof(FeatureGroupInfo));
+            return CBO.FillObject<FeatureGroupInfo>(DataProvider.Instance().GetFeatureGroupById(FeatureGroupId));
         }
         public List<FeatureGroupInfo> GetFeatureGroups(int PortalId)
         {
@@ -1239,7 +1216,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public FeatureGroupInfo GetFeatureGroupById(int FeatureGroupId, string Language)
         {
-            return (FeatureGroupInfo)CBO.FillObject(DataProvider.Instance().GetFeatureGroupById(FeatureGroupId, Language), typeof(FeatureGroupInfo));
+            return CBO.FillObject<FeatureGroupInfo>(DataProvider.Instance().GetFeatureGroupById(FeatureGroupId, Language));
         }
         public List<FeatureGroupInfo> GetFeatureGroups(int FeatureGroupId, string Language)
         {
@@ -1266,7 +1243,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region FeatureGroupLang methods
         public FeatureGroupLangInfo GetFeatureGroupLang(int FeatureGroupId,string Language)
         {
-            return (FeatureGroupLangInfo)CBO.FillObject(DataProvider.Instance().GetFeatureGroupLang(FeatureGroupId,Language), typeof(FeatureGroupLangInfo));
+            return CBO.FillObject<FeatureGroupLangInfo>(DataProvider.Instance().GetFeatureGroupLang(FeatureGroupId,Language));
         }
         public List<FeatureGroupLangInfo> GetFeatureGroupLangs(int FeatureGroupId)
         {
@@ -1305,11 +1282,11 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public FeatureInfo GetFeatureById(int FeatureId)
         {
-            return (FeatureInfo)CBO.FillObject(DataProvider.Instance().GetFeatureById(FeatureId), typeof(FeatureInfo));
+            return CBO.FillObject<FeatureInfo>(DataProvider.Instance().GetFeatureById(FeatureId));
         }
         public FeatureInfo GetFeatureById(int FeatureId, string Language)
         {
-            return (FeatureInfo)CBO.FillObject(DataProvider.Instance().GetFeatureById(FeatureId, Language), typeof(FeatureInfo));
+            return CBO.FillObject<FeatureInfo>(DataProvider.Instance().GetFeatureById(FeatureId, Language));
         }
         public int NewFeature(FeatureInfo Feature)
         {
@@ -1340,7 +1317,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public FeatureLangInfo GetFeatureLang(int FeatureId, string Language)
         {
-            return (FeatureLangInfo)CBO.FillObject(DataProvider.Instance().GetFeatureLang(FeatureId, Language), typeof(FeatureLangInfo));
+            return CBO.FillObject<FeatureLangInfo>(DataProvider.Instance().GetFeatureLang(FeatureId, Language));
         }
         public void NewFeatureLang(FeatureLangInfo FeatureLang)
         {
@@ -1371,11 +1348,11 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public FeatureListInfo GetFeatureListById(int FeatureListId)
         {
-            return (FeatureListInfo)CBO.FillObject(DataProvider.Instance().GetFeatureListById(FeatureListId), typeof(FeatureListInfo));
+            return CBO.FillObject<FeatureListInfo>(DataProvider.Instance().GetFeatureListById(FeatureListId));
         }
         public FeatureListInfo GetFeatureListById(int FeatureListId, string Language)
         {
-            return (FeatureListInfo)CBO.FillObject(DataProvider.Instance().GetFeatureListById(FeatureListId, Language), typeof(FeatureListInfo));
+            return CBO.FillObject<FeatureListInfo>(DataProvider.Instance().GetFeatureListById(FeatureListId, Language));
         }
         public int NewFeatureList(FeatureListInfo FeatureList)
         {
@@ -1406,7 +1383,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public FeatureListLangInfo GetFeatureListLang(int FeatureListId, string Language)
         {
-            return (FeatureListLangInfo)CBO.FillObject(DataProvider.Instance().GetFeatureListLang(FeatureListId, Language), typeof(FeatureListLangInfo));
+            return CBO.FillObject<FeatureListLangInfo>(DataProvider.Instance().GetFeatureListLang(FeatureListId, Language));
         }
         public void NewFeatureListLang(FeatureListLangInfo FeatureListLang)
         {
@@ -1429,11 +1406,11 @@ namespace Bitboxx.DNNModules.BBStore
         #region FeatureListItem methods
         public FeatureListItemInfo GetFeatureListItemById(int FeatureListItemId)
         {
-            return (FeatureListItemInfo)CBO.FillObject(DataProvider.Instance().GetFeatureListItemById(FeatureListItemId), typeof(FeatureListItemInfo));
+            return CBO.FillObject<FeatureListItemInfo>(DataProvider.Instance().GetFeatureListItemById(FeatureListItemId));
         }
         public FeatureListItemInfo GetFeatureListItemById(int FeatureListItemId, string Language)
         {
-            return (FeatureListItemInfo)CBO.FillObject(DataProvider.Instance().GetFeatureListItemById(FeatureListItemId, Language), typeof(FeatureListItemInfo));
+            return CBO.FillObject<FeatureListItemInfo>(DataProvider.Instance().GetFeatureListItemById(FeatureListItemId, Language));
         }
         public List<FeatureListItemInfo> GetFeatureListItems(int portalId)
         {
@@ -1484,8 +1461,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public FeatureListItemLangInfo GetFeatureListItemLang(int FeatureListItemId, string Language)
         {
-            return (FeatureListItemLangInfo)CBO.FillObject(DataProvider.Instance().GetFeatureListItemLang(FeatureListItemId,Language), typeof(FeatureListItemLangInfo));
-
+            return CBO.FillObject<FeatureListItemLangInfo>(DataProvider.Instance().GetFeatureListItemLang(FeatureListItemId,Language));
         }
         public void NewFeatureListItemLang(FeatureListItemLangInfo FeatureListItemLang)
         {
@@ -1582,11 +1558,11 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public StaticFilterInfo GetStaticFilter(int PortalId, string Token)
         {
-            return (StaticFilterInfo)CBO.FillObject(DataProvider.Instance().GetStaticFilter(PortalId, Token), typeof(StaticFilterInfo));
+            return CBO.FillObject<StaticFilterInfo>(DataProvider.Instance().GetStaticFilter(PortalId, Token));
         }
         public StaticFilterInfo GetStaticFilterById(int StaticFilterId)
         {
-            return (StaticFilterInfo)CBO.FillObject(DataProvider.Instance().GetStaticFilterById(StaticFilterId), typeof(StaticFilterInfo));
+            return CBO.FillObject<StaticFilterInfo>(DataProvider.Instance().GetStaticFilterById(StaticFilterId));
         }
         public int NewStaticFilter(StaticFilterInfo StaticFilter)
         {
@@ -1609,7 +1585,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region LocalResources methods
         public LocalResourceInfo GetLocalResource(int portalId, string token)
         {
-            return (LocalResourceInfo)CBO.FillObject(DataProvider.Instance().GetLocalResource(portalId, token), typeof(LocalResourceInfo));
+            return CBO.FillObject<LocalResourceInfo>(DataProvider.Instance().GetLocalResource(portalId, token));
         }
         public int NewLocalResource(LocalResourceInfo resourceInfo)
         {
@@ -1628,11 +1604,11 @@ namespace Bitboxx.DNNModules.BBStore
         #region  LocalResourceLang methods
         public LocalResourceLangInfo GetLocalResourceLang(int resourceId, string language)
         {
-            return (LocalResourceLangInfo)CBO.FillObject(DataProvider.Instance().GetLocalResourceLang(resourceId, language), typeof(LocalResourceLangInfo));
+            return CBO.FillObject<LocalResourceLangInfo>(DataProvider.Instance().GetLocalResourceLang(resourceId, language));
         }
         public LocalResourceLangInfo GetLocalResourceLang(int portalId, string token, string language)
         {
-            return (LocalResourceLangInfo)CBO.FillObject(DataProvider.Instance().GetLocalResourceLang(portalId,token, language), typeof(LocalResourceLangInfo));
+            return CBO.FillObject<LocalResourceLangInfo>(DataProvider.Instance().GetLocalResourceLang(portalId,token, language));
         }
         public List<LocalResourceLangInfo> GetLocalResourceLangs(int resourceId)
         {
@@ -1663,7 +1639,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region ContactAddress methods
         public ContactAddressInfo GetContactAddresses(DateTime? StartDate)
         {
-            return (ContactAddressInfo)CBO.FillObject(DataProvider.Instance().GetContactAddresses(StartDate), typeof(ContactAddressInfo));
+            return CBO.FillObject<ContactAddressInfo>(DataProvider.Instance().GetContactAddresses(StartDate));
         }
         public int NewContactAddress(ContactAddressInfo ContactAddress)
         {
@@ -1709,7 +1685,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public ContactReasonInfo GetContactReasonByToken(int ContactAddressId, string Token)
         {
-            return (ContactReasonInfo)CBO.FillObject(DataProvider.Instance().GetContactReasonByToken(ContactAddressId, Token), typeof(ContactReasonInfo));
+            return CBO.FillObject<ContactReasonInfo>(DataProvider.Instance().GetContactReasonByToken(ContactAddressId, Token));
         }
         public void NewContactReason(ContactReasonInfo ContactReason)
         {
@@ -1732,11 +1708,11 @@ namespace Bitboxx.DNNModules.BBStore
         #region Unit methods
         public UnitInfo GetUnit(int UnitId)
         {
-            return (UnitInfo)CBO.FillObject(DataProvider.Instance().GetUnit(UnitId), typeof(UnitInfo));
+            return CBO.FillObject<UnitInfo>(DataProvider.Instance().GetUnit(UnitId));
         }
         public UnitInfo GetUnit(int UnitId, string Language)
         {
-            return (UnitInfo)CBO.FillObject(DataProvider.Instance().GetUnit(UnitId, Language), typeof(UnitInfo));
+            return CBO.FillObject<UnitInfo>(DataProvider.Instance().GetUnit(UnitId, Language));
         }
         public List<UnitInfo> GetUnits(int portalId)
         {
@@ -1764,7 +1740,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region UnitLang methods
         public UnitLangInfo GetUnitLang(int unitId, string language)
         {
-            return (UnitLangInfo)CBO.FillObject(DataProvider.Instance().GetUnitLang(unitId, language), typeof(UnitLangInfo));
+            return CBO.FillObject<UnitLangInfo>(DataProvider.Instance().GetUnitLang(unitId, language));
         }
         public List<UnitLangInfo> GetUnitLangs(int unitId)
         {
@@ -1795,7 +1771,7 @@ namespace Bitboxx.DNNModules.BBStore
         #region ShippingModel
         public ShippingModelInfo GetShippingModel(int shippingModelId)
         {
-            return (ShippingModelInfo)CBO.FillObject(DataProvider.Instance().GetShippingModel(shippingModelId),typeof(ShippingModelInfo));
+            return CBO.FillObject<ShippingModelInfo>(DataProvider.Instance().GetShippingModel(shippingModelId));
         }
         public List<ShippingModelInfo> GetShippingModels(int portalId)
         {
@@ -1843,7 +1819,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public ShippingCostInfo GetShippingCostById(int ShippingCostId)
         {
-            return (ShippingCostInfo)CBO.FillObject(DataProvider.Instance().GetShippingCostById(ShippingCostId), typeof(ShippingCostInfo));
+            return CBO.FillObject<ShippingCostInfo>(DataProvider.Instance().GetShippingCostById(ShippingCostId));
         }
         public int NewShippingCost(ShippingCostInfo ShippingCost)
         {
@@ -1862,11 +1838,11 @@ namespace Bitboxx.DNNModules.BBStore
         #region Coupon methods
         public CouponInfo GetCouponById(int CouponId)
         {
-            return (CouponInfo)CBO.FillObject(DataProvider.Instance().GetCouponById(CouponId), typeof(CouponInfo));
+            return CBO.FillObject<CouponInfo>(DataProvider.Instance().GetCouponById(CouponId));
         }
         public CouponInfo GetCouponByCode(string code)
         {
-            return (CouponInfo)CBO.FillObject(DataProvider.Instance().GetCouponByCode(code), typeof(CouponInfo));
+            return CBO.FillObject<CouponInfo>(DataProvider.Instance().GetCouponByCode(code));
         }
         public List<CouponInfo> GetCoupons(int PortalId)
         {
@@ -1901,7 +1877,7 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public ShippingZoneDisplayInfo GetShippingZoneById(int shippingZoneId, string language)
         {
-            return (ShippingZoneDisplayInfo)CBO.FillObject(DataProvider.Instance().GetShippingZoneById(shippingZoneId, language), typeof(ShippingZoneDisplayInfo));
+            return CBO.FillObject<ShippingZoneDisplayInfo>(DataProvider.Instance().GetShippingZoneById(shippingZoneId, language));
         }
 
         #endregion
@@ -2057,36 +2033,37 @@ namespace Bitboxx.DNNModules.BBStore
         }
         public Hashtable GetStoreSettings(int portalId)
         {
-            ModuleController moduleController = new ModuleController();
-            ModuleInfo adminModule = moduleController.GetModuleByDefinition(portalId, "BBStore Admin");
-            if (adminModule != null)
-                return moduleController.GetModuleSettings(adminModule.ModuleID);
-            throw new Exception("No admin module found in portal");
+            return this.GetModuleSettingsByName(portalId, "BBStore Admin");
         }
 
         public Hashtable GetCartSettings(int portalId)
         {
-            ModuleController moduleController = new ModuleController();
-            ModuleInfo cartModule = moduleController.GetModuleByDefinition(portalId, "BBStore Cart");
-            if (cartModule != null)
-                return moduleController.GetModuleSettings(cartModule.ModuleID);
-            throw new Exception("No cart module found in portal");
+            return this.GetModuleSettingsByName(portalId, "BBStore Cart");
         }
 
         public void MailOrder(int portalId, int orderId)
         {
-            System.Web.UI.Page dummy = new Page();
-            ViewCart viewCartControl = dummy.LoadControl(@"~\DesktopModules\BBStore\ViewCart.ascx") as ViewCart;
+            try
+            {
+                System.Web.UI.Page dummy = new Page();
+                ViewCart viewCartControl = dummy.LoadControl(@"~\DesktopModules\BBStore\ViewCart.ascx") as ViewCart;
 
-            // Settings
-            ModuleController oModules = new ModuleController();
-            ModuleInfo mailCartModule = oModules.GetModuleByDefinition(portalId, "BBStore Cart");
-            viewCartControl.ModuleConfiguration = mailCartModule;
+                // Settings
+                ModuleInfo mailCartModule = GetModuleByName(portalId, "BBStore Cart");
+                viewCartControl.ModuleConfiguration = mailCartModule;
 
-            // ResourceFile
-            string resourceFile = System.IO.Path.GetFileNameWithoutExtension(viewCartControl.AppRelativeVirtualPath);
-            viewCartControl.LocalResourceFile = viewCartControl.LocalResourceFile + resourceFile + ".ascx.resx";
-            viewCartControl.MailOrder(orderId);
+                // ResourceFile
+                string resourceFile = System.IO.Path.GetFileNameWithoutExtension(viewCartControl.AppRelativeVirtualPath);
+                viewCartControl.LocalResourceFile = viewCartControl.LocalResourceFile + resourceFile + ".ascx.resx";
+                // File.AppendAllText(@"d:\0009_gruppapp\dnn\log.txt", "BBStoreController: ResourceFile " + viewCartControl.LocalResourceFile + "\r\n");
+                viewCartControl.MailOrder(orderId);
+            }
+            catch (Exception ex)
+            {
+                // File.AppendAllText(@"d:\0009_gruppapp\dnn\log.txt", "BBStoreController: Error " + ex.ToString() + "\r\n");
+                throw;
+            }
+            
         }
 
         private void CheckCss(string colorBorder, string colorHead, string colorRow, string colorAlt, string colorSum)
@@ -2765,6 +2742,23 @@ namespace Bitboxx.DNNModules.BBStore
             }
         }
 
+        public ModuleInfo GetModuleByName(int portalId, string name)
+        {
+            ModuleController objModules = new ModuleController();
+            var modules = objModules.GetModulesByDefinition(portalId, name).Cast<ModuleInfo>().ToList();
+
+            string currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+            return modules.FirstOrDefault(m => m.CultureCode == currentCulture || m.IsNeutralCulture);
+        }
+
+        public Hashtable GetModuleSettingsByName(int portalId, string name)
+        {
+            ModuleInfo module = GetModuleByName(portalId, name);
+            if (module != null)
+                return module.ModuleSettings;
+            throw new Exception($"No {name} module found in portal");
+        }
+
         #endregion
 
         #region Optional Interfaces
@@ -2829,7 +2823,7 @@ namespace Bitboxx.DNNModules.BBStore
         //        sb.Append("<TaxPercent>" + product.TaxPercent.ToString(CultureInfo.InvariantCulture) + "</TaxPercent>");
         //        sb.Append("<Disabled>" + product.Disabled.ToString() + "</Disabled>");
         //        sb.Append("<NoCart>" + product.NoCart.ToString() + "</NoCart>");
-                
+
         //        List<SimpleProductLangInfo> langs = GetSimpleProductLangs(product.SimpleProductId);
         //        sb.Append("<ProductLangs>");
         //        foreach (SimpleProductLangInfo lang in langs)
@@ -2943,7 +2937,7 @@ namespace Bitboxx.DNNModules.BBStore
         //        sb.Append("</FeatureList>");
         //    }
         //    sb.Append("</FeatureLists>");
-            
+
         //    sb.Append("</BBStore>");
         //    return sb.ToString();
         //}

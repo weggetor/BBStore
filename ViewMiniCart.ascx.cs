@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Bitboxx.License;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
@@ -68,8 +69,7 @@ namespace Bitboxx.DNNModules.BBStore
                     tp.Key = "MiniCart";
                     string template = tp.GetTemplate((string)Settings["Template"]);
 
-                    ModuleController objModules = new ModuleController();
-                    ModuleInfo cartModule = objModules.GetModuleByDefinition(PortalSettings.PortalId, "BBStore Cart");
+                    ModuleInfo cartModule = _controller.GetModuleByName(PortalSettings.PortalId, "BBStore Cart");
 
                     Hashtable storeSettings = _controller.GetStoreSettings(PortalSettings.PortalId);
                     bool showNetPrice = (storeSettings["ShowNetpriceInCart"].ToString() == "0");

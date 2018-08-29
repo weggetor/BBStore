@@ -267,8 +267,7 @@ namespace Bitboxx.DNNModules.BBStore
 						ViewCart adminCartControl = LoadControl(@"~\DesktopModules\BBStore\ViewCart.ascx") as ViewCart;
 						
 						// Settings
-						ModuleController objModules = new ModuleController();
-						ModuleInfo cartModule = objModules.GetModuleByDefinition(PortalId, "BBStore Cart");
+				        ModuleInfo cartModule = Controller.GetModuleByName(PortalId, "BBStore Cart");
 						adminCartControl.ModuleConfiguration = cartModule;
 
 						// ResourceFile
@@ -339,8 +338,7 @@ namespace Bitboxx.DNNModules.BBStore
             ViewCart viewCartControl = LoadControl(@"~\DesktopModules\BBStore\ViewCart.ascx") as ViewCart;
 
             // Settings
-            ModuleController oModules = new ModuleController();
-            ModuleInfo mailCartModule = oModules.GetModuleByDefinition(PortalId, "BBStore Cart");
+            ModuleInfo mailCartModule = Controller.GetModuleByName(PortalId, "BBStore Cart");
             viewCartControl.ModuleConfiguration = mailCartModule;
 
             // ResourceFile
@@ -437,8 +435,7 @@ namespace Bitboxx.DNNModules.BBStore
 
 	    private void GenMainMenu()
 	    {
-	        ModuleController moduleController = new ModuleController();
-            ModuleInfo cartModule = moduleController.GetModuleByDefinition(PortalId, "BBStore Cart");
+            ModuleInfo cartModule = Controller.GetModuleByName(PortalId, "BBStore Cart");
             
             List<BBStoreAdminButtonType> buttons = new List<BBStoreAdminButtonType>();
 	        buttons.Add(new BBStoreAdminButtonType() { Name = "Settings", ImageUrl = "Images/admin_settings.png", ImgClickFunc = cmdSettings_Click, LnkClickFunc = cmdSettings_Click, Enabled = true});

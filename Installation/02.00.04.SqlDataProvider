@@ -1,0 +1,29 @@
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'FK_{objectQualifier}Product_ProductShippingModel') AND parent_object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}BBStore_ProductShippingModel]'))
+ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductShippingModel] DROP CONSTRAINT FK_{objectQualifier}Product_ProductShippingModel
+go
+
+IF NOT EXISTS (SELECT 1 FROM sys.objects where name='FK_{objectQualifier}Product_ProductShippingModel' and type='F')
+   ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_ProductShippingModel] WITH NOCHECK ADD CONSTRAINT FK_Product_ProductShippingModel FOREIGN KEY ( SimpleProductId ) REFERENCES {databaseOwner}[{objectQualifier}BBStore_SimpleProduct] ( SimpleProductId ) ON DELETE CASCADE
+GO
+
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'FK_{objectQualifier}CustomerAddress_CartAddress') AND parent_object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}BBStore_CartAddress]'))
+	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress] NOCHECK CONSTRAINT [FK_{objectQualifier}CustomerAddress_OrderAddress]
+go
+
+OrderAddressID
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/
+
+

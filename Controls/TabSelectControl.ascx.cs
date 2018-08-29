@@ -101,7 +101,7 @@ namespace Bitboxx.DNNModules.BBStore
             try
             {
                 PortalController objPortals = new PortalController();
-                if (!(Request.QueryString["pid"] == null) && (PortalSettings.ActiveTab.ParentId == PortalSettings.SuperTabId || UserController.GetCurrentUserInfo().IsSuperUser))
+                if (!(Request.QueryString["pid"] == null) && (PortalSettings.ActiveTab.ParentId == PortalSettings.SuperTabId || UserController.Instance.GetCurrentUserInfo().IsSuperUser))
                 {
                     _objPortal = objPortals.GetPortal(int.Parse(Request.QueryString["pid"]));
                 }

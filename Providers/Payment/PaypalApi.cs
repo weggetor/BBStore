@@ -51,7 +51,6 @@ namespace Bitboxx.DNNModules.BBStore.Providers.Payment
 
         public static string DoExpressCheckoutPayment(PaypalUserCredentials user, PaypalPaymentDetails paymentRequest, string token, string payerId)
         {
-            int version = 93;
             string postData = "";
 
             postData += user.ToPostData();

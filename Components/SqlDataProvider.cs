@@ -1129,7 +1129,7 @@ namespace Bitboxx.DNNModules.BBStore
         {
             string sqlCmd = "SELECT * FROM " + GetFullyQualifiedName("Cart") + " WHERE CartID = @cartId";
             SqlDataReader dr = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, new SqlParameter("CartID", cartId));
-            CartInfo cart = (CartInfo) CBO.FillObject(dr, typeof (CartInfo));
+            CartInfo cart = CBO.FillObject<CartInfo>(dr);
             dr.Close();
 
             cart.Exported = true;
@@ -1163,7 +1163,7 @@ namespace Bitboxx.DNNModules.BBStore
                 sqlCmd = "SELECT * FROM " + GetFullyQualifiedName("CustomerAddress") +
                          " WHERE CustomerAddressId = @CustomerAddressId";
                 dr = SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, new SqlParameter("CustomerAddressId", cartAddress.CustomerAddressId));
-                CustomerAddressInfo customerAddress = (CustomerAddressInfo) CBO.FillObject(dr, typeof (CustomerAddressInfo));
+                CustomerAddressInfo customerAddress = CBO.FillObject<CustomerAddressInfo>(dr);
                 dr.Close();
                 cartAddress.CustomerAddress = customerAddress;
             }
@@ -1222,14 +1222,14 @@ namespace Bitboxx.DNNModules.BBStore
                 }
                 else
                 {
-                    customer.CustomerName = UserController.GetCurrentUserInfo().Username;
+                    customer.CustomerName = UserController.Instance.GetCurrentUserInfo().Username;
                 }
                 customerId = NewCustomer(customer);
                 NewImportRelation(portalId, "CUSTOMER", customerId, cart.CustomerID, cart.StoreGuid);
             }
             else
             {
-                CustomerInfo customer = (CustomerInfo)CBO.FillObject(DataProvider.Instance().GetCustomerById(customerId), typeof(CustomerInfo));
+                CustomerInfo customer = CBO.FillObject<CustomerInfo>(DataProvider.Instance().GetCustomerById(customerId));
                 if (customer != null)
                 {
                     customer.UserId = userId;
@@ -1268,8 +1268,9 @@ namespace Bitboxx.DNNModules.BBStore
                 NewCartAdditionalCost(additionalCost);
             }
 
-            ModuleController objModules = new ModuleController();
-            ModuleInfo productModule = objModules.GetModuleByDefinition(portalId, "BBStore Product");
+            BBStoreController controller = new BBStoreController();
+            ModuleInfo productModule = controller.GetModuleByName(portalId, "BBStore Product");
+
             foreach (CartProductInfo cartProduct in cart.CartProducts)
             {
                 int productId = GetImportRelationOwnId(portalId, "PRODUCT", cartProduct.ProductId, cart.StoreGuid);
@@ -1277,7 +1278,7 @@ namespace Bitboxx.DNNModules.BBStore
                 if (productId > 0)
                 {
                     IDataReader dr = GetSimpleProductByProductId(portalId, productId, System.Threading.Thread.CurrentThread.CurrentCulture.Name, userId, extendedPrice);
-                    SimpleProductInfo product = (SimpleProductInfo)CBO.FillObject(dr, typeof(SimpleProductInfo));
+                    SimpleProductInfo product = CBO.FillObject<SimpleProductInfo>(dr);
                     if (product != null)
                     {
                         cartProduct.CartId = cartId;
@@ -2778,6 +2779,18 @@ namespace Bitboxx.DNNModules.BBStore
 
 
         // OrderAdditionalCosts methods
+        public override IDataReader GetOrderAdditionalCost(int orderAdditionalCostId)
+        {
+            string selCmd = "SELECT *," +
+                " Quantity * UnitCost As NetTotal," +
+                " Quantity * UnitCost * TaxPercent / 100 AS TaxTotal," +
+                " Quantity * UnitCost * (100 + TaxPercent) / 100 AS SubTotal" +
+                " FROM " + Prefix + "OrderAdditionalCost OrderAdditionalCost" +
+                " WHERE OrderAdditionalCostId = " + orderAdditionalCostId.ToString();
+
+            return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd);
+        }
+
         public override IDataReader GetOrderAdditionalCosts(int OrderId)
         {
             string selCmd = "SELECT *," +
@@ -5867,7 +5880,6 @@ namespace Bitboxx.DNNModules.BBStore
         // ShippingZone methods
         public override int GetShippingZoneIdByAddress(int modelId, string countryCodeISO2, int postalCode)
         {
-            int shippingZoneId = -1;
             string sqlCmd = " WITH tmpShippingArea AS (SELECT A.ShippingAreaID, A.ShippingZoneID,PostalCodeMin, PostalCodeMax," +
                             " Split.a.value('.', 'VARCHAR(100)') AS CountryCodeISO2" +
                             " FROM" +

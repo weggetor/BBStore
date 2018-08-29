@@ -176,12 +176,9 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 // First lets save the product
                 UnitInfo unit = null;
-                bool isNew = false;
 
                 if (UnitId >= 0)
                     unit = Controller.GetUnit(UnitId);
-                else
-                    isNew = true;
 
                 if (unit != null)
                 {

@@ -270,6 +270,7 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract void DeleteOrderProductOption(int OrderProductOptionId);
 
         // OrderAdditionalCosts methods
+        public abstract IDataReader GetOrderAdditionalCost(int orderAdditionalCostId);
         public abstract IDataReader GetOrderAdditionalCosts(int OrderId);
         public abstract IDataReader GetOrderAdditionalCostsByPortal(int PortalId);
         public abstract IDataReader GetOrderAdditionalCostsByPortalAndUser(int portalId, int userId, int excludeOrderState);

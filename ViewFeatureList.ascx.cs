@@ -106,7 +106,7 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			get
 			{
-				UserInfo user = UserController.GetCurrentUserInfo();
+				UserInfo user = UserController.Instance.GetCurrentUserInfo();
 				return (user.IsInRole("Administrators") && IsEditable);
 			}
 		}
@@ -213,9 +213,7 @@ namespace Bitboxx.DNNModules.BBStore
             get
             {
                 ModuleActionCollection actions = new ModuleActionCollection();
-                
-                ModuleController moduleController = new ModuleController();
-                ModuleInfo adminModule = moduleController.GetModuleByDefinition(PortalId, "BBStore Admin");
+                ModuleInfo adminModule = Controller.GetModuleByName(PortalId, "BBStore Admin");
                 if (adminModule != null)
                 {
                     string url = Globals.NavigateURL(adminModule.TabID, "", "adminmode=featurelist","featurelist=-1");

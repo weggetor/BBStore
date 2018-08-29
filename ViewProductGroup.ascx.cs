@@ -61,14 +61,13 @@ namespace Bitboxx.DNNModules.BBStore
 		
 		BBStoreController _controller;
 
-		private Label lblProductGroupName;
-		private Label lblProductCount;
-		private GeneratedImage imgProductGroup;
-		private bool IsConfigured = false;
-		private bool SetTitle = false;
-        private bool IsVisible = true;
-		private Image imgIcon;
-		private int productGroupsInRow = 1;
+		private Label _lblProductCount;
+		private GeneratedImage _imgProductGroup;
+		private bool _isConfigured = false;
+		private bool _setTitle = false;
+        private bool _isVisible = true;
+		private Image _imgIcon;
+		private int _productGroupsInRow = 1;
 	    private string _template = "";
 		#endregion
 
@@ -196,7 +195,7 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			get
 			{
-				UserInfo user = UserController.GetCurrentUserInfo();
+				UserInfo user = UserController.Instance.GetCurrentUserInfo();
 				return (user.IsInRole("Administrators") && IsEditable);
 			}
 		}
@@ -233,11 +232,7 @@ namespace Bitboxx.DNNModules.BBStore
             get
             {
                 ModuleActionCollection actions = new ModuleActionCollection();
-
-                ModuleController moduleController = new ModuleController();
-                ModuleInfo adminModule = moduleController.GetModuleByDefinition(PortalId, "BBStore Admin");
                 actions.Add(GetNextActionID(), Localization.GetString("cmdEdit.Text", this.LocalResourceFile), ModuleActionType.EditContent, "", "edit.gif", EditUrl(), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
-                
                 return actions;
             }
         }
@@ -247,7 +242,7 @@ namespace Bitboxx.DNNModules.BBStore
 		protected void Page_Init(object sender, System.EventArgs e)
 		{
 			// Are we in Admin mode ?
-			UserInfo user = UserController.GetCurrentUserInfo();
+			UserInfo user = UserController.Instance.GetCurrentUserInfo();
 			if (user.IsInRole("Administrators") && IsEditable)
 				pnlAdmin.Visible = true;
 
@@ -257,15 +252,15 @@ namespace Bitboxx.DNNModules.BBStore
 				MultiView1.ActiveViewIndex = 1;
 
 			if (Settings["SetTitle"] != null)
-				SetTitle = Convert.ToBoolean((string)Settings["SetTitle"]);
+				_setTitle = Convert.ToBoolean((string)Settings["SetTitle"]);
 
 			if (Settings["ProductGroupsInRow"] != null  )
 			{
-				if (!Int32.TryParse((string)Settings["ProductGroupsInRow"], out productGroupsInRow))
-					productGroupsInRow = 1;
+				if (!Int32.TryParse((string)Settings["ProductGroupsInRow"], out _productGroupsInRow))
+					_productGroupsInRow = 1;
 
-				IsConfigured = true;
-				lstProductGroups.GroupItemCount = productGroupsInRow;
+				_isConfigured = true;
+				lstProductGroups.GroupItemCount = _productGroupsInRow;
 				if (Settings["RootLevel"] != null && Settings["RootLevelFixed"] != null && Convert.ToBoolean(Settings["RootLevelFixed"]) == true)
 				{
 					ProductGroupId = Convert.ToInt32(Settings["RootLevel"]);
@@ -329,7 +324,7 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			try
 			{
-                if (IsConfigured)
+                if (_isConfigured)
 				{
 					switch (MultiView1.ActiveViewIndex)
 					{
@@ -384,7 +379,7 @@ namespace Bitboxx.DNNModules.BBStore
 									lstProductGroups.DataBind();
 								}
 								else
-									IsVisible = false;
+									_isVisible = false;
 							}
 							break;
 						case 1:
@@ -470,7 +465,7 @@ namespace Bitboxx.DNNModules.BBStore
 			try
 			{
                 // We can set the Title of our Module
-			    if (SetTitle)
+			    if (_setTitle)
 			    {
 			        bool breadcrumb = (Settings["ShowBreadcrumb"] != null ? Convert.ToBoolean((string) Settings["ShowBreadcrumb"]) : false);
 
@@ -502,7 +497,7 @@ namespace Bitboxx.DNNModules.BBStore
 			        }
 			    }
 
-			    if (!IsVisible && !IsEditable)
+			    if (!_isVisible && !IsEditable)
                     this.ContainerControl.Visible = false;
 			}
 			catch (Exception exc)
@@ -522,7 +517,7 @@ namespace Bitboxx.DNNModules.BBStore
 		protected void lstProductGroups_ItemCreated(object sender, ListViewItemEventArgs e)
 		{
 
-			if (IsConfigured)
+			if (_isConfigured)
 			{
 				
 				ListView lv = sender as ListView;
@@ -595,12 +590,12 @@ namespace Bitboxx.DNNModules.BBStore
 	                PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
 	                productGroup.Image.Replace('/', '\\');
 
-	            imgProductGroup = new GeneratedImage();
-	            imgProductGroup.ImageHandlerUrl = "~/BBImageHandler.ashx";
+	            _imgProductGroup = new GeneratedImage();
+	            _imgProductGroup.ImageHandlerUrl = "~/BBImageHandler.ashx";
 	            imageWidth = imageWidths.Dequeue();
                 if (imageWidth > 0)
-	                imgProductGroup.Parameters.Add(new ImageParameter() {Name = "Width", Value = imageWidth.ToString()});
-	            imgProductGroup.Parameters.Add(new ImageParameter() {Name = "File", Value = fileName});
+	                _imgProductGroup.Parameters.Add(new ImageParameter() {Name = "Width", Value = imageWidth.ToString()});
+	            _imgProductGroup.Parameters.Add(new ImageParameter() {Name = "File", Value = fileName});
 	            // TODO: Watermark
 	            //if (false)
 	            //{
@@ -609,18 +604,18 @@ namespace Bitboxx.DNNModules.BBStore
 	            //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontColor", Value = "Red" });
 	            //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
 	            //}
-	            phimgProductGroup.Controls.Add(imgProductGroup);
+	            phimgProductGroup.Controls.Add(_imgProductGroup);
 
                 imageCnt++;
                 phimgProductGroup = FindControlRecursive(ctrl, "phimgProduct" + imageCnt.ToString()) as PlaceHolder;
             }
 
-	        imgIcon = FindControlRecursive(ctrl, "imgIcon") as Image;
-	        if (imgIcon != null)
-	            imgIcon.ImageUrl = productGroup.Icon;
-	        lblProductCount = FindControlRecursive(ctrl, "lblProductCount") as Label;
-	        if (lblProductCount != null)
-	            lblProductCount.Text = productGroup.ProductCount.ToString();
+	        _imgIcon = FindControlRecursive(ctrl, "imgIcon") as Image;
+	        if (_imgIcon != null)
+	            _imgIcon.ImageUrl = productGroup.Icon;
+	        _lblProductCount = FindControlRecursive(ctrl, "lblProductCount") as Label;
+	        if (_lblProductCount != null)
+	            _lblProductCount.Text = productGroup.ProductCount.ToString();
 
 	        for (int i = 1; i < linkCnt + 1; i++)
 	        {

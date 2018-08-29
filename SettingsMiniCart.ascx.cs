@@ -50,6 +50,18 @@ namespace Bitboxx.DNNModules.BBStore
             base.OnLoad(e);
         }
 
+        public BBStoreController Controller
+        {
+            get
+            {
+                if (_controller == null)
+                    _controller = new BBStoreController();
+                return _controller;
+            }
+        }
+
+        private BBStoreController _controller = null;
+
         #region "Base Method Implementations"
         public override void LoadSettings()
         {
@@ -86,7 +98,7 @@ namespace Bitboxx.DNNModules.BBStore
             StringBuilder sb = new StringBuilder(template);
 
             ModuleController objModules = new ModuleController();
-            ModuleInfo cartModule = objModules.GetModuleByDefinition(PortalSettings.PortalId, "BBStore Cart");
+            ModuleInfo cartModule = Controller.GetModuleByName(PortalSettings.PortalId, "BBStore Cart");
 
             sb.Replace("[PRODUCTS]", 3.00m.ToString("f0"));
             sb.Replace("[TOTAL]", 13.5438m.ToString("f2"));

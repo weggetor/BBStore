@@ -441,14 +441,13 @@ namespace Bitboxx.DNNModules.BBStore
 				TableRow myRow;
 				TableCell tblCell;
 				int loop = 0;
-				string LastFeatureGroup = "";
-				string LastFeature = "";
-				bool isAlternate = true;
+				string lastFeatureGroup = "";
+				string lastFeature = "";
 
 				foreach (var loValue in myFeatures)
 				{
                     // FeatureGroup
-					if (LastFeatureGroup != loValue.FeatureGroup)
+					if (lastFeatureGroup != loValue.FeatureGroup)
 					{
 						TableHeaderCell tblHeaderCell = new TableHeaderCell();
                         tblHeaderCell.Attributes.Add("class","dnnGridHeader");
@@ -474,7 +473,7 @@ namespace Bitboxx.DNNModules.BBStore
 					// Feature
 					TableCell tblCaptionCell = new TableCell();
 
-					if (LastFeature != loValue.Feature)
+					if (lastFeature != loValue.Feature)
 					{
 						Label lblFeature = new Label();
 						lblFeature.ID = "lblFeature" + loop.ToString();
@@ -622,8 +621,8 @@ namespace Bitboxx.DNNModules.BBStore
                         myTable.Rows.Add(myRow);
 				    }
 				    
-					LastFeatureGroup = loValue.FeatureGroup;
-					LastFeature = loValue.Feature;
+					lastFeatureGroup = loValue.FeatureGroup;
+					lastFeature = loValue.Feature;
 				}
 				PlaceHolder1.Controls.Add(myTable);
 

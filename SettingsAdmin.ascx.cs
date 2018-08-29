@@ -97,7 +97,7 @@ namespace Bitboxx.DNNModules.BBStore
             if (!IsPostBack)
             {
                 ListController listController = new ListController();
-                ListEntryInfoCollection countries = listController.GetListEntryInfoCollection("Country");
+                IEnumerable<ListEntryInfo> countries = listController.GetListEntryInfoItems("Country");
                 ddlVendorCountry.DataSource = countries;
                 ddlVendorCountry.DataTextField = "Text";
                 ddlVendorCountry.DataValueField = "Value";
@@ -105,7 +105,7 @@ namespace Bitboxx.DNNModules.BBStore
                 {
                     ddlVendorCountry.DataBind();
                 }
-                catch (ArgumentOutOfRangeException ex)
+                catch (ArgumentOutOfRangeException)
                 {
                     ddlVendorCountry.SelectedValue = ddlVendorCountry.Items[0].Value;
                     ddlVendorCountry.DataBind();
@@ -151,10 +151,10 @@ namespace Bitboxx.DNNModules.BBStore
 				if (ModuleSettings["StoreEmail"] == null)
 				{
 					ModuleController objModules = new ModuleController();
-					ModuleInfo cartModule = objModules.GetModuleByDefinition(PortalSettings.PortalId, "BBStore Cart");
+					ModuleInfo cartModule = Controller.GetModuleByName(PortalSettings.PortalId, "BBStore Cart");
 					if (cartModule != null)
 					{
-						Hashtable storeSettings = objModules.GetModuleSettings(cartModule.ModuleID);
+						Hashtable storeSettings = cartModule.ModuleSettings;
 						ModuleSettings["StoreEmail"] = storeSettings["StoreEmail"];
 						ModuleSettings["StoreName"] = storeSettings["StoreName"];
 						ModuleSettings["StoreReplyTo"] = storeSettings["StoreReplyTo"];
@@ -526,7 +526,7 @@ namespace Bitboxx.DNNModules.BBStore
 		{
 			// Lets populate thbe Usergroups into Collection
 			RoleController roleController = new RoleController();
-			ArrayList colArrayList = roleController.GetPortalRoles(PortalId);
+			IList<RoleInfo> colArrayList = roleController.GetRoles(PortalId);
 
 			// Create a ListItemCollection to hold the Roles 
 			ListItemCollection colRoles = new ListItemCollection();

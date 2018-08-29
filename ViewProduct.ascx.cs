@@ -155,16 +155,15 @@ namespace Bitboxx.DNNModules.BBStore
         protected void Page_Init(object sender, System.EventArgs e)
         {
             // Are we in Admin mode
-			UserInfo user = UserController.GetCurrentUserInfo();
+			UserInfo user = UserController.Instance.GetCurrentUserInfo();
 			if (user.IsInRole("Administrators") && IsEditable)
 				pnlAdmin.Visible = true;
 
-			ModuleController objModules = new ModuleController();
-            _cartModule = objModules.GetModuleByDefinition(PortalId, "BBStore Cart");
+            _cartModule = Controller.GetModuleByName(PortalId, "BBStore Cart");
             if (_cartModule == null)
                 _hasCartModule = false;
 
-            ModuleInfo contactModule = objModules.GetModuleByDefinition(PortalId, "BBStore Contact");
+            ModuleInfo contactModule = Controller.GetModuleByName(PortalId, "BBStore Contact");
             if (contactModule == null)
                 _hasContactModule = false;
 

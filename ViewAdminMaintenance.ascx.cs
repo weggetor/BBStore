@@ -218,7 +218,7 @@ namespace Bitboxx.DNNModules.BBStore
                     
                     foreach (ModuleInfo module in allModules)
                     {
-                        Hashtable settings = moduleController.GetModuleSettings(module.ModuleID);
+                        Hashtable settings = module.ModuleSettings;
                         if (settings["ProductTemplateId"] != null && Convert.ToInt32(settings["ProductTemplateId"]) == id)
                         {
                             moduleController.UpdateModuleSetting(module.ModuleID,"Template", template.TemplateName);
@@ -235,7 +235,7 @@ namespace Bitboxx.DNNModules.BBStore
                 // DynamicPage -> ProductModulePage for Product List Modules
                 foreach (ModuleInfo module in allModules)
                 {
-                    Hashtable settings = moduleController.GetModuleSettings(module.ModuleID);
+                    Hashtable settings = module.ModuleSettings;
                     if (settings["DynamicPage"] != null && settings["CssHover"] == null)
                     {
                         moduleController.UpdateModuleSetting(module.ModuleID, "ProductModulePage", (string)settings["DynamicPage"]);

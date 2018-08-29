@@ -607,7 +607,7 @@ namespace Bitboxx.DNNModules.BBStore
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -1336,7 +1336,6 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 int ownOrderProductId = GetImportRelationOwnId(portalId, "ORDERPRODUCT", foreignOrderProductId, storeGuid);
                 List<OrderProductOptionInfo> orderProductOptions;
-                bool isNew;
                 int orderProductId;
                 if (ownOrderProductId == -1)
                 {
@@ -2340,7 +2339,16 @@ namespace Bitboxx.DNNModules.BBStore
             }
             else
             {
-                UserInfo user = CreateUser(portalId, firstName, lastName, displayName, email, password);
+                AppUserInfo newUser = new AppUserInfo()
+                                      {
+                                          DisplayName = displayName,
+                                          FirstName =  firstName,
+                                          LastName = lastName,
+                                          Email = email,
+                                          Password = password
+                                      };
+
+                UserInfo user = CreateUser(portalId, newUser);
                 NewImportRelation(portalId, "USER", user.UserID, userId, storeGuid);
             }
             
@@ -2420,16 +2428,16 @@ namespace Bitboxx.DNNModules.BBStore
 
         #endregion
 
-        private UserInfo CreateUser(int portalId, string firstname, string lastname, string displayName, string email, string password)
+        public UserInfo CreateUser(int portalId, AppUserInfo newUser)
         {
             UserInfo user = new UserInfo();
-            user.Username = email;
-            user.FirstName = firstname;
-            user.LastName = lastname;
+            user.Username = newUser.UserName;
+            user.FirstName = newUser.FirstName;
+            user.LastName = newUser.LastName;
             user.PortalID = portalId;
-            user.Email = email;
-            user.DisplayName = displayName;
-            user.Membership.Password = password;
+            user.Email = newUser.Email;
+            user.DisplayName = newUser.DisplayName;
+            user.Membership.Password = newUser.Password;
             user.IsSuperUser = false;
 
             user.Profile.InitialiseProfile(portalId);

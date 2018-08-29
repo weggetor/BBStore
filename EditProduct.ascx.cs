@@ -142,11 +142,12 @@ namespace Bitboxx.DNNModules.BBStore
 
                 //TODO: Panels ausblenden wenn kein Modul verwendet
 
+
                 ModuleController objModules = new ModuleController();
-                if (objModules.GetModuleByDefinition(PortalId, "BBStore Product Groups") == null)
+                if (Controller.GetModuleByName(PortalId, "BBStore Product Groups") == null)
                     HasProductGroupModule = false;
 
-                if (objModules.GetModuleByDefinition(PortalId, "BBStore Product Features") == null)
+                if (Controller.GetModuleByName(PortalId, "BBStore Product Features") == null)
                     HasProductFeatureModule = false;
 
                 Hashtable storeSettings = Controller.GetStoreSettings(PortalId);
@@ -160,9 +161,7 @@ namespace Bitboxx.DNNModules.BBStore
                     if (storeSettings != null && storeSettings["SupplierRole"] != null && (string) storeSettings["SupplierRole"] != "-1")
                     {
                         pnlSupplier.Visible = true;
-                        RoleController roleController = new RoleController();
-                        //RoleInfo role = roleController.GetRole(Convert.ToInt32(storeSettings["SupplierRole"]), PortalId);
-                        ArrayList aUsers = roleController.GetUsersByRoleName(PortalId, (string) storeSettings["SupplierRole"]);
+                        IList<UserInfo> aUsers = RoleController.Instance.GetUsersByRole(PortalId, (string)storeSettings["SupplierRole"]);
                         ListItemCollection users = new ListItemCollection();
                         foreach (UserInfo user in aUsers)
                         {
@@ -291,8 +290,7 @@ namespace Bitboxx.DNNModules.BBStore
                     grdPriceList.DataBind();
 
                     RoleController roleController1 = new RoleController();
-                    //RoleInfo role = roleController.GetRole(Convert.ToInt32(storeSettings["SupplierRole"]), PortalId);
-                    ArrayList aRoles = roleController1.GetPortalRoles(PortalId);
+                    IList<RoleInfo> aRoles = roleController1.GetRoles(PortalId);
                     ListItemCollection roles = new ListItemCollection();
                     foreach (RoleInfo role in aRoles)
                     {

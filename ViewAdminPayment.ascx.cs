@@ -134,7 +134,8 @@ namespace Bitboxx.DNNModules.BBStore
                 
                 // Lets populate thbe Usergroups into Collection
                 RoleController RoleController = new RoleController();
-                ArrayList colArrayList = RoleController.GetPortalRoles(PortalId);
+
+                IList<RoleInfo> colArrayList = RoleController.GetRoles(PortalId);
 
                 // Create a ListItemCollection to hold the Roles 
                 ListItemCollection colRoles = new ListItemCollection();

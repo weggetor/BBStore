@@ -213,6 +213,7 @@
     <Compile Include="EditCoupon.ascx.designer.cs">
       <DependentUpon>EditCoupon.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Infoclasses\AppUserInfo.cs" />
     <Compile Include="Infoclasses\ModuleKindEnum.cs" />
     <Compile Include="Infoclasses\OrderStatsInfo.cs" />
     <Compile Include="Infoclasses\ProductPriceInfo.cs" />
@@ -862,6 +863,7 @@
     <Content Include="Installation\01.00.18.SqlDataProvider" />
     <Content Include="Installation\02.00.01.SqlDataProvider" />
     <Content Include="Installation\02.00.02.SqlDataProvider" />
+    <Content Include="Installation\02.00.04.SqlDataProvider" />
     <None Include="Installation\Uninstall.SqlDataProvider" />
     <Content Include="Templates\ProductList\tokens.de-DE.htp" />
     <Content Include="Templates\ProductList\tokens.htp" />

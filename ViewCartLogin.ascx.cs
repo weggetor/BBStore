@@ -167,7 +167,7 @@ namespace Bitboxx.DNNModules.BBStore
 					RoleController roleController = new RoleController();
 					RoleInfo role = new RoleInfo();
 
-					ArrayList roles = roleController.GetPortalRoles(PortalId);
+					IList<RoleInfo> roles = roleController.GetRoles(PortalId);
 					for (int i = 0; i < roles.Count - 1; i++)
 					{
 						role = (RoleInfo)roles[i];
@@ -251,7 +251,7 @@ namespace Bitboxx.DNNModules.BBStore
 			        RoleController roleController = new RoleController();
 			        RoleInfo role = new RoleInfo();
 
-			        ArrayList roles = roleController.GetPortalRoles(PortalId);
+			        IList<RoleInfo> roles = roleController.GetRoles(PortalId);
 			        for (int i = 0; i < roles.Count - 1; i++)
 			        {
 			            role = (RoleInfo) roles[i];
@@ -337,7 +337,7 @@ namespace Bitboxx.DNNModules.BBStore
                 if (storeAdmin != string.Empty)
                     mail.To.Add(storeAdmin.Trim());
                 if (storeReplyTo != string.Empty)
-                    mail.ReplyTo = new MailAddress(storeReplyTo.Trim());
+                    mail.ReplyToList.Add(new MailAddress(storeReplyTo.Trim()));
 
                 mail.Subject = LocalizeString("NewUserMailSubject.Text").Replace("[STORENAME]", storeName);
 
