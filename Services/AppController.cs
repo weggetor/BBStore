@@ -45,8 +45,7 @@ namespace Bitboxx.DNNModules.BBStore.Services
                 obj.structure.tables.OrderProduct = "(OrderProductId INTEGER,OrderId INTEGER,ProductId INTEGER,Image TEXT,ItemNo TEXT,Quantity DECIMAL(12,3),Name TEXT,Description TEXT,UnitCost DECIMAL(12,4),TaxPercent DECIMAL(4,1),Unit TEXT)";
                 obj.structure.tables.OrderProductOption = "(OrderProductOptionId INTEGER,OrderProductId INTEGER,OptionId INTEGER,OptionName TEXT,OptionValue TEXT,PriceAlteration DECIMAL(12,4),OptionImage TEXT,OptionDescription TEXT)";
                 obj.structure.tables.OrderAdditionalCost = "(OrderAdditionalCostID INTEGER,Quantity DECIMAL(12,3),Name TEXT,Description TEXT,UnitCost DECIMAL(12,4),TaxPercent DECIMAL(4,1),Area TEXT)";
-
-                obj.structure.tables.OrderAddress = "(OrderAddressId INTEGER PRIMARY KEY,PortalId INTEGER,OrderId INTEGER,CustomerAddressId INTEGER,Company TEXT,Prefix TEXT,Firstname TEXT,Middlename TEXT,Lastname TEXT,Suffix TEXT,Unit TEXT,Street TEXT,Region TEXT,PostalCode TEXT,City TEXT,Suburb TEXT,Country TEXT,CountryCode TEXT,Telephone TEXT,Cell TEXT,Fax TEXT,Email TEXT,SubscriberAddressTypeId INTEGER)";
+                obj.structure.tables.OrderAddress = "(OrderAddressId INTEGER,PortalId INTEGER,OrderId INTEGER,CustomerAddressId INTEGER,Company TEXT,Prefix TEXT,Firstname TEXT,Middlename TEXT,Lastname TEXT,Suffix TEXT,Unit TEXT,Street TEXT,Region TEXT,PostalCode TEXT,City TEXT,Suburb TEXT,Country TEXT,CountryCode TEXT,Telephone TEXT,Cell TEXT,Fax TEXT,Email TEXT,SubscriberAddressTypeId INTEGER)";
                 obj.structure.tables.Customer = "(CustomerId INTEGER,PortalId INTEGER,UserId INTEGER,CustomerName TEXT)";
                 obj.structure.tables.SubscriberAddressType = "(SubscriberAddressTypeId INTEGER,PortalId INTEGER,SubscriberId INTEGER,KzAddressType TEXT,Mandatory BOOLEAN,ViewOrder INTEGER,IsOrderAddress BOOLEAN)";
                 obj.structure.tables.SubscriberAddressTypeLang = "(SubscriberAddressTypeId INTEGER,Language TEXT,AddressType TEXT)";
@@ -847,7 +846,7 @@ namespace Bitboxx.DNNModules.BBStore.Services
                            OrderAddressId = this.OrderAddressId,
                            PortalId = this.PortalId,
                            OrderId = this.OrderId,
-                           CustomerAddressId = this.CustomerAddressId,
+                           CustomerAddressId = this.CustomerAddressId <= 0 ? -1 : this.CustomerAddressId,
                            Company = this.Company,
                            Prefix = this.Prefix,
                            Firstname = this.Firstname,
