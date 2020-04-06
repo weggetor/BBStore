@@ -519,16 +519,34 @@ namespace Bitboxx.DNNModules.BBStore.Services
                         {
                             OrderProductOptionInfo hOpo = hOrderProductOption.MapOrderProductOption();
                             OrderProductOptionInfo opo = controller.GetOrderProductOption(hOrderProductOption.OrderProductOptionId);
-                            if (opo != null)
+                            if (opo != null && hOpo.OrderProductOptionId > 0)
                             {
-                                controller.UpdateOrderProductOption(hOpo);
-                                message += $"        OrderProductOption mit ID={hOrderProductOption.OrderProductOptionId} aktualisiert:\r\n" +
-                                           $"            vorher:  {JsonConvert.SerializeObject(opo)}\r\n" +
-                                           $"            nachher: {JsonConvert.SerializeObject(hOpo)}\r\n\r\n";
+                                if (hOpo.OptionImage == Encoding.ASCII.GetBytes("null"))
+                                    hOpo.OptionImage = null;
+
+                                if (hOpo.OptionValue != opo.OptionValue || 
+                                    hOpo.OptionImage != null && hOpo.OptionImage.Length > 10 && hOpo.OptionImage != opo.OptionImage || 
+                                    hOpo.OptionName != opo.OptionName ||
+                                    hOpo.PriceAlteration != opo.PriceAlteration)
+                                {
+                                    hOpo.OptionDescription = "Update";
+                                    controller.UpdateOrderProductOption(hOpo);
+                                    message += $"        OrderProductOption mit ID={hOrderProductOption.OrderProductOptionId} aktualisiert:\r\n" +
+                                               $"            vorher:  {JsonConvert.SerializeObject(opo)}\r\n" +
+                                               $"            nachher: {JsonConvert.SerializeObject(hOpo)}\r\n\r\n";
+                                }
+                                else
+                                {
+                                    message += $"        OrderProductOption mit ID={hOrderProductOption.OrderProductOptionId} nicht geändert:\r\n" +
+                                               $"            nachher: {JsonConvert.SerializeObject(hOpo)}\r\n\r\n";
+                                }
                             }
                             else
                             {
+                                hOpo.OrderProductId = orderProductId;
+                                hOpo.OptionDescription = "Insert";
                                 hOpo.OrderProductOptionId = controller.NewOrderProductOption(hOpo);
+                               
                                 message += $"        OrderProductOption mit ID={ hOpo.OrderProductOptionId} angelegt:\r\n" +
                                            $"        neu:     {JsonConvert.SerializeObject(hOpo)}\r\n\r\n";
                             }
@@ -548,6 +566,10 @@ namespace Bitboxx.DNNModules.BBStore.Services
                         }
                         else
                         {
+                            // TODO: Workaround: wenn CustomerAddressId = 0 => auf -1 setzten
+                            if (hOrderAddress.CustomerAddressId == 0)
+                                hOrderAddress.CustomerAddressId = -1;
+
                             int orderAddressId = controller.NewOrderAddress(hOrderAddress.MapOrderAddressInfo());
                             message += $"    OrderAddress mit mit ID={orderAddressId} angelegt:\r\n" +
                                        $"        neu: {JsonConvert.SerializeObject(hOrderAddress.MapOrderAddressInfo())}\r\n\r\n";

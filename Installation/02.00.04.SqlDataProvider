@@ -20,8 +20,6 @@ IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'FK_{obje
 	ALTER TABLE {databaseOwner}[{objectQualifier}BBStore_OrderAddress] NOCHECK CONSTRAINT [FK_{objectQualifier}CustomerAddress_OrderAddress]
 go
 
-OrderAddressID
-
 /************************************************************/
 /*****              SqlDataProvider                     *****/
 /************************************************************/

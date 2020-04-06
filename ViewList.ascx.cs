@@ -690,37 +690,50 @@ namespace Bitboxx.DNNModules.BBStore
 
 		}
 
-	    protected void lstProducts_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
+		protected void lstProducts_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
 		{
 			LinkButton btn = sender as LinkButton;
 
-            int TabId = Convert.ToInt32(Settings["ProductModulePage"]);
+			int TabId = Convert.ToInt32(Settings["ProductModulePage"]);
+
+			if (lstProducts.DataKeys.Count == 0)
+			{
+				lstProducts.DataSource = Products;
+				lstProducts.DataBind();
+			}
+
 			int productId = (int)lstProducts.DataKeys[e.NewSelectedIndex].Value;
 
 			List<string> param = new List<string>();
 			if (Request["productgroup"] != null)
-				param.Add("productgroup="+Request["productgroup"]);
-			param.Add("productid="+productId.ToString());
+				param.Add("productgroup=" + Request["productgroup"]);
+			param.Add("productid=" + productId.ToString());
 
 			Response.Redirect(Globals.NavigateURL(TabId, "", param.ToArray()));
 		}
 
-        protected void lstProductsBS3_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
-        {
-            LinkButton btn = sender as LinkButton;
+		protected void lstProductsBS3_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
+		{
+			LinkButton btn = sender as LinkButton;
 
-            int TabId = Convert.ToInt32(Settings["ProductModulePage"]);
-            int productId = (int)lstProductsBS3.DataKeys[e.NewSelectedIndex].Value;
+			int TabId = Convert.ToInt32(Settings["ProductModulePage"]);
 
-            List<string> param = new List<string>();
-            if (Request["productgroup"] != null)
-                param.Add("productgroup=" + Request["productgroup"]);
-            param.Add("productid=" + productId.ToString());
+			if (lstProductsBS3.DataKeys.Count == 0)
+			{
+				lstProductsBS3.DataSource = Products;
+				lstProductsBS3.DataBind();
+			}
+			int productId = productId = (int)lstProductsBS3.DataKeys[e.NewSelectedIndex].Value;
 
-            Response.Redirect(Globals.NavigateURL(TabId, "", param.ToArray()));
-        }
+			List<string> param = new List<string>();
+			if (Request["productgroup"] != null)
+				param.Add("productgroup=" + Request["productgroup"]);
+			param.Add("productid=" + productId.ToString());
 
-        protected void lstProducts_Sorting(object sender, ListViewSortEventArgs e)
+			Response.Redirect(Globals.NavigateURL(TabId, "", param.ToArray()));
+		}
+
+		protected void lstProducts_Sorting(object sender, ListViewSortEventArgs e)
 		{
 			SortExpression = e.SortExpression;
 			lstProducts.DataSource = Products;

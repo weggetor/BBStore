@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildExtensionsPath>c:\Program Files (x86)\MSBuild</MSBuildExtensionsPath>
+  <!-- It works too with relative path -->
+  <!--<MSBuildExtensionsPath>..\msbuild</MSBuildExtensionsPath>-->
+</PropertyGroup>
 	<!-- Imports and setup: Do not modify! -->
 	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
 	<Import Project="$(MSBuildExtensionsPath)\MSBuildDNNtcTasks\DNNtc.MSBuild.Tasks.targets" />

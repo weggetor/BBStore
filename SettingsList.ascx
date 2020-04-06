@@ -60,9 +60,9 @@
                 <asp:ListItem resourcekey="ddlSort0" Value="0" />
 			    <asp:ListItem resourcekey="ddlSort1" Value="1" />
 			    <asp:ListItem resourcekey="ddlSort2" Value="2" />
-                <asp:ListItem resourcekey="ddlSort3" Value="2" />
-                <asp:ListItem resourcekey="ddlSort4" Value="2" />
-                <asp:ListItem resourcekey="ddlSort5" Value="2" />
+                <asp:ListItem resourcekey="ddlSort3" Value="3" />
+                <asp:ListItem resourcekey="ddlSort4" Value="4" />
+                <asp:ListItem resourcekey="ddlSort5" Value="5" />
             </asp:DropDownList>
         </div>
         <div class="dnnFormItem">

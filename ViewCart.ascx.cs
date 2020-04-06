@@ -1945,8 +1945,20 @@ namespace Bitboxx.DNNModules.BBStore
                 List<OrderProductOptionInfo> optionList = Controller.GetOrderProductOptions(product.OrderProductId);
                 foreach (OrderProductOptionInfo option in optionList)
                 {
-                    artname += "<br /><span style=\"font-size:x-small;\">" + option.OptionName.Trim() + ": " + option.OptionValue.Trim() +
-                               @"</span>";
+                    if (option.OptionValue != String.Empty)
+                    {
+                        if (option.OptionDescription == "Insert" ||
+                            option.OptionDescription == "Update" ||
+                            option.OptionDescription == "Wichtig")
+                        {
+                            artname += "<br /><span style=\"font-size:x-small;\"><b>" + option.OptionName.Trim() + ": " + option.OptionValue.Trim() + @"</b></span>";
+                        }
+                        else if (option.OptionDescription == String.Empty)
+                        {
+                            artname += "<br /><span style=\"font-size:x-small;\">" + option.OptionName.Trim() + ": " + option.OptionValue.Trim() +
+                                       @"</span>";
+                        }
+                    }
                 }
                 orderItems = orderItems.Replace("[PRODUCTNAME]", artname);
                 orderItems = orderItems.Replace("[PRODUCTQUANTITY]", String.Format("{0:G}", Convert.ToDouble(product.Quantity)));
