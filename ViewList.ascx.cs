@@ -29,7 +29,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bitboxx.License;
-using Bitboxx.Web.GeneratedImage;
+using DotNetNuke.Services.GeneratedImage;
 using DotNetNuke.Application;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
@@ -844,7 +844,7 @@ namespace Bitboxx.DNNModules.BBStore
 
             while (template.IndexOf("[IMAGELINK") > -1)
             {
-                string imageUrlHandler = Page.ResolveUrl("~\\BBImagehandler.ashx") + "?&Mode=FitSquare&File=" + HttpUtility.UrlEncode(PortalSettings.HomeDirectoryMapPath + product.Image);
+                string imageUrlHandler = Page.ResolveUrl("~\\dnnImagehandler.ashx") + "?&mode=file&resizemode=fitsquare&file=" + HttpUtility.UrlEncode(PortalSettings.HomeDirectoryMapPath + product.Image);
                 string imageUrl = PortalSettings.HomeDirectory + product.Image;
 
                 if (template.IndexOf("[IMAGELINK:") > -1)
@@ -921,20 +921,22 @@ namespace Bitboxx.DNNModules.BBStore
                     product.Image.Replace('/', '\\');
 
                 _imgProduct = new GeneratedImage();
-                _imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
+                _imgProduct.ImageHandlerUrl = "~/dnnImageHandler.ashx";
                 imageWidth = imageWidths.Dequeue();
                 if (imageWidth > 0)
-                    _imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
-                _imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
-                // TODO: Watermark
-                //if (false)
-                //{
-                //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkText", Value = Localization.GetString("Sold.Text", this.LocalResourceFile) });
-                //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontFamily", Value = "Verdana" });
-                //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontColor", Value = "Red" });
-                //    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
-                //}
-                phimgProduct.Controls.Add(_imgProduct);
+                    _imgProduct.Parameters.Add(new ImageParameter() { Name = "w", Value = imageWidth.ToString() });
+                _imgProduct.Parameters.Add(new ImageParameter() { Name = "file", Value = fileName });
+				_imgProduct.Parameters.Add(new ImageParameter() { Name = "mode", Value = "file" });
+
+				// TODO: Watermark
+				//if (false)
+				//{
+				//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkText", Value = Localization.GetString("Sold.Text", this.LocalResourceFile) });
+				//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontFamily", Value = "Verdana" });
+				//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontColor", Value = "Red" });
+				//    imgProduct.Parameters.Add(new ImageParameter() { Name = "WatermarkFontSize", Value = "20" });
+				//}
+				phimgProduct.Controls.Add(_imgProduct);
 
                 imageCnt++;
                 phimgProduct = FindControlRecursive(ctrl, "phimgProduct" + imageCnt.ToString()) as PlaceHolder;

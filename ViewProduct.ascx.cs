@@ -37,7 +37,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
 
-using Bitboxx.Web.GeneratedImage;
+using DotNetNuke.Services.GeneratedImage;
 using System.Reflection;
 
 
@@ -56,7 +56,6 @@ namespace Bitboxx.DNNModules.BBStore
     [DNNtc.PackageProperties("BBStore Product", 1, "BBStore Product", "BBStore Product", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net", false)]
     [DNNtc.ModuleProperties("BBStore Product", "BBStore Product", 0)]
     [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.CoreVersion, "08.00.00")]
-    [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.Package, "BBImageHandler")]
     [DNNtc.ModuleControlProperties("", "BBStore Simple Product", DNNtc.ControlType.View, "", false, false)]
     partial class ViewProduct : PortalModuleBase, IActionable
     {
@@ -474,7 +473,7 @@ namespace Bitboxx.DNNModules.BBStore
 
             while (template.IndexOf("[IMAGELINK") > -1)
             {
-                string imageUrlHandler = Page.ResolveUrl("~\\BBImagehandler.ashx") + "?&Mode=FitSquare&File=" + HttpUtility.UrlEncode(PortalSettings.HomeDirectoryMapPath + product.Image);
+                string imageUrlHandler = Page.ResolveUrl("~\\dnnImagehandler.ashx") + "?mode=file&resizemode=fitsquare&file=" + HttpUtility.UrlEncode(PortalSettings.HomeDirectoryMapPath + product.Image);
                 string imageUrl = PortalSettings.HomeDirectory + product.Image;
 
                 if (template.IndexOf("[IMAGELINK:") > -1)
@@ -642,11 +641,12 @@ namespace Bitboxx.DNNModules.BBStore
                     product.Image.Replace('/', '\\');
 
                 _imgProduct = new GeneratedImage();
-                _imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
+                _imgProduct.ImageHandlerUrl = "~/dnnImageHandler.ashx";
                 imageWidth = imageWidths.Dequeue();
                 if (imageWidth > 0)
-                    _imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
-                _imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
+                    _imgProduct.Parameters.Add(new ImageParameter() { Name = "w", Value = imageWidth.ToString() });
+                _imgProduct.Parameters.Add(new ImageParameter() { Name = "file", Value = fileName });
+                _imgProduct.Parameters.Add(new ImageParameter() { Name = "mode", Value = "file" });
                 // TODO: Watermark
                 //if (false)
                 //{

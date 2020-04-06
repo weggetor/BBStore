@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 using DotNetNuke.Entities.Modules;
 using Telerik.Web.UI;
-using Bitboxx.Web.GeneratedImage;
+using DotNetNuke.Services.GeneratedImage;
 
 
 namespace Bitboxx.DNNModules.BBStore
@@ -57,12 +57,12 @@ namespace Bitboxx.DNNModules.BBStore
 					string[] fi = Directory.GetFiles(home + ImageDirectory);
 					if (fi.Length > 0)
 					{
-						imgDetail.ImageUrl = Page.ResolveUrl("~\\BBImagehandler.ashx") + "?Width=" + ((ImageWidth + 10) * ImageCount - 10).ToString() + "&File=" + HttpUtility.UrlEncode(fi[0].Trim());
+						imgDetail.ImageUrl = Page.ResolveUrl("~\\dnnImagehandler.ashx") + "?mode=file&w=" + ((ImageWidth + 10) * ImageCount - 10).ToString() + "&file=" + HttpUtility.UrlEncode(fi[0].Trim());
 						if (fi.Length > 1)
 						{
 							for (int i = 0; i < fi.Length; i++)
 							{
-								fi[i] = Page.ResolveUrl("~\\BBImagehandler.ashx") + "?Width=" + ImageWidth.ToString() + "&BackColor=" + HttpUtility.UrlEncode(ImageBackColor) + "&Mode=FitSquare&File=" + HttpUtility.UrlEncode(fi[i].Trim());
+								fi[i] = Page.ResolveUrl("~\\dnnImagehandler.ashx") + "?mode=file&w=" + ImageWidth.ToString() + "&backcolor=" + HttpUtility.UrlEncode(ImageBackColor) + "&resizemode=fitsquare&file=" + HttpUtility.UrlEncode(fi[i].Trim());
 							}
 							RadRotator1.ItemWidth = new Unit(ImageWidth + 10);
 							RadRotator1.Width = new Unit((ImageWidth + 10) * ImageCount - 10);
@@ -104,13 +104,13 @@ namespace Bitboxx.DNNModules.BBStore
 						if (para.Name == "File")
 						{
 							_ImageControl.Parameters.Remove(para);
-							_ImageControl.Parameters.Add(new ImageParameter() { Name = "File", Value = imageFile.Trim() });
+							_ImageControl.Parameters.Add(new ImageParameter() { Name = "file", Value = imageFile.Trim() });
 							break;
 						}
 					}
 				}
 				else
-					imgDetail.ImageUrl = Page.ResolveUrl("~\\BBImagehandler.ashx") + "?Width=" + ((ImageWidth + 10) * ImageCount - 10).ToString() + "&File=" + HttpUtility.UrlEncode(imageFile.Trim());
+					imgDetail.ImageUrl = Page.ResolveUrl("~\\dnnImagehandler.ashx") + "?mode=file&w=" + ((ImageWidth + 10) * ImageCount - 10).ToString() + "&file=" + HttpUtility.UrlEncode(imageFile.Trim());
 			}
 
 		}

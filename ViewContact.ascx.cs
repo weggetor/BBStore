@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bitboxx.License;
-using Bitboxx.Web.GeneratedImage;
+using DotNetNuke.Services.GeneratedImage;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Lists;
 using DotNetNuke.Entities.Modules;
@@ -432,12 +432,13 @@ namespace Bitboxx.DNNModules.BBStore
                                 simpleProduct.Image.Replace('/', '\\');
 
                         GeneratedImage imgProduct = new GeneratedImage();
-                        imgProduct.ImageHandlerUrl = "~/BBImageHandler.ashx";
+                        imgProduct.ImageHandlerUrl = "~/dnnImageHandler.ashx";
                         if (imageWidth > 0)
-                            imgProduct.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
-                        imgProduct.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
-                        // TODO: Watermark
-                        phimgProduct.Controls.Add(imgProduct);
+                            imgProduct.Parameters.Add(new ImageParameter() { Name = "w", Value = imageWidth.ToString() });
+                        imgProduct.Parameters.Add(new ImageParameter() { Name = "file", Value = fileName });
+						imgProduct.Parameters.Add(new ImageParameter() { Name = "mode", Value = "file" });
+						// TODO: Watermark
+						phimgProduct.Controls.Add(imgProduct);
                     }
 
                     PlaceHolder ph = e.Item.FindControl("productPlaceholder") as PlaceHolder;

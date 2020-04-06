@@ -1,5 +1,5 @@
 <%@ Control Language="C#" Inherits="Bitboxx.DNNModules.BBStore.ViewCart" AutoEventWireup="true" CodeBehind="ViewCart.ascx.cs" %>
-<%@ Register TagPrefix="bb" Assembly="Bitboxx.Web.GeneratedImage" Namespace="Bitboxx.Web.GeneratedImage" %>
+<%@ Register TagPrefix="dnn" Assembly="DotNetNuke" Namespace="DotNetNuke.Services.GeneratedImage" %>
 <%@ Register TagPrefix="bb" TagName="CartNavigationControl" Src="Controls/CartNavigationControl.ascx" %>  
 <div class="bbstore-cart dnnClear">
 	<bb:CartNavigationControl ID="navCart" runat="server" />
@@ -57,7 +57,7 @@
                         <asp:BoundField DataField="ProductId" HeaderText="ProductId" SortExpression="ProductId" Visible="False" />
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <bb:GeneratedImage ID="imgThumb" runat="server" ImageHandlerUrl="~/BBImageHandler.ashx"/>
+                                <dnn:GeneratedImage ID="imgThumb" runat="server" ImageHandlerUrl="~/dnnImageHandler.ashx"/>
                             </ItemTemplate>
                         </asp:TemplateField>   
                         <asp:TemplateField HeaderText="Quantity">

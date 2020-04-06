@@ -412,7 +412,7 @@ namespace Bitboxx.DNNModules.BBStore
         private string CreateThumbHtml(string template)
         {
             StringBuilder sb = new StringBuilder(template);
-            string imageUrl = Request.Url.Scheme + "://" + Request.Url.Host + "/bbimagehandler.ashx?placeholder=1&nocache=1";
+            string imageUrl = Request.Url.Scheme + "://" + Request.Url.Host + "/dnnimagehandler.ashx?mode=placeholder&nocache=1";
             if (template.IndexOf("[IMAGE:") > -1)
             {
                 string imageDimText = VfpInterop.StrExtract(sb.ToString(), "[IMAGE:", "]", 1, 1);

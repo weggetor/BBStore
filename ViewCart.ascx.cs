@@ -25,7 +25,7 @@ using DotNetNuke.UI.Skins.Controls;
 using ICSharpCode.SharpZipLib.Zip;
 
 using Bitboxx.DNNModules.BBStore.Providers.Payment;
-using Bitboxx.Web.GeneratedImage;
+using DotNetNuke.Services.GeneratedImage;
 using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Log.EventLog;
 
@@ -873,8 +873,9 @@ namespace Bitboxx.DNNModules.BBStore
                             PortalSettings.HomeDirectoryMapPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, "") +
                             Product.Image.Replace('/', '\\');
 
-                    imgThumb.Parameters.Add(new ImageParameter() { Name = "Width", Value = width.ToString() });
+                    imgThumb.Parameters.Add(new ImageParameter() { Name = "w", Value = width.ToString() });
                     imgThumb.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
+                    imgThumb.Parameters.Add(new ImageParameter() { Name = "mode", Value = "file" });
                     // TODO:Watermark
                     //if (false)
                     //{

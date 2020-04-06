@@ -25,7 +25,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bitboxx.License;
-using Bitboxx.Web.GeneratedImage;
+using DotNetNuke.Services.GeneratedImage;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
@@ -328,10 +328,12 @@ namespace Bitboxx.DNNModules.BBStore
 							FeatureListItem.Image.Replace('/', '\\');
 
 						GeneratedImage imgFeature = new GeneratedImage();
-						imgFeature.ImageHandlerUrl = "~/BBImageHandler.ashx";
+						imgFeature.ImageHandlerUrl = "~/dnnImageHandler.ashx";
 						if (imageWidth > 0)
-							imgFeature.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
-						imgFeature.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
+							imgFeature.Parameters.Add(new ImageParameter() { Name = "w", Value = imageWidth.ToString() });
+						imgFeature.Parameters.Add(new ImageParameter() { Name = "file", Value = fileName });
+						imgFeature.Parameters.Add(new ImageParameter() { Name = "mode", Value = "file" });
+
 						// TODO: Watermark
 						//if (false)
 						//{
@@ -409,7 +411,7 @@ namespace Bitboxx.DNNModules.BBStore
 							featureListItem.Image.Replace('/', '\\');
 
 						GeneratedImage imgFeature = new GeneratedImage();
-						imgFeature.ImageHandlerUrl = "~/BBImageHandler.ashx";
+						imgFeature.ImageHandlerUrl = "~/dnnImageHandler.ashx";
 						if (imageWidth > 0)
 							imgFeature.Parameters.Add(new ImageParameter() { Name = "Width", Value = imageWidth.ToString() });
 						imgFeature.Parameters.Add(new ImageParameter() { Name = "File", Value = fileName });
