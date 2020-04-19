@@ -979,6 +979,11 @@ namespace Bitboxx.DNNModules.BBStore
             return CBO.FillCollection<OrderStateInfo>(DataProvider.Instance().GetOrderStates(portalId,language));
         }
 
+        public OrderStateInfo GetOrderState(int portalId, int orderStateId)
+        {
+            return CBO.FillObject<OrderStateInfo>(DataProvider.Instance().GetOrderState(portalId, orderStateId));
+        }
+
         public void SetOrderState(int orderId, int orderStateId)
         {
             DataProvider.Instance().SetOrderState(orderId,orderStateId);

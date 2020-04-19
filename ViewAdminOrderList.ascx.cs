@@ -27,6 +27,7 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
+using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 
@@ -366,7 +367,7 @@ namespace Bitboxx.DNNModules.BBStore
 		protected void grdOrder_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			int orderId = (int)grdOrder.DataKeys[e.RowIndex].Value;
-			//Controller.DeleteOrder(orderId);
+			Controller.DeleteOrder(orderId);
 			grdOrder.DataSource = Orders;
 			grdOrder.DataBind();
 		}

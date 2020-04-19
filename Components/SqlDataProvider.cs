@@ -3087,8 +3087,24 @@ namespace Bitboxx.DNNModules.BBStore
             return SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sqlCmd, sqlParams);
         }
 
- 
+
         // OrderStates methods
+        public override IDataReader GetOrderState(int portalId, int orderStateId)
+        {
+            string selCmd = "SELECT *" +
+                " FROM " + GetFullyQualifiedName("OrderState") + " OrderState" +
+                " WHERE PortalId = @PortalId" + 
+                " AND OrderStateId = @OrderStateId" ;
+            
+            SqlParameter[] sqlParams = new SqlParameter[]
+                {
+                    new SqlParameter("PortalId",portalId),
+                    new SqlParameter("OrderStateId",orderStateId),
+                };
+
+            return (IDataReader)SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, selCmd, sqlParams);
+
+        }
         public override IDataReader GetOrderStates(int portalId)
         {
             string selCmd = "SELECT *" +

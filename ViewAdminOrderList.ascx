@@ -31,6 +31,12 @@
         onrowcreated="grdOrder_RowCreated" 
         onrowdeleting="grdOrder_RowDeleting"	>
         <Columns>
+            <asp:TemplateField ShowHeader="False">
+                <ItemTemplate>
+                    <asp:ImageButton ID="imgDelete" runat="server" CausesValidation="false" CommandName="Delete"  CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ImageUrl="~/images/Delete.gif" />
+                    <asp:LinkButton ID="cmdSelect" runat="server" CausesValidation="false" CommandName="Select"></asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>
     <%--        <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
                     <asp:ImageButton ID="imgDelete" runat="server" CausesValidation="false" CommandName="Delete"  CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ImageUrl="~/images/Delete.gif" />

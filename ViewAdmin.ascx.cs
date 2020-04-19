@@ -18,23 +18,19 @@
 // DEALINGS IN THE SOFTWARE. 
 // 
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Xml;
-using System.Xml.Serialization;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Entities.Portals;
+using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
+using System;
+using System.Collections.Generic;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bitboxx.DNNModules.BBStore
 {
@@ -48,7 +44,7 @@ namespace Bitboxx.DNNModules.BBStore
 	/// <history> 
 	/// </history> 
 	/// ----------------------------------------------------------------------------- 
-    [DNNtc.PackageProperties("BBStore Admin",6, "BBStore Admin", "BBStore Admin module", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
+	[DNNtc.PackageProperties("BBStore Admin",6, "BBStore Admin", "BBStore Admin module", "BBStore.png", "Torsten Weggen", "bitboxx solutions", "http://www.bitboxx.net", "info@bitboxx.net",false)]
     [DNNtc.ModuleProperties("BBStore Admin", "BBStore Admin", 0)]
     [DNNtc.ModuleControlProperties("", "BBStore Admin", DNNtc.ControlType.View, "", false, false)]
 	partial class ViewAdmin : PortalModuleBase, IActionable
@@ -357,6 +353,19 @@ namespace Bitboxx.DNNModules.BBStore
 			DropDownList ddl = sender as DropDownList;
 			int orderId = Convert.ToInt32(Request.QueryString["orderid"]);
 			int orderStateId = Convert.ToInt32(ddl.SelectedValue);
+			OrderStateInfo orderState = Controller.GetOrderState(PortalId, orderStateId);
+			if (orderState.OrderAction.ToLower() == "deleteuser")
+			{
+				OrderInfo order = Controller.GetOrder(orderId);
+				CustomerInfo customer = Controller.GetCustomerById(order.CustomerID);
+				UserInfo user = UserController.GetUserById(PortalId, customer.UserId);
+				if (user != null)
+				{
+					UserController.DeleteUser(ref user, false, false);
+					UserController.RemoveUser(user);
+					UserController.RemoveDeletedUsers(PortalId);
+				}
+			}
 			Controller.SetOrderState(orderId,orderStateId);
 			Response.Redirect(Globals.NavigateURL(TabId, "", "adminmode=orderlist"));
 		}

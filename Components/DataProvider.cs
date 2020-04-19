@@ -293,6 +293,7 @@ namespace Bitboxx.DNNModules.BBStore
 
 
         // OrderState methods
+        public abstract IDataReader GetOrderState(int portalId, int orderStateId);
         public abstract IDataReader GetOrderStates(int portalId);
         public abstract IDataReader GetOrderStates(int portalId,string Language);
     	public abstract void SetOrderState(int orderId, int orderStateId);

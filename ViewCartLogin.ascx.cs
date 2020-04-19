@@ -125,11 +125,11 @@ namespace Bitboxx.DNNModules.BBStore
 				else 
 				{
 					divMessages.Attributes.Add("class", "dnnFormMessage dnnFormInfo");
-					string loginUrl = Globals.NavigateURL(TabId, "", "ctl=Login");
+					string sendPasswordUrl = Globals.NavigateURL(TabId, "", "ctl=SendPassword");
 					if (thisPortalUser == null)
 						lblIntro.Text = Localization.GetString("OtherPortalKnownUser.Text", this.LocalResourceFile);
 					else
-						lblIntro.Text = String.Format(Localization.GetString("KnownUser.Text", this.LocalResourceFile),thisPortalUser.Username,loginUrl);
+						lblIntro.Text = String.Format(Localization.GetString("KnownUser.Text", this.LocalResourceFile), thisPortalUser.Username, sendPasswordUrl);
 					pnlPassword.Visible = true;
 					pnlCheckUser.Visible = false;
 				}
