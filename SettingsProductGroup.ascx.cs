@@ -233,7 +233,8 @@ namespace Bitboxx.DNNModules.BBStore
 
         protected void rblViewMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MultiView1.ActiveViewIndex = Convert.ToInt32(rblViewMode.SelectedValue);
+            int viewmode = Convert.ToInt32(rblViewMode.SelectedValue);
+            MultiView1.ActiveViewIndex = (viewmode == 3  ? 0 : viewmode );
 			pnlShowLevels.Visible = (MultiView1.ActiveViewIndex > 0);
         }
     }

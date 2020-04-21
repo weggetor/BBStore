@@ -35,6 +35,28 @@
 	    <asp:View ID="viewDropDown" runat="server">
 		    <asp:PlaceHolder ID="phDropDown" runat="server" />
 	    </asp:View>
+        <asp:View ID="viewBootstrap3" runat="server">
+	        <asp:ListView ID="lstProductGroupsBS3" runat="server" GroupItemCount="3" 
+		        onitemcreated="lstProductGroups_ItemCreated" 
+		        onselectedindexchanging="lstProductGroupsBS3_SelectedIndexChanging"
+		        DataKeyNames="ProductGroupId" >
+		         <Layouttemplate>
+                    <div class="row" runat="server" ID="groupPlaceholder"></div>
+                </Layouttemplate>
+                <GroupTemplate>
+                    <div class="row">
+                        <div id="itemPlaceholder" runat="server"/>
+                    </div>
+                </GroupTemplate>
+                <ItemTemplate>
+                    <div id="productGroupgDiv" runat="server" class='<%# "col-md-" + GetCols() %>'>
+                        <asp:LinkButton ID="lnkProductGroup" runat="server"  CommandName="Select">
+                            <asp:PlaceHolder ID="productGroupPlaceHolder" runat="server" />
+                        </asp:LinkButton>
+                    </div>
+                </ItemTemplate>
+	        </asp:ListView>
+        </asp:View>
     </asp:MultiView>
     <asp:Panel ID="pnlAdmin" runat="server" Visible="false">
 	    <hr />

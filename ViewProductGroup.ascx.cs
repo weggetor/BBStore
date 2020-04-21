@@ -261,6 +261,7 @@ namespace Bitboxx.DNNModules.BBStore
 
 				_isConfigured = true;
 				lstProductGroups.GroupItemCount = _productGroupsInRow;
+				lstProductGroupsBS3.GroupItemCount = _productGroupsInRow;
 				if (Settings["RootLevel"] != null && Settings["RootLevelFixed"] != null && Convert.ToBoolean(Settings["RootLevelFixed"]) == true)
 				{
 					ProductGroupId = Convert.ToInt32(Settings["RootLevel"]);
@@ -329,6 +330,7 @@ namespace Bitboxx.DNNModules.BBStore
 					switch (MultiView1.ActiveViewIndex)
 					{
 						case 0:
+						case 3:
 							//if (!Page.IsPostBack)
 							{
 								List<ProductGroupInfo> productGroups = new List<ProductGroupInfo>();
@@ -375,8 +377,16 @@ namespace Bitboxx.DNNModules.BBStore
 							    ProductGroups = productGroups;
 								if (ProductGroups.Count > 0)
 								{
-									lstProductGroups.DataSource = ProductGroups;
-									lstProductGroups.DataBind();
+									if (MultiView1.ActiveViewIndex == 0)
+									{
+										lstProductGroups.DataSource = ProductGroups;
+										lstProductGroups.DataBind();
+									} else
+									{
+										lstProductGroupsBS3.DataSource = ProductGroups;
+										lstProductGroupsBS3.DataBind();
+									}
+									
 								}
 								else
 									_isVisible = false;
@@ -678,6 +688,22 @@ namespace Bitboxx.DNNModules.BBStore
 				Response.Redirect(Globals.NavigateURL(dynamicTab, "", "productgroup=" + ProductGroupId.ToString()));
 			}
 		}
+
+		protected void lstProductGroupsBS3_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
+		{
+			ProductGroupId = (int)lstProductGroupsBS3.DataKeys[e.NewSelectedIndex].Value;
+
+			SetFilter(ProductGroupId, IncludeChilds);
+
+			ProductGroupInfo pgi = Controller.GetProductGroup(PortalId, CurrentLanguage, ProductGroupId);
+			if (pgi != null && pgi.ProductListTabId != -1)
+				Response.Redirect(Globals.NavigateURL(pgi.ProductListTabId, "", "productgroup=" + ProductGroupId.ToString()));
+			else
+			{
+				int dynamicTab = Convert.ToInt32(Settings["DynamicPage"] ?? TabId.ToString());
+				Response.Redirect(Globals.NavigateURL(dynamicTab, "", "productgroup=" + ProductGroupId.ToString()));
+			}
+		}
 		protected void treeProductGroup_SelectedNodeChanged(object sender, EventArgs e)
 		{
 			ProductGroupId = Convert.ToInt32(treeProductGroup.SelectedNode.Value.Substring(1));
@@ -807,9 +833,24 @@ namespace Bitboxx.DNNModules.BBStore
 				return null;
 		}
 
+		protected string GetCols()
+		{
+			int gic = lstProductGroupsBS3.GroupItemCount;
 
+			if (gic <= 1)
+				return "12";
+			else if (gic == 2)
+				return "6";
+			else if (gic == 3)
+				return "4";
+			else if (gic == 4)
+				return "3";
+			else if (gic >= 5 && gic <= 11)
+				return "2";
+			return "1";
+		}
 		#endregion
 
-		
-    }
+
+	}
 }

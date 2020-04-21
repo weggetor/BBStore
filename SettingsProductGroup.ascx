@@ -12,6 +12,7 @@
                     <asp:ListItem Value="0">Template</asp:ListItem>
                     <asp:ListItem Value="1">Treeview</asp:ListItem>
                     <asp:ListItem Value="2">DropDown</asp:ListItem>
+                    <asp:ListItem Value="3">Bootstrap 3</asp:ListItem>
             </asp:RadioButtonList>
         </div>
         <div class="dnnFormItem">

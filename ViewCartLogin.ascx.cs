@@ -72,6 +72,10 @@ namespace Bitboxx.DNNModules.BBStore
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			cmdCheckUser.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+			cmdNewuser.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+			cmdPassword.CssClass = (string)Settings["CheckoutButtonCssClass"] ?? "";
+
 			if (!IsPostBack)
 			{
 				divMessages.Attributes.Add("class", "dnnFormMessage dnnFormInfo");
