@@ -29,6 +29,7 @@
     <SccProvider>SAK</SccProvider>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,6 +86,10 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\Dependencies\DNN8.0.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependencies\DNN8.0.0\PdfSharp.dll</HintPath>
+    </Reference>
     <Reference Include="SharpZipLib, Version=0.81.0.1407, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependencies\DNN8.0.0\SharpZipLib.dll</HintPath>
@@ -131,6 +136,7 @@
     <Compile Include="Components\BBStoreSitemapProvider.cs" />
     <Compile Include="Components\DataProvider.cs" />
     <Compile Include="Components\BBStoreController.cs" />
+    <Compile Include="Components\GruppPDF.cs" />
     <Compile Include="Components\SqlDataProvider.cs" />
     <Compile Include="Components\WebThumb.cs" />
     <Compile Include="Controls\CartNavigationControl.ascx.cs">

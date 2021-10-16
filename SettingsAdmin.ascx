@@ -148,6 +148,10 @@
             <dnn:Label id="lblStoreSubject" runat="server" controlname="txtStoreSubject" suffix=":"/>
             <asp:TextBox ID="txtStoreSubject" runat="server" Columns="40" />
         </div>
+         <div class="dnnFormItem">
+            <dnn:Label id="lblStoreAttachment" runat="server" controlname="txtStoreAttachment" suffix=":"/>
+            <asp:TextBox ID="txtStoreAttachment" runat="server" Columns="40" />
+        </div>
         <div class="dnnFormItem" style="white-space: nowrap;">
             <dnn:Label id="lblSMTPSettings" runat="server" controlname="rblSMTPSettings" suffix=":"/>
             <asp:RadioButtonList ID="rblSMTPSettings" runat="server" AutoPostBack="True" RepeatDirection="Horizontal"

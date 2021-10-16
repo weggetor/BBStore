@@ -10,7 +10,7 @@
   &lt;property name="#LayoutVersion" /&gt;
   &lt;property name="#LayoutScaleFactor"&gt;@1,Width=1@1,Height=1&lt;/property&gt;
 &lt;/XtraSerializer&gt;</globalSetting>
-    <globalSetting name="projectMruItems">&lt;?xml version='1.0' encoding='utf-8'?&gt;&lt;items&gt;&lt;item type="2" checksum="1874847431" /&gt;&lt;item type="2" checksum="2336243984" /&gt;&lt;/items&gt;</globalSetting>
+    <globalSetting name="projectMruItems">&lt;?xml version='1.0' encoding='utf-8'?&gt;&lt;items&gt;&lt;item type="2" checksum="1874847431" /&gt;&lt;item type="2" checksum="2336243984" /&gt;&lt;item type="2" checksum="4724512128" /&gt;&lt;/items&gt;</globalSetting>
     <globalSetting name="CreateNewFileForm.prefixTextBox.Text">####</globalSetting>
     <globalSetting name="CreateNewFileForm.prefixCheckBox.Checked">False</globalSetting>
     <globalSetting name="CreateNewFileForm.referenceLanguageComboBox.SelectedIndex">0</globalSetting>
@@ -77,7 +77,7 @@ Viele Grüße</globalSetting>
     <userSetting name="Torsten@TW-WIN8-DEVWEB.RecentFiles">C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.de-DE.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewAdminCoupon.ascx.es-ES.resx</userSetting>
     <userSetting name="Torsten@TW-WIN8-DEVWEB.filesInitialDir">C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources</userSetting>
     <userSetting name="Torsten@TW-WIN10-DEVWEB.FindText">Template</userSetting>
-    <userSetting name="Torsten@TW-WIN10-DEVWEB.RecentFiles">C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewList.ascx.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewList.ascx.de-DE.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewList.ascx.es-ES.resx###***###C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewCart.ascx.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewCart.ascx.de-DE.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewCart.ascx.es-ES.resx</userSetting>
+    <userSetting name="Torsten@TW-WIN10-DEVWEB.RecentFiles">C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewList.ascx.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewList.ascx.de-DE.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewList.ascx.es-ES.resx###***###C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewCart.ascx.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewCart.ascx.de-DE.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\ViewCart.ascx.es-ES.resx###***###C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\SettingsAdmin.ascx.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\SettingsAdmin.ascx.de-DE.resx;C:\Sourcen_tfs\Bitboxx\BBStore\DNN\DesktopModules\BBStore\App_LocalResources\SettingsAdmin.ascx.es-ES.resx</userSetting>
     <description>
     </description>
   </configuration>

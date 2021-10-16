@@ -28,7 +28,7 @@ using Bitboxx.DNNModules.BBStore.Providers.Payment;
 using DotNetNuke.Services.GeneratedImage;
 using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Log.EventLog;
-
+using Bitboxx.DNNModules.BBStore.Components;
 
 namespace Bitboxx.DNNModules.BBStore
 {
@@ -1635,6 +1635,7 @@ namespace Bitboxx.DNNModules.BBStore
             string storeName = (string)StoreSettings["StoreName"] ?? "";
             string storeReplyTo = (string)StoreSettings["StoreReplyTo"] ?? "";
             string storeAdmin = (string)StoreSettings["StoreAdmin"] ?? "";
+            string storeAttachment = (string)StoreSettings["StoreAttachment"] ?? "";
 
             OrderInfo order = Controller.GetOrder(OrderId);
 
@@ -1644,6 +1645,7 @@ namespace Bitboxx.DNNModules.BBStore
             {
                 // http://www.systemnetmail.com
                 MailMessage mail = new MailMessage();
+
 
                 //set the addresses
                 string smtpServer = DotNetNuke.Entities.Host.Host.SMTPServer;
@@ -1697,6 +1699,14 @@ namespace Bitboxx.DNNModules.BBStore
                     mail.Attachments.Add(attachFile);
                 }
 
+                if (storeAttachment == "Grupp")
+                {
+                    byte[] pdf = GruppPDF.printPDF(order.OrderID);
+                    MemoryStream stream = new MemoryStream(pdf);
+                    Attachment attachFile = new Attachment(stream, "Montagebericht.pdf", "application/pdf");
+                    mail.Attachments.Add(attachFile);
+                }
+
                 // Adding Images + Descriptions of Attributes (if any)
                 foreach (OrderProductInfo orderProduct in Controller.GetOrderProducts(order.OrderID))
                 {
@@ -1746,7 +1756,11 @@ namespace Bitboxx.DNNModules.BBStore
                     {
                         MemoryStream str = new MemoryStream(responseBytes);
                         Attachment attachFile = new Attachment(str, orderProduct.Name + ".zip", "application/zip");
-                        mail.Attachments.Add(attachFile);
+                        if (storeAttachment != "Grupp" || orderProduct.Name.IndexOf("Unterschrift") == -1)
+                        {
+                            mail.Attachments.Add(attachFile);
+                        }
+                        
                     }
                 }
 
@@ -2052,7 +2066,7 @@ namespace Bitboxx.DNNModules.BBStore
             return template;
         }
 
-
+       
         public string GetNextAction()
         {
             

@@ -485,4 +485,10 @@ Your team of [STORENAME]&lt;/p&gt;
 	<data name="lblTaxfreeCountries.Text" xml:space="preserve">
     <value>Taxfree countries</value>
   </data>
+	<data name="lblStoreAttachment.Text" xml:space="preserve">
+		<value>Store attachment</value>
+	</data>
+	<data name="lblStoreAttachment.Help" xml:space="preserve">
+		<value>Special attachment (only "Grupp" allowed")</value>
+	</data>
 </root>

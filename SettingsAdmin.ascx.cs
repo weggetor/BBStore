@@ -160,7 +160,8 @@ namespace Bitboxx.DNNModules.BBStore
 						ModuleSettings["StoreReplyTo"] = storeSettings["StoreReplyTo"];
 						ModuleSettings["StoreAdmin"] = storeSettings["StoreAdmin"];
 						ModuleSettings["StoreSubject"] = storeSettings["StoreSubject"];
-						ModuleSettings["VendorName"] = storeSettings["VendorName"];
+                        ModuleSettings["StoreAttachment"] = storeSettings["StoreAttachment"];
+                        ModuleSettings["VendorName"] = storeSettings["VendorName"];
 						ModuleSettings["VendorStreet1"] = storeSettings["VendorStreet1"];
 						ModuleSettings["VendorStreet2"] = storeSettings["VendorStreet2"];
 						ModuleSettings["VendorZip"] = storeSettings["VendorZip"];
@@ -189,6 +190,8 @@ namespace Bitboxx.DNNModules.BBStore
                         txtStoreAdmin.Text = (string)ModuleSettings["StoreAdmin"];
                     if (ModuleSettings["StoreSubject"] != null)
                         txtStoreSubject.Text = (string)ModuleSettings["StoreSubject"];
+                    if (ModuleSettings["StoreAttachment"] != null)
+                        txtStoreAttachment.Text = (string)ModuleSettings["StoreAttachment"];
 
                     int smtpSettings = Convert.ToInt32(ModuleSettings["SMTPSettings"] ?? "0");
                     pnlSMTP.Visible = (smtpSettings == 1);
@@ -313,6 +316,7 @@ namespace Bitboxx.DNNModules.BBStore
                 objModules.UpdateModuleSetting(ModuleId, "StoreReplyTo", txtStoreReplyTo.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "StoreAdmin", txtStoreAdmin.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "StoreSubject", txtStoreSubject.Text.Trim());
+                objModules.UpdateModuleSetting(ModuleId, "StoreAttachment", txtStoreAttachment.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "SMTPSettings", rblSMTPSettings.SelectedValue);
                 objModules.UpdateModuleSetting(ModuleId, "SMTPServer", txtSMTPServer.Text.Trim());
                 objModules.UpdateModuleSetting(ModuleId, "SMTPUser", txtSMTPUser.Text.Trim());

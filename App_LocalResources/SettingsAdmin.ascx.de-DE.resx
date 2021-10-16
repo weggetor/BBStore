@@ -484,4 +484,10 @@ Dein [STORENAME]-Team&lt;/p&gt;
 	<data name="lblTaxfreeCountries.Text" xml:space="preserve">
 		<value>Steuerfreie Länder (EU)</value>
 	</data>
+	<data name="lblStoreAttachment.Text" xml:space="preserve">
+		<value>Shop Anhang</value>
+	</data>
+	<data name="lblStoreAttachment.Help" xml:space="preserve">
+		<value>Spezieller Anhang ("nur "Grupp" unterstützt)</value>
+	</data>
 </root>
