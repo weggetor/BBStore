@@ -80,5 +80,10 @@ namespace Bitboxx.DNNModules.BBStore
         [DataMember()]
         public int _status { get; set; }
 
+        public override string ToString()
+        {
+            return $"{{\"OrderID\" :{OrderID},\"PortalId\" :{PortalId},\"SubscriberID\" :{SubscriberID},\"OrderNo\" :\"{OrderNo}\",\"OrderTime\" :\"{OrderTime}\",\"OrderStateID\" :{OrderStateId},\"CustomerID\" :{CustomerID},\"Comment\" :\"{Comment}\",\"Currency\" :\"{Currency}\",\"Total\" :{Total},\"PaymentProviderID\" :{PaymentProviderId},\"PaymentProviderValues\" :\"{PaymentProviderValues}\",\"Attachment\" :\"{Attachment.Length} bytes\",\"AttachName\" :\"{AttachName}\",\"AttachContentType\" :\"{AttachContentType}\",\"OrderName\" :\"{OrderName}\",\"TaxId\" :\"{TaxId}\" }}";
+        }
+
     }
 }

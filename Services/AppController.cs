@@ -415,8 +415,7 @@ namespace Bitboxx.DNNModules.BBStore.Services
                 OrderInfo order = controller.GetOrder(orderId);
                 if (order != null)
                 {
-                    order.OrderStateId = state;
-                    controller.UpdateOrder(order);
+                    controller.UpdateOrderState(order.OrderID, state);
                     File.WriteAllText(logPath + fileName + " .ok", "");
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
@@ -612,7 +611,7 @@ namespace Bitboxx.DNNModules.BBStore.Services
                     }
 
                     order.OrderStateId = 7;
-                    controller.UpdateOrder(order);
+                    controller.UpdateOrderState(order.OrderID, order.OrderStateId);
                 }
                 else
                 {

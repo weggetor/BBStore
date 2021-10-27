@@ -14,11 +14,12 @@ namespace Bitboxx.DNNModules.BBStore.Components
 		public static byte[] printPDF(int orderId)
 		{
 
-			const int RECHADRESSTYPE = 175;
+			const int RECHADRESSTYPE = 173;
 			const int LIEFERADRESSTYPE = 174;
 			const int EINSATZPRODUCTID = 8212;
 			const int MONTEURPRODUCTID = 9385;
 			const int KUNDEPRODUCTID = 8213;
+			const int MAXYPOS = 710;
 			const string TEMPLATEPATH = @"D:\0009_gruppapp\dnn\Portals\0\Images\mail\Montagebericht_leer.png";
 
 			BBStoreController controller = new BBStoreController();
@@ -73,7 +74,7 @@ namespace Bitboxx.DNNModules.BBStore.Components
 				if (taetigkeit.Trim() != String.Empty)
 				{
 					var height = measureTableAddInfo(gfx, taetigkeit);
-					if (yPos + height >= 730)
+					if (yPos + height >= MAXYPOS)
 					{
 						page = doc.AddPage();
 						gfx = XGraphics.FromPdfPage(page);
@@ -88,7 +89,7 @@ namespace Bitboxx.DNNModules.BBStore.Components
 				if (notizen.Trim() != String.Empty)
 				{
 					var height = measureTableAddInfo(gfx, notizen);
-					if (yPos + height >= 730)
+					if (yPos + height >= MAXYPOS)
 					{
 						page = doc.AddPage();
 						gfx = XGraphics.FromPdfPage(page);
@@ -103,7 +104,7 @@ namespace Bitboxx.DNNModules.BBStore.Components
 				if (ersatzEingebaut.Trim() != String.Empty)
 				{
 					var height = measureTableAddInfo(gfx, ersatzEingebaut);
-					if (yPos + height >= 730)
+					if (yPos + height >= MAXYPOS)
 					{
 						page = doc.AddPage();
 						gfx = XGraphics.FromPdfPage(page);
@@ -118,7 +119,7 @@ namespace Bitboxx.DNNModules.BBStore.Components
 				if (ersatzBenoetigt.Trim() != String.Empty)
 				{
 					var height = measureTableAddInfo(gfx, ersatzBenoetigt);
-					if (yPos + height >= 730)
+					if (yPos + height >= MAXYPOS)
 					{
 						page = doc.AddPage();
 						gfx = XGraphics.FromPdfPage(page);
@@ -133,7 +134,7 @@ namespace Bitboxx.DNNModules.BBStore.Components
 			if (kunde.Bemerkung != String.Empty)
 			{
 				var height = 90;
-				if (yPos + height >= 730)
+				if (yPos + height >= MAXYPOS)
 				{
 					page = doc.AddPage();
 					gfx = XGraphics.FromPdfPage(page);
@@ -148,7 +149,7 @@ namespace Bitboxx.DNNModules.BBStore.Components
 
 
 			var signatureHeight = 190;
-			if (yPos + signatureHeight >= 730)
+			if (yPos + signatureHeight >= MAXYPOS)
 			{
 				page = doc.AddPage();
 				gfx = XGraphics.FromPdfPage(page);
@@ -212,6 +213,7 @@ namespace Bitboxx.DNNModules.BBStore.Components
 			gfx.DrawString("Zuständig", font, greyBrush, new XPoint(xPosCaption, yPos + 40));
 			gfx.DrawString("Telefon", font, greyBrush, new XPoint(xPosCaption, yPos + 50));
 			gfx.DrawString("Fax", font, greyBrush, new XPoint(xPosCaption, yPos + 60));
+			gfx.DrawString("E-Mail", font, greyBrush, new XPoint(xPosCaption, yPos + 70));
 
 
 			gfx.DrawString(order.OrderTime.ToShortDateString(), font, XBrushes.Black, new XPoint(xPosContent, yPos));
@@ -221,6 +223,7 @@ namespace Bitboxx.DNNModules.BBStore.Components
 			gfx.DrawString(orderExtra.Zuständig.ToString(), font, XBrushes.Black, new XPoint(xPosContent, yPos + 40));
 			gfx.DrawString(orderExtra.Telefon.ToString(), font, XBrushes.Black, new XPoint(xPosContent, yPos + 50));
 			gfx.DrawString(orderExtra.Fax.ToString(), font, XBrushes.Black, new XPoint(xPosContent, yPos + 60));
+			gfx.DrawString(orderExtra["E-Mail"].ToString(), font, XBrushes.Black, new XPoint(xPosContent, yPos + 70));
 		}
 
 		private static void writeMontageHeader(XGraphics gfx, double yPos, OrderInfo order)
@@ -228,7 +231,9 @@ namespace Bitboxx.DNNModules.BBStore.Components
 			const int xPos = 50;
 			var redBrush = new XSolidBrush(XColor.FromArgb(232, 32, 32));
 			var font = new XFont("Century Gothic", 18, XFontStyle.Bold);
-			gfx.DrawString("MONTAGEBERICHT " + order.OrderID, font, redBrush, new XPoint(xPos, yPos));
+
+			var orderExtra = JsonConvert.DeserializeObject<dynamic>(order.Comment);
+			gfx.DrawString("MONTAGEBERICHT " + orderExtra.Auftrag.ToString(), font, redBrush, new XPoint(xPos, yPos));
 		}
 
 		private static void writeHeaderRed(XGraphics gfx, String text, double yPos)
@@ -250,20 +255,20 @@ namespace Bitboxx.DNNModules.BBStore.Components
 
 		private static void writeMachineHeader(XGraphics gfx, double yPos, GruppEinsatz einsatz)
 		{
-			string text = "Maschine: " + einsatz.Fabrikat + " " + einsatz.Typ + ", " + einsatz.Baujahr + ", " + einsatz.Maschinennummer;
+			string text = einsatz.Fabrikat + " " + einsatz.Typ + ", " + einsatz.Baujahr + ", " + einsatz.Maschinennummer;
 
 			const int xPos = 350;
 			writeHeaderGrey(gfx, text, yPos);
 			gfx.DrawRectangle(XBrushes.White, new XRect(xPos, yPos + 4, 10, 10));
 			gfx.DrawString("Kleinteile Pauschal", new XFont("Century Gothic", 10, XFontStyle.Bold), XBrushes.White, new XPoint(xPos + 15, yPos + 13));
-			if (Convert.ToBoolean(einsatz.KleinteilePauschal))
+			if (einsatz.KleinteilePauschal == "true")
 			{
 				gfx.DrawString("X", new XFont("Century Gothic", 10, XFontStyle.Bold), XBrushes.Black, new XPoint(xPos + 2, yPos + 13));
 			}
 
 			gfx.DrawRectangle(XBrushes.White, new XRect(xPos + 118, yPos + 4, 10, 10));
 			gfx.DrawString("Probelauf i.O.", new XFont("Century Gothic", 10, XFontStyle.Bold), XBrushes.White, new XPoint(xPos + 133, yPos + 13));
-			if (Convert.ToBoolean(einsatz.ProbelaufInOrdnung))
+			if (einsatz.ProbelaufInOrdnung == "true")
 			{
 				gfx.DrawString("X", new XFont("Century Gothic", 10, XFontStyle.Bold), XBrushes.Black, new XPoint(xPos + 119, yPos + 13));
 			}
@@ -377,11 +382,11 @@ namespace Bitboxx.DNNModules.BBStore.Components
 			gfx.DrawLine(new XPen(XColors.Black, 0.1), new XPoint(xPos, yPos + 135), new XPoint(xPos + 165, yPos + 135));
 			gfx.DrawLine(new XPen(XColors.Black, 0.1), new XPoint(xPos + 260, yPos + 135), new XPoint(550, yPos + 135));
 
-			gfx.DrawImage(XImage.FromStream(new MemoryStream(monteur.Unterschrift)), new XRect(xPos, yPos + 88, 80, 40));
+			try { gfx.DrawImage(XImage.FromStream(new MemoryStream(monteur.Unterschrift)), new XRect(xPos, yPos + 88, 80, 40)); } catch  { }
 			gfx.DrawString(formatDate(monteur.Datum), font1, XBrushes.Black, new XPoint(xPos + 90, yPos + 132));
 			gfx.DrawString("Unterschrift Fa. GRUPP                 Datum", font3, XBrushes.Black, new XPoint(xPos, yPos + 142));
 
-			gfx.DrawImage(XImage.FromStream(new MemoryStream(kunde.Unterschrift)), new XRect(xPos + 260, yPos + 88, 80, 40));
+			try { gfx.DrawImage(XImage.FromStream(new MemoryStream(kunde.Unterschrift)), new XRect(xPos + 260, yPos + 88, 80, 40)); } catch { }
 			gfx.DrawString(formatDate(kunde.Datum) + "   " + kunde.Name, font1, XBrushes.Black, new XPoint(xPos + 350, yPos + 132));
 			gfx.DrawString("Unterschrift Auftraggeber           Datum                    Druckbuchstaben", font3, XBrushes.Black, new XPoint(xPos + 260, yPos + 142));
 		}
@@ -542,12 +547,14 @@ namespace Bitboxx.DNNModules.BBStore.Components
 				this.Name = options.FirstOrDefault(o => o.OptionName == "Name").OptionValue;
 				this.Unterschrift = options.FirstOrDefault(o => o.OptionName == "Unterschrift").OptionImage;
 				this.Bemerkung = options.FirstOrDefault(o => o.OptionName == "Bemerkung Kunde").OptionValue;
+				this.Email = options.FirstOrDefault(o => o.OptionName == "E-Mail").OptionValue;
 			}
 
 			public string Datum { get; set; }
 			public string Name { get; set; }
 			public byte[] Unterschrift { get; set; }
 			public string Bemerkung { get; set; }
+			public string Email { get; set; }
 		}
 	}
 }

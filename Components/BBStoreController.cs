@@ -820,6 +820,10 @@ namespace Bitboxx.DNNModules.BBStore
         {
             DataProvider.Instance().UpdateOrder(Order);
         }
+        public void UpdateOrderState(int orderId, int orderStateId)
+        {
+            DataProvider.Instance().UpdateOrderState(orderId, orderStateId);
+        }
         public void DeleteOrder(int OrderId)
         {
             DataProvider.Instance().DeleteOrder(OrderId);

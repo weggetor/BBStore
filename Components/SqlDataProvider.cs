@@ -35,6 +35,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Framework.Providers;
+using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Exceptions;
 using Microsoft.ApplicationBlocks.Data;
 
@@ -63,6 +64,8 @@ namespace Bitboxx.DNNModules.BBStore
         private string _objectQualifier;
         private string _databaseOwner;
         private CultureInfo cult = CultureInfo.InvariantCulture;
+        private ILog logger = LoggerSource.Instance.GetLogger(typeof(SqlDataProvider));
+
         #endregion
 
         #region "Constructors"
@@ -2557,6 +2560,22 @@ namespace Bitboxx.DNNModules.BBStore
                                            new SqlParameter("AttachContentType", Order.AttachContentType),
                                            new SqlParameter("OrderName", Order.OrderName),
                                            new SqlParameter("TaxId", Order.TaxId)
+                                       };
+
+            // logger.Info("Aktualisiere Order:" + Order.ToString());
+            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+        }
+
+        public override void UpdateOrderState(int orderId, int orderStateId)
+        {
+            string updCmd = "UPDATE " + GetFullyQualifiedName("Order") + " SET " +
+                            " OrderStateID = @OrderStateID" +
+                            " WHERE OrderID = @OrderID";
+
+            SqlParameter[] SqlParams = new SqlParameter[]
+                                       {
+                                           new SqlParameter("OrderID", orderId),
+                                           new SqlParameter("OrderStateID", orderStateId)
                                        };
 
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);

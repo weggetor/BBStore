@@ -29,6 +29,7 @@ using DotNetNuke.Services.GeneratedImage;
 using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Log.EventLog;
 using Bitboxx.DNNModules.BBStore.Components;
+using Newtonsoft.Json;
 
 namespace Bitboxx.DNNModules.BBStore
 {
@@ -1631,11 +1632,17 @@ namespace Bitboxx.DNNModules.BBStore
 
         internal void MailOrder(int OrderId)
         {
+            string storeAttachment = (string)StoreSettings["StoreAttachment"] ?? "";
+            if (storeAttachment == "Grupp")
+            {
+                MailOrderGrupp(OrderId);
+                return;
+            }
+
             string storeEmail = (string)StoreSettings["StoreEmail"] ?? "";
             string storeName = (string)StoreSettings["StoreName"] ?? "";
             string storeReplyTo = (string)StoreSettings["StoreReplyTo"] ?? "";
             string storeAdmin = (string)StoreSettings["StoreAdmin"] ?? "";
-            string storeAttachment = (string)StoreSettings["StoreAttachment"] ?? "";
 
             OrderInfo order = Controller.GetOrder(OrderId);
 
@@ -1665,7 +1672,8 @@ namespace Bitboxx.DNNModules.BBStore
                 mail.To.Add(UserInfo.Email.Trim());
 
                 if (storeAdmin != string.Empty)
-                    mail.To.Add(storeAdmin.Trim());
+                    mail.CC.Add(storeAdmin.Trim());
+
                 if (storeReplyTo != string.Empty)
                     mail.ReplyToList.Add(new MailAddress(storeReplyTo.Trim()));
 
@@ -1677,7 +1685,7 @@ namespace Bitboxx.DNNModules.BBStore
                     orderNo += ": " + order.OrderName;
 
                 mail.Subject = ((string)StoreSettings["StoreSubject"]).Replace("[ORDERNO]", orderNo);
-
+ 
                 AlternateView av1 = AlternateView.CreateAlternateViewFromString(templateContent, null, "text/html");
                 string logoFile = Server.MapPath(PortalSettings.HomeDirectory + PortalSettings.LogoFile);
 
@@ -1698,15 +1706,7 @@ namespace Bitboxx.DNNModules.BBStore
                     Attachment attachFile = new Attachment(stream, order.AttachName, order.AttachContentType);
                     mail.Attachments.Add(attachFile);
                 }
-
-                if (storeAttachment == "Grupp")
-                {
-                    byte[] pdf = GruppPDF.printPDF(order.OrderID);
-                    MemoryStream stream = new MemoryStream(pdf);
-                    Attachment attachFile = new Attachment(stream, "Montagebericht.pdf", "application/pdf");
-                    mail.Attachments.Add(attachFile);
-                }
-
+ 
                 // Adding Images + Descriptions of Attributes (if any)
                 foreach (OrderProductInfo orderProduct in Controller.GetOrderProducts(order.OrderID))
                 {
@@ -1734,7 +1734,7 @@ namespace Bitboxx.DNNModules.BBStore
                             stream.Dispose();
                             zipOutStream.CloseEntry();
                         }
-                        if (option != null && !String.IsNullOrEmpty(option.OptionDescription))
+                        if (option != null && !String.IsNullOrEmpty(option.OptionDescription) && option.OptionDescription != "Insert" && option.OptionDescription != "Update")
                         {
                             attachCount++;
                             byte[] byteArray = Encoding.Default.GetBytes(option.OptionDescription);
@@ -1756,11 +1756,9 @@ namespace Bitboxx.DNNModules.BBStore
                     {
                         MemoryStream str = new MemoryStream(responseBytes);
                         Attachment attachFile = new Attachment(str, orderProduct.Name + ".zip", "application/zip");
-                        if (storeAttachment != "Grupp" || orderProduct.Name.IndexOf("Unterschrift") == -1)
-                        {
-                            mail.Attachments.Add(attachFile);
-                        }
-                        
+                        mail.Attachments.Add(attachFile);
+                        //str.Close();
+                        //str.Dispose();
                     }
                 }
 
@@ -1772,6 +1770,184 @@ namespace Bitboxx.DNNModules.BBStore
                     emailClient.Credentials = SMTPUserInfo;
                 }
                 emailClient.Send(mail);
+            }
+            catch (SmtpException sex)
+            {
+                Exceptions.LogException(sex);
+                logger.Error("Fehler beim Senden der OrderMail", sex);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.LogException(ex);
+                logger.Error("Fehler beim Senden der OrderMail", ex);
+            }
+        }
+
+        internal void MailOrderGrupp(int OrderId)
+        {
+            string storeEmail = (string)StoreSettings["StoreEmail"] ?? "";
+            string storeName = (string)StoreSettings["StoreName"] ?? "";
+            string storeReplyTo = (string)StoreSettings["StoreReplyTo"] ?? "";
+            string storeAdmin = (string)StoreSettings["StoreAdmin"] ?? "";
+            string storeAttachment = (string)StoreSettings["StoreAttachment"] ?? "";
+
+            OrderInfo order = Controller.GetOrder(OrderId);
+
+            string templateContent = GenOrderHtml(order, true);
+
+            try
+            {
+                // http://www.systemnetmail.com
+                MailMessage mail = new MailMessage();
+
+                //set the addresses
+                string smtpServer = DotNetNuke.Entities.Host.Host.SMTPServer;
+                string smtpAuthentication = DotNetNuke.Entities.Host.Host.SMTPAuthentication;
+                string smtpUsername = DotNetNuke.Entities.Host.Host.SMTPUsername;
+                string smtpPassword = DotNetNuke.Entities.Host.Host.SMTPPassword;
+
+                if (Convert.ToInt32(StoreSettings["SMTPSettings"] ?? "0") == 1)
+                {
+                    smtpServer = (string)StoreSettings["SMTPServer"];
+                    smtpAuthentication = "1";
+                    smtpUsername = (string)StoreSettings["SMTPUser"];
+                    smtpPassword = (string)StoreSettings["SMTPPassword"]; ;
+                }
+
+                mail.From = new MailAddress("\"" + storeName.Trim() + "\" <" + storeEmail.Trim() + ">");
+
+                var orderExtra = JsonConvert.DeserializeObject<dynamic>(order.Comment);
+
+                try
+                {
+                    const int KUNDEPRODUCTID = 8213;
+                    List<OrderProductInfo> products = Controller.GetOrderProducts(OrderId);
+                    OrderProductInfo kundeProduct = products.Where(p => p.ProductId == KUNDEPRODUCTID).FirstOrDefault();
+                    List<OrderProductOptionInfo> options = Controller.GetOrderProductOptions(kundeProduct.OrderProductId);
+                    string kundenEmail = options.FirstOrDefault(o => o.OptionName == "E-Mail").OptionValue.Trim();
+                    mail.To.Add(kundenEmail);
+                    
+                    var aussendienst = orderExtra["E-Mail"].ToString();
+                    if (!String.IsNullOrEmpty(aussendienst))
+                    {
+                        mail.CC.Add(aussendienst);
+                    }
+                    mail.CC.Add(UserInfo.Email.Trim());
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                    mail.To.Add(UserInfo.Email.Trim());
+                }
+
+                if (storeAdmin != string.Empty)
+                    mail.CC.Add(storeAdmin.Trim());
+
+                if (storeReplyTo != string.Empty)
+                    mail.ReplyToList.Add(new MailAddress(storeReplyTo.Trim()));
+
+                logger.Info("Sende Montagebericht ID:" + order.OrderID + " OrderNo:" + order.OrderNo + " Auftrag:" + orderExtra?.Auftrag?.ToString() +" an: " + UserInfo.Email.Trim() + " und: " + storeEmail.Trim());
+
+                //set the content
+                string orderNo = order.OrderNo.Trim();
+                if (!String.IsNullOrEmpty(order.OrderName))
+                    orderNo += ": " + order.OrderName;
+
+                mail.Subject = "Montagebericht " + orderExtra?.Auftrag?.ToString() + " " + order.OrderName;
+                
+                AlternateView av1 = AlternateView.CreateAlternateViewFromString(templateContent, null, "text/html");
+                string logoFile = Server.MapPath(PortalSettings.HomeDirectory + PortalSettings.LogoFile);
+
+                if (PortalSettings.LogoFile != string.Empty && File.Exists(logoFile))
+                {
+                    LinkedResource linkedResource = new LinkedResource(logoFile);
+                    linkedResource.ContentId = "Logo";
+                    linkedResource.ContentType.Name = logoFile;
+                    linkedResource.ContentType.MediaType = "image/jpeg";
+                    av1.LinkedResources.Add(linkedResource);
+                }
+                mail.AlternateViews.Add(av1);
+                mail.IsBodyHtml = true;
+                
+                byte[] pdf = GruppPDF.printPDF(order.OrderID);
+                logger.Info("PDF wurde erzeugt: " + pdf.Length.ToString() + " bytes");
+
+                MemoryStream pdfStream = new MemoryStream(pdf);
+                Attachment attachFile = new Attachment(pdfStream, "Montagebericht.pdf", "application/pdf");
+                mail.Attachments.Add(attachFile);
+                logger.Info("PDF wurde an Mail angehängt");
+
+
+                // Das generierte PDF auch in der Order als Attachment zur Verfügung stellen
+                order.Attachment = pdf;
+                order.AttachName = "Montagebericht.pdf";
+                order.AttachContentType = "application/pdf";
+                try
+                {
+                    Controller.UpdateOrder(order);
+                    logger.Info("Order " + order.OrderID + " wurde mit PDF aktualisiert");
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Order " + order.OrderID + " konnte nicht mit PDF aktualisiert werden " + ex.Message);
+                }
+                
+                // Adding Images + Descriptions of Attributes (if any)
+                foreach (OrderProductInfo orderProduct in Controller.GetOrderProducts(order.OrderID))
+                {
+                    MemoryStream zipOutMemoryStream = new MemoryStream();
+                    ZipOutputStream zipOutStream = new ZipOutputStream(zipOutMemoryStream);
+                    int attachCount = 0;
+
+                    foreach (OrderProductOptionInfo option in Controller.GetOrderProductOptions(orderProduct.OrderProductId))
+                    {
+                        String fileName = option.OptionName;
+
+                        if (option != null && option.OptionImage != null && option.OptionImage.Length > 0)
+                        {
+                            attachCount++;
+                            MemoryStream stream = new MemoryStream(option.OptionImage);
+
+                            ZipEntry entry = new ZipEntry(fileName + ".jpg");
+                            zipOutStream.PutNextEntry(entry);
+
+                            byte[] photoBytesBuffer = stream.ToArray();
+                            zipOutStream.Write(photoBytesBuffer, 0, photoBytesBuffer.Length);
+
+                            stream.Dispose();
+                            zipOutStream.CloseEntry();
+                        }
+                    }
+                    zipOutStream.Finish();
+                    zipOutStream.Close();
+                    zipOutMemoryStream.Close();
+                    byte[] responseBytes = zipOutMemoryStream.ToArray();
+                    zipOutMemoryStream.Dispose();
+                    zipOutStream.Dispose();
+
+                    if (attachCount > 0)
+                    {
+                        MemoryStream zipResponseStream = new MemoryStream(responseBytes);
+                        Attachment zipFile = new Attachment(zipResponseStream, orderProduct.Name + ".zip", "application/zip");
+                        if (orderProduct.ItemNo.IndexOf("Einsatz") > -1)
+                        {
+                            mail.Attachments.Add(zipFile);
+                        }
+                        //zipResponseStream.Close();
+                        //zipResponseStream.Dispose();
+                    }
+                }
+
+                SmtpClient emailClient = new SmtpClient(smtpServer);
+                if (smtpAuthentication == "1")
+                {
+                    System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+                    emailClient.UseDefaultCredentials = false;
+                    emailClient.Credentials = SMTPUserInfo;
+                }
+                emailClient.Send(mail);
+                pdfStream.Close();
+                pdfStream.Dispose();
             }
             catch (SmtpException sex)
             {

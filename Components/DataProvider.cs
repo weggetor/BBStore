@@ -249,6 +249,8 @@ namespace Bitboxx.DNNModules.BBStore
         public abstract IDataReader GetOrdersByPortalAndUser(int PortalId, int userid, int excludeOrderState);
         public abstract int NewOrder(OrderInfo Order);
         public abstract void UpdateOrder(OrderInfo Order);
+
+        public abstract void UpdateOrderState(int orderId, int orderStateId);
         public abstract void DeleteOrder(int OrderId);
 
         // OrderProduct methods
