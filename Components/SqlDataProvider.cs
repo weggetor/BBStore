@@ -2541,6 +2541,13 @@ namespace Bitboxx.DNNModules.BBStore
                             " TaxId = @TaxId" +
                             " WHERE OrderID = @OrderID";
 
+            byte[] attachment = Order.Attachment;
+            if (attachment.Length == 0 || attachment == null)
+            {
+                logger.Info($"Aktualisiere Order {Order.OrderID}: Attachment ist null oder hat die Länge 0:" + Encoding.Default.GetString(attachment));
+                attachment = ((byte[])System.Data.SqlTypes.SqlBinary.Null);
+            }
+
             SqlParameter[] SqlParams = new SqlParameter[]
                                        {
                                            new SqlParameter("OrderID", Order.OrderID),
@@ -2555,15 +2562,23 @@ namespace Bitboxx.DNNModules.BBStore
                                            new SqlParameter("Total", Order.Total),
                                            new SqlParameter("PaymentProviderID", Order.PaymentProviderId),
                                            new SqlParameter("PaymentProviderValues", Order.PaymentProviderValues),
-                                           new SqlParameter("Attachment", Order.Attachment ?? System.Data.SqlTypes.SqlBinary.Null),
+                                           new SqlParameter("Attachment", attachment),
                                            new SqlParameter("AttachName", Order.AttachName),
                                            new SqlParameter("AttachContentType", Order.AttachContentType),
                                            new SqlParameter("OrderName", Order.OrderName),
                                            new SqlParameter("TaxId", Order.TaxId)
                                        };
 
-            // logger.Info("Aktualisiere Order:" + Order.ToString());
-            SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+            logger.Info("Aktualisiere Order:" + Order.ToString());
+            try
+            {
+                SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Aktualisiere Order {Order.OrderID}: Fehler beim Update: {ex.Message})");
+            }
+            
         }
 
         public override void UpdateOrderState(int orderId, int orderStateId)
@@ -2578,6 +2593,7 @@ namespace Bitboxx.DNNModules.BBStore
                                            new SqlParameter("OrderStateID", orderStateId)
                                        };
 
+            logger.Info($"Aktualisiere OrderState auf {orderStateId} für orderId {orderId}");
             SqlHelper.ExecuteNonQuery(ConnectionString, CommandType.Text, updCmd, SqlParams);
         }
         public override void DeleteOrder(int OrderId)

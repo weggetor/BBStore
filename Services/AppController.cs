@@ -595,14 +595,14 @@ namespace Bitboxx.DNNModules.BBStore.Services
                     }
                     try
                     {
-                        if (hOrder.PaymentProviderId > -1)
+                        if (hOrder.PaymentProviderId > -1 && hOrder.OrderStateId == 7)
                         {
                             controller.MailOrder(PortalSettings.PortalId, hOrder.OrderID);
                             message += $"Order mit ID={hOrder.OrderID}: Mailversand erfolgt\r\n";
                         }
                         else
                         {
-                            message += $"Order mit ID={hOrder.OrderID}: Kein Mailversand erforderlich\r\n";
+                            message += $"Order mit ID={hOrder.OrderID}: Kein Mailversand erforderlich (OrderStatus = {hOrder.OrderStateId})\r\n";
                         }
                     }
                     catch (Exception ex)
@@ -610,8 +610,7 @@ namespace Bitboxx.DNNModules.BBStore.Services
                         message += $"Order {hOrder.OrderID}: Mailen fehlgeschlagen: {ex}\r\n";
                     }
 
-                    order.OrderStateId = 7;
-                    controller.UpdateOrderState(order.OrderID, order.OrderStateId);
+                    controller.UpdateOrderState(order.OrderID, hOrder.OrderStateId);
                 }
                 else
                 {

@@ -1853,7 +1853,7 @@ namespace Bitboxx.DNNModules.BBStore
                 if (!String.IsNullOrEmpty(order.OrderName))
                     orderNo += ": " + order.OrderName;
 
-                mail.Subject = "Montagebericht " + orderExtra?.Auftrag?.ToString() + " " + order.OrderName;
+                mail.Subject = $"({orderExtra?.Betreff}) Montagebericht {orderExtra?.Auftrag} {order.OrderName}";
                 
                 AlternateView av1 = AlternateView.CreateAlternateViewFromString(templateContent, null, "text/html");
                 string logoFile = Server.MapPath(PortalSettings.HomeDirectory + PortalSettings.LogoFile);

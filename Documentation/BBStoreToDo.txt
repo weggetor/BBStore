@@ -1,0 +1,21 @@
+- Shop evtl. ohne Registrierung / Quickcheckout
+- Platzhalter bei Artikelgruppen erklären
+- Produktlisten-Settings : Produktmodul besser erklären
+- Preissuche bei Brutto nicht centgenau
+- Platzhalterbild wenn leer
+
+- Arbeiten ohne Produktgruppen möglich ?
+- Versteckte Produktgruppen Grau im Admin-Modus
+- IE ProductList-Klick geht nicht
+- Mailtemplate bearbeiten ermöglichen
+- Wegfall von Zahlungsoptionen anhand Auslandsadresse (keine Nachnahme)
+- Cartgrafik dynamische Breite
+- Doppelte ID's bei Templates verhindern, wenn Platzhalter mehrfach verwendet werden
+
+- Cart braucht einen Erzeugungs-TimeStamp
+
+
+
+
+
+

@@ -129,6 +129,23 @@ namespace Bitboxx.DNNModules.BBStore.Components
 					writeTableAddInfo(gfx, "Benötigte Ersatzteile", ersatzBenoetigt, yPos);
 					yPos += height;
 				}
+
+				string angebotBestellung = einsatz.AngebotBestellung;
+				if (!String.IsNullOrWhiteSpace(angebotBestellung))
+				{
+					var height = measureTableAddInfo(gfx, angebotBestellung);
+					if (yPos + height >= MAXYPOS)
+					{
+						page = doc.AddPage();
+						gfx = XGraphics.FromPdfPage(page);
+						drawBackground(gfx, TEMPLATEPATH);
+						yPos = 130;
+					}
+					writeTableAddInfo(gfx, "Angebot oder Bestellung", angebotBestellung, yPos);
+					yPos += height;
+				}
+
+
 			}
 
 			if (kunde.Bemerkung != String.Empty)
@@ -178,22 +195,24 @@ namespace Bitboxx.DNNModules.BBStore.Components
 			XFont font = new XFont("Century Gothic", 9);
 			if (rechAddress != null)
 			{
-				gfx.DrawString((rechAddress.Firstname.Trim() + " " + rechAddress.Lastname.Trim()).Trim(), font, XBrushes.Black, new XPoint(xPos, yPos));
-				gfx.DrawString(rechAddress.Street.Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 10));
-				gfx.DrawString((rechAddress.PostalCode.Trim() + " " + rechAddress.City.Trim()).Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 20));
+				gfx.DrawString(rechAddress.Company.Trim(), font, XBrushes.Black, new XPoint(xPos, yPos));
+				gfx.DrawString((rechAddress.Firstname.Trim() + " " + rechAddress.Lastname.Trim()).Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 10));
+				gfx.DrawString(rechAddress.Street.Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 20));
+				gfx.DrawString((rechAddress.PostalCode.Trim() + " " + rechAddress.City.Trim()).Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 30));
 			}
 
-			gfx.DrawString("LIEFERADRESSE:", new XFont("Century Gothic", 9), new XSolidBrush(XColor.FromArgb(89, 89, 89)), new XPoint(xPos, yPos + 40));
+			gfx.DrawString("LIEFERADRESSE:", new XFont("Century Gothic", 9), new XSolidBrush(XColor.FromArgb(89, 89, 89)), new XPoint(xPos, yPos + 50));
 
 			if (lieferAddress != null && rechAddress.Street != lieferAddress.Street)
 			{
-				gfx.DrawString((lieferAddress.Firstname.Trim() + " " + lieferAddress.Lastname.Trim()).Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 50));
-				gfx.DrawString(lieferAddress.Street.Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 60));
-				gfx.DrawString((lieferAddress.PostalCode.Trim() + " " + lieferAddress.City.Trim()).Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 70));
+				gfx.DrawString(rechAddress.Company.Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 60));
+				gfx.DrawString((lieferAddress.Firstname.Trim() + " " + lieferAddress.Lastname.Trim()).Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 70));
+				gfx.DrawString(lieferAddress.Street.Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 80));
+				gfx.DrawString((lieferAddress.PostalCode.Trim() + " " + lieferAddress.City.Trim()).Trim(), font, XBrushes.Black, new XPoint(xPos, yPos + 90));
 			}
 			else
 			{
-				gfx.DrawString("wie Rechnungsadresse", new XFont("Arial", 9), XBrushes.Black, new XPoint(xPos, yPos + 50));
+				gfx.DrawString("wie Rechnungsadresse", new XFont("Arial", 9), XBrushes.Black, new XPoint(xPos, yPos + 60));
 			}
 		}
 
@@ -479,24 +498,25 @@ namespace Bitboxx.DNNModules.BBStore.Components
 		{
 			public GruppEinsatz(List<OrderProductOptionInfo> options)
 			{
-				this.Taetigkeit = options.FirstOrDefault(o => o.OptionName == "Tätigkeit").OptionValue;
-				this.Maschinenbezeichnung = options.FirstOrDefault(o => o.OptionName == "Maschinenbezeichnung").OptionValue;
-				this.Fabrikat = options.FirstOrDefault(o => o.OptionName == "Fabrikat").OptionValue;
-				this.Typ = options.FirstOrDefault(o => o.OptionName == "Typ").OptionValue;
-				this.Baujahr = options.FirstOrDefault(o => o.OptionName == "Baujahr").OptionValue;
-				this.Maschinennummer = options.FirstOrDefault(o => o.OptionName == "Maschinennummer").OptionValue;
-				this.Mitarbeiter = options.FirstOrDefault(o => o.OptionName == "Mitarbeiter").OptionValue;
-				this.Einsatzdatum = formatDate(options.FirstOrDefault(o => o.OptionName == "Einsatzdatum").OptionValue);
-				this.Arbeitszeit = formatTime(options.FirstOrDefault(o => o.OptionName == "Arbeitszeit").OptionValue);
-				this.Hinfahrzeit = formatTime(options.FirstOrDefault(o => o.OptionName == "Hinfahrzeit").OptionValue);
-				this.Rueckfahrzeit = formatTime(options.FirstOrDefault(o => o.OptionName == "Rückfahrzeit").OptionValue);
-				this.EntfernungHinfahrt = options.FirstOrDefault(o => o.OptionName == "Entfernung Hinfahrt").OptionValue;
-				this.EntfernungRueckfahrt = options.FirstOrDefault(o => o.OptionName == "Entfernung Rückfahrt").OptionValue;
-				this.NotizenMonteur = options.FirstOrDefault(o => o.OptionName == "Notizen Monteur").OptionValue;
-				this.KleinteilePauschal = options.FirstOrDefault(o => o.OptionName == "Kleinteile pauschal").OptionValue;
-				this.ProbelaufInOrdnung = options.FirstOrDefault(o => o.OptionName == "Probelauf in Ordnung").OptionValue;
-				this.EingebauteErsatzteile = options.FirstOrDefault(o => o.OptionName == "Eingebaute Ersatzteile").OptionValue;
-				this.BenoetigteErsatzteile = options.FirstOrDefault(o => o.OptionName == "Benötigte Ersatzteile").OptionValue;
+				this.Taetigkeit = options.FirstOrDefault(o => o.OptionName == "Tätigkeit")?.OptionValue;
+				this.Maschinenbezeichnung = options.FirstOrDefault(o => o.OptionName == "Maschinenbezeichnung")?.OptionValue;
+				this.Fabrikat = options.FirstOrDefault(o => o.OptionName == "Fabrikat")?.OptionValue;
+				this.Typ = options.FirstOrDefault(o => o.OptionName == "Typ")?.OptionValue;
+				this.Baujahr = options.FirstOrDefault(o => o.OptionName == "Baujahr")?.OptionValue;
+				this.Maschinennummer = options.FirstOrDefault(o => o.OptionName == "Maschinennummer")?.OptionValue;
+				this.Mitarbeiter = options.FirstOrDefault(o => o.OptionName == "Mitarbeiter")?.OptionValue;
+				this.Einsatzdatum = formatDate(options.FirstOrDefault(o => o.OptionName == "Einsatzdatum")?.OptionValue);
+				this.Arbeitszeit = formatTime(options.FirstOrDefault(o => o.OptionName == "Arbeitszeit")?.OptionValue);
+				this.Hinfahrzeit = formatTime(options.FirstOrDefault(o => o.OptionName == "Hinfahrzeit")?.OptionValue);
+				this.Rueckfahrzeit = formatTime(options.FirstOrDefault(o => o.OptionName == "Rückfahrzeit")?.OptionValue);
+				this.EntfernungHinfahrt = options.FirstOrDefault(o => o.OptionName == "Entfernung Hinfahrt")?.OptionValue;
+				this.EntfernungRueckfahrt = options.FirstOrDefault(o => o.OptionName == "Entfernung Rückfahrt")?.OptionValue;
+				this.NotizenMonteur = options.FirstOrDefault(o => o.OptionName == "Notizen Monteur")?.OptionValue;
+				this.KleinteilePauschal = options.FirstOrDefault(o => o.OptionName == "Kleinteile pauschal")?.OptionValue;
+				this.ProbelaufInOrdnung = options.FirstOrDefault(o => o.OptionName == "Probelauf in Ordnung")?.OptionValue;
+				this.EingebauteErsatzteile = options.FirstOrDefault(o => o.OptionName == "Eingebaute Ersatzteile")?.OptionValue;
+				this.BenoetigteErsatzteile = options.FirstOrDefault(o => o.OptionName == "Benötigte Ersatzteile")?.OptionValue;
+				this.AngebotBestellung = options.FirstOrDefault(o => o.OptionName == "Angebot oder Bestellung")?.OptionValue;
 			}
 
 			public string Taetigkeit { get; set; }
@@ -517,6 +537,7 @@ namespace Bitboxx.DNNModules.BBStore.Components
 			public string ProbelaufInOrdnung { get; set; }
 			public string EingebauteErsatzteile { get; set; }
 			public string BenoetigteErsatzteile { get; set; }
+			public string AngebotBestellung { get; set; }
 		}
 
 		private class GruppMonteur
